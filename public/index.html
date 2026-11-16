@@ -260,6 +260,39 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #ovx th:first-child,#ovx td:first-child{text-align:left}
 #ovx th{font-size:10.5px;letter-spacing:.14em;color:var(--dim);font-weight:600}
 #ovx td.best{color:var(--c);font-weight:700}
+#ovb button .bm{margin-left:auto;font-style:normal;font-size:13px;letter-spacing:.12em;color:var(--c);font-weight:400;opacity:1}
+#ovb button .lk{margin-left:auto;font-style:normal;font-size:10px;letter-spacing:.28em;color:var(--dim);font-weight:700}
+#hm .hud{position:sticky;top:0;z-index:3;display:flex;gap:6px;align-items:center;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;background:linear-gradient(#06080b 60%,rgba(6,8,11,0));font-size:12px;letter-spacing:.12em;font-weight:700}
+#hm .hud b{margin-right:auto;font-size:13px;letter-spacing:.2em}
+#hm .hud span{background:rgba(255,255,255,.08);padding:5px 9px 5px 10px;white-space:nowrap}
+#hm .hud span i{font-style:normal;color:var(--c);margin-right:5px}
+#hm .hh{flex:0 0 27vh;min-height:170px;margin-top:-44px}
+#hm .h4{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+#hm .h4 .ht.pic{height:156px;padding:10px}
+#hm .h4 .ht.pic b{font-size:16px}#hm .h4 .ht.pic i{font-size:9px;letter-spacing:.22em}#hm .h4 .ht.pic u{font-size:11px;line-height:1.3}
+#hm .ht.lock:after,#hm .ht.soon:after{right:6px;top:6px;font-size:9px;letter-spacing:.2em;padding:3px 5px 3px 7px}
+#hm .hb{padding-bottom:86px}
+#hm .hn{position:fixed;left:0;right:0;bottom:0;z-index:4;display:grid;grid-template-columns:repeat(5,1fr);background:#0a0d11;border-top:1px solid rgba(255,255,255,.1);padding-bottom:env(safe-area-inset-bottom)}
+#hm .hn button{background:none;height:58px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;clip-path:none}
+#hm .hn button i{font-style:normal;font-size:9.5px;letter-spacing:.2em;color:var(--c);font-weight:700}
+#hm .hn button b{font-size:13.5px;font-family:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;font-weight:700}
+#ovx .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0 14px}
+#ovx .cards div{position:relative;aspect-ratio:3/4;background:var(--tile) center 15%/cover;overflow:hidden}
+#ovx .cards div.no{display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.22em;color:var(--dim);font-weight:700}
+#ovx .cards div u{position:absolute;left:0;right:0;bottom:0;text-decoration:none;font-size:10.5px;padding:14px 6px 5px;background:linear-gradient(rgba(6,8,11,0),rgba(6,8,11,.9));font-family:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+#ovx .shop{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;background:var(--tile);margin:6px 0;font-family:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;font-size:14px}
+#ovx .shop u{text-decoration:none;font-size:11px;letter-spacing:.14em;color:var(--dim);font-weight:700}
+#op .osel{position:absolute;inset:0;display:flex;flex-direction:column;gap:8px;padding:calc(54px + env(safe-area-inset-top)) 16px 20px;background:#06080b;overflow:auto;touch-action:pan-y}
+#op .osel>i{font-style:normal;font-size:11px;letter-spacing:.42em;color:var(--c);font-weight:700}
+#op .osel h2{margin:2px 0 10px;font:800 27px/1.2 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:-.02em}
+#op .osel .ot{position:relative;flex:1;min-height:150px;text-align:left;padding:14px 16px;background:var(--tile) center 14%/cover;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+#op .osel .ot:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(6,8,11,.05) 30%,rgba(6,8,11,.9))}
+#op .osel .ot>*{position:relative;pointer-events:none}
+#op .osel .ot b{font-size:26px;font-weight:800;letter-spacing:.03em;line-height:1}
+#op .osel .ot u{text-decoration:none;font-size:13px;color:#c4ccd6;margin-top:4px;font-family:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+#op .osel .ot.lk{flex:0 0 62px;min-height:62px;opacity:.6}
+#op .osel .ot.lk b{font-size:14px;letter-spacing:.3em}
+#op .osel p{margin:2px 0 0;font:500 12px/1.4 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:var(--dim)}
 #ro{position:fixed;inset:0;z-index:10;background:#06080b;display:flex;flex-direction:column;--c:#ff3b52}
 #ro.hide{display:none}
 #rot{display:flex;gap:3px;padding:10px 10px 8px}
@@ -402,56 +435,113 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.9.0';
-var PROG={c:{},s:{},b:{},name:'',vol:1,all:false};
+var VERSION='0.10.0';
+var PROG={c:{},s:{},b:{},end:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
 function mainDone(){var n=0,i;for(i=0;i<NBASE;i++)if(PROG.c[i])n++;return n;}
 function storyOpen(){return PROG.all||mainDone()>=NBASE;}
 function mmss(s){return fl(s/60)+':'+('0'+(s%60)).slice(-2);}
+function bm(i){var g=PROG.b[i]||[];return '<i class="bm">'+[0,1,2].map(function(k){return g[k]?'◆':'◇';}).join('')+'</i>';}
+function soon(t,sub,body,back,img){overlay(t,sub,body,[['돌아가기',back||home]],img||null,true);}
 function home(){
   started=false;setPre(true);hideOv();
   var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen();
   $('hm').className='';
-  $('hm').innerHTML='<div class="hh"><img src="a_'+a+'_'+(4+fl(Math.random()*2))+'.jpg" alt=""><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
-   '<button class="ht main" data-h="main"><i>SEASON 1 · 여섯이 모이기까지</i><b>메인 미션</b><u>'+n+' / '+NBASE+' 완료 · 난이도 '+DF.n+'</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
-   '<div class="h2"><button class="ht pic'+(lk?' lock':'')+'" data-h="story" style="background-image:url(e_'+b+'.jpg)"><i>AGENT STORY</i><b>개별 미션</b><u>'+(lk?'시즌 1을 끝내면 열린다':'요원마다 세 판, 그리고 그날 밤')+'</u></button>'+
-   '<button class="ht pic soon" data-h="season" style="background-image:url(a_doc_0.jpg)"><i>SEASONAL</i><b>시즈널 미션</b><u>번외 이벤트</u></button></div>'+
-   '<div class="h3"><button data-h="rank">랭킹</button><button data-h="ros">요원</button><button data-h="set">설정</button><button data-h="op">오프닝</button></div>'+
-   '<div class="hf">'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+' · '+DF.n+' · 특임 배지 ◆ '+badgeTotal()+' · v'+VERSION+'</div></div>';
+  $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><span>'+DF.n+'</span></div>'+
+   '<div class="hh"><img src="a_'+a+'_'+(4+fl(Math.random()*2))+'.jpg" alt=""><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
+   '<button class="ht main" data-h="main"><i>MAIN MISSION · SEASON 1</i><b>메인 미션</b><u>'+n+' / '+NBASE+' 완료 · 시즌마다 추가</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
+   '<div class="h4"><button class="ht pic'+(lk?' lock':'')+'" data-h="story" style="background-image:url(e_'+b+'.jpg)"><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'시즌 1 클리어 시':'요원별 3판')+'</u></button>'+
+   '<button class="ht pic soon" data-h="season" style="background-image:url(a_doc_0.jpg)"><i>SEASONAL</i><b>시즈널 미션</b><u>사계절 · 명절</u></button>'+
+   '<button class="ht pic soon" data-h="special" style="background-image:url(a_mirage_1.jpg)"><i>SPECIAL</i><b>스페셜 미션</b><u>스토리 · 코스튬</u></button></div>'+
+   '<div class="hf">SILENT SIX v'+VERSION+'</div></div>'+
+   '<div class="hn"><button data-h="agents"><i>AGENTS</i><b>요원</b></button><button data-h="box"><i>BLACK BOX</i><b>블랙박스</b></button><button data-h="shop"><i>SHOP</i><b>SHOP</b></button><button data-h="rank"><i>RANKING</i><b>랭킹</b></button><button data-h="set"><i>SETTINGS</i><b>설정</b></button></div>';
 }
 function hmHide(){$('hm').className='hide';$('hm').innerHTML='';}
-
-function ranking(){
-  var h='<p>이 기기에 남은 최고 점수다. 아래 작은 숫자는 최단 시간. 다른 사람과 겨루는 온라인 랭킹은 서버를 붙인 뒤에 열린다.</p><table><tr><th>미션</th>'+DIFFS.map(function(d){return '<th>'+d.n+'</th>';}).join('')+'</tr>',i,tot=[0,0,0,0];
-  for(i=0;i<NBASE;i++){var c=PROG.c[i]||{},p=PROG.s[i]||{};h+='<tr><td>0'+(i+1)+' '+MIS[i].title+'</td>'+DIFFS.map(function(d,k){if(p[k]==null)return '<td>—</td>';tot[k]+=p[k];return '<td class="best">'+p[k].toLocaleString()+'<br><span style="color:var(--dim);font-weight:400;font-size:11px">'+mmss(c[k])+'</span></td>';}).join('')+'</tr>';}
-  h+='<tr><td>시즌 합계</td>'+DIFFS.map(function(d,k){return '<td>'+(tot[k]?tot[k].toLocaleString():'—')+'</td>';}).join('')+'</tr></table><p style="margin-top:12px">특임 배지 '+badgeTotal()+' / '+(MIS.length*3)+'</p>';
+function seasons(){
+  hmHide();started=false;setPre(true);
+  overlay('메인 미션','MAIN MISSION // SEASON SELECT','<p>시즌제로 이어진다. 지난 시즌은 언제든 들어가서 다시 할 수 있다.</p>',[['<b>S1</b>여섯이 모이기까지<i class="bm">'+mainDone()+' / '+NBASE+'</i>',menu],['<b>S2</b>누가 흘렸나<i class="lk">COMING</i>',function(){soon('SEASON 2','MAIN MISSION // COMING','<p>시즌 1에서 모인 여섯이 내부의 배신자를 쫓는다. 준비 중.</p>',seasons);}],['돌아가기',home]],null,true);
+}
+function seasonal(){
+  hmHide();
+  var L=[['SPRING','봄 — 벚꽃 축제 경호선'],['SUMMER','여름 — 휴양지 리조트 잠입'],['AUTUMN','가을 — 수확제 가면 행렬'],['WINTER','겨울 — 설산 산장'],['설','설 — 귀성 열차'],['추석','추석 — 보름달 아래 한옥 마을']];
+  overlay('시즈널 미션','SEASONAL // 사계절 · 명절','<p>계절과 명절에 맞춰 기간 한정으로 여는 이벤트 미션. 본편과 이어지지 않고, 전용 착장과 배지가 걸린다.</p>',L.map(function(x){return ['<b>'+x[0]+'</b>'+x[1].split(' — ')[1]+'<i class="lk">SOON</i>',function(){soon(x[1],'SEASONAL // COMING','<p>준비 중. 열리면 배지 조건 3개와 전용 착장이 함께 들어간다.</p>',seasonal,'a_doc_0.jpg');}];}).concat([['돌아가기',home]]),null,true);
+}
+function special(){
+  hmHide();
+  var L=[['STORY','특별 스토리','본편 사이에 끼는 짧은 이야기 미션.'],['COSTUME','코스튬 미션','클리어하면 요원의 새 착장이 열린다.'],['EXTRA','번외 미션','규칙을 비튼 도전 미션. 제한 시간, 무장 해제, 1인 침투.']];
+  overlay('스페셜 미션','SPECIAL // 스토리 · 코스튬 · 번외','<p>특별 스토리와 코스튬, 번외 미션이 여기에 모인다. 배지로 여는 미션도 이쪽에 놓인다.</p>',L.map(function(x){return ['<b>'+x[0]+'</b>'+x[1]+'<i class="lk">SOON</i>',function(){soon(x[1],'SPECIAL // COMING','<p>'+x[2]+' 준비 중.</p>',special,'a_mirage_1.jpg');}];}).concat([['돌아가기',home]]),null,true);
+}
+function agents(){
+  hmHide();started=false;setPre(true);
+  overlay('요원','AGENTS','<p>여섯 명. 요원마다 설명, 갤러리, 스토리, 라이브 챗이 있다.</p>',Object.keys(STORY).map(function(id){return ['<b>'+OPD[id].n+'</b>'+OPD[id].role,function(){agentHub(id);}];}).concat([['돌아가기',home]]),null,true);
+}
+function agentHub(id){
+  var o=OPD[id];
+  overlay(o.n,'AGENT // '+o.role,'<p>'+o.tag.replace('<br>',' ')+'</p><p>'+o.d+'</p>',[
+   ['<b>01</b>갤러리<i class="lk">착장 · 이미지 카드</i>',function(){RORET=function(){agentHub(id);};hideOv();$('ro').className='';roShow(id);}],
+   ['<b>02</b>스토리'+(storyOpen()?'':'<i class="lk">LOCKED</i>'),function(){if(storyOpen())storyAgent(id);else soon('스토리','AGENT // LOCKED','<p>메인 미션 시즌 1을 끝내면 열린다.</p>',function(){agentHub(id);});}],
+   ['<b>03</b>라이브 챗<i class="lk">SOON</i>',function(){soon('라이브 챗','LIVE CHAT // COMING','<p>요원과 1:1로 주고받는 이미지 채팅. 성인 인증과 결제 뒤에 열린다. 준비 중.</p>',function(){agentHub(id);},'p_'+id+'.jpg');}],
+   ['돌아가기',agents]],'p_'+id+'.jpg',true);
+}
+var RORET=null;
+function blackbox(){
+  hmHide();
+  var h='<p>미션에서 건진 것들이 쌓인다. 클리어 이미지, 리워드 이미지, 음성 스토리.</p><label>미션 클리어 이미지</label><div class="cards">',i,ids=Object.keys(STORY);
+  for(i=0;i<NBASE;i++)h+=PROG.c[i]?'<div style="background-image:url('+MIS[i].img+')"><u>0'+(i+1)+' '+MIS[i].title+'</u></div>':'<div class="no">LOCKED</div>';
+  h+='</div><label>리워드 이미지 — 그날 밤</label><div class="cards">'+ids.map(function(id){return PROG.end[id]?'<div style="background-image:url(e_'+id+'.jpg)"><u>'+OPD[id].n+'</u></div>':'<div class="no">'+OPD[id].n+'</div>';}).join('')+'</div><label>음성 스토리</label><div class="shop"><span>요원별 음성 기록</span><u>SOON</u></div>';
+  overlay('블랙박스','BLACK BOX',h,[['돌아가기',home]],null,true);
+}
+function shop(){
+  hmHide();
+  var h='<p>보유 <b style="color:var(--c)">P '+(PROG.pt||0).toLocaleString()+'</b> · <b style="color:var(--c)">◆ '+badgeTotal()+'</b></p><p>포인트는 미션 점수 100점당 1P로 쌓이고, 배지는 미션 조건을 채울 때마다 1개씩 생긴다.</p>'+
+   '<label>포인트샵</label><div class="shop"><span>소모품 · 프로필 꾸미기</span><u>SOON</u></div>'+
+   '<label>배지샵</label><div class="shop"><span>요원 착장</span><u>SOON</u></div><div class="shop"><span>추가 미션 해금</span><u>SOON</u></div>'+
+   '<label>스토어</label><div class="shop"><span>시즌 패스 · 라이브 챗 이용권</span><u>SOON</u></div>';
+  overlay('SHOP','POINT · BADGE · STORE',h,[['돌아가기',home]],null,true);
+}
+function ranking(tab){
+  hmHide();tab=tab||0;
+  var h='<div class="srow">'+['미션별','통합','개인 미션'].map(function(t,k){return '<button data-t="'+k+'"'+(k===tab?' class="sel"':'')+'>'+t+'</button>';}).join('')+'</div>',i,tot=[0,0,0,0];
+  if(tab===0){
+    h+='<table><tr><th>미션</th>'+DIFFS.map(function(d){return '<th>'+d.n+'</th>';}).join('')+'</tr>';
+    for(i=0;i<NBASE;i++){var c=PROG.c[i]||{},p=PROG.s[i]||{};h+='<tr><td>0'+(i+1)+' '+MIS[i].title+'</td>'+DIFFS.map(function(d,k){if(p[k]==null)return '<td>—</td>';return '<td class="best">'+p[k].toLocaleString()+'<br><span style="color:var(--dim);font-weight:400;font-size:11px">'+mmss(c[k])+'</span></td>';}).join('')+'</tr>';}
+    h+='</table>';
+  }else if(tab===1){
+    var all=0,st=0;for(i=0;i<MIS.length;i++){var q=PROG.s[i]||{},k;for(k in q){if(i<NBASE){tot[k]+=q[k];all+=q[k];}else st+=q[k];}}
+    h+='<table><tr><th>항목</th><th>기록</th></tr>'+DIFFS.map(function(d,k){return '<tr><td>시즌 1 합계 · '+d.n+'</td><td'+(tot[k]?' class="best"':'')+'>'+(tot[k]?tot[k].toLocaleString():'—')+'</td></tr>';}).join('')+'<tr><td>메인 미션 통합</td><td>'+all.toLocaleString()+'</td></tr><tr><td>개인 미션 통합</td><td>'+st.toLocaleString()+'</td></tr><tr><td>총점</td><td class="best">'+(all+st).toLocaleString()+'</td></tr><tr><td>특임 배지</td><td>'+badgeTotal()+' / '+(MIS.length*3)+'</td></tr></table>';
+  }else{
+    h+='<table><tr><th>요원</th><th>1</th><th>2</th><th>3</th><th>합계</th></tr>'+Object.keys(STORY).map(function(id){var sum=0;return '<tr><td>'+OPD[id].n+'</td>'+SIDX[id].map(function(mi){var q=PROG.s[mi]||{},b=0,k;for(k in q)if(q[k]>b)b=q[k];sum+=b;return '<td>'+(b?b.toLocaleString():'—')+'</td>';}).join('')+'<td class="best">'+(sum?sum.toLocaleString():'—')+'</td></tr>';}).join('')+'</table>';
+  }
+  h+='<p style="margin-top:12px">이 기기에 남은 최고 기록이다. 다른 사람과 겨루는 온라인 랭킹은 서버를 붙인 뒤에 열린다.</p>';
   overlay('랭킹','RANKING // '+(PROG.name?PROG.name.toUpperCase():'HANDLER'),h,[['돌아가기',home]],null,true);
+  $('ovx').onclick=function(e){var t=e.target.dataset&&e.target.dataset.t;if(t!==undefined)ranking(+t);};$('ovx').oninput=null;$('ovx').onchange=null;
 }
 function settings(){
   var h='<label>난이도</label><div class="srow">'+DIFFS.map(function(d,k){return '<button data-d="'+k+'"'+(k===DIFF?' class="sel"':'')+'>'+d.k+'</button>';}).join('')+'</div><p style="margin-top:-6px">'+DF.n+' — '+DF.d+'</p>'+
    '<label>음량</label><input type="range" id="svol" min="0" max="100" value="'+Math.round(PROG.vol*100)+'">'+
    '<label>프로필 — 호출명</label><input type="text" id="snm" maxlength="12" placeholder="HANDLER" value="'+(PROG.name||'').replace(/"/g,'')+'">'+
-   '<label>테스트</label><div class="srow"><button id="sall"'+(PROG.all?' class="sel"':'')+'>개별 미션 전체 열기 '+(PROG.all?'ON':'OFF')+'</button><button id="srst">기록 지우기</button></div>';
+   '<label>오프닝</label><div class="srow"><button id="sop">오프닝 다시 보기</button></div><label>테스트</label><div class="srow"><button id="sall"'+(PROG.all?' class="sel"':'')+'>개별 미션 전체 열기 '+(PROG.all?'ON':'OFF')+'</button><button id="srst">기록 지우기</button></div>';
   overlay('설정','SETTINGS',h,[['돌아가기',function(){var n=$('snm');if(n&&n.value!=null)PROG.name=(''+n.value).trim();saveProg();home();}]],null,true);
   var x=$('ovx');
   x.onclick=function(e){var t=e.target,d=t.dataset&&t.dataset.d;
     if(d!==undefined){PROG.name=(''+$('snm').value).trim();setDiff(+d);settings();}
     else if(t.id==='sall'){PROG.name=(''+$('snm').value).trim();PROG.all=!PROG.all;saveProg();settings();}
-    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};saveProg();say('기록을 지웠다');settings();}};
+    else if(t.id==='sop'){PROG.name=(''+$('snm').value).trim();saveProg();hideOv();opSelect();}
+    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.end={};PROG.pt=0;saveProg();say('기록을 지웠다');settings();}};
   x.oninput=function(e){if(e.target.id==='svol'){PROG.vol=e.target.value/100;saveProg();}};
   x.onchange=function(e){if(e.target.id==='svol')snd('ok');};
 }
 function storyMenu(){
   started=false;setPre(true);hmHide();
-  overlay('AGENT STORY','요원 스토리','<p>요원마다 세 판. 끝까지 가면 그날 밤 이야기가 열린다.</p>',Object.keys(STORY).map(function(id){return ['<b>'+OPD[id].n+'</b>'+OPD[id].role,function(){storyAgent(id);}];}).concat([['돌아가기',home]]),null,true);
+  overlay('개인 미션','PERSONAL // SEASON 1','<p>요원마다 세 판. 끝까지 가면 그날 밤 이야기가 열린다. 메인 시즌이 올라올 때마다 요원별 미션이 더 붙는다.</p>',Object.keys(STORY).map(function(id){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return ['<b>'+OPD[id].n+'</b>'+OPD[id].role+'<i class="bm">'+n+' / 3'+(PROG.end[id]?' ♥':'')+'</i>',function(){storyAgent(id);}];}).concat([['돌아가기',home]]),null,true);
 }
 function storyAgent(id){
   started=false;setPre(true);
-  overlay(OPD[id].n,'STORY // '+OPD[id].role,'<p>'+OPD[id].d+'</p>',STORY[id].ch.map(function(c,ci){return ['<b>0'+(ci+1)+'</b>'+c.t,function(){brief(SIDX[id][ci]);}];}).concat([['돌아가기',storyMenu]]),'p_'+id+'.jpg',true);
+  overlay(OPD[id].n,'PERSONAL // '+OPD[id].role,'<p>'+OPD[id].d+'</p>',STORY[id].ch.map(function(c,ci){return ['<b>0'+(ci+1)+'</b>'+c.t+bm(SIDX[id][ci]),function(){brief(SIDX[id][ci]);}];}).concat([['<b>S2</b>시즌 2 추가분<i class="lk">LOCKED</i>',function(){soon('시즌 2 추가분','PERSONAL // LOCKED','<p>메인 미션 시즌 2가 열리면 '+OPD[id].n+'의 다음 이야기가 함께 붙는다.</p>',function(){storyAgent(id);},'p_'+id+'.jpg');}],['돌아가기',storyMenu]]),'p_'+id+'.jpg',true);
 }
 function ending(id){
-  hideOv();setPre(true);
+  hideOv();setPre(true);PROG.end[id]=true;saveProg();
   scene(STORY[id].end.map(function(e,i){return {k:'AFTER // '+OPD[id].n+' '+(i+1)+'/3',h:e[0],p:e[1],img:i===2?'e_'+id+'.jpg':'a_'+id+'_'+(i?1:0)+'.jpg',c:OPD[id].col};}),storyMenu);
 }
 var M=MIS[0],MI=0,MAP=M.MAP,COLS=12,ROWS=20,HF=M.proj,HFI=null,WAKE=60,S;
@@ -1037,6 +1127,15 @@ function opCine(q,fin){
   q.forEach(function(c){var m=/src="([^"]+)"/.exec(c.h);if(m){var im=new Image();im.src=m[1];}});
   el.className='';el.innerHTML='<button class="sk" id="opsk">건너뛰기</button>';OPCIN=true;OPQ=q;opq=0;opFin=fin;opStep();
 }
+function opSelect(){
+  started=false;setPre(true);hideOv();hmHide();$('sc').className='hide';if(opt)clearTimeout(opt);if(opT)clearTimeout(opT);
+  OPCIN=true;var el=$('op');el.className='';
+  el.innerHTML='<div class="osel"><i>OPENING</i><h2>오프닝 컨셉을<br>선택해 주세요.</h2>'+
+   '<button class="ot" data-o="a" style="background-image:url(a_mirage_0.jpg)"><b>DAY-OFF VERSION</b><u>비번의 여섯</u></button>'+
+   '<button class="ot" data-o="b" style="background-image:url(a_raven_4.jpg)"><b>MISSION VERSION</b><u>작전 중의 여섯</u></button>'+
+   '<button class="ot lk" data-o="x"><b>LOCKED</b><u>미션을 클리어하면 오프닝이 추가된다</u></button>'+
+   '<p>오프닝은 설정에서 언제든 다시 볼 수 있다.</p></div><button class="sk" id="opsk">건너뛰기</button>';
+}
 function opTitle(){OPCIN=false;opi=OPS.length-1;opShow();}
 function opening(v){
   started=false;setPre(true);hideOv();$('sc').className='hide';
@@ -1059,15 +1158,17 @@ function opNext(){if(opi<OPS.length-1){opi++;opShow();}}
 function opEnd(){if(opt)clearTimeout(opt);if(opT)clearTimeout(opT);OPCIN=false;$('op').className='hide';$('op').innerHTML='';home();}
 $('hm').addEventListener('click',function(e){
   var t=e.target;while(t&&t!==this&&!(t.dataset&&t.dataset.h))t=t.parentNode;if(!t||t===this)return;var h=t.dataset.h;
-  if(h==='main'){hmHide();menu();}
-  else if(h==='story'){if(storyOpen()){hmHide();storyMenu();}else{hmHide();overlay('개별 미션','AGENT STORY // LOCKED','<p>메인 미션 시즌 1의 여섯 판을 모두 끝내면 열린다. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 혼자 뛰는 세 판이 있고, 세 판을 끝내면 그날 밤 이야기가 열린다.</p>',[['메인 미션으로',menu,true],['돌아가기',home]],null,true);}}
-  else if(h==='season'){hmHide();overlay('시즈널 미션','SEASONAL // COMING SOON','<p>시즌 사이에 기간 한정으로 여는 번외 미션. 본편과 이어지지 않는다.</p><ul><li><b>SUMMER OPS</b> — 휴양지 리조트 잠입. 전원 수영복 착장.</li><li><b>MASQUERADE</b> — 연말 가면 무도회. 드레스 착장.</li><li><b>DAY OFF</b> — 비번 날 생긴 사건. 사복 착장.</li></ul>',[['돌아가기',home]],'a_doc_0.jpg',true);}
-  else if(h==='rank'){hmHide();ranking();}
+  if(h==='main')seasons();
+  else if(h==='story'){if(storyOpen()){hmHide();storyMenu();}else{hmHide();overlay('개인 미션','PERSONAL // LOCKED','<p>메인 미션 시즌 1의 여섯 판을 모두 끝내면 열린다. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 혼자 뛰는 세 판이 있고, 세 판을 끝내면 그날 밤 이야기가 열린다. 메인 시즌이 올라올 때마다 더 붙는다.</p>',[['메인 미션으로',seasons,true],['돌아가기',home]],null,true);}}
+  else if(h==='season')seasonal();
+  else if(h==='special')special();
+  else if(h==='agents')agents();
+  else if(h==='box')blackbox();
+  else if(h==='shop')shop();
+  else if(h==='rank')ranking(0);
   else if(h==='set'){hmHide();settings();}
-  else if(h==='ros'){hmHide();roster();}
-  else if(h==='op'){hmHide();opening();}
 });
-$('op').addEventListener('click',function(e){var id=e.target&&e.target.id;if(id==='opsk'||id==='opgo')opEnd();else if(!OPCIN&&!OPS[opi].title)opNext();});
+$('op').addEventListener('click',function(e){var id=e.target&&e.target.id,oo=e.target&&e.target.dataset&&e.target.dataset.o;if(oo){if(oo!=='x')opening(oo);return;}if(id==='opsk'||id==='opgo')opEnd();else if(!OPCIN&&!OPS[opi].title)opNext();});
 var ROI='raven',ROK=0,FIT=['OFF-DUTY · 사복','AGENT UNIFORM · 요원복','SPECIAL MISSION · 특수임무복','TRAINING · 트레이닝'];
 function roster(){hideOv();$('ro').className='';roShow(ROI);}
 function roShow(id){
@@ -1080,10 +1181,10 @@ function roShow(id){
 function roLab(){var h='';for(var i=0;i<8;i++)h+='<i'+(i===ROK?' class="on"':'')+'></i>';$('rol').innerHTML='<b>'+FIT[fl(ROK/2)]+'</b><span>POSE '+(ROK%2+1)+' · '+(ROK+1)+' / 8</span>';$('rodots').innerHTML=h;}
 function roGo(k){var c=$('roc');k=Math.max(0,Math.min(7,k));if(c.scrollTo)c.scrollTo({left:k*c.clientWidth,behavior:'smooth'});}
 $('roc').addEventListener('scroll',function(){var c=$('roc'),k=Math.round(c.scrollLeft/(c.clientWidth||1));if(k!==ROK){ROK=k;roLab();}});
-$('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t.getAttribute('data-id');if(id)roShow(id);else if(t.id==='rop')roGo(ROK-1);else if(t.id==='ron2')roGo(ROK+1);else if(t.id==='rox'){$('ro').className='hide';home();}});
+$('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t.getAttribute('data-id');if(id)roShow(id);else if(t.id==='rop')roGo(ROK-1);else if(t.id==='ron2')roGo(ROK+1);else if(t.id==='rox'){$('ro').className='hide';if(RORET){var rr=RORET;RORET=null;rr();}else home();}});
 function menu(){
   started=false;setPre(true);hmHide();
-  overlay('메인 미션','SEASON 1 // '+DF.n,'<p>없던 걸로 해야 하는 일만 맡는다. 여섯이 모이기까지의 이야기.</p>',MIS.slice(0,NBASE).map(function(m,i){return ['<b>0'+(i+1)+'</b>'+m.title+(PROG.c[i]?' ✓':''),function(){brief(i);}];}).concat([['돌아가기',home]]),null,true);
+  overlay('시즌 1','MAIN MISSION // '+DF.n,'<p>없던 걸로 해야 하는 일만 맡는다. 여섯이 모이기까지의 이야기. ◆는 딴 배지다. 다시 깨면 못 딴 배지를 채울 수 있다.</p>',MIS.slice(0,NBASE).map(function(m,i){return ['<b>0'+(i+1)+'</b>'+m.title+bm(i),function(){brief(i);}];}).concat([['돌아가기',seasons]]),null,true);
 }
 function brief(i){
   setPre(true);hideOv();loadMission(i);S=newState();UIK='';
@@ -1116,10 +1217,11 @@ function result(){
   var pc=PROG.c[MI]||(PROG.c[MI]={}),ps=PROG.s[MI]||(PROG.s[MI]={});
   if(!(pc[DIFF]<=s))pc[DIFF]=s;if(!(ps[DIFF]>=sc.score)){ps[DIFF]=sc.score;best=true;}
   var bh=bl.map(function(b,i){var ok=b[2](),isNew=ok&&!got[i];if(isNew){got[i]=true;nw++;}return '<tr><td>'+(got[i]?'◆':'◇')+' '+b[0]+(isNew?' <b style="color:var(--c)">NEW</b>':'')+'</td><td style="text-align:left;color:'+(ok?'var(--ink)':'var(--dim)')+'">'+b[1]+(ok?' ✓':'')+'</td></tr>';}).join('');
+  var gain=Math.round(sc.score/100);PROG.pt=(PROG.pt||0)+gain;
   saveProg();
   var b=[['다시 도전',restart,true],['미션 선택',M.story?storyMenu:menu]];if(M.story){var sid=M.story.id;if(M.story.ci<2)b.unshift(['다음 이야기',function(){brief(MI+1);},true]);else b.unshift(['그날 밤',function(){ending(sid);},true]);}else if(MI<NBASE-1)b.unshift(['다음 미션',function(){brief(MI+1);},true]);
   overlay(sc.score.toLocaleString()+' 점','MISSION CLEAR // '+sc.grade+' RANK'+(best?' // BEST':''),
-   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr></table>'+
+   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P</td></tr></table>'+
    '<label style="margin-top:14px">특임 배지'+(nw?' — '+nw+'개 획득':'')+' (보유 '+badgeTotal()+')</label><table>'+bh+'</table>',b,null,true);
 }
 function showEnd(){
@@ -1231,7 +1333,7 @@ function frame(t){
   hud();draw();requestAnimationFrame(frame);
 }
 try{var sd=+localStorage.getItem('s6diff');if(localStorage.getItem('s6diff')!==null&&sd>=0&&sd<4)setDiff(sd);}catch(e){}
-loadMission(0);S=newState();resize();opening();
+loadMission(0);S=newState();resize();try{opSelect();}catch(e){opening();}
 requestAnimationFrame(frame);
 </script>
 </body>
