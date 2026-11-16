@@ -149,7 +149,9 @@ function pump(){
   while(running<max&&queue.length){(function(j){running++;
     var body={key:$('key').value.trim(),model:$('model').value.trim(),quality:$('quality').value,size:j.size,prompt:j.prompt,char:j.name.replace(/^s_/,'').split('_')[0],name:j.name,refs:j.spr?refs.slice(0,2).concat(sref):refs};
     if(j.spr&&$('sbg').value)body.background=$('sbg').value;
-    fetch('/api/gen',{method:'POST',body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(d){if(d.ok){j.st='ok';j.msg='저장됨';j.file=d.file;j.on=false;}else{j.st='err';j.msg=d.error;}}).catch(function(e){j.st='err';j.msg=''+e;}).then(function(){running--;draw();pump();});
+    var fin=function(d){if(d.ok){j.st='ok';j.msg='저장됨';j.file=d.file;j.on=false;}else{j.st='err';j.msg=d.error;}running--;draw();pump();},t0=Date.now(),miss=0;
+    var poll=function(id){setTimeout(function(){fetch('/api/job?id='+id).then(function(r){return r.json();}).then(function(d){miss=0;if(d.done)fin(d);else{j.msg='생성 중… '+Math.round((Date.now()-t0)/1000)+'초';var e=document.querySelector('[data-r="'+jobs.indexOf(j)+'"]');if(e&&e.parentNode.previousElementSibling)e.parentNode.previousElementSibling.textContent=j.msg;poll(id);}}).catch(function(e){if(++miss<5)poll(id);else fin({ok:false,error:'프로그램과 연결이 끊겼다. 터미널 창이 켜져 있는지 확인해 주세요.'});});},2000);};
+    fetch('/api/gen',{method:'POST',body:JSON.stringify(body)}).then(function(r){return r.json();}).then(function(d){if(d.job)poll(d.job);else fin(d);}).catch(function(e){fin({ok:false,error:location.protocol==='file:'?'studio.html을 직접 열면 안 된다. "SILENT6 Studio.command"로 실행해 주세요.':'프로그램과 연결이 안 된다. 터미널 창이 켜져 있는지 확인해 주세요. ('+e+')'});});
   })(queue.shift());}
   draw();
 }
