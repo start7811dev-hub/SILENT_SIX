@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+*.bak
+tools/studio/__pycache__/
+SILENT6_output/
+.vercel/
