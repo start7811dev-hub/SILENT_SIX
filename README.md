@@ -41,3 +41,17 @@ cd public && python3 -m http.server 8000
 
 - 게임 기획서(GDD): https://claude.ai/artifact/1p1cHupV9XCeBuY3JVN3gv
 - 요원 포즈 프롬프트: https://claude.ai/artifact/BWeBedPmnBhPX4d9sXVXVk
+
+## 관리자와 config.json
+
+게임 설정 화면의 "관리자"에서 코드를 넣으면 미션·구역·이미지의 공개 여부와 미션 대표 이미지를 바꿀 수 있다.
+거기서 "설정 파일 받기"로 받은 `config.json`을 `public/`에 올리면 모든 사용자에게 적용된다.
+
+관리자 코드는 저장소에 없다. `public/index.html`의 `ADMH`에 PBKDF2 해시만 들어 있다. 코드를 바꾸려면:
+
+```
+node -e "console.log(require('crypto').pbkdf2Sync(process.argv[1],'s6-admin-v1',150000,32,'sha256').toString('hex'))" '새코드'
+```
+나온 값을 `ADMH`에 넣는다.
+
+주의: 이 방식은 화면에서 숨기는 것이다. 비공개로 돌린 이미지도 파일 주소를 알면 받을 수 있다.
