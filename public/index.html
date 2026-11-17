@@ -416,6 +416,25 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #pg .nv h3{font:800 19px/1.3 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;margin:2.2em 0 .9em;padding-top:1em;border-top:1px solid rgba(255,255,255,.12)}
 #pg .nv h3:first-child{margin-top:.4em;border-top:0;padding-top:0}
 #pg .nvb{display:block;width:100%;height:56px;margin:14px 0 6px;background:var(--ink);color:#0a0d11;font:800 17px/1 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+.tg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 6px}
+.tg div{position:relative;background:var(--tile);padding:12px 12px 13px;border-left:3px solid var(--c);min-height:118px}
+.tg svg{width:30px;height:30px;stroke:var(--c);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block;margin-bottom:9px}
+.tg em{position:absolute;right:10px;top:8px;font-style:normal;font-size:22px;font-weight:800;color:rgba(255,255,255,.1);line-height:1}
+.tg b{display:block;font:800 15.5px/1.25 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:-.02em;color:var(--ink)}
+.tg span{display:block;margin-top:5px;font:500 12.5px/1.45 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:#aeb7c2}
+.itl{margin:0 0 6px}
+.itl p{position:relative;margin:0 0 6px !important;padding:10px 12px 10px 30px;background:rgba(255,255,255,.05);font:500 13.5px/1.5 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif !important;color:#d5dbe3 !important;text-indent:0}
+.itl p:before{content:"";position:absolute;left:12px;top:15px;border:5px solid transparent;border-left:8px solid var(--c)}
+#ovx label{margin-top:12px}
+#pg .hero.big{height:70vh;min-height:420px;margin-top:-66px}
+#pg .hero.big:after{background:linear-gradient(rgba(6,8,11,.55),rgba(6,8,11,0) 22%,rgba(6,8,11,0) 62%,#06080b)}
+#pg .cg.one{grid-template-columns:1fr;gap:10px}
+#pg .cg.one .cd{aspect-ratio:4/5;padding:16px}
+#pg .cg.one .cd b{font-size:30px}
+#pg .cg.one .cd i{font-size:11px}
+#pg .cg.one .cd .no{font-size:64px;left:14px;top:8px}
+#pg .cg.one .cd .bm{font-size:17px;margin-top:8px}
+#pg .cg.one .cd em{right:12px;top:12px;font-size:11px}
 #ro{position:fixed;inset:0;z-index:10;background:#06080b;display:flex;flex-direction:column;--c:#ff3b52}
 #ro.hide{display:none}
 #rot{display:flex;gap:3px;padding:10px 10px 8px}
@@ -464,7 +483,7 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 <script>
 var PI=Math.PI,HP=PI/2,fl=Math.floor,hyp=Math.hypot;
 var FOV=PI*80/180,CAMFOV=PI/3,RANGE=6.5,CRANGE=3.6,CAMR=6,NOISE=5,SNIPE=10,AIM=1.5;
-var DIFFS=[{n:'EASY',k:'이지',r:0.7,m:0.55,w:2,d:'시야 30% 짧음 · 발각 느림 · 기절 2배'},{n:'POWER',k:'파워',r:0.85,m:0.78,w:1.4,d:'시야 15% 짧음 · 발각 조금 느림'},{n:'HARD',k:'하드',r:1,m:1,w:1,d:'기준 난이도'},{n:'HELL',k:'헬',r:1.12,m:1.6,w:0.6,d:'시야 12% 김 · 발각 빠름 · 기절 짧음'}],DIFF=2,DF=DIFFS[2];
+var DIFFS=[{n:'EASY',k:'이지',r:0.7,m:0.55,w:2,d:'그들의 눈은 짧고 반응은 느리다. 숨 돌릴 틈이 있다.'},{n:'POWER',k:'파워',r:0.85,m:0.78,w:1.4,d:'조금 덜 본다. 실수 한 번은 넘어간다.'},{n:'HARD',k:'하드',r:1,m:1,w:1,d:'본래의 밤. 실수는 기록된다.'},{n:'HELL',k:'헬',r:1.12,m:1.6,w:0.6,d:'더 멀리 보고, 더 빨리 알아챈다. 돌아올 생각은 접어라.'}],DIFF=2,DF=DIFFS[2];
 function setDiff(i){DIFF=i;DF=DIFFS[i];RANGE=6.5*DF.r;CRANGE=3.6*DF.r;CAMR=6*DF.r;if(typeof M!=='undefined'&&M)WAKE=M.wake*DF.w;try{localStorage.setItem('s6diff',''+i);}catch(e){}}
 function iso(cx,oy,tw,th){return [tw/2,-tw/2,cx,th/2,th/2,oy,0,0,1];}
 var OPD={
@@ -513,7 +532,7 @@ var MIS=[
  brief:'<ul>'+RULES+'<li>닥의 <b>마취 다트</b>: 5칸 안의 적을 소리 없이 재운다. 세 발뿐이고, 맞은 적은 다시 깨어난다.</li><li><b>응급 처치</b>는 닥만 할 수 있다. 4초가 걸린다.</li><li>이 판에는 해커가 없다. 카메라는 고개를 돌릴 때 지나가거나 쏴서 끈다.</li></ul>'}
 ];
 var NBASE=MIS.length;
-var WORLD=['국가가 부인하는 일만 맡는 여섯 명이 있다. 서류상 부서 이름은 제6과. 안에서는 그냥 식스라고 부른다.','상대는 헬리오스. 겉은 민간 경비 회사고, 속은 분쟁 지역에 무기와 정보를 대는 중개상이다.','헬리오스가 식스 요원의 신원 명단을 샀다. 판 사람은 아직 모른다. 흩어진 여섯을 다시 모으면서 명단을 따라간다.'];
+var WORLD=['이름을 지운 여섯이 있다.','그 이름이 적힌 명단이 팔렸다.','산 사람도, 판 사람도, 아직 살아 있다.'];
 [{img:'a_raven_6.jpg',copy:'들어간 적<br>없는 걸로.',pre:'항구 3번 창고. 헬리오스에 잡힌 우리 연락책이 있다. 레이븐 혼자 간다.',post:['연락책을 데리고 나왔다.','그가 말했다. 식스의 명단이 팔렸다고.']},
  {img:'a_viper_7.jpg',copy:'탑 위는<br>바이퍼 몫.',pre:'명단은 산길 통신 기지를 거쳐 나간다. 중계 장비를 끊는다. 바이퍼가 위에서 본다.',post:['전송은 절반에서 끊겼다.','나머지 절반은 이미 헬리오스 서버에 있다.']},
  {img:'a_glitch_6.jpg',copy:'카메라부터<br>재운다.',pre:'헬리오스 위장 법인 사무실. 서버에 명단을 산 쪽의 기록이 있다. 글리치가 눈을 맡는다.',post:['구매 기록을 떴다.','대금은 돈이 아니었다. 폐광에 쌓아 둔 무기였다.']},
@@ -521,11 +540,14 @@ var WORLD=['국가가 부인하는 일만 맡는 여섯 명이 있다. 서류상
  {img:'a_mirage_7.jpg',copy:'오늘은<br>손님으로 간다.',pre:'후원자 저택의 파티. 서재 금고에 거래 장부가 있다. 워든이 지킨다. 미라주가 얼굴을 빌린다.',post:['장부를 들고 나왔다.','명단을 넘긴 사람 칸에는 이름 대신 사번이 적혀 있다. 제6과 사번이다.']},
  {img:'a_doc_6.jpg',copy:'한 명도<br>안 두고 간다.',pre:'그 사번을 아는 정보원이 헬리오스 격리 병동에 누워 있다. 총을 맞았다. 살려서 데려올 사람은 닥뿐이다.',post:['정보원은 제 발로 걸어 나왔다.','여섯이 다 모였다. 명단은 안에서 나갔다. 이제 그 사람을 찾는다.']}
 ].forEach(function(o,i){var k;for(k in o)MIS[i][k]=o[k];});
-var TIPS=['바닥을 누르면 이동한다. 적을 누르면 그 요원의 주 행동이 바로 나간다.','아래 타일에서 다른 행동을 골라 둔 채로도 바닥을 누르면 이동한다.','호박색 부채꼴이 경비병 시야다. 앉으면 안쪽 짙은 부분에서만 걸린다.','서서 걸으면 1.5칸 안의 적이 발소리를 듣는다. 붙을 때는 앉는다.','기절한 적은 시간이 지나면 깬다. 죽이면 안 깨지만 점수가 깎인다.','쓰러진 적이 다른 경비병 눈에 띄면 조사하러 온다. 안 보이는 곳으로 옮긴다.','사거리 밖의 대상을 누르면 요원이 쏠 수 있는 자리까지 알아서 간다.','PLAN을 누르면 시간이 멈춘다. 명령을 쌓아 두고 한 번에 푼다.','SAVE는 아끼지 않는다. 다만 퀵로드를 쓰면 점수가 깎인다.'];
+var TIPS=[['tap','짚으면 간다','바닥을 누르면 그 자리로 걷는다.'],['aim','손이 먼저 나간다','적을 누르면 그 요원의 주특기가 바로 나간다.'],['keep','고른 채로 걸어라','아래에서 행동을 골라 둬도 바닥을 누르면 걷는다.'],['cone','빛 안에 서지 마라','호박색 부채꼴이 그들의 눈이다. 앉으면 안쪽 짙은 곳에서만 걸린다.'],['ear','발소리는 1.5칸을 간다','가까이 붙을 때는 앉는다.'],['wake','재운 사람은 깬다','시간이 지나면 일어나 경보를 울린다. 죽이면 안 깨지만 점수가 깎인다.'],['body','흔적을 남기지 마라','쓰러진 적이 눈에 띄면 조사하러 온다. 안 보이는 곳으로 옮긴다.'],['range','멀면 알아서 다가간다','사거리 밖을 누르면 쏠 자리까지 스스로 간다.'],['plan','시간을 멈춰라','PLAN으로 멈추고 명령을 쌓는다. SAVE는 아끼지 말 것. 퀵로드는 점수를 깎는다.']];
+var TIPI={tap:'<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8" stroke-dasharray="3 3"/>',aim:'<circle cx="12" cy="12" r="6"/><path d="M12 2v5M12 17v5M2 12h5M17 12h5"/>',keep:'<rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><path d="M12 3v7M9 7l3 3 3-3"/>',cone:'<path d="M4 20L12 4l8 16z"/><path d="M8 20l4-8 4 8"/>',ear:'<path d="M4 15c2-1 2-5 0-6M8 18c4-3 4-9 0-12M13 21c6-5 6-13 0-18"/>',wake:'<circle cx="12" cy="13" r="7"/><path d="M12 9v4l3 2M9 3h6"/>',body:'<path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6z"/><path d="M4 4l16 16"/>',range:'<circle cx="5" cy="12" r="2"/><path d="M9 12h9M15 8l4 4-4 4"/>',plan:'<path d="M8 5v14M16 5v14"/>'};
+function tipCards(){return '<div class="tg">'+TIPS.map(function(t,i){return '<div><svg viewBox="0 0 24 24">'+TIPI[t[0]]+'</svg><em>0'+(i+1)+'</em><b>'+t[1]+'</b><span>'+t[2]+'</span></div>';}).join('')+'</div>';}
+function intel(mt){return '<div class="itl">'+mt.map(function(t){return '<p>'+t+'</p>';}).join('')+'</div>';}
 function missionTips(mm){var o=[],re=/<li>([\s\S]*?)<\/li>/g,m,b=((mm||M).brief||'').replace(RULES,'');while((m=re.exec(b)))o.push(m[1]);return o;}
 function tips(back){
   var mt=started||back?missionTips():[];
-  overlay('TIP','HOW TO PLAY',(mt.length?'<label>이 미션</label><ul class="tips">'+mt.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul>':'')+'<label>기본</label><ul class="tips">'+TIPS.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul>',[['닫기',function(){hideOv();TIPON=false;if(back)back();},true]],null,true);
+  overlay('TIP','HOW TO PLAY',(mt.length?'<label>INTEL — 이 작전</label>'+intel(mt):'')+'<label>CONTROL — 손에 익혀라</label>'+tipCards(),[['닫기',function(){hideOv();TIPON=false;if(back)back();else setPre(false);},true]],null,true);
 }
 var TIPON=false;
 [100,240,180,100,140,130].forEach(function(p,i){MIS[i].par=p;MIS[i].bc=['nokill','onesnipe','noinv','noload','ghost','nogun'][i];});
@@ -576,7 +598,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.13.0';
+var VERSION='0.14.0';
 var PROG={c:{},s:{},b:{},end:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -663,7 +685,7 @@ ch:[
  '그날 밤 여섯이 처음으로 한 방에 모였다. 누구도 먼저 말하지 않았다. 여섯 명이 동시에 무전기를 봤다.',
  '명단은 안에서 나갔다.'],q:'그 "안"은 어디까지인가.'}]};
 function reader(o){
-  var h=(o.img?'<div class="hero"><span class="bg" style="background-image:url('+o.img+')"></span></div>':'')+'<div class="nv">'+(o.html||o.p.map(function(x){return '<p>'+x+'</p>';}).join(''))+(o.q?'<p class="q">남는 의문 — '+o.q+'</p>':'')+'</div>'+(o.btn?'<button class="nvb" data-k="0">'+o.btn+'</button>':'');
+  var h=(o.img?'<div class="hero big"><span class="bg" style="background-image:url('+o.img+')"></span></div>':'')+'<div class="nv">'+(o.html||o.p.map(function(x){return '<p>'+x+'</p>';}).join(''))+(o.q?'<p class="q">남는 의문 — '+o.q+'</p>':'')+'</div>'+(o.btn?'<button class="nvb" data-k="0">'+o.btn+'</button>':'');
   page(o.t,o.sub,h,o.back,[o.next]);
 }
 function novelRead(n){
@@ -689,24 +711,24 @@ function home(){
   $('hm').className='';
   $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><span>'+DF.n+'</span><button data-h="tip">TIP</button></div>'+
    '<div class="hh"><img src="a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg" alt=""><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
-   '<button class="ht main" data-h="main"><i>STORY MISSION · SEASON 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' 완료 · 시즌마다 추가</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
-   '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="background-image:url(a_'+b+'_'+fl(Math.random()*2)+'.jpg)"></span><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'시즌 1 클리어 시':'요원별 3판')+'</u></button>':'')+
+   '<button class="ht main" data-h="main"><i>STORY MISSION · SEASON 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' · 여섯이 모이기까지</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
+   '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="background-image:url(a_'+b+'_'+fl(Math.random()*2)+'.jpg)"></span><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
    (flag('seasonal')?'<button class="ht pic" data-h="season"><span class="bg" style="background-image:url('+rnd()+')"></span><i>SEASONAL</i><b>시즈널 미션</b><u>블러디 크리스마스</u></button>':'')+
-   (flag('special')?'<button class="ht pic soon" data-h="special"><span class="bg" style="background-image:url('+rnd()+')"></span><i>SPECIAL</i><b>스페셜 미션</b><u>프리퀄 · 코스튬</u></button>':'')+'</div>'+
+   (flag('special')?'<button class="ht pic soon" data-h="special"><span class="bg" style="background-image:url('+rnd()+')"></span><i>SPECIAL</i><b>스페셜 미션</b><u>이름이 있던 시절</u></button>':'')+'</div>'+
    '<div class="hf">SILENT SIX v'+VERSION+'</div></div>'+
    '<div class="hn">'+nav.map(function(x){return '<button data-h="'+x[0]+'"><svg viewBox="0 0 24 24">'+NAVI[x[0]]+'</svg><b>'+x[1]+'</b></button>';}).join('')+'</div>';
 }
 function hmHide(){$('hm').className='hide';$('hm').innerHTML='';}
 function seasons(){
-  page('스토리 미션','STORY MISSION','<p>'+WORLD.join('</p><p>')+'</p><div class="cg">'+cd(0,mimg(4),'여섯이 모이기까지',mainDone()+' / '+NBASE+' 완료',{w:1,eye:'SEASON 1',tag:'OPEN',on:1})+cd(1,'a_raven_7.jpg','누가 흘렸나','시즌 1을 끝내면 이어진다',{w:1,eye:'SEASON 2',tag:'COMING',lock:1})+'</div>',home,[function(){if(PROG.pro)menu();else{PROG.pro=1;saveProg();reader({t:NOVEL.pro.t,sub:'SEASON 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,btn:'시즌 1 시작',next:menu,back:menu});}},function(){info('누가 흘렸나','SEASON 2 // COMING','a_raven_7.jpg','<p>시즌 1에서 모인 여섯이 제6과 안의 배신자를 쫓는다. 준비 중.</p>',seasons);}]);
+  page('스토리 미션','STORY MISSION','<p>'+WORLD.join('</p><p>')+'</p><div class="cg">'+cd(0,mimg(4),'여섯이 모이기까지',mainDone()+' / '+NBASE+' 완료',{w:1,eye:'SEASON 1',tag:'OPEN',on:1})+cd(1,'a_raven_7.jpg','누가 흘렸나','시즌 1을 끝내면 이어진다',{w:1,eye:'SEASON 2',tag:'COMING',lock:1})+'</div>',home,[function(){if(PROG.pro)menu();else{PROG.pro=1;saveProg();reader({t:NOVEL.pro.t,sub:'SEASON 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,btn:'시즌 1 시작',next:menu,back:menu});}},function(){info('누가 흘렸나','SEASON 2 // COMING','a_raven_7.jpg','<p>여섯이 모였다. 이제 서로를 의심할 차례다. 준비 중.</p>',seasons);}]);
 }
 function menu(){
   var L=[],A=[],i;for(i=0;i<NBASE;i++)if(vis(i)){(function(i){L.push(cd(A.length,mimg(i),MIS[i].title,MIS[i].code.split(' // ')[1],{no:'0'+(i+1),x:bm(i,'span'),tag:PROG.c[i]?'CLEAR':'',on:1}));A.push(function(){brief(i);});})(i);}
-  page('시즌 1','STORY MISSION // '+DF.n,'<p>◆는 딴 배지다. 다시 깨면 못 딴 배지를 채울 수 있다.</p><div class="cg">'+L.join('')+'</div>',seasons,A);
+  page('시즌 1','STORY MISSION // '+DF.n,'<p>여섯 개의 밤. 지나간 밤에도 다시 들어갈 수 있다. ◆는 그 밤에 남긴 증거다.</p><div class="cg one">'+L.join('')+'</div>',seasons,A);
 }
 function storyMenu(){
   var ids=Object.keys(STORY);
-  page('개인 미션','PERSONAL // SEASON 1','<p>요원마다 세 판. 끝까지 가면 그날 밤 이야기가 열린다. 시즌이 올라올 때마다 더 붙는다.</p><div class="cg">'+ids.map(function(id,k){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return cd(k,'a_'+id+'_0.jpg',OPD[id].n,n+' / 3'+(PROG.end[id]?' · 그날 밤 ♥':''),{eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
+  page('개인 미션','PERSONAL // SEASON 1','<p>임무가 끝나도 끝나지 않는 일이 있다. 요원마다 세 번의 밤, 그리고 마지막 하룻밤.</p><div class="cg">'+ids.map(function(id,k){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return cd(k,'a_'+id+'_0.jpg',OPD[id].n,n+' / 3'+(PROG.end[id]?' · 그날 밤 ♥':''),{eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
 }
 function storyAgent(id){
   var L=[],A=[];
@@ -716,14 +738,14 @@ function storyAgent(id){
 }
 function seasonal(){
   var S=[['SPRING','벚꽃 축제 경호선','a_mirage_4.jpg'],['SUMMER','휴양지 리조트 잠입','a_viper_3.jpg'],['AUTUMN','수확제 가면 행렬','a_glitch_5.jpg'],['설','귀성 열차','a_brick_4.jpg'],['추석','보름달 아래 한옥 마을','a_doc_4.jpg']],n=0;WIDX.forEach(function(mi){if(PROG.c[mi])n++;});
-  page('시즈널 미션','SEASONAL // 사계절 · 명절','<p>계절과 명절에 맞춰 여는 이벤트 미션. 본편과 이어지지 않는다.</p><div class="cg">'+cd(0,'a_raven_5.jpg','블러디 크리스마스',n+' / 5 완료 · 성탄 전야 하룻밤',{w:1,eye:'WINTER',tag:'OPEN',on:1,cold:1})+S.map(function(x,k){return cd(k+1,x[2],x[1],'',{eye:x[0],tag:'SOON',lock:1});}).join('')+'</div>',home,[winter].concat(S.map(function(x){return function(){info(x[1],'SEASONAL // COMING',x[2],'<p>준비 중. 열리면 배지 조건 3개와 전용 착장이 함께 들어간다.</p>',seasonal);};})));
+  page('시즈널 미션','SEASONAL // 사계절 · 명절','<p>계절은 바뀌어도 일은 끝나지 않는다. 그 계절에만 열리는 작전.</p><div class="cg">'+cd(0,'a_raven_5.jpg','블러디 크리스마스',n+' / 5 완료 · 성탄 전야 하룻밤',{w:1,eye:'WINTER',tag:'OPEN',on:1,cold:1})+S.map(function(x,k){return cd(k+1,x[2],x[1],'',{eye:x[0],tag:'SOON',lock:1});}).join('')+'</div>',home,[winter].concat(S.map(function(x){return function(){info(x[1],'SEASONAL // COMING',x[2],'<p>준비 중. 열리면 배지 조건 3개와 전용 착장이 함께 들어간다.</p>',seasonal);};})));
 }
 function winter(){
   var L=[],A=[];WIDX.forEach(function(mi,ci){if(!vis(mi))return;L.push(cd(A.length,mimg(mi),MIS[mi].title,'',{no:'0'+(ci+1),x:bm(mi,'span'),cold:1,tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
-  page('블러디 크리스마스','SEASONAL // WINTER','<p>성탄 전야. 헬리오스의 배달 책임자 "산타"가 하룻밤에 다섯 곳을 돈다. 식스가 그 동선을 따라가며 하나씩 턴다. 눈이 내린다.</p><div class="cg">'+L.join('')+'</div>',seasonal,A);
+  page('블러디 크리스마스','SEASONAL // WINTER','<p>성탄 전야. 산타는 하룻밤에 다섯 집을 돈다. 우리는 그 뒤를 따라간다. 눈이 발자국을 지워 준다.</p><div class="cg">'+L.join('')+'</div>',seasonal,A);
 }
 function special(){
-  page('스페셜 미션','SPECIAL // PREQUEL','<p>식스가 되기 전의 여섯. 요원마다 한 편씩, 지금의 그 사람을 만든 밤을 다룬다. 성인 등급으로 준비 중이다.</p><div class="cg">'+SPECIAL.map(function(x,k){return cd(k,'a_'+x[0]+'_3.jpg',x[1],OPD[x[0]].n+' · '+x[2],{eye:'PREQUEL',tag:'SOON',lock:1});}).join('')+'</div><label>코스튬 · 번외</label><div class="cg">'+cd(6,'a_mirage_0.jpg','코스튬 미션','클리어하면 새 착장이 열린다',{s:1,eye:'COSTUME',tag:'SOON',lock:1})+cd(7,'a_brick_7.jpg','번외 미션','규칙을 비튼 도전',{s:1,eye:'EXTRA',tag:'SOON',lock:1})+'</div>',home,SPECIAL.map(function(x){return function(){info(x[1],'PREQUEL // '+OPD[x[0]].n,'a_'+x[0]+'_3.jpg','<p>'+x[3]+'</p><p style="color:var(--dim)">준비 중. 전용 이미지와 함께 열린다.</p>',special);};}).concat([function(){info('코스튬 미션','SPECIAL // COMING','a_mirage_0.jpg','<p>클리어하면 요원의 새 착장이 열린다. 준비 중.</p>',special);},function(){info('번외 미션','SPECIAL // COMING','a_brick_7.jpg','<p>제한 시간, 무장 해제, 1인 침투처럼 규칙을 비튼 도전 미션. 준비 중.</p>',special);}]));
+  page('스페셜 미션','SPECIAL // PREQUEL','<p>식스가 되기 전, 그들에게도 이름이 있었다. 지금의 그 사람을 만든 하룻밤. 성인 등급으로 준비 중.</p><div class="cg">'+SPECIAL.map(function(x,k){return cd(k,'a_'+x[0]+'_3.jpg',x[1],OPD[x[0]].n+' · '+x[2],{eye:'PREQUEL',tag:'SOON',lock:1});}).join('')+'</div><label>코스튬 · 번외</label><div class="cg">'+cd(6,'a_mirage_0.jpg','코스튬 미션','클리어하면 새 착장이 열린다',{s:1,eye:'COSTUME',tag:'SOON',lock:1})+cd(7,'a_brick_7.jpg','번외 미션','규칙을 비튼 도전',{s:1,eye:'EXTRA',tag:'SOON',lock:1})+'</div>',home,SPECIAL.map(function(x){return function(){info(x[1],'PREQUEL // '+OPD[x[0]].n,'a_'+x[0]+'_3.jpg','<p>'+x[3]+'</p><p style="color:var(--dim)">준비 중. 전용 이미지와 함께 열린다.</p>',special);};}).concat([function(){info('코스튬 미션','SPECIAL // COMING','a_mirage_0.jpg','<p>클리어하면 요원의 새 착장이 열린다. 준비 중.</p>',special);},function(){info('번외 미션','SPECIAL // COMING','a_brick_7.jpg','<p>제한 시간, 무장 해제, 1인 침투처럼 규칙을 비튼 도전 미션. 준비 중.</p>',special);}]));
 }
 function agents(){
   var ids=Object.keys(STORY);
@@ -735,13 +757,13 @@ function agentHub(id){
    [function(){RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so)storyAgent(id);},function(){info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 1:1로 주고받는 이미지 채팅. 성인 인증과 결제 뒤에 열린다. 준비 중.</p>',function(){agentHub(id);});}]);
 }
 function blackbox(){
-  var ids=Object.keys(STORY),nd=mainDone(),h='<p>미션에서 건진 것들이 쌓인다. 스토리 미션을 깰 때마다 그 장이 여기에 남는다.</p><label>소설 — 시즌 1 · 여섯이 모이기까지 ('+nd+' / '+NBASE+')</label><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'시즌 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div><label>미션 클리어 이미지</label><div class="cg c3">',i;
+  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 사라지지 않는다. 여기에 남는다. 한 장을 넘길 때마다 이야기가 이어진다.</p><label>소설 — 시즌 1 · 여섯이 모이기까지 ('+nd+' / '+NBASE+')</label><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'시즌 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div><label>미션 클리어 이미지</label><div class="cg c3">',i;
   for(i=0;i<NBASE;i++)h+=cd(99,mimg(i),MIS[i].title,'',{no:'0'+(i+1),lock:!PROG.c[i],tag:PROG.c[i]?'':'LOCKED'});
   h+='</div><label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
   page('블랙박스','BLACK BOX',h,home,[],function(e){var n=e.target.dataset.n;if(n!==undefined)novelRead(n);});
 }
 function shop(){
-  page('SHOP','POINT · BADGE · STORE','<p>포인트는 미션 점수 100점당 1P로 쌓이고, 배지는 미션 조건을 채울 때마다 1개씩 생긴다.</p><div class="cg">'+cd(0,'a_glitch_3.jpg','포인트샵','소모품 · 프로필 꾸미기',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','요원 착장 · 추가 미션',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_1.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
+  page('SHOP','POINT · BADGE · STORE','<p>공짜는 없다. 작전에서 번 것만 쓴다. 점수 100점에 1P, 조건 하나에 배지 하나.</p><div class="cg">'+cd(0,'a_glitch_3.jpg','포인트샵','소모품 · 프로필 꾸미기',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','요원 착장 · 추가 미션',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_1.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
 }
 function ranking(tab){
   tab=tab||0;
@@ -756,7 +778,7 @@ function ranking(tab){
   }else{
     h+='<table><tr><th>요원</th><th>1</th><th>2</th><th>3</th><th>합계</th></tr>'+Object.keys(STORY).map(function(id){var sum=0;return '<tr><td>'+OPD[id].n+'</td>'+SIDX[id].map(function(mi){var q=PROG.s[mi]||{},b=0,k;for(k in q)if(q[k]>b)b=q[k];sum+=b;return '<td>'+(b?b.toLocaleString():'—')+'</td>';}).join('')+'<td class="best">'+(sum?sum.toLocaleString():'—')+'</td></tr>';}).join('')+'</table>';
   }
-  h+='<p style="margin-top:14px;color:var(--dim)">이 기기에 남은 최고 기록이다. 온라인 랭킹은 서버를 붙인 뒤에 열린다.</p>';
+  h+='<p style="margin-top:14px;color:var(--dim)">기록은 이 기기에만 남는다. 다른 지휘관과 겨루는 날은 곧 온다.</p>';
   page('랭킹','RANKING // '+(PROG.name?PROG.name.toUpperCase():'HANDLER'),h,home,[],function(e){var t=e.target.dataset.t;if(t!==undefined)ranking(+t);});
 }
 function settings(){
@@ -773,13 +795,13 @@ function settings(){
     else if(t.id==='sop'){keep();pgHide();opSelect();}
     else if(t.id==='stip'){keep();tipsPage(settings);}
     else if(t.id==='sadm'){keep();if(ADM)admin();else adminLogin();}
-    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.end={};PROG.pt=0;saveProg();say('기록을 지웠다');settings();}});
+    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.end={};PROG.pt=0;saveProg();say('없던 일이 됐다.');settings();}});
   $('pg').oninput=function(e){if(e.target.id==='svol'){PROG.vol=e.target.value/100;saveProg();}};
   $('pg').onchange=function(e){if(e.target.id==='svol')snd('ok');};
 }
 function tipsPage(back){
-  var h='<label>기본 조작</label><ul class="tips">'+TIPS.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul>',i;
-  for(i=0;i<NBASE;i++){var mt=missionTips(MIS[i]);if(mt.length)h+='<label>0'+(i+1)+' '+MIS[i].title+'</label><ul class="tips">'+mt.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul>';}
+  var h='<p>아홉 가지만 손에 익히면 된다. 나머지는 그들이 가르쳐 준다.</p><label>CONTROL — 손에 익혀라</label>'+tipCards(),i;
+  for(i=0;i<NBASE;i++){var mt=missionTips(MIS[i]);if(mt.length)h+='<label>INTEL — 0'+(i+1)+' '+MIS[i].title+'</label>'+intel(mt);}
   page('TIP','HOW TO PLAY',h,back||home);
 }
 function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return ('0'+b.toString(16)).slice(-2);}).join('');}
@@ -912,7 +934,7 @@ function stepGuardSense(g,dt){
   }
   var h=S.hostage;
   var HR=g.cam?CAMR:CRANGE*(g.tower?1.4:1);
-  if(h&&h.free&&canSee(g,h.x,h.y,HR)){rate=1.6+(1-hyp(h.x-g.x,h.y-g.y)/HR)*5;if(!best||rate>best.rate)best={rate:rate,x:h.x,y:h.y,why:'데리고 나오던 인질이 발각됐다.'};}
+  if(h&&h.free&&canSee(g,h.x,h.y,HR)){rate=1.6+(1-hyp(h.x-g.x,h.y-g.y)/HR)*5;if(!best||rate>best.rate)best={rate:rate,x:h.x,y:h.y,why:'데리고 나오던 사람이 눈에 띄었다. 거기서 끝났다.'};}
   if(best){g.meter+=best.rate*DF.m*dt;g.seen={x:best.x,y:best.y};if(g.meter>=1){g.meter=1;fail(best.why);}}
   else if(heard){
     g.meter+=2*DF.m*dt;g.seen={x:heard.x,y:heard.y};
@@ -948,7 +970,7 @@ function startAction(o,a){
   else if(a.type==='shoot'){o.path=[];}
   a.rp=0;
 }
-function toggleDisg(o){o.disg=!o.disg;if(o.disg){o.crouch=false;say('변장 — 경비병은 1.5칸 밖에서 알아보지 못한다');}else say('변장 해제');}
+function toggleDisg(o){o.disg=!o.disg;if(o.disg){o.crouch=false;say('이제 다른 사람이다. 1.5칸 밖에서는 아무도 모른다.');}else say('가면을 벗었다.');}
 function approach(o,a,tx,ty,rng,needLos,tw,dt){
   o.aim=0;a.rp-=dt;if(a.rp>0)return;a.rp=0.4;
   var p=findSpot(o,tx,ty,rng,needLos,tw);
@@ -978,7 +1000,7 @@ function stepOp(o,dt){
     g=S.guards[a.id];d=hyp(g.x-o.x,g.y-o.y);
     var pist=a.w==='pistol',drt=a.w==='dart',rng=pist||drt?5:SNIPE,aimT=pist?0.5:drt?0.8:AIM,ak=pist?'pistol':drt?'dart':'ammo';
     if(g.down){o.cur=null;o.aim=0;}
-    else if(o[ak]<=0){o.cur=null;o.aim=0;say('탄이 없다');}
+    else if(o[ak]<=0){o.cur=null;o.aim=0;say('탄창이 비었다.');}
     else if(d>rng||!los(o.x,o.y,g.x,g.y,g.tower))approach(o,a,g.x,g.y,rng-0.6,true,g.tower,dt);
     else{
       o.path=[];o.ang=Math.atan2(g.y-o.y,g.x-o.x);o.aim+=dt;
@@ -996,7 +1018,7 @@ function stepOp(o,dt){
   }else if(a&&a.type==='sab'){
     if(!o.path.length){
       var u=M.objective.use;
-      if(fl(o.x)!==u[0]||fl(o.y)!==u[1]){o.cur=null;say('거기까지 갈 수 없다');}
+      if(fl(o.x)!==u[0]||fl(o.y)!==u[1]){o.cur=null;say('거긴 길이 없다.');}
       else{o.ang=Math.atan2(M.objective.y+0.5-o.y,M.objective.x+0.5-o.x);o.fx='plant';o.fxt=0.2;a.t-=dt;if(a.t<=0){S.objDone=true;o.cur=null;say(M.objective.label+' '+M.objective.verb+' 완료');snd('ok');}}
     }
   }else if(a&&a.type==='hack'){
@@ -1020,7 +1042,7 @@ function stepOp(o,dt){
   if(o.st>0)o.st-=dt;
   var moving=o.path.length>0;o.mv=moving;
   var running=o.run&&!o.crouch&&o.carry<0;
-  if(o.disg&&running&&moving){o.disg=false;say('달려서 변장이 풀렸다');}
+  if(o.disg&&running&&moving){o.disg=false;say('뛰는 순간, 가면이 벗겨졌다.');}
   followPath(o,o.carry>=0?1.3:o.crouch?1.9:running?3.8:2.4,dt,0);
   if(o.carry>=0){var b=S.guards[o.carry];b.x=o.x;b.y=o.y;}
   if(moving&&running){
@@ -1038,7 +1060,7 @@ function update(dt){
     var tr=S.trail,last=tr[tr.length-1];
     if(!last||hyp(last.x-r.x,last.y-r.y)>0.3)tr.push({x:r.x,y:r.y});
     if(tr.length>200)tr.shift();
-    if(!h.free){if(hyp(h.x-r.x,h.y-r.y)<0.9){h.free=true;S.trail=[];say('인질 확보 — 탈출 지점으로');snd('ok');}}
+    if(!h.free){if(hyp(h.x-r.x,h.y-r.y)<0.9){h.free=true;S.trail=[];say('데리고 나간다. 출구까지.');snd('ok');}}
     else{
       var left=2.6*dt;
       while(left>0&&S.trail.length>1){var p=S.trail[0],dx=p.x-h.x,dy=p.y-h.y,d=hyp(dx,dy);
@@ -1280,17 +1302,17 @@ var IC={
  cancel:'<path d="M6 6l12 12M18 6 6 18"/>',save:'<path d="M5 4h11l3 3v13H5zM8 4v6h7V4M8 20v-6h8v6"/>',load:'<path d="M5 12a7 7 0 1 0 2-5M5 4v4h4"/>'};
 function ic(n){return '<svg viewBox="0 0 24 24">'+IC[n]+'</svg>';}
 var ACT={
- move:['이동','MOVE','바닥을 탭하면 걷는다. 적을 탭하면 주 행동(제압·다트·저격·해킹)을 바로 쓴다. 서서 걸으면 1.5칸 안의 적이 발소리를 듣는다. 앉으면 무소음.'],
- run:['달리기','SPRINT','바닥을 탭한다. 가장 빠르지만 5칸 안의 적이 소리를 듣고 조사하러 온다.'],
- ko:['맨손 제압','TAKEDOWN','적을 탭한다. 뒤나 옆에서만 성공. 무소음. WAKE초 뒤 깨어나 경보를 울린다.'],
- knife:['나이프','KNIFE','적을 탭한다. 뒤나 옆에서만 성공. 무소음. 다시 깨어나지 않는다(사살).'],
- pistol:['권총','PISTOL','적을 탭한다. 점선 원(5칸) 밖이면 접근한 뒤 0.5초 조준하고 쏜다. 총성이 8칸까지 퍼진다.'],
- dart:['마취 다트','DART','적을 탭한다. 5칸 안에서 0.8초 조준하고 쏜다. 소리가 전혀 없다. 맞은 적은 잠들었다가 깨어난다. 카메라와 워든에는 안 통한다.'],
- snipe:['저격','SNIPE','적을 탭한다. 점선 원(10칸) 밖이거나 사선이 막히면 자리를 옮긴 뒤 1.5초 조준하고 쏜다. 소음기.'],
- hack:['해킹','HACK','카메라를 탭한다. 6칸 안에서 1.5초 작업해 25초간 끈다. 벽 너머도 된다.'],
- lure:['교란','LURE','바닥을 탭한다. 8칸 안의 그 지점에 드론이 소리를 내 4칸 안의 적을 부른다.'],
- breach:['돌파','BREACH','주황색으로 깜빡이는 약한 벽을 탭한다. 옆으로 가서 부순다. 소리가 7칸까지 퍼진다.'],
- carry:['운반','CARRY','쓰러진 적을 탭해 들쳐 멘다. 느려지고 앉아도 서 있는 것처럼 눈에 띈다.']};
+ move:['이동','MOVE','소리 없이, 한 걸음씩. 바닥을 누르면 걷고 적을 누르면 손이 먼저 나간다. 서서 걸으면 1.5칸 안에서 들킨다. 앉으면 아무도 모른다.'],
+ run:['달리기','SPRINT','빠른 대신 시끄럽다. 5칸 안의 귀가 전부 이쪽을 향한다.'],
+ ko:['맨손 제압','TAKEDOWN','등 뒤에서, 한 번에. 소리는 없다. 다만 WAKE초 뒤 그는 눈을 뜨고 경보를 울린다.'],
+ knife:['나이프','KNIFE','등 뒤에서, 영원히. 그는 다시 일어나지 않는다. 기록에는 사살로 남는다.'],
+ pistol:['권총','PISTOL','마지막 수단. 5칸 안에서 0.5초면 된다. 대신 총성이 8칸을 깨운다.'],
+ dart:['마취 다트','DART','재우는 건 죽이는 것보다 어렵다. 5칸, 0.8초, 무음. 그는 다시 깨어난다. 카메라와 워든은 잠들지 않는다.'],
+ snipe:['저격','SNIPE','10칸 밖에서 끝낸다. 1.5초만 숨을 참으면 된다. 사선이 막히면 자리를 옮겨서 쏜다.'],
+ hack:['해킹','HACK','카메라의 눈을 감긴다. 6칸 안에서 1.5초, 벽 너머도 닿는다. 25초 뒤 다시 뜬다.'],
+ lure:['교란','LURE','소리 하나면 사람은 돌아본다. 8칸 안에 드론을 보내 4칸 안의 적을 그쪽으로 부른다.'],
+ breach:['돌파','BREACH','문이 없으면 만든다. 금 간 벽을 누르면 부순다. 폭음은 7칸까지 간다.'],
+ carry:['운반','CARRY','남긴 흔적은 치우고 간다. 메고 있는 동안은 느리고, 앉아도 눈에 띈다.']};
 var UIK='';
 function ui(){
   var A=S.ops[S.act],D=OPD[A.id],n=0;
@@ -1427,7 +1449,7 @@ function opEnd(){if(opt)clearTimeout(opt);if(opT)clearTimeout(opT);OPCIN=false;$
 $('hm').addEventListener('click',function(e){
   var t=e.target;while(t&&t!==this&&!(t.dataset&&t.dataset.h))t=t.parentNode;if(!t||t===this)return;var h=t.dataset.h;
   if(h==='main')seasons();
-  else if(h==='story'){if(storyOpen())storyMenu();else info('개인 미션','PERSONAL // LOCKED',null,'<p>스토리 미션 시즌 1의 여섯 판을 모두 끝내면 열린다. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 혼자 뛰는 세 판이 있고, 세 판을 끝내면 그날 밤 이야기가 열린다.</p>',home);}
+  else if(h==='story'){if(storyOpen())storyMenu();else info('개인 미션','PERSONAL // LOCKED',null,'<p>아직은 닿을 수 없다. 여섯이 모인 뒤에야 이 문이 열린다. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 세 번의 밤. 끝까지 가면 그날 밤이 남는다.</p>',home);}
   else if(h==='season')seasonal();
   else if(h==='special')special();
   else if(h==='agents')agents();
@@ -1448,7 +1470,7 @@ $('ms').addEventListener('click',function(e){
   else if(m==='tip'){msHide();tips(missionCard);}
   else{msHide();if(M.story)storyAgent(M.story.id);else if(M.winter)winter();else menu();}
 });
-$('tip').addEventListener('click',function(e){e.stopPropagation();if(!started||S.over)return;TIPON=true;tips();});
+$('tip').addEventListener('click',function(e){e.stopPropagation();if(!started||S.over)return;TIPON=true;setPre(true);tips();});
 $('op').addEventListener('click',function(e){var id=e.target&&e.target.id,oo=e.target&&e.target.dataset&&e.target.dataset.o;if(oo){if(oo!=='x')opening(oo);return;}if(id==='opsk'||id==='opgo')opEnd();else if(!OPCIN&&!OPS[opi].title)opNext();});
 var ROI='raven',ROK=0,FIT=['OFF-DUTY · 사복','TRAINING · 도발','AGENT UNIFORM · 액션','SPECIAL MISSION · 전투'];
 function roster(){hideOv();$('ro').className='';roShow(ROI);}
@@ -1482,17 +1504,17 @@ function missionCard(){
 }
 function msHide(){$('ms').className='hide';$('ms').innerHTML='';}
 var BCOND={
- nokill:['무살상','아무도 죽이지 않는다',function(){return S.kills===0;}],
- onesnipe:['한 발','저격탄을 한 발 이하로 쓴다',function(){var ok=true;S.ops.forEach(function(o){if(o.id==='viper'&&o.ammo<2)ok=false;});return ok;}],
- noinv:['무의심','경비병이 한 번도 조사하러 오지 않는다',function(){return !(S.inv>0);}],
- noload:['원테이크','퀵로드 없이 끝낸다',function(){return loads===0;}],
- ghost:['유령','아무도 건드리지 않는다',function(){return S.kos+S.kills===0;}],
- nogun:['무발포','권총과 저격총을 한 발도 쏘지 않는다',function(){var ok=true;S.ops.forEach(function(o){if(o.pistol<6||(o.id==='viper'&&o.ammo<3))ok=false;});return ok;}]
+ nokill:['무살상','아무도 죽지 않는 밤',function(){return S.kills===0;}],
+ onesnipe:['한 발','한 발이면 충분하다',function(){var ok=true;S.ops.forEach(function(o){if(o.id==='viper'&&o.ammo<2)ok=false;});return ok;}],
+ noinv:['무의심','아무도 고개를 돌리지 않는다',function(){return !(S.inv>0);}],
+ noload:['원테이크','되돌리지 않고 끝까지',function(){return loads===0;}],
+ ghost:['유령','누구의 몸에도 손대지 않는다',function(){return S.kos+S.kills===0;}],
+ nogun:['무발포','총성 없는 밤',function(){var ok=true;S.ops.forEach(function(o){if(o.pistol<6||(o.id==='viper'&&o.ammo<3))ok=false;});return ok;}]
 };
 function badgeList(){
   var c=BCOND[M.bc]||BCOND.nokill;
-  return [['전원 제압','카메라와 워든을 뺀 모든 적을 쓰러뜨린다',function(){var ok=true,n=0;S.guards.forEach(function(g){if(g.cam||g.boss)return;n++;if(!g.down)ok=false;});return ok&&n>0;}],
-          ['제한 시간',mmss(M.par)+' 안에 끝낸다',function(){return S.t<=M.par;}],c];
+  return [['전원 제압','카메라와 워든만 빼고, 전부 눕힌다',function(){var ok=true,n=0;S.guards.forEach(function(g){if(g.cam||g.boss)return;n++;if(!g.down)ok=false;});return ok&&n>0;}],
+          ['제한 시간',mmss(M.par)+' 안에 사라진다',function(){return S.t<=M.par;}],c];
 }
 function badgeTotal(){var n=0,k,i;for(k in PROG.b)for(i=0;i<3;i++)if(PROG.b[k][i])n++;return n;}
 function scoreCalc(){
@@ -1542,31 +1564,31 @@ function onTap(px,py){
     act=mv();if(!act)return;
   }else if(md==='ko'||md==='knife'){
     if(!gh){act=mv();if(!act)return;}else
-    if(gh.tower){say('감시탑에는 올라갈 수 없다 — 저격이 필요하다');return;}else
-    if(gh.cam){say('카메라는 제압할 수 없다 — 해킹하거나 쏴라');return;}else
-    if(gh.boss){say('워든은 근접으로 쓰러뜨릴 수 없다');return;}else
+    if(gh.tower){say('탑 위는 손이 닿지 않는다. 총알만 닿는다.');return;}else
+    if(gh.cam){say('카메라는 기절하지 않는다. 끄거나, 쏘거나.');return;}else
+    if(gh.boss){say('워든은 손으로 못 눕힌다. 피해 가라.');return;}else
     act={type:'ko',id:gh.id,kill:md==='knife'};
   }else if(md==='dart'){
     if(!gh){act=mv();if(!act)return;}
-    else if(gh.cam){say('카메라에는 다트가 안 통한다');return;}
-    else if(A.dart<=0){say('다트가 없다');return;}
+    else if(gh.cam){say('기계는 잠들지 않는다.');return;}
+    else if(A.dart<=0){say('다트는 이제 없다.');return;}
     else act={type:'shoot',id:gh.id,w:'dart'};
   }else if(md==='snipe'||md==='pistol'){
     if(!gh){act=mv();if(!act)return;}
-    else if(A[md==='pistol'?'pistol':'ammo']<=0){say('탄이 없다');return;}
+    else if(A[md==='pistol'?'pistol':'ammo']<=0){say('탄창이 비었다.');return;}
     else act={type:'shoot',id:gh.id,w:md==='pistol'?'pistol':'sniper'};
   }else if(md==='hack'){
     if(gh&&gh.cam)act={type:'hack',id:gh.id};
-    else if(gh){say('해킹은 카메라에만 된다');return;}
+    else if(gh){say('사람은 해킹되지 않는다.');return;}
     else{act=mv();if(!act)return;}
   }else if(md==='lure'){
-    if(blocked(cx,cy)){say('바닥을 탭하세요');return;}
+    if(blocked(cx,cy)){say('어디로 보낼지 바닥을 짚어라.');return;}
     act={type:'lure',x:cx,y:cy};
   }else if(md==='breach'){
     var bw=null;best=46;
     for(var y=0;y<ROWS;y++)for(var x=0;x<COLS;x++)if(cell(x,y)==='W'){q=PF(x+0.5,y+0.5);d=hyp(q[0]-ix,q[1]-(M.hts.W||22)/2-iy);if(d<best){best=d;bw=[x,y];}}
     if(bw)act={type:'breach',x:bw[0],y:bw[1]};
-    else{act=mv();if(!act){say('주황색으로 깜빡이는 약한 벽을 탭하세요');return;}}
+    else{act=mv();if(!act){say('금 간 벽을 짚어라. 주황색으로 깜빡인다.');return;}}
   }else if(md==='carry'){
     if(bh)act={type:'pick',id:bh.id};
     else{act=mv();if(!act)return;}
@@ -1591,7 +1613,7 @@ function doAct(a,v){
   else if(a==='sab')issue(A,{type:'sab'});
   else if(a==='plan'){if(!plan){plan=true;S.ops.forEach(function(o){o.queue=[];o.cur=null;o.path=[];o.run=false;o.aim=0;});makeGhosts();}else plan=false;}
   else if(a==='cancel'){S.ops.forEach(function(o){o.queue=[];});plan=false;}
-  else if(a==='save'){save();say('저장됨');}
+  else if(a==='save'){save();say('여기까지는 지켰다.');}
   else if(a==='load')load();
 }
 $('panel').addEventListener('click',function(e){var b=e.target.closest?e.target.closest('[data-a]'):null;if(b)doAct(b.getAttribute('data-a'),b.getAttribute('data-v'));});
