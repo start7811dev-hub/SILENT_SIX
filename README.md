@@ -14,6 +14,7 @@
 | `tools/studio/` | 요원 풀세트 이미지 생성기(맥용, OpenAI 키 필요) |
 | `tools/map/` | 맵 그림에 격자를 맞출 때 쓰는 스크립트 |
 | `docs/CHANGELOG.md` | 버전별 변경 기록 |
+| `docs/STORY.md` | 세계관, 시즌 1 줄거리, 문구·이미지 규칙 |
 
 ## 실행
 

@@ -160,10 +160,10 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 @keyframes pgz{from{transform:scale(1.25) rotate(-8deg)}to{transform:scale(1) rotate(-8deg)}}
 @keyframes slam{from{transform:scale(2.6);opacity:0}to{transform:none;opacity:1}}
 /* ON MISSION */
-#op .tc img.b{filter:grayscale(.55) contrast(1.28) brightness(1.02)}
+#op .tc img.b{filter:grayscale(.4) contrast(1.2) brightness(1.4)}
 #op .tc img.g{filter:grayscale(1) contrast(1.5) sepia(1) hue-rotate(-50deg) saturate(6);mix-blend-mode:screen;opacity:0;animation:rgb var(--d) steps(1) both}
 @keyframes rgb{0%{transform:translate(16px,-4px);opacity:.75}9%{transform:translate(-10px,3px);opacity:.55}18%{transform:translate(5px,0);opacity:.4}26%,100%{transform:none;opacity:0}}
-#op .tc .tone{background:linear-gradient(rgba(70,120,180,.4),rgba(10,20,40,.55));mix-blend-mode:multiply}
+#op .tc .tone{background:linear-gradient(rgba(120,160,210,.28),rgba(30,45,70,.4));mix-blend-mode:multiply}
 #op .tc .wash{background:var(--c);mix-blend-mode:overlay;opacity:.3}
 #op .tc .scan{background:repeating-linear-gradient(0deg,rgba(0,0,0,.3) 0 1px,transparent 1px 3px)}
 #op .tc .vg{background:radial-gradient(ellipse at 50% 40%,transparent 42%,rgba(2,5,10,.62) 100%)}
@@ -214,7 +214,7 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #op .st div:nth-child(even){animation-name:std}
 @keyframes stu{from{transform:translateY(105%)}to{transform:none}}
 @keyframes std{from{transform:translateY(-105%)}to{transform:none}}
-#op .st img{filter:grayscale(.45) contrast(1.25) brightness(.95);object-position:50% 10%}
+#op .st img{filter:grayscale(.3) contrast(1.15) brightness(1.2);object-position:50% 10%}
 #op .st div:after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--c)}
 #op .st h3{position:absolute;left:0;right:0;top:50%;margin:0;text-align:center;font-size:25vw;line-height:.85;font-weight:800;color:#fff;mix-blend-mode:difference;animation:slam .2s .75s both}
 @media (orientation:landscape){#op .tc .rw,#op .pl-c h3,#op .st h3{font-size:22vh}#op .pl-n h3,#op .pl-g h3{font-size:16vh}#op .pl-g h2,#op .sx .bw{font-size:36vh}#op .pl-k h3{font-size:14vh}}
@@ -293,6 +293,59 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #op .osel .ot.lk{flex:0 0 62px;min-height:62px;opacity:.6}
 #op .osel .ot.lk b{font-size:14px;letter-spacing:.3em}
 #op .osel p{margin:2px 0 0;font:500 12px/1.4 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:var(--dim)}
+#op .rp .im{animation:var(--cam) var(--d) both}
+@keyframes rz{0%{transform:scale(2.7);filter:blur(12px);animation-timing-function:cubic-bezier(.05,.8,.2,1)}16%{transform:scale(1.2);filter:blur(0);animation-timing-function:linear}82%{transform:scale(1.3);filter:blur(0);animation-timing-function:cubic-bezier(.75,0,1,.45)}100%{transform:scale(2.1);filter:blur(10px)}}
+@keyframes rl{0%{transform:translateX(75%) scale(1.5);filter:blur(14px);animation-timing-function:cubic-bezier(.05,.8,.2,1)}16%{transform:translateX(2%) scale(1.3);filter:blur(0);animation-timing-function:linear}82%{transform:translateX(-3%) scale(1.3);filter:blur(0);animation-timing-function:cubic-bezier(.75,0,1,.45)}100%{transform:translateX(-75%) scale(1.45);filter:blur(14px)}}
+@keyframes rr{0%{transform:translateX(-75%) scale(1.5);filter:blur(14px);animation-timing-function:cubic-bezier(.05,.8,.2,1)}16%{transform:translateX(-2%) scale(1.3);filter:blur(0);animation-timing-function:linear}82%{transform:translateX(3%) scale(1.3);filter:blur(0);animation-timing-function:cubic-bezier(.75,0,1,.45)}100%{transform:translateX(75%) scale(1.45);filter:blur(14px)}}
+@keyframes ru{0%{transform:scale(2.1) translateY(-27%);filter:blur(10px);animation-timing-function:cubic-bezier(.05,.8,.2,1)}18%{transform:scale(1.62) translateY(-7%);filter:blur(0);animation-timing-function:linear}82%{transform:scale(1.55) translateY(9%);filter:blur(0);animation-timing-function:cubic-bezier(.75,0,1,.45)}100%{transform:scale(1.75) translateY(30%);filter:blur(10px)}}
+@keyframes rd{0%{transform:scale(2) translateY(26%);filter:blur(10px);animation-timing-function:cubic-bezier(.05,.8,.2,1)}18%{transform:scale(1.6) translateY(9%);filter:blur(0);animation-timing-function:linear}82%{transform:scale(1.55) translateY(-6%);filter:blur(0);animation-timing-function:cubic-bezier(.75,0,1,.45)}100%{transform:scale(1.8) translateY(-28%);filter:blur(10px)}}
+@keyframes rs{0%{transform:scale(2.4) rotate(-16deg);filter:blur(12px);animation-timing-function:cubic-bezier(.05,.8,.2,1)}16%{transform:scale(1.28) rotate(0);filter:blur(0);animation-timing-function:linear}82%{transform:scale(1.34) rotate(1.6deg);filter:blur(0);animation-timing-function:cubic-bezier(.75,0,1,.45)}100%{transform:scale(2) rotate(12deg);filter:blur(10px)}}
+#op .rp.sx{animation:none}
+#op .fl{background:#fff;animation:flh .22s ease-out both}
+@keyframes flh{from{opacity:.75}to{opacity:0}}
+#op .sx .tx2 b{font-size:54px;letter-spacing:.02em;line-height:.9;font-weight:800;opacity:1;animation:slam .22s .12s cubic-bezier(.2,.9,.2,1) both}
+#op .sx .tx2 b:after{content:"";display:block;width:54px;height:4px;background:var(--c);margin-top:8px}
+#op .sx .tx2 em{font-size:22px;margin-top:10px}
+#op .st.sa img{filter:saturate(1.25) contrast(1.05) brightness(1.02)}
+#op .st h3.km{top:auto;bottom:14%;mix-blend-mode:normal;font:800 8.6vw/1.25 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:-.02em;text-shadow:0 2px 22px rgba(0,0,0,.95),0 0 4px rgba(0,0,0,.9);animation:fup .5s .85s both}
+#op .st u.kv{position:absolute;left:0;right:0;top:calc(18px + env(safe-area-inset-top));text-align:center;text-decoration:none;font-size:11px;letter-spacing:.42em;font-weight:700;color:#fff;animation:fup .4s .6s both}
+#op .st:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(6,8,11,.35),rgba(6,8,11,0) 30%,rgba(6,8,11,0) 55%,rgba(6,8,11,.82));pointer-events:none}
+#op .st h3,#op .st u{z-index:2}
+@media (orientation:landscape){#op .st h3.km{font-size:7vh}}
+#hm .ht.pic{background:var(--tile)}
+#hm .ht.pic .bg{position:absolute;inset:0;background:center 12%/cover}
+#hm .ht.pic.lock .bg{filter:blur(9px) brightness(.8);transform:scale(1.15)}
+#ms{position:fixed;inset:0;z-index:9;background:#06080b;display:flex;flex-direction:column}
+#ms.hide{display:none}
+#ms .mv{position:relative;flex:1;min-height:0;display:flex;overflow:hidden}
+#ms .mv .ag{position:relative;flex:1;overflow:hidden;animation:msi .55s cubic-bezier(.1,.85,.2,1) both}
+#ms .mv .ag+div{border-left:3px solid #06080b;animation-delay:.08s}
+#ms .mv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 12%;animation:msz 9s ease-out both}
+#ms .mv .ag:after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--c)}
+#ms .mv .ag b{position:absolute;left:12px;bottom:14px;z-index:1;font-size:13px;letter-spacing:.34em;font-weight:700;color:#fff;text-shadow:0 1px 8px #000}
+#ms .mv .ag b i{font-style:normal;color:var(--c);margin-right:8px}
+#ms .mv:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(6,8,11,.55),rgba(6,8,11,0) 26%,rgba(6,8,11,0) 62%,rgba(6,8,11,.9));pointer-events:none}
+@keyframes msi{from{transform:translateY(8%);opacity:0}to{transform:none;opacity:1}}
+@keyframes msz{from{transform:scale(1.16)}to{transform:scale(1.02)}}
+#ms .mt{position:absolute;left:16px;right:16px;top:calc(14px + env(safe-area-inset-top));z-index:2}
+#ms .mt i{font-style:normal;font-size:11px;letter-spacing:.36em;color:var(--c);font-weight:700}
+#ms .mt h2{margin:4px 0 0;font:800 40px/1.05 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:-.03em;text-shadow:0 2px 18px rgba(0,0,0,.8)}
+#ms .mb{padding:14px 16px calc(16px + env(safe-area-inset-bottom));max-width:560px;width:100%;margin:0 auto;box-sizing:border-box}
+#ms .mg{font:600 15px/1.45 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+#ms .mg span{display:block;padding-left:16px;position:relative}
+#ms .mg span:before{content:"";position:absolute;left:2px;top:8px;width:6px;height:6px;background:var(--c);transform:rotate(45deg)}
+#ms .bdg{display:flex;gap:6px;margin:12px 0}
+#ms .bdg span{flex:1;background:var(--tile);padding:7px 8px;font:600 11.5px/1.3 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:#aeb7c2}
+#ms .bdg span b{display:block;color:var(--ink);font-size:12.5px}
+#ms .bdg span.on b{color:var(--c)}
+#ms .mbt{display:flex;gap:6px}
+#ms .mbt button{height:54px;font-size:15px;font-weight:700;letter-spacing:.06em;font-family:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;flex:0 0 76px}
+#ms .mbt button.go{flex:1;background:var(--ink);color:#0a0d11;font-size:18px}
+#tip{pointer-events:auto;margin-left:10px;height:30px;padding:0 11px 0 12px;font-size:11px;letter-spacing:.24em;font-weight:700;background:rgba(255,255,255,.1);color:var(--ink)}
+#top .tr{display:flex;align-items:center}
+#ovx ul.tips{margin:6px 0 14px;padding:0;list-style:none}
+#ovx ul.tips li{position:relative;padding:7px 0 7px 16px;border-bottom:1px solid rgba(255,255,255,.07);font:500 14px/1.45 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+#ovx ul.tips li:before{content:"";position:absolute;left:2px;top:14px;width:6px;height:6px;background:var(--c);transform:rotate(45deg)}
 #ro{position:fixed;inset:0;z-index:10;background:#06080b;display:flex;flex-direction:column;--c:#ff3b52}
 #ro.hide{display:none}
 #rot{display:flex;gap:3px;padding:10px 10px 8px}
@@ -323,7 +376,7 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 <body>
 <div id="app" class="pre">
   <div id="main">
-    <div id="top"><div><small>OBJECTIVE</small><div id="obj"></div></div><div id="time">0:00</div></div>
+    <div id="top"><div><small>OBJECTIVE</small><div id="obj"></div></div><div class="tr"><div id="time">0:00</div><button id="tip">TIP</button></div></div>
     <div id="wrap"><canvas id="cv"></canvas>
       <div id="ov" class="hide"><div id="card"><img id="ovi" class="hide" alt=""><h2 id="ovs"></h2><h1 id="ovt"></h1><div id="ovx"></div><div id="ovb"></div></div></div>
     </div>
@@ -333,6 +386,7 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 <div id="sc" class="hide"><img id="sci" alt=""><div id="scb"><div id="sck"></div><div id="sch"></div><div id="scp"></div><div id="scn"></div></div></div>
 <div id="op" class="hide"></div>
 <div id="hm" class="hide"></div>
+<div id="ms" class="hide"></div>
 <div id="ro" class="hide"><div id="rot"></div><div id="row"><div id="roc"></div><button id="rop">‹</button><button id="ron2">›</button></div>
  <div id="rob"><div id="rol"></div><div id="rodots"></div><div id="ron"></div><div id="rog"></div><div id="rod"></div><button id="rox">돌아가기</button></div></div>
 <script>
@@ -387,6 +441,21 @@ var MIS=[
  brief:'<ul>'+RULES+'<li>닥의 <b>마취 다트</b>: 5칸 안의 적을 소리 없이 재운다. 세 발뿐이고, 맞은 적은 다시 깨어난다.</li><li><b>응급 처치</b>는 닥만 할 수 있다. 4초가 걸린다.</li><li>이 판에는 해커가 없다. 카메라는 고개를 돌릴 때 지나가거나 쏴서 끈다.</li></ul>'}
 ];
 var NBASE=MIS.length;
+var WORLD=['국가가 부인하는 일만 맡는 여섯 명이 있다. 서류상 부서 이름은 제6과. 안에서는 그냥 식스라고 부른다.','상대는 헬리오스. 겉은 민간 경비 회사고, 속은 분쟁 지역에 무기와 정보를 대는 중개상이다.','헬리오스가 식스 요원의 신원 명단을 샀다. 판 사람은 아직 모른다. 흩어진 여섯을 다시 모으면서 명단을 따라간다.'];
+[{img:'a_raven_6.jpg',copy:'들어간 적<br>없는 걸로.',pre:'항구 3번 창고. 헬리오스에 잡힌 우리 연락책이 있다. 레이븐 혼자 간다.',post:['연락책을 데리고 나왔다.','그가 말했다. 식스의 명단이 팔렸다고.']},
+ {img:'a_viper_7.jpg',copy:'탑 위는<br>바이퍼 몫.',pre:'명단은 산길 통신 기지를 거쳐 나간다. 중계 장비를 끊는다. 바이퍼가 위에서 본다.',post:['전송은 절반에서 끊겼다.','나머지 절반은 이미 헬리오스 서버에 있다.']},
+ {img:'a_glitch_6.jpg',copy:'카메라부터<br>재운다.',pre:'헬리오스 위장 법인 사무실. 서버에 명단을 산 쪽의 기록이 있다. 글리치가 눈을 맡는다.',post:['구매 기록을 떴다.','대금은 돈이 아니었다. 폐광에 쌓아 둔 무기였다.']},
+ {img:'a_brick_6.jpg',copy:'정문은<br>안 쓴다.',pre:'폐광 안쪽 무기고. 명단값으로 넘어간 물건이다. 브릭이 길을 낸다.',post:['무기고는 무너졌다.','거래를 주선한 사람이 남았다. 헬리오스의 후원자.']},
+ {img:'a_mirage_7.jpg',copy:'오늘은<br>손님으로 간다.',pre:'후원자 저택의 파티. 서재 금고에 거래 장부가 있다. 워든이 지킨다. 미라주가 얼굴을 빌린다.',post:['장부를 들고 나왔다.','명단을 넘긴 사람 칸에는 이름 대신 사번이 적혀 있다. 제6과 사번이다.']},
+ {img:'a_doc_6.jpg',copy:'한 명도<br>안 두고 간다.',pre:'그 사번을 아는 정보원이 헬리오스 격리 병동에 누워 있다. 총을 맞았다. 살려서 데려올 사람은 닥뿐이다.',post:['정보원은 제 발로 걸어 나왔다.','여섯이 다 모였다. 명단은 안에서 나갔다. 이제 그 사람을 찾는다.']}
+].forEach(function(o,i){var k;for(k in o)MIS[i][k]=o[k];});
+var TIPS=['바닥을 누르면 이동한다. 적을 누르면 그 요원의 주 행동이 바로 나간다.','아래 타일에서 다른 행동을 골라 둔 채로도 바닥을 누르면 이동한다.','호박색 부채꼴이 경비병 시야다. 앉으면 안쪽 짙은 부분에서만 걸린다.','서서 걸으면 1.5칸 안의 적이 발소리를 듣는다. 붙을 때는 앉는다.','기절한 적은 시간이 지나면 깬다. 죽이면 안 깨지만 점수가 깎인다.','쓰러진 적이 다른 경비병 눈에 띄면 조사하러 온다. 안 보이는 곳으로 옮긴다.','사거리 밖의 대상을 누르면 요원이 쏠 수 있는 자리까지 알아서 간다.','PLAN을 누르면 시간이 멈춘다. 명령을 쌓아 두고 한 번에 푼다.','SAVE는 아끼지 않는다. 다만 퀵로드를 쓰면 점수가 깎인다.'];
+function missionTips(){var o=[],re=/<li>([\s\S]*?)<\/li>/g,m,b=(M.brief||'').replace(RULES,'');while((m=re.exec(b)))o.push(m[1]);return o;}
+function tips(back){
+  var mt=started||back?missionTips():[];
+  overlay('TIP','HOW TO PLAY',(mt.length?'<label>이 미션</label><ul class="tips">'+mt.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul>':'')+'<label>기본</label><ul class="tips">'+TIPS.map(function(t){return '<li>'+t+'</li>';}).join('')+'</ul>',[['닫기',function(){hideOv();TIPON=false;if(back)back();},true]],null,true);
+}
+var TIPON=false;
 [100,240,180,100,140,130].forEach(function(p,i){MIS[i].par=p;MIS[i].bc=['nokill','onesnipe','noinv','noload','ghost','nogun'][i];});
 var STORY={
 raven:{ch:[
@@ -425,7 +494,7 @@ Object.keys(STORY).forEach(function(id){
   SIDX[id]=[];
   STORY[id].ch.forEach(function(c,ci){
     var B=MIS[c.b],m={},k;for(k in B)m[k]=B[k];
-    m.title=c.t;m.code='STORY // '+OPD[id].n+' '+(ci+1)+'/3';m.copy=c.copy;m.pre=c.pre;m.post=c.post;m.img='p_'+id+'.jpg';
+    m.title=c.t;m.code='STORY // '+OPD[id].n+' '+(ci+1)+'/3';m.copy=c.copy;m.pre=c.pre;m.post=c.post;m.img='a_'+id+'_'+(ci%2)+'.jpg';
     m.ops=[{id:id,x:B.ops[0].x,y:B.ops[0].y}];
     m.guards=B.guards.filter(function(g,gi){return c.drop.indexOf(gi)<0;});
     if(B.objective){m.objective={x:B.objective.x,y:B.objective.y,use:B.objective.use,label:c.ol,verb:c.ov,time:B.objective.time};m.goal0=c.ol+' — '+c.ov;}
@@ -435,7 +504,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.10.0';
+var VERSION='0.11.0';
 var PROG={c:{},s:{},b:{},end:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -446,31 +515,31 @@ function bm(i){var g=PROG.b[i]||[];return '<i class="bm">'+[0,1,2].map(function(
 function soon(t,sub,body,back,img){overlay(t,sub,body,[['돌아가기',back||home]],img||null,true);}
 function home(){
   started=false;setPre(true);hideOv();
-  var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen();
+  var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen(),rnd=function(){return 'a_'+ids[fl(Math.random()*6)]+'_'+(2+fl(Math.random()*6))+'.jpg';};
   $('hm').className='';
   $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><span>'+DF.n+'</span></div>'+
    '<div class="hh"><img src="a_'+a+'_'+(4+fl(Math.random()*2))+'.jpg" alt=""><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
    '<button class="ht main" data-h="main"><i>MAIN MISSION · SEASON 1</i><b>메인 미션</b><u>'+n+' / '+NBASE+' 완료 · 시즌마다 추가</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
-   '<div class="h4"><button class="ht pic'+(lk?' lock':'')+'" data-h="story" style="background-image:url(e_'+b+'.jpg)"><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'시즌 1 클리어 시':'요원별 3판')+'</u></button>'+
-   '<button class="ht pic soon" data-h="season" style="background-image:url(a_doc_0.jpg)"><i>SEASONAL</i><b>시즈널 미션</b><u>사계절 · 명절</u></button>'+
-   '<button class="ht pic soon" data-h="special" style="background-image:url(a_mirage_1.jpg)"><i>SPECIAL</i><b>스페셜 미션</b><u>스토리 · 코스튬</u></button></div>'+
+   '<div class="h4"><button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="background-image:url(a_'+b+'_'+fl(Math.random()*2)+'.jpg)"></span><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'시즌 1 클리어 시':'요원별 3판')+'</u></button>'+
+   '<button class="ht pic soon" data-h="season"><span class="bg" style="background-image:url('+rnd()+')"></span><i>SEASONAL</i><b>시즈널 미션</b><u>사계절 · 명절</u></button>'+
+   '<button class="ht pic soon" data-h="special"><span class="bg" style="background-image:url('+rnd()+')"></span><i>SPECIAL</i><b>스페셜 미션</b><u>스토리 · 코스튬</u></button></div>'+
    '<div class="hf">SILENT SIX v'+VERSION+'</div></div>'+
    '<div class="hn"><button data-h="agents"><i>AGENTS</i><b>요원</b></button><button data-h="box"><i>BLACK BOX</i><b>블랙박스</b></button><button data-h="shop"><i>SHOP</i><b>SHOP</b></button><button data-h="rank"><i>RANKING</i><b>랭킹</b></button><button data-h="set"><i>SETTINGS</i><b>설정</b></button></div>';
 }
 function hmHide(){$('hm').className='hide';$('hm').innerHTML='';}
 function seasons(){
   hmHide();started=false;setPre(true);
-  overlay('메인 미션','MAIN MISSION // SEASON SELECT','<p>시즌제로 이어진다. 지난 시즌은 언제든 들어가서 다시 할 수 있다.</p>',[['<b>S1</b>여섯이 모이기까지<i class="bm">'+mainDone()+' / '+NBASE+'</i>',menu],['<b>S2</b>누가 흘렸나<i class="lk">COMING</i>',function(){soon('SEASON 2','MAIN MISSION // COMING','<p>시즌 1에서 모인 여섯이 내부의 배신자를 쫓는다. 준비 중.</p>',seasons);}],['돌아가기',home]],null,true);
+  overlay('메인 미션','MAIN MISSION // SEASON SELECT','<p>'+WORLD.join('</p><p>')+'</p><p style="color:var(--dim)">시즌제로 이어진다. 지난 시즌은 언제든 다시 할 수 있다.</p>',[['<b>S1</b>여섯이 모이기까지<i class="bm">'+mainDone()+' / '+NBASE+'</i>',menu],['<b>S2</b>누가 흘렸나<i class="lk">COMING</i>',function(){soon('SEASON 2','MAIN MISSION // COMING','<p>시즌 1에서 모인 여섯이 내부의 배신자를 쫓는다. 준비 중.</p>',seasons);}],['돌아가기',home]],null,true);
 }
 function seasonal(){
   hmHide();
   var L=[['SPRING','봄 — 벚꽃 축제 경호선'],['SUMMER','여름 — 휴양지 리조트 잠입'],['AUTUMN','가을 — 수확제 가면 행렬'],['WINTER','겨울 — 설산 산장'],['설','설 — 귀성 열차'],['추석','추석 — 보름달 아래 한옥 마을']];
-  overlay('시즈널 미션','SEASONAL // 사계절 · 명절','<p>계절과 명절에 맞춰 기간 한정으로 여는 이벤트 미션. 본편과 이어지지 않고, 전용 착장과 배지가 걸린다.</p>',L.map(function(x){return ['<b>'+x[0]+'</b>'+x[1].split(' — ')[1]+'<i class="lk">SOON</i>',function(){soon(x[1],'SEASONAL // COMING','<p>준비 중. 열리면 배지 조건 3개와 전용 착장이 함께 들어간다.</p>',seasonal,'a_doc_0.jpg');}];}).concat([['돌아가기',home]]),null,true);
+  overlay('시즈널 미션','SEASONAL // 사계절 · 명절','<p>계절과 명절에 맞춰 기간 한정으로 여는 이벤트 미션. 본편과 이어지지 않고, 전용 착장과 배지가 걸린다.</p>',L.map(function(x){return ['<b>'+x[0]+'</b>'+x[1].split(' — ')[1]+'<i class="lk">SOON</i>',function(){soon(x[1],'SEASONAL // COMING','<p>준비 중. 열리면 배지 조건 3개와 전용 착장이 함께 들어간다.</p>',seasonal,'a_viper_5.jpg');}];}).concat([['돌아가기',home]]),null,true);
 }
 function special(){
   hmHide();
   var L=[['STORY','특별 스토리','본편 사이에 끼는 짧은 이야기 미션.'],['COSTUME','코스튬 미션','클리어하면 요원의 새 착장이 열린다.'],['EXTRA','번외 미션','규칙을 비튼 도전 미션. 제한 시간, 무장 해제, 1인 침투.']];
-  overlay('스페셜 미션','SPECIAL // 스토리 · 코스튬 · 번외','<p>특별 스토리와 코스튬, 번외 미션이 여기에 모인다. 배지로 여는 미션도 이쪽에 놓인다.</p>',L.map(function(x){return ['<b>'+x[0]+'</b>'+x[1]+'<i class="lk">SOON</i>',function(){soon(x[1],'SPECIAL // COMING','<p>'+x[2]+' 준비 중.</p>',special,'a_mirage_1.jpg');}];}).concat([['돌아가기',home]]),null,true);
+  overlay('스페셜 미션','SPECIAL // 스토리 · 코스튬 · 번외','<p>특별 스토리와 코스튬, 번외 미션이 여기에 모인다. 배지로 여는 미션도 이쪽에 놓인다.</p>',L.map(function(x){return ['<b>'+x[0]+'</b>'+x[1]+'<i class="lk">SOON</i>',function(){soon(x[1],'SPECIAL // COMING','<p>'+x[2]+' 준비 중.</p>',special,'a_mirage_5.jpg');}];}).concat([['돌아가기',home]]),null,true);
 }
 function agents(){
   hmHide();started=false;setPre(true);
@@ -538,7 +607,7 @@ function storyMenu(){
 }
 function storyAgent(id){
   started=false;setPre(true);
-  overlay(OPD[id].n,'PERSONAL // '+OPD[id].role,'<p>'+OPD[id].d+'</p>',STORY[id].ch.map(function(c,ci){return ['<b>0'+(ci+1)+'</b>'+c.t+bm(SIDX[id][ci]),function(){brief(SIDX[id][ci]);}];}).concat([['<b>S2</b>시즌 2 추가분<i class="lk">LOCKED</i>',function(){soon('시즌 2 추가분','PERSONAL // LOCKED','<p>메인 미션 시즌 2가 열리면 '+OPD[id].n+'의 다음 이야기가 함께 붙는다.</p>',function(){storyAgent(id);},'p_'+id+'.jpg');}],['돌아가기',storyMenu]]),'p_'+id+'.jpg',true);
+  overlay(OPD[id].n,'PERSONAL // '+OPD[id].role,'<p>'+OPD[id].d+'</p>',STORY[id].ch.map(function(c,ci){return ['<b>0'+(ci+1)+'</b>'+c.t+bm(SIDX[id][ci]),function(){brief(SIDX[id][ci]);}];}).concat([['<b>S2</b>시즌 2 추가분<i class="lk">LOCKED</i>',function(){soon('시즌 2 추가분','PERSONAL // LOCKED','<p>메인 미션 시즌 2가 열리면 '+OPD[id].n+'의 다음 이야기가 함께 붙는다.</p>',function(){storyAgent(id);},'p_'+id+'.jpg');}],['돌아가기',storyMenu]]),'a_'+id+'_0.jpg',true);
 }
 function ending(id){
   hideOv();setPre(true);PROG.end[id]=true;saveProg();
@@ -1087,36 +1156,36 @@ var OPS=[
  {img:'o1.jpg',c:'#ff3b52',k:'NO RECORD',l:['이 작전은','없었다.']},
  {img:'o2.jpg',c:'#b98cff',k:'NO BACKUP',l:['들키면','거기서 끝.']},
  {img:'o3.jpg',c:'#ff8a2a',k:'SIX IN',l:['여섯이','들어간다.']},
- {img:'p_raven.jpg',c:'#ff3b52',k:'TACTICAL STEALTH',title:true}],opi=0,opt=null;
+ {img:'a_raven_7.jpg',c:'#ff3b52',k:'TACTICAL STEALTH',title:true}],opi=0,opt=null;
 var OPCIN=false,OPQ=[],opq=0,opT=null,opFin=null;
 function opImg(id,i){return '<div class="sk2"><div class="im"><img class="b" src="a_'+id+'_'+i+'.jpg" alt=""><img class="g" src="a_'+id+'_'+i+'.jpg" alt=""></div></div>';}
-function opA(id,i,cam,d,word,name,line){
-  return {d:d,c:OPD[id].col,cls:'sx c-'+cam,h:opImg(id,i)+'<div class="ly tone"></div><div class="ly leak"></div><div class="ly vg"></div><div class="ly gr"></div>'+(word?'<div class="bw">'+word+'</div>':'')+(name?'<div class="tx2"><b>'+name+'</b><em>'+line+'</em></div>':'')};
+function opA(id,i,cam,d,name,line){
+  return {d:d,c:OPD[id].col,cls:'sx rp',cam:cam,h:opImg(id,i)+'<div class="ly tone"></div><div class="ly leak"></div><div class="ly vg"></div><div class="ly gr"></div><div class="ly fl"></div>'+(name?'<div class="tx2"><b>'+name+'</b><em>'+line+'</em></div>':'')};
 }
-function opB(id,i,cam,d,n,role,line){
-  return {d:d,c:OPD[id].col,snd:'hit',cls:'tc c-'+cam,h:opImg(id,i)+'<div class="ly tone"></div><div class="ly wash"></div><div class="ly scan"></div><div class="ly vg"></div><div class="ly hud"><i>REC CAM 0'+n+'</i><i>0'+n+' / 06</i>'+(line?'':'<i></i>')+'</div>'+(line?'<div class="nm"><b>'+OPD[id].n.toUpperCase()+'</b><u>'+role+'</u></div><div class="ln">'+line+'</div>':'<div class="rw">'+role+' '+role+'</div>')};
+function opB(id,i,cam,d,n,role,line,nv){
+  return {d:d,c:OPD[id].col,snd:'hit',cls:'tc rp'+(nv?' c-nv':''),cam:cam,h:opImg(id,i)+'<div class="ly tone"></div><div class="ly wash"></div><div class="ly scan"></div><div class="ly vg"></div><div class="ly fl"></div><div class="ly hud"><i>REC CAM 0'+n+'</i><i>0'+n+' / 06</i>'+(line?'':'<i></i>')+'</div>'+(line?'<div class="nm"><b>'+OPD[id].n.toUpperCase()+'</b><u>'+role+'</u></div><div class="ln">'+line+'</div>':'<div class="rw">'+role+' '+role+'</div>')};
 }
 function opP(cls,d,c,h,sd){return {d:d,c:c,cls:'pl '+cls,h:h,snd:sd};}
+function opEndCut(k,cls,label,msg){
+  return {d:3200,c:'#ff3b52',snd:'boom',cls:'st '+cls,h:['raven','viper','glitch','brick','mirage','doc'].map(function(id,n){return '<div style="--c:'+OPD[id].col+';animation-delay:'+(n*0.06)+'s"><img src="a_'+id+'_'+k[n]+'.jpg" alt=""></div>';}).join('')+'<u class="kv">'+label+'</u><h3 class="km">'+msg+'</h3>'};
+}
 function opSeqA(){
-  var q=[opP('pl-g',1300,'#ff3b52','<h2>Off duty</h2><h3>OFF DUTY</h3>')];
-  [['raven',0,'tilt',6,'push','Raven','퇴근했다.'],['viper',1,'drift',6,'tilt','Viper','오늘은 안 쏜다.'],['glitch',0,'tilt',7,'push','Glitch','로그아웃.'],['brick',0,'push',6,'tilt','Brick','쉬는 날엔 안 부순다.'],['mirage',0,'tilt',1,'drift','Mirage','이게 본모습. 아마.'],['doc',0,'tilt',6,'tiltd','Doc','진료 끝.']].forEach(function(a){
-    q.push(opA(a[0],a[1],a[2],1500,a[5],OPD[a[0]].n.toUpperCase(),a[6]));q.push(opA(a[0],a[3],a[4],950,a[5]));});
-  q.push(opP('pl-k',650,'#fff','<h3>호출.</h3>','alert'));
+  var q=[opP('pl-g',900,'#ff3b52','<h2>Day off</h2><h3>DAY OFF</h3>')],L=[['raven',2,'ru',3,'rz','몸이 먼저 기억한다.'],['viper',2,'rl',3,'ru','숨부터 고른다.'],['glitch',2,'rs',3,'rr','키보드만 치는 줄 알았지?'],['brick',3,'rz',2,'rl','한 판 더.'],['mirage',2,'ru',3,'rs','땀은 연기가 안 된다.'],['doc',2,'rr',3,'rd','아프면 말해. 봐주진 않아.']];
+  L.forEach(function(a){q.push(opA(a[0],a[1],a[2],1250,OPD[a[0]].n.toUpperCase(),a[5]));q.push(opA(a[0],a[3],a[4],620));});
+  q.push(opEndCut(L.map(function(a){return a[1];}),'sa','DAY-OFF VERSION','그녀들이 지금.<br>움직이기 시작한다.'));
   return q;
 }
 function opSeqB(){
-  var q=[opP('pl-n',1150,'#ff3b52','<h3><span>NO</span><span>RECORD</span></h3><p>이 작전은 없었다.</p>','hit'),opP('pl-c',260,'#ff3b52','<h3>SIX</h3><u>ON MISSION</u>','boom')];
-  [['raven',4,'snap',2,'whip','LEADER','먼저 들어간다.'],['viper',5,'whipl',4,'tupf','SNIPER','한 발이면 된다.'],['glitch',5,'snap',3,'whip','HACKER','카메라는 내 거.'],['brick',4,'tupf',5,'whipl','BREACHER','문이 없으면 만든다.'],['mirage',4,'whip',2,'snap','INFILTRATOR','누구로 보이든.'],['doc',2,'whipl',4,'tupf','MEDIC','전원 데리고 나온다.']].forEach(function(a,k){
-    q.push(opP('pl-c',170,OPD[a[0]].col,'<h3>0'+(k+1)+'</h3>','sup'));
-    q.push(opB(a[0],a[1],a[2]+(k%3===1?' c-nv':''),560,k+1,a[5]));q.push(opB(a[0],a[3],a[4],820,k+1,a[5],a[6]));});
-  q.push({d:1900,c:'#ff3b52',snd:'boom',cls:'st',h:['raven','viper','glitch','brick','mirage','doc'].map(function(id,k){return '<div style="--c:'+OPD[id].col+';animation-delay:'+(k*0.07)+'s"><img src="a_'+id+'_2.jpg" alt=""></div>';}).join('')+'<h3>SIX IN.</h3>'});
+  var q=[opP('pl-n',900,'#ff3b52','<h3><span>NO</span><span>RECORD</span></h3><p>이 작전은 없었다.</p>','hit'),opP('pl-c',220,'#ff3b52','<h3>SIX</h3><u>ON MISSION</u>','boom')],L=[['raven',7,'rz',6,'rl','LEADER','먼저 들어간다.'],['viper',6,'rr',7,'ru','SNIPER','한 발이면 된다.'],['glitch',7,'rs',6,'rl','HACKER','카메라는 내 거.'],['brick',6,'rz',7,'rr','BREACHER','문이 없으면 만든다.'],['mirage',6,'rl',7,'ru','INFILTRATOR','누구로 보이든.'],['doc',7,'rs',6,'rz','MEDIC','전원 데리고 나온다.']];
+  L.forEach(function(a,k){q.push(opP('pl-c',140,OPD[a[0]].col,'<h3>0'+(k+1)+'</h3>','sup'));q.push(opB(a[0],a[1],a[2],460,k+1,a[5],null,k%3===1));q.push(opB(a[0],a[3],a[4],820,k+1,a[5],a[6]));});
+  q.push(opEndCut(L.map(function(a){return a[3];}),'','MISSION VERSION','불가능은 없다.<br>어떤 상황에서도.'));
   return q;
 }
 function opStep(){
   var el=$('op'),c,d,old,i;
   if(opq>=OPQ.length){OPCIN=false;if(opFin)opFin();return;}
   c=OPQ[opq++];old=el.querySelectorAll('.cut');
-  d=document.createElement('div');d.className='cut '+c.cls;d.style.setProperty('--d',c.d+'ms');d.style.setProperty('--c',c.c);d.innerHTML=c.h;el.appendChild(d);
+  d=document.createElement('div');d.className='cut '+c.cls;d.style.setProperty('--d',c.d+'ms');d.style.setProperty('--c',c.c);if(c.cam)d.style.setProperty('--cam',c.cam);d.innerHTML=c.h;el.appendChild(d);
   for(i=0;i<old.length-1;i++)el.removeChild(old[i]);
   if(old.length)(function(o){setTimeout(function(){if(o.parentNode)o.parentNode.removeChild(o);},c.cls.indexOf('sx')>=0?420:0);})(old[old.length-1]);
   if(c.snd)snd(c.snd);
@@ -1131,8 +1200,8 @@ function opSelect(){
   started=false;setPre(true);hideOv();hmHide();$('sc').className='hide';if(opt)clearTimeout(opt);if(opT)clearTimeout(opT);
   OPCIN=true;var el=$('op');el.className='';
   el.innerHTML='<div class="osel"><i>OPENING</i><h2>오프닝 컨셉을<br>선택해 주세요.</h2>'+
-   '<button class="ot" data-o="a" style="background-image:url(a_mirage_0.jpg)"><b>DAY-OFF VERSION</b><u>비번의 여섯</u></button>'+
-   '<button class="ot" data-o="b" style="background-image:url(a_raven_4.jpg)"><b>MISSION VERSION</b><u>작전 중의 여섯</u></button>'+
+   '<button class="ot" data-o="a" style="background-image:url(a_brick_2.jpg)"><b>DAY-OFF VERSION</b><u>운동하는 날의 여섯</u></button>'+
+   '<button class="ot" data-o="b" style="background-image:url(a_viper_7.jpg)"><b>MISSION VERSION</b><u>작전 중의 여섯</u></button>'+
    '<button class="ot lk" data-o="x"><b>LOCKED</b><u>미션을 클리어하면 오프닝이 추가된다</u></button>'+
    '<p>오프닝은 설정에서 언제든 다시 볼 수 있다.</p></div><button class="sk" id="opsk">건너뛰기</button>';
 }
@@ -1140,7 +1209,7 @@ function opTitle(){OPCIN=false;opi=OPS.length-1;opShow();}
 function opening(v){
   started=false;setPre(true);hideOv();$('sc').className='hide';
   try{
-    if(v==='a')opCine(opSeqA(),opTitle);else if(v==='b')opCine(opSeqB(),opTitle);else opCine(opSeqA().concat(opSeqB()),opTitle);
+    if(v==='b')opCine(opSeqB(),opTitle);else opCine(opSeqA(),opTitle);
   }catch(e){OPCIN=false;opi=0;opShow();}
 }
 function opShow(){
@@ -1168,8 +1237,15 @@ $('hm').addEventListener('click',function(e){
   else if(h==='rank')ranking(0);
   else if(h==='set'){hmHide();settings();}
 });
+$('ms').addEventListener('click',function(e){
+  var m=e.target.dataset&&e.target.dataset.m;if(!m)return;
+  if(m==='go'){msHide();restart();}
+  else if(m==='tip'){msHide();tips(missionCard);}
+  else{msHide();if(M.story)storyAgent(M.story.id);else menu();}
+});
+$('tip').addEventListener('click',function(e){e.stopPropagation();if(!started||S.over)return;TIPON=true;tips();});
 $('op').addEventListener('click',function(e){var id=e.target&&e.target.id,oo=e.target&&e.target.dataset&&e.target.dataset.o;if(oo){if(oo!=='x')opening(oo);return;}if(id==='opsk'||id==='opgo')opEnd();else if(!OPCIN&&!OPS[opi].title)opNext();});
-var ROI='raven',ROK=0,FIT=['OFF-DUTY · 사복','AGENT UNIFORM · 요원복','SPECIAL MISSION · 특수임무복','TRAINING · 트레이닝'];
+var ROI='raven',ROK=0,FIT=['OFF-DUTY · 사복','TRAINING · 도발','AGENT UNIFORM · 액션','SPECIAL MISSION · 전투'];
 function roster(){hideOv();$('ro').className='';roShow(ROI);}
 function roShow(id){
   ROI=id;ROK=0;var d=OPD[id],el=$('ro'),h='',i;if(el.style&&el.style.setProperty)el.style.setProperty('--c',d.col);
@@ -1187,10 +1263,22 @@ function menu(){
   overlay('시즌 1','MAIN MISSION // '+DF.n,'<p>없던 걸로 해야 하는 일만 맡는다. 여섯이 모이기까지의 이야기. ◆는 딴 배지다. 다시 깨면 못 딴 배지를 채울 수 있다.</p>',MIS.slice(0,NBASE).map(function(m,i){return ['<b>0'+(i+1)+'</b>'+m.title+bm(i),function(){brief(i);}];}).concat([['돌아가기',seasons]]),null,true);
 }
 function brief(i){
-  setPre(true);hideOv();loadMission(i);S=newState();UIK='';
+  setPre(true);hideOv();hmHide();loadMission(i);S=newState();UIK='';
   var c=OPD[M.ops[M.ops.length-1].id].col;
-  scene([{k:M.code,h:M.copy,p:M.pre,img:M.img,c:c,end:'브리핑'}],function(){overlay(M.title,M.code,M.brief+'<label style="margin-top:12px">특임 배지 조건</label><table>'+badgeList().map(function(b,i){return '<tr><td>'+((PROG.b[MI]||[])[i]?'◆':'◇')+' '+b[0]+'</td><td style="text-align:left">'+b[1]+'</td></tr>';}).join('')+'</table>',[['작전 개시',restart,true],['뒤로',function(){if(M.story)storyAgent(M.story.id);else menu();}]],null);});
+  scene([{k:M.code,h:M.copy,p:M.pre,img:M.img,c:c,end:'브리핑'}],missionCard);
 }
+function missionCard(){
+  hideOv();setPre(true);started=false;
+  var got=PROG.b[MI]||[],el=$('ms'),st=!!M.story;
+  el.style.setProperty('--c',OPD[M.ops[M.ops.length-1].id].col);
+  el.className='';
+  el.innerHTML='<div class="mv">'+M.ops.map(function(o,k){var d=OPD[o.id];return '<div class="ag" style="--c:'+d.col+'"><img src="a_'+o.id+'_'+(st?(k+MI)%2:(M.ops.length>1?6+((k+MI)%2):7))+'.jpg" alt=""><b><i>'+d.role+'</i>'+d.n+'</b></div>';}).join('')+
+   '<div class="mt"><i>'+M.code+'</i><h2>'+M.title+'</h2></div></div>'+
+   '<div class="mb"><div class="mg"><span>'+M.goal0+'</span><span>'+M.goal1+'</span></div>'+
+   '<div class="bdg">'+badgeList().map(function(b,k){return '<span'+(got[k]?' class="on"':'')+'><b>'+(got[k]?'◆ ':'◇ ')+b[0]+'</b>'+b[1]+'</span>';}).join('')+'</div>'+
+   '<div class="mbt"><button data-m="back">뒤로</button><button data-m="tip">TIP</button><button class="go" data-m="go">미션 시작</button></div></div>';
+}
+function msHide(){$('ms').className='hide';$('ms').innerHTML='';}
 var BCOND={
  nokill:['무살상','아무도 죽이지 않는다',function(){return S.kills===0;}],
  onesnipe:['한 발','저격탄을 한 발 이하로 쓴다',function(){var ok=true;S.ops.forEach(function(o){if(o.id==='viper'&&o.ammo<2)ok=false;});return ok;}],
@@ -1329,7 +1417,7 @@ window.addEventListener('resize',resize);
 var prev=0;
 function frame(t){
   var dt=Math.min(0.05,(t-prev)/1000||0);prev=t;
-  if(started&&!plan&&!S.over){update(dt);if(S.over)showEnd();}
+  if(started&&!plan&&!S.over&&!TIPON){update(dt);if(S.over)showEnd();}
   hud();draw();requestAnimationFrame(frame);
 }
 try{var sd=+localStorage.getItem('s6diff');if(localStorage.getItem('s6diff')!==null&&sd>=0&&sd<4)setDiff(sd);}catch(e){}
