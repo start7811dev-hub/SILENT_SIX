@@ -410,6 +410,12 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #snow{position:fixed;inset:0;z-index:3;pointer-events:none;background-image:radial-gradient(2px 2px at 20px 30px,#fff,transparent),radial-gradient(2px 2px at 90px 120px,rgba(255,255,255,.8),transparent),radial-gradient(1.5px 1.5px at 150px 60px,#fff,transparent),radial-gradient(2.5px 2.5px at 60px 170px,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 180px 190px,#fff,transparent);background-size:210px 230px;animation:snw 7s linear infinite;opacity:.75}
 #snow.hide{display:none}
 @keyframes snw{from{background-position:0 0}to{background-position:60px 230px}}
+#pg .nv{padding:4px 4px 8px}
+#pg .nv p{font:400 16.5px/1.9 "Nanum Myeongjo","AppleMyungjo","Noto Serif KR","Apple SD Gothic Neo",serif;color:#e6e1d6;margin:0 0 1.05em;text-indent:1em;letter-spacing:-.01em}
+#pg .nv p.q{text-indent:0;color:var(--c);border-left:2px solid var(--c);padding:2px 0 2px 12px;font-size:15px;margin-top:1.6em}
+#pg .nv h3{font:800 19px/1.3 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;margin:2.2em 0 .9em;padding-top:1em;border-top:1px solid rgba(255,255,255,.12)}
+#pg .nv h3:first-child{margin-top:.4em;border-top:0;padding-top:0}
+#pg .nvb{display:block;width:100%;height:56px;margin:14px 0 6px;background:var(--ink);color:#0a0d11;font:800 17px/1 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
 #ro{position:fixed;inset:0;z-index:10;background:#06080b;display:flex;flex-direction:column;--c:#ff3b52}
 #ro.hide{display:none}
 #rot{display:flex;gap:3px;padding:10px 10px 8px}
@@ -471,7 +477,7 @@ var OPD={
 };
 var RULES='<li>바닥을 탭하면 이동, 적을 탭하면 주 행동을 쓴다. 다른 행동은 아래 타일에서 고르고, 고른 채로도 바닥을 탭하면 이동한다.</li><li>사거리 밖이면 요원이 알아서 접근한 뒤 쏜다.</li><li>호박색 빛이 경비병의 시야다. 앉으면 안쪽 짙은 영역에서만 들킨다.</li>';
 var MIS=[
-{title:'프롤로그',code:'MISSION 01 // RAVEN',copy:'들어간 적<br>없는 걸로.',pre:'항구 3번 창고. 인질 한 명. 레이븐 혼자 간다.',post:['인질은 살렸다.','근데 경비가 너무 많았다. 누가 흘렸다.'],img:'p_raven.jpg',
+{title:'혼자 남은 사람',code:'MISSION 01 // RAVEN',copy:'들어간 적<br>없는 걸로.',pre:'항구 3번 창고. 인질 한 명. 레이븐 혼자 간다.',post:['인질은 살렸다.','근데 경비가 너무 많았다. 누가 흘렸다.'],img:'p_raven.jpg',
  goal0:'창고 안쪽의 인질을 구출하라',goal1:'인질과 함께 탈출 지점으로',bg:'bg1.jpg',sk:0.5,wake:60,opaque:'#C',hts:{'#':48,'C':41},
  proj:[40.36966199438018,-42.60500456006069,935,21.18895698200694,21.949252490986424,165,-0.0017002562725694592,-0.0006548161911986566,1],
  MAP:["############","#....#.....#","#....#.....#","#....#.....#","#.CC.###.###","#..........#","#..CC..CC..#","#..........#","####.####..#","#.......#..#","#.CC....#..#","#.......C..#","#..####....#","#.....#.CC.#","#.....#....#","###.###.####","#..........#","#.CC...CC..#","#..........#","############"],
@@ -526,7 +532,7 @@ var TIPON=false;
 var STORY={
 raven:{ch:[
  {b:3,drop:[0],t:'빈자리',copy:'셋이 들어가서<br>둘이 나왔다.',pre:'3년 전 폐광 작전. 한 명이 못 나왔다. 레이븐이 그 기록을 다시 가지러 간다.',post:['기록은 찾았다.','철수 명령을 내린 건 본부였다. 레이븐이 아니라.'],ol:'작전 기록',ov:'회수'},
- {b:2,drop:[3],t:'서명',copy:'명령서엔<br>이름이 있다.',pre:'철수 명령서 원본이 헤일로스 법인 서버에 있다.',post:['서명을 확인했다.','당시 지휘관. 지금은 후원자 저택에 산다.'],ol:'명령서 원본',ov:'복사'},
+ {b:2,drop:[3],t:'서명',copy:'명령서엔<br>이름이 있다.',pre:'철수 명령서 원본이 헤일로스 법인 서버에 있다.',post:['서명을 확인했다.','설계자의 서명이다. 그날의 교신 녹음은 후원자 저택 금고에 있다.'],ol:'명령서 원본',ov:'복사'},
  {b:4,drop:[3],t:'대면',copy:'쏘러 온 게<br>아니다.',pre:'레이븐은 총을 두고 간다. 금고에서 꺼낼 건 그날의 교신 녹음이다.',post:['녹음을 들었다. 그 애는 스스로 남았다.','레이븐은 3년 만에 스카프를 풀었다.'],ol:'교신 녹음',ov:'회수'}],
  end:[['문은<br>잠그고 왔다.','새벽 두 시. 레이븐이 당신 방 문 앞에 서 있다. 보고서는 없다.'],['오늘은<br>대장 안 해.','"명령하지 마. 부탁도 하지 마. 그냥 있어." 스카프가 의자 등받이에 걸린다.'],['불은<br>네가 꺼.','그 뒤는 기록에 없다. 아침에 스카프는 당신 손목에 묶여 있었다.']]},
 viper:{ch:[
@@ -550,9 +556,9 @@ mirage:{ch:[
  {b:0,drop:[4],t:'맨얼굴',copy:'오늘은<br>아무도 아니다.',pre:'창고에 묶여 있는 건 그 남자다. 헤일로스가 버렸다.',post:['풀어 주고 돌아섰다.','미라주는 뒤돌아보지 않았다. 연기가 아니었다.']}],
  end:[['화장<br>지우고 왔어.','문을 여니 미라주다. 귀걸이도 향수도 없다. "이 얼굴 본 사람 몇 없어."'],['대사 없음.','그녀가 당신 넥타이를 풀어 제 손목에 감는다. 오늘은 대본이 없다고 했다.'],['막 내림.','불이 꺼진다. 그 뒤는 연기가 아니었다는 것만 적어 둔다.']]},
 doc:{ch:[
- {b:5,drop:[4],t:'차트',copy:'못 살린 사람은<br>다 기억한다.',pre:'닥이 군의관 시절 잃은 환자의 차트가 병동에 있다. 사인이 고쳐져 있다.',post:['원본 차트를 찾았다.','죽은 게 아니다. 실려 나갔다.'],ol:'원본 차트',ov:'회수'},
+ {b:5,drop:[4],t:'차트',copy:'못 살린 사람은<br>다 기억한다.',pre:'10년 전 사라진 선임 군의관의 차트가 병동에 있다. 사인이 고쳐져 있다.',post:['원본 차트를 찾았다.','죽은 게 아니다. 실려 나갔다.'],ol:'원본 차트',ov:'회수'},
  {b:1,drop:[0,4],t:'이송',copy:'살아 있으면<br>데리러 간다.',pre:'이송 기록은 통신기지에 남아 있다.',post:['기록을 떴다.','행선지는 항구 3번 창고.'],ol:'이송 기록',ov:'복사'},
- {b:0,drop:[2],t:'퇴원',copy:'이번엔<br>걸어서 나간다.',pre:'2년을 갇혀 있던 환자. 닥이 직접 데리고 나온다.',post:['환자는 제 발로 나왔다.','닥은 차트 맨 아래 칸에 "퇴원"이라고 썼다.']}],
+ {b:0,drop:[2],t:'퇴원',copy:'이번엔<br>걸어서 나간다.',pre:'10년을 갇혀 있던 선임. 닥이 직접 데리고 나온다.',post:['선임은 제 발로 나왔다.','닥은 차트 맨 아래 칸에 "퇴원"이라고 썼다.']}],
  end:[['왕진<br>왔습니다.','닥이 가방을 내려놓는다. "어디가 아픈지는 내가 찾아."'],['맥박이<br>빠르네.','손목에 손가락 두 개. 그녀가 웃는다. "이건 처방이 따로 없어."'],['오늘은<br>안 재운다.','마취 다트는 가방에 그대로 있었다. 아침까지.']]}
 };
 var SIDX={};
@@ -560,7 +566,7 @@ Object.keys(STORY).forEach(function(id){
   SIDX[id]=[];
   STORY[id].ch.forEach(function(c,ci){
     var B=MIS[c.b],m={},k;for(k in B)m[k]=B[k];
-    m.title=c.t;m.code='STORY // '+OPD[id].n+' '+(ci+1)+'/3';m.copy=c.copy;m.pre=c.pre;m.post=c.post;m.img='a_'+id+'_'+(ci%2)+'.jpg';
+    m.title=c.t;m.code='PERSONAL // '+OPD[id].n+' '+(ci+1)+'/3';m.copy=c.copy;m.pre=c.pre;m.post=c.post;m.img='a_'+id+'_'+(ci%2)+'.jpg';
     m.ops=[{id:id,x:B.ops[0].x,y:B.ops[0].y}];
     m.guards=B.guards.filter(function(g,gi){return c.drop.indexOf(gi)<0;});
     if(B.objective){m.objective={x:B.objective.x,y:B.objective.y,use:B.objective.use,label:c.ol,verb:c.ov,time:B.objective.time};m.goal0=c.ol+' — '+c.ov;}
@@ -570,7 +576,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.12.0';
+var VERSION='0.13.0';
 var PROG={c:{},s:{},b:{},end:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -604,6 +610,67 @@ var SPECIAL=[
  ['brick','링 네임','지하 격투장','아무도 못 눕힌 챔피언. 딱 한 번 진 날이 있다. 진 이유는 상대의 주먹이 아니었다.'],
  ['mirage','첫 무대','카지노','딜러로 위장한 첫 임무. 표적과 보낸 사흘 동안 어디까지가 연기였는지 지금도 말하지 않는다.'],
  ['doc','야간 당직','야전병원','군의관 시절의 밤 근무. 살린 사람과 못 살린 사람, 그리고 규정으로는 안 되는 사이였던 한 사람.']];
+var NOVEL={pro:{t:'지워진 여섯',sub:'PROLOGUE',img:'a_raven_7.jpg',p:[
+ '제6과에는 간판이 없다. 예산서에는 "기타 운영비"라고 적히고, 조직도에는 5과 다음이 바로 7과다. 그 빈칸에 여섯 명이 있다.',
+ '여섯은 서로를 고른 적이 없다. 한 사람이 골랐다. 사람들은 그를 설계자라고 불렀다. 그는 여섯에게 같은 말을 했다. "너는 이미 죽은 사람이다. 그러니 죽을 걱정 없이 일할 수 있다."',
+ '여섯은 그 말이 위로인 줄 알았다. 경고였다는 건 설계자가 사라지고 3년이 지나서야 알게 된다.',
+ '상대는 헬리오스다. 겉은 민간 경비 회사고, 속은 남부 회랑의 전쟁에 무기와 정보를 대는 중개상이다. 제6과는 그 회사를 소리 없이 깎아 내는 부서였다. 3년 전 폐광 작전에서 한 명을 잃은 뒤로 제6과는 멈췄고, 여섯은 흩어졌다.',
+ '그리고 지금. 총선을 앞두고 남부 회랑 청문회가 열린다. 같은 달에 제6과의 명단이 헬리오스로 넘어갔다. 여섯의 본명, 얼굴, 가족.',
+ '흩어진 여섯 가운데 아직 현장에 남은 사람은 하나뿐이다.']},
+ch:[
+{t:'항구 3번 창고',pre:[
+ '레이븐은 3년 동안 혼자 일했다. 명령이 오면 하고, 안 오면 기다렸다. 그날 온 명령은 짧았다. 항구 창고에 잡힌 연락책을 데려올 것.',
+ '연락책은 제6과 사람이 아니다. 누군가 헬리오스 안에 심어 둔 회계 직원이다. 왜 그 사람을 구해야 하는지 레이븐은 묻지 않았다. 묻지 않는 게 3년 동안 살아남은 방법이었다.',
+ '창고에는 경비병이 여섯. 지원은 없다. 들어간 적 없는 걸로 해야 한다.'],post:[
+ '창고 밖에서 연락책은 한참 숨을 골랐다. 그러고는 고맙다는 말 대신 이렇게 말했다. "명단이 팔렸습니다. 여섯 명 전부요. 당신도 있어요."',
+ '레이븐은 믿지 않았다. 죽은 사람의 명단은 팔 수 없다고 생각했다. 연락책이 레이븐의 본명을 입에 올리기 전까지는.',
+ '그 이름을 소리로 들은 건 9년 만이었다.'],q:'죽은 사람으로 처리된 여섯의 본명을 아는 사람은 몇 명인가.'},
+{t:'산길 통신 기지',pre:[
+ '명단은 한 번에 넘어가지 않았다. 판 쪽이 값을 다 받을 때까지 절반만 보냈기 때문이다. 나머지 절반이 산길 통신 기지의 중계 장비를 지나고 있다.',
+ '레이븐은 바이퍼를 찾아갔다. 바이퍼는 사격장 관리인으로 살고 있었다. 돌아올 이유가 없다고 했다. 명단 얘기를 듣고는 한참 있다가 물었다. "그 명단에 내 관측수 이름도 있어?"',
+ '없었다. 그 사람은 여섯이 아니니까. 바이퍼는 그 대답을 듣고 총을 챙겼다. 안도해서가 아니었다. 그렇다면 그가 지금 어느 편에 서 있는지 알 것 같아서였다.',
+ '탑 위의 초병은 바이퍼 몫이다. 레이븐은 아래로 들어간다.'],post:[
+ '장비는 끊었다. 그러나 전송 기록을 보니 앞의 절반은 이미 도착해 있었다.',
+ '바이퍼는 능선에서 내려오며 탄 한 발을 주머니에 넣었다. 언제나 한 발은 남겨서 돌아온다. 누구에게 쓸 한 발인지는 말하지 않는다.'],q:'먼저 넘어간 절반에 누가 들어 있는가.'},
+{t:'위장 법인 사무실',pre:[
+ '누가 샀는지 알려면 헬리오스의 서버를 봐야 한다. 그 서버의 물류 프로그램을 짠 사람이 글리치다. 스무 살 때 외주로 받은 일이었다. 무엇을 실어 나르는 프로그램인지는 나중에 알았다.',
+ '글리치는 처음에 거절했다. 자기가 지운 이름이 그 명단에 있다는 말을 듣고도 웃었다. "지운 이름을 어떻게 팔아요."',
+ '레이븐은 대답 대신 접속 권한 목록을 보여 줬다. 글리치의 옛 계정이 살아 있었다. 누군가 글리치의 손버릇을 흉내 내 그 서버에 드나들고 있었다. 글리치는 웃음을 거두고 헤드폰을 목에 걸었다.',
+ '서버실까지 카메라가 석 대다. 글리치가 눈을 맡는다.'],post:[
+ '서버에서 나온 구매 기록은 이상했다. 대금이 돈이 아니었다. 폐광에 쌓아 둔 무기 한 창고였다. 그리고 판 사람의 계정은 헬리오스 바깥, 정부 망에서 들어온 것이었다.',
+ '로그 끝에 주석 한 줄이 남아 있었다. 변수 이름 짓는 버릇도, 줄 바꾸는 자리도 글리치와 똑같았다. "아직도 사탕 물고 일해?"',
+ '글리치는 입에 문 사탕을 깨물어 부쉈다. 그 줄을 지우지 않고 창을 닫았다.'],q:'정부 망 안에서 누가 무기를 값으로 받는가.'},
+{t:'폐광',pre:[
+ '폐광은 레이븐에게 3년 전 그 자리다. 레이븐은 이 판에 들어가지 않는다. 이유는 말하지 않았고 아무도 묻지 않았다. 대신 바이퍼가 브릭을 데리러 갔다.',
+ '브릭은 채석장에서 발파 일을 하고 있었다. 설명은 길게 필요 없었다. "헬리오스 창고"라는 말에서 이미 일어섰다. 브릭의 옛 분대는 남부 회랑의 벙커에 갇혔고 전원 사망으로 처리됐다. 문을 막은 폭약은 헬리오스의 물건이었다.',
+ '정문은 쓰지 않는다. 금 간 벽이 있으면 브릭이 문으로 만든다.'],post:[
+ '무기고는 무너졌다. 먼지가 가라앉을 때까지 브릭은 나오지 않았다. 바이퍼가 무전으로 불렀다. "뭐 봐?" 브릭이 대답했다. "도장."',
+ '상자마다 찍힌 검수 도장은 민간 회사의 것이 아니었다. 국가 조달 번호였다. 브릭이 군에 있을 때 매일 보던, 자기 분대에 보급품을 실어 오던 바로 그 번호 체계였다.',
+ '명단값으로 넘어간 무기는 헬리오스의 물건이 아니었다. 정부 창고에서 나온 것이었다.'],q:'순서가 거꾸로다. 명단을 판 게 아니라, 무기를 주고 여섯을 치워 달라고 산 것이라면.'},
+{t:'후원자 저택',pre:[
+ '거래를 주선한 사람은 헬리오스의 후원자다. 전직 장관. 그의 저택에서 선거 자금 파티가 열린다. 서재 금고에 거래 장부가 있다.',
+ '미라주는 부르지 않아도 왔다. 초대장을 받았기 때문이다. 본명으로. 보낸 사람은 헬리오스의 법무 책임자, 미라주가 오래전 임무로 접근했다가 임무가 끝난 뒤에도 잊지 못한 남자다.',
+ '미라주는 그 초대가 덫인지 내민 손인지 모른 채 드레스를 입었다. 저택에는 경호 책임자 워든이 있다. 변장을 알아보는 사람이다. 눈에 띄지 않고 지나가야 한다.'],post:[
+ '복도에서 워든과 마주쳤다. 미라주의 걸음도 시선도 완벽했다. 워든은 지나치다가 반 걸음을 늦췄다. "향수가 바뀌었네."',
+ '미라주의 심장이 한 번 건너뛰었다. 그 향수를 쓰던 시절을 아는 사람은 제6과 사람뿐이다. 워든은 그대로 걸어갔다. 경보는 울리지 않았다.',
+ '금고의 장부에는 명단을 넘긴 사람의 이름 대신 사번이 적혀 있었다. 제6과의 사번 체계였다. 그런데 여섯 중 누구의 것도 아닌 번호였다.'],q:'제6과에 일곱 번째 번호가 있는가.'},
+{t:'격리 병동',pre:[
+ '그 번호를 아는 사람이 하나 있다. 헬리오스에 잡힌 정보원이다. 총을 맞고 격리 병동에 누워 있다. 죽기 전에 데려와야 한다. 데려와도 살릴 사람이 없으면 소용없다.',
+ '닥은 변두리 의원에서 밤 진료를 보고 있었다. 레이븐이 "격리 병동"이라고 했을 때 닥은 진료 가방을 닫던 손을 멈췄다. 10년 전, 닥이 사망 진단서에 서명하지 않은 환자가 실려 간 곳이 거기였다.',
+ '닥은 간판을 내리지 않고 불만 끄고 나왔다. 금방 돌아올 생각이었다.'],post:[
+ '닥은 정보원의 가슴을 누르며 숫자를 셌다. 레이븐이 무전으로 시간이 없다고 했다. "알아. 근데 얘는 지금 죽는 중이고, 난 그걸 싫어해."',
+ '정보원은 눈을 뜨자마자 번호의 주인을 말했다. 일곱 번째 번호는 요원의 것이 아니었다. 지휘관 자리에 붙는 번호였다.',
+ '그날 밤 여섯이 처음으로 한 방에 모였다. 누구도 먼저 말하지 않았다. 여섯 명이 동시에 무전기를 봤다.',
+ '명단은 안에서 나갔다.'],q:'그 "안"은 어디까지인가.'}]};
+function reader(o){
+  var h=(o.img?'<div class="hero"><span class="bg" style="background-image:url('+o.img+')"></span></div>':'')+'<div class="nv">'+(o.html||o.p.map(function(x){return '<p>'+x+'</p>';}).join(''))+(o.q?'<p class="q">남는 의문 — '+o.q+'</p>':'')+'</div>'+(o.btn?'<button class="nvb" data-k="0">'+o.btn+'</button>':'');
+  page(o.t,o.sub,h,o.back,[o.next]);
+}
+function novelRead(n){
+  if(n==='p'){reader({t:NOVEL.pro.t,sub:'SEASON 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,back:blackbox});return;}
+  if(n==='all'){var h='<h3>프롤로그 — '+NOVEL.pro.t+'</h3>'+NOVEL.pro.p.map(function(x){return '<p>'+x+'</p>';}).join('');NOVEL.ch.forEach(function(c,i){h+='<h3>'+(i+1)+'장 — '+c.t+'</h3>'+c.pre.concat(c.post).map(function(x){return '<p>'+x+'</p>';}).join('')+'<p class="q">남는 의문 — '+c.q+'</p>';});reader({t:'여섯이 모이기까지',sub:'SEASON 1 // 전체',img:'a_raven_7.jpg',html:h,back:blackbox});return;}
+  var c=NOVEL.ch[+n];reader({t:c.t,sub:'SEASON 1 // '+(+n+1)+'장',img:mimg(+n),p:c.pre.concat(c.post),q:c.q,back:blackbox});
+}
 function bm(i,t){var g=PROG.b[i]||[];return '<'+(t||'i')+' class="bm">'+[0,1,2].map(function(k){return g[k]?'◆':'◇';}).join('')+'</'+(t||'i')+'>';}
 var PGB=null,PGA=[],PGH=null,RORET=null;
 function page(t,sub,html,back,acts,h){
@@ -622,7 +689,7 @@ function home(){
   $('hm').className='';
   $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><span>'+DF.n+'</span><button data-h="tip">TIP</button></div>'+
    '<div class="hh"><img src="a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg" alt=""><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
-   '<button class="ht main" data-h="main"><i>MAIN MISSION · SEASON 1</i><b>메인 미션</b><u>'+n+' / '+NBASE+' 완료 · 시즌마다 추가</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
+   '<button class="ht main" data-h="main"><i>STORY MISSION · SEASON 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' 완료 · 시즌마다 추가</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
    '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="background-image:url(a_'+b+'_'+fl(Math.random()*2)+'.jpg)"></span><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'시즌 1 클리어 시':'요원별 3판')+'</u></button>':'')+
    (flag('seasonal')?'<button class="ht pic" data-h="season"><span class="bg" style="background-image:url('+rnd()+')"></span><i>SEASONAL</i><b>시즈널 미션</b><u>블러디 크리스마스</u></button>':'')+
    (flag('special')?'<button class="ht pic soon" data-h="special"><span class="bg" style="background-image:url('+rnd()+')"></span><i>SPECIAL</i><b>스페셜 미션</b><u>프리퀄 · 코스튬</u></button>':'')+'</div>'+
@@ -631,20 +698,20 @@ function home(){
 }
 function hmHide(){$('hm').className='hide';$('hm').innerHTML='';}
 function seasons(){
-  page('메인 미션','MAIN MISSION','<p>'+WORLD.join('</p><p>')+'</p><div class="cg">'+cd(0,mimg(4),'여섯이 모이기까지',mainDone()+' / '+NBASE+' 완료',{w:1,eye:'SEASON 1',tag:'OPEN',on:1})+cd(1,'a_raven_7.jpg','누가 흘렸나','시즌 1을 끝내면 이어진다',{w:1,eye:'SEASON 2',tag:'COMING',lock:1})+'</div>',home,[menu,function(){info('누가 흘렸나','SEASON 2 // COMING','a_raven_7.jpg','<p>시즌 1에서 모인 여섯이 제6과 안의 배신자를 쫓는다. 준비 중.</p>',seasons);}]);
+  page('스토리 미션','STORY MISSION','<p>'+WORLD.join('</p><p>')+'</p><div class="cg">'+cd(0,mimg(4),'여섯이 모이기까지',mainDone()+' / '+NBASE+' 완료',{w:1,eye:'SEASON 1',tag:'OPEN',on:1})+cd(1,'a_raven_7.jpg','누가 흘렸나','시즌 1을 끝내면 이어진다',{w:1,eye:'SEASON 2',tag:'COMING',lock:1})+'</div>',home,[function(){if(PROG.pro)menu();else{PROG.pro=1;saveProg();reader({t:NOVEL.pro.t,sub:'SEASON 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,btn:'시즌 1 시작',next:menu,back:menu});}},function(){info('누가 흘렸나','SEASON 2 // COMING','a_raven_7.jpg','<p>시즌 1에서 모인 여섯이 제6과 안의 배신자를 쫓는다. 준비 중.</p>',seasons);}]);
 }
 function menu(){
   var L=[],A=[],i;for(i=0;i<NBASE;i++)if(vis(i)){(function(i){L.push(cd(A.length,mimg(i),MIS[i].title,MIS[i].code.split(' // ')[1],{no:'0'+(i+1),x:bm(i,'span'),tag:PROG.c[i]?'CLEAR':'',on:1}));A.push(function(){brief(i);});})(i);}
-  page('시즌 1','MAIN MISSION // '+DF.n,'<p>◆는 딴 배지다. 다시 깨면 못 딴 배지를 채울 수 있다.</p><div class="cg">'+L.join('')+'</div>',seasons,A);
+  page('시즌 1','STORY MISSION // '+DF.n,'<p>◆는 딴 배지다. 다시 깨면 못 딴 배지를 채울 수 있다.</p><div class="cg">'+L.join('')+'</div>',seasons,A);
 }
 function storyMenu(){
   var ids=Object.keys(STORY);
-  page('개인 미션','PERSONAL // SEASON 1','<p>요원마다 세 판. 끝까지 가면 그날 밤 이야기가 열린다. 메인 시즌이 올라올 때마다 더 붙는다.</p><div class="cg">'+ids.map(function(id,k){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return cd(k,'a_'+id+'_0.jpg',OPD[id].n,n+' / 3'+(PROG.end[id]?' · 그날 밤 ♥':''),{eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
+  page('개인 미션','PERSONAL // SEASON 1','<p>요원마다 세 판. 끝까지 가면 그날 밤 이야기가 열린다. 시즌이 올라올 때마다 더 붙는다.</p><div class="cg">'+ids.map(function(id,k){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return cd(k,'a_'+id+'_0.jpg',OPD[id].n,n+' / 3'+(PROG.end[id]?' · 그날 밤 ♥':''),{eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
 }
 function storyAgent(id){
   var L=[],A=[];
   STORY[id].ch.forEach(function(c,ci){var mi=SIDX[id][ci];if(!vis(mi))return;L.push(cd(A.length,mimg(mi),c.t,'',{no:'0'+(ci+1),x:bm(mi,'span'),tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
-  L.push(cd(A.length,'e_'+id+'.jpg','시즌 2 추가분','메인 시즌 2와 함께 열린다',{eye:'LOCKED',lock:1,tag:'LOCKED'}));A.push(function(){});
+  L.push(cd(A.length,'e_'+id+'.jpg','시즌 2 추가분','시즌 2와 함께 열린다',{eye:'LOCKED',lock:1,tag:'LOCKED'}));A.push(function(){});
   page(OPD[id].n,'PERSONAL // '+OPD[id].role,'<div class="hero"><span class="bg" style="background-image:url(a_'+id+'_1.jpg)"></span><div>'+OPD[id].tag.replace('<br>',' ')+'</div></div><div class="cg">'+L.join('')+'</div>',storyMenu,A);
 }
 function seasonal(){
@@ -664,14 +731,14 @@ function agents(){
 }
 function agentHub(id){
   var o=OPD[id],so=storyOpen();
-  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="background-image:url(a_'+id+'_7.jpg)"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p><div class="cg c3">'+cd(0,'a_'+id+'_2.jpg','갤러리','착장 8컷',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','스토리',so?'개인 미션':'시즌 1 클리어 시',{eye:'STORY',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',agents,
+  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="background-image:url(a_'+id+'_7.jpg)"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p><div class="cg c3">'+cd(0,'a_'+id+'_2.jpg','갤러리','착장 8컷',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','개인 미션',so?'요원별 3판':'시즌 1 클리어 시',{eye:'PERSONAL',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',agents,
    [function(){RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so)storyAgent(id);},function(){info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 1:1로 주고받는 이미지 채팅. 성인 인증과 결제 뒤에 열린다. 준비 중.</p>',function(){agentHub(id);});}]);
 }
 function blackbox(){
-  var ids=Object.keys(STORY),h='<p>미션에서 건진 것들이 쌓인다.</p><label>미션 클리어 이미지</label><div class="cg c3">',i;
+  var ids=Object.keys(STORY),nd=mainDone(),h='<p>미션에서 건진 것들이 쌓인다. 스토리 미션을 깰 때마다 그 장이 여기에 남는다.</p><label>소설 — 시즌 1 · 여섯이 모이기까지 ('+nd+' / '+NBASE+')</label><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'시즌 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div><label>미션 클리어 이미지</label><div class="cg c3">',i;
   for(i=0;i<NBASE;i++)h+=cd(99,mimg(i),MIS[i].title,'',{no:'0'+(i+1),lock:!PROG.c[i],tag:PROG.c[i]?'':'LOCKED'});
   h+='</div><label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
-  page('블랙박스','BLACK BOX',h,home);
+  page('블랙박스','BLACK BOX',h,home,[],function(e){var n=e.target.dataset.n;if(n!==undefined)novelRead(n);});
 }
 function shop(){
   page('SHOP','POINT · BADGE · STORE','<p>포인트는 미션 점수 100점당 1P로 쌓이고, 배지는 미션 조건을 채울 때마다 1개씩 생긴다.</p><div class="cg">'+cd(0,'a_glitch_3.jpg','포인트샵','소모품 · 프로필 꾸미기',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','요원 착장 · 추가 미션',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_1.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
@@ -685,7 +752,7 @@ function ranking(tab){
     h+='</table>';
   }else if(tab===1){
     var all=0,st=0,wn=0;for(i=0;i<MIS.length;i++){var q=PROG.s[i]||{},k;for(k in q){if(i<NBASE){tot[k]+=q[k];all+=q[k];}else if(MIS[i].winter)wn+=q[k];else st+=q[k];}}
-    h+='<table><tr><th>항목</th><th>기록</th></tr>'+DIFFS.map(function(d,k){return '<tr><td>시즌 1 합계 · '+d.n+'</td><td'+(tot[k]?' class="best"':'')+'>'+(tot[k]?tot[k].toLocaleString():'—')+'</td></tr>';}).join('')+'<tr><td>메인 미션</td><td>'+all.toLocaleString()+'</td></tr><tr><td>개인 미션</td><td>'+st.toLocaleString()+'</td></tr><tr><td>시즈널 미션</td><td>'+wn.toLocaleString()+'</td></tr><tr><td>총점</td><td class="best">'+(all+st+wn).toLocaleString()+'</td></tr><tr><td>특임 배지</td><td>'+badgeTotal()+' / '+(MIS.length*3)+'</td></tr></table>';
+    h+='<table><tr><th>항목</th><th>기록</th></tr>'+DIFFS.map(function(d,k){return '<tr><td>시즌 1 합계 · '+d.n+'</td><td'+(tot[k]?' class="best"':'')+'>'+(tot[k]?tot[k].toLocaleString():'—')+'</td></tr>';}).join('')+'<tr><td>스토리 미션</td><td>'+all.toLocaleString()+'</td></tr><tr><td>개인 미션</td><td>'+st.toLocaleString()+'</td></tr><tr><td>시즈널 미션</td><td>'+wn.toLocaleString()+'</td></tr><tr><td>총점</td><td class="best">'+(all+st+wn).toLocaleString()+'</td></tr><tr><td>특임 배지</td><td>'+badgeTotal()+' / '+(MIS.length*3)+'</td></tr></table>';
   }else{
     h+='<table><tr><th>요원</th><th>1</th><th>2</th><th>3</th><th>합계</th></tr>'+Object.keys(STORY).map(function(id){var sum=0;return '<tr><td>'+OPD[id].n+'</td>'+SIDX[id].map(function(mi){var q=PROG.s[mi]||{},b=0,k;for(k in q)if(q[k]>b)b=q[k];sum+=b;return '<td>'+(b?b.toLocaleString():'—')+'</td>';}).join('')+'<td class="best">'+(sum?sum.toLocaleString():'—')+'</td></tr>';}).join('')+'</table>';
   }
@@ -726,7 +793,7 @@ function adminLogin(msg){
 }
 function admin(){
   if(!ADM){adminLogin();return;}
-  var grp=[['메인 미션',function(i){return i<NBASE;}],['개인 미션',function(i){return !!MIS[i].story;}],['시즈널 — 블러디 크리스마스',function(i){return !!MIS[i].winter;}]];
+  var grp=[['스토리 미션',function(i){return i<NBASE;}],['개인 미션',function(i){return !!MIS[i].story;}],['시즈널 — 블러디 크리스마스',function(i){return !!MIS[i].winter;}]];
   var h='<p>여기서 바꾼 내용은 이 기기에 바로 적용된다. 모든 사용자에게 적용하려면 "설정 파일 받기"로 받은 config.json을 저장소의 public 폴더에 올린다.</p><label>구역 공개</label>'+[['story','개인 미션'],['seasonal','시즈널 미션'],['special','스페셜 미션'],['endings','그날 밤 이미지']].map(function(f){return '<div class="row"><span>'+f[1]+'</span><button data-f="'+f[0]+'"'+(flag(f[0])?' class="sel"':'')+'>'+(flag(f[0])?'공개':'비공개')+'</button></div>';}).join('');
   grp.forEach(function(g){h+='<label>'+g[0]+'</label>';MIS.forEach(function(m,i){if(!g[1](i))return;var imgs=[];m.ops.forEach(function(o){for(var k=0;k<8;k++)imgs.push('a_'+o.id+'_'+k+'.jpg');imgs.push('e_'+o.id+'.jpg');});var cur=mimg(i);
     h+='<div class="row"><span>'+m.title+'<small>'+m.key+'</small></span><select data-i="'+i+'">'+imgs.map(function(f){return '<option'+(f===cur?' selected':'')+'>'+f+'</option>';}).join('')+'</select><button data-v="'+i+'"'+(vis(i)?' class="sel"':'')+'>'+(vis(i)?'공개':'비공개')+'</button></div>';});});
@@ -1360,7 +1427,7 @@ function opEnd(){if(opt)clearTimeout(opt);if(opT)clearTimeout(opT);OPCIN=false;$
 $('hm').addEventListener('click',function(e){
   var t=e.target;while(t&&t!==this&&!(t.dataset&&t.dataset.h))t=t.parentNode;if(!t||t===this)return;var h=t.dataset.h;
   if(h==='main')seasons();
-  else if(h==='story'){if(storyOpen())storyMenu();else info('개인 미션','PERSONAL // LOCKED',null,'<p>메인 미션 시즌 1의 여섯 판을 모두 끝내면 열린다. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 혼자 뛰는 세 판이 있고, 세 판을 끝내면 그날 밤 이야기가 열린다.</p>',home);}
+  else if(h==='story'){if(storyOpen())storyMenu();else info('개인 미션','PERSONAL // LOCKED',null,'<p>스토리 미션 시즌 1의 여섯 판을 모두 끝내면 열린다. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 혼자 뛰는 세 판이 있고, 세 판을 끝내면 그날 밤 이야기가 열린다.</p>',home);}
   else if(h==='season')seasonal();
   else if(h==='special')special();
   else if(h==='agents')agents();
@@ -1399,10 +1466,11 @@ $('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t
 function brief(i){
   setPre(true);hideOv();hmHide();pgHide();loadMission(i);if(CFG.img[M.key])M.img=CFG.img[M.key];S=newState();UIK='';
   var c=OPD[M.ops[M.ops.length-1].id].col;
-  scene([{k:M.code,h:M.copy,p:M.pre,img:M.img,c:c,end:'브리핑'}],missionCard);
+  if(MI<NBASE){var ch=NOVEL.ch[MI];reader({t:ch.t,sub:'SEASON 1 // '+(MI+1)+'장',img:M.img,p:ch.pre,btn:'작전 브리핑',next:missionCard,back:menu});}
+  else scene([{k:M.code,h:M.copy,p:M.pre,img:M.img,c:c,end:'브리핑'}],missionCard);
 }
 function missionCard(){
-  hideOv();setPre(true);started=false;
+  hideOv();pgHide();setPre(true);started=false;
   var got=PROG.b[MI]||[],el=$('ms'),st=!!M.story;
   el.style.setProperty('--c',OPD[M.ops[M.ops.length-1].id].col);
   el.className='';
@@ -1447,7 +1515,8 @@ function result(){
    '<label style="margin-top:14px">특임 배지'+(nw?' — '+nw+'개 획득':'')+' (보유 '+badgeTotal()+')</label><table>'+bh+'</table>',b,null,true);
 }
 function showEnd(){
-  if(S.over.win){snd('ok');scene([{k:'MISSION CLEAR // '+M.title,h:M.post[0],p:M.post[1],img:M.img,c:OPD[M.ops[0].id].col,end:'결과 보기'}],result);}
+  if(S.over.win&&MI<NBASE){snd('ok');var ch=NOVEL.ch[MI],go=function(){pgHide();result();};reader({t:ch.t,sub:'MISSION CLEAR // '+(MI+1)+'장',img:M.img,p:ch.post,q:ch.q,btn:'결과 보기',next:go,back:go});}
+  else if(S.over.win){snd('ok');scene([{k:'MISSION CLEAR // '+M.title,h:M.post[0],p:M.post[1],img:M.img,c:OPD[M.ops[0].id].col,end:'결과 보기'}],result);}
   else overlay('작전 실패','ALERT','<p>'+S.over.why+'</p>',[['퀵로드',load,true],['처음부터',restart],['미션 선택',function(){if(M.story)storyMenu();else menu();}]]);
 }
 function onTap(px,py){
