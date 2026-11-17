@@ -426,7 +426,7 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 .itl p{position:relative;margin:0 0 6px !important;padding:10px 12px 10px 30px;background:rgba(255,255,255,.05);font:500 13.5px/1.5 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif !important;color:#d5dbe3 !important;text-indent:0}
 .itl p:before{content:"";position:absolute;left:12px;top:15px;border:5px solid transparent;border-left:8px solid var(--c)}
 #ovx label{margin-top:12px}
-#pg .hero.big{height:70vh;min-height:420px;margin-top:-66px}
+#pg .hero.big{height:66vh;min-height:400px;margin-top:0}
 #pg .hero.big:after{background:linear-gradient(rgba(6,8,11,.55),rgba(6,8,11,0) 22%,rgba(6,8,11,0) 62%,#06080b)}
 #pg .cg.one{grid-template-columns:1fr;gap:10px}
 #pg .cg.one .cd{aspect-ratio:4/5;padding:16px}
@@ -435,6 +435,29 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #pg .cg.one .cd .no{font-size:64px;left:14px;top:8px}
 #pg .cg.one .cd .bm{font-size:17px;margin-top:8px}
 #pg .cg.one .cd em{right:12px;top:12px;font-size:11px}
+html,body,button,input,select{word-break:keep-all;overflow-wrap:break-word}
+h1,h2,h3,#sch,.ht b,.cd b,.tg b,#ms .mt h2,#op h3{text-wrap:balance}
+p,.tg span,.cd u,#info,#scp{text-wrap:pretty}
+em.k{font-style:normal;color:var(--c);font-weight:700}
+#pg .nv em.d{font-style:normal;color:#f1dfb8}
+#pg .nv p{text-indent:0;margin-bottom:1.25em}
+#pg .pb p+p{margin-top:-4px}
+#pg .cd .no{position:static;font-size:30px;line-height:1;margin-bottom:4px;opacity:1}
+#pg .cg.one .cd .no{font-size:56px;margin-bottom:6px}
+#ms .mt{top:auto;bottom:46px}
+#ms .mv img{transform-origin:50% 0}
+#hm .hh img{transform-origin:50% 20%}
+#ms .mt h2{font-size:38px}
+#hm .ht.main{background:var(--tile);color:var(--ink);height:230px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end}
+#hm .ht.main .bg{position:absolute;inset:0;background-size:cover}
+#hm .ht.main:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(rgba(6,8,11,0) 35%,rgba(6,8,11,.94))}
+#hm .ht.main>*{position:relative;z-index:2}
+#hm .ht.main .bg{position:absolute;z-index:0}
+#hm .ht.main i{color:var(--c)}#hm .ht.main b{font-size:32px}#hm .ht.main u{color:#c4ccd6}
+#hm .ht.main em{color:var(--c);top:auto;bottom:18px;transform:none;position:absolute;z-index:2}
+#hm .ht.main .bar{position:absolute;z-index:2;background:rgba(255,255,255,.14)}
+#hm .hh{flex:0 0 22vh;min-height:140px}
+#hm .hl h1{font-size:min(56px,14vw)}
 #ro{position:fixed;inset:0;z-index:10;background:#06080b;display:flex;flex-direction:column;--c:#ff3b52}
 #ro.hide{display:none}
 #rot{display:flex;gap:3px;padding:10px 10px 8px}
@@ -532,7 +555,7 @@ var MIS=[
  brief:'<ul>'+RULES+'<li>닥의 <b>마취 다트</b>: 5칸 안의 적을 소리 없이 재운다. 세 발뿐이고, 맞은 적은 다시 깨어난다.</li><li><b>응급 처치</b>는 닥만 할 수 있다. 4초가 걸린다.</li><li>이 판에는 해커가 없다. 카메라는 고개를 돌릴 때 지나가거나 쏴서 끈다.</li></ul>'}
 ];
 var NBASE=MIS.length;
-var WORLD=['이름을 지운 여섯이 있다.','그 이름이 적힌 명단이 팔렸다.','산 사람도, 판 사람도, 아직 살아 있다.'];
+var WORLD=['이름을 지운 여섯이 있다.','그 이름이 적힌 <em class="k">명단이 팔렸다.</em>','산 사람도, 판 사람도, 아직 살아 있다.'];
 [{img:'a_raven_6.jpg',copy:'들어간 적<br>없는 걸로.',pre:'항구 3번 창고. 헬리오스에 잡힌 우리 연락책이 있다. 레이븐 혼자 간다.',post:['연락책을 데리고 나왔다.','그가 말했다. 식스의 명단이 팔렸다고.']},
  {img:'a_viper_7.jpg',copy:'탑 위는<br>바이퍼 몫.',pre:'명단은 산길 통신 기지를 거쳐 나간다. 중계 장비를 끊는다. 바이퍼가 위에서 본다.',post:['전송은 절반에서 끊겼다.','나머지 절반은 이미 헬리오스 서버에 있다.']},
  {img:'a_glitch_6.jpg',copy:'카메라부터<br>재운다.',pre:'헬리오스 위장 법인 사무실. 서버에 명단을 산 쪽의 기록이 있다. 글리치가 눈을 맡는다.',post:['구매 기록을 떴다.','대금은 돈이 아니었다. 폐광에 쌓아 둔 무기였다.']},
@@ -598,7 +621,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.14.0';
+var VERSION='0.14.1';
 var PROG={c:{},s:{},b:{},end:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -632,12 +655,16 @@ var SPECIAL=[
  ['brick','링 네임','지하 격투장','아무도 못 눕힌 챔피언. 딱 한 번 진 날이 있다. 진 이유는 상대의 주먹이 아니었다.'],
  ['mirage','첫 무대','카지노','딜러로 위장한 첫 임무. 표적과 보낸 사흘 동안 어디까지가 연기였는지 지금도 말하지 않는다.'],
  ['doc','야간 당직','야전병원','군의관 시절의 밤 근무. 살린 사람과 못 살린 사람, 그리고 규정으로는 안 되는 사이였던 한 사람.']];
+var FACE2={raven:[[42,12],[45,13],[42,13],[55,15],[70,25],[36,12],[30,37],[52,8],[45,13]],viper:[[40,12],[47,15],[33,18],[52,13],[55,35],[50,22],[55,15],[42,12],[50,15]],glitch:[[45,17],[45,22],[33,20],[45,20],[48,17],[45,17],[22,20],[48,12],[45,18]],brick:[[40,12],[45,12],[38,13],[60,10],[50,10],[30,13],[50,8],[55,15],[50,12]],mirage:[[57,10],[64,17],[36,20],[50,35],[45,10],[40,26],[40,13],[45,12],[45,13]],doc:[[50,15],[35,12],[50,15],[45,12],[45,17],[55,15],[50,15],[45,13],[45,10]]};
+function fxy(f){var m=/^([ae])_([a-z]+)(?:_(\d))?\.jpg/.exec(f||''),a;if(!m||!FACE2[m[2]])return [50,14];a=FACE2[m[2]][m[1]==='e'?8:+m[3]];return a||[50,14];}
+function fp(f){var a=fxy(f);return a[0]+'% '+Math.max(0,a[1]-10)+'%';}
+function bgs(f){return 'background-image:url('+f+');background-position:'+fp(f);}
 var NOVEL={pro:{t:'지워진 여섯',sub:'PROLOGUE',img:'a_raven_7.jpg',p:[
  '제6과에는 간판이 없다. 예산서에는 "기타 운영비"라고 적히고, 조직도에는 5과 다음이 바로 7과다. 그 빈칸에 여섯 명이 있다.',
  '여섯은 서로를 고른 적이 없다. 한 사람이 골랐다. 사람들은 그를 설계자라고 불렀다. 그는 여섯에게 같은 말을 했다. "너는 이미 죽은 사람이다. 그러니 죽을 걱정 없이 일할 수 있다."',
  '여섯은 그 말이 위로인 줄 알았다. 경고였다는 건 설계자가 사라지고 3년이 지나서야 알게 된다.',
  '상대는 헬리오스다. 겉은 민간 경비 회사고, 속은 남부 회랑의 전쟁에 무기와 정보를 대는 중개상이다. 제6과는 그 회사를 소리 없이 깎아 내는 부서였다. 3년 전 폐광 작전에서 한 명을 잃은 뒤로 제6과는 멈췄고, 여섯은 흩어졌다.',
- '그리고 지금. 총선을 앞두고 남부 회랑 청문회가 열린다. 같은 달에 제6과의 명단이 헬리오스로 넘어갔다. 여섯의 본명, 얼굴, 가족.',
+ '그리고 지금. 총선을 앞두고 남부 회랑 청문회가 열린다. [[같은 달에 제6과의 명단이 헬리오스로 넘어갔다.]] 여섯의 본명, 얼굴, 가족.',
  '흩어진 여섯 가운데 아직 현장에 남은 사람은 하나뿐이다.']},
 ch:[
 {t:'항구 3번 창고',pre:[
@@ -646,20 +673,20 @@ ch:[
  '창고에는 경비병이 여섯. 지원은 없다. 들어간 적 없는 걸로 해야 한다.'],post:[
  '창고 밖에서 연락책은 한참 숨을 골랐다. 그러고는 고맙다는 말 대신 이렇게 말했다. "명단이 팔렸습니다. 여섯 명 전부요. 당신도 있어요."',
  '레이븐은 믿지 않았다. 죽은 사람의 명단은 팔 수 없다고 생각했다. 연락책이 레이븐의 본명을 입에 올리기 전까지는.',
- '그 이름을 소리로 들은 건 9년 만이었다.'],q:'죽은 사람으로 처리된 여섯의 본명을 아는 사람은 몇 명인가.'},
+ '[[그 이름을 소리로 들은 건 9년 만이었다.]]'],q:'죽은 사람으로 처리된 여섯의 본명을 아는 사람은 몇 명인가.'},
 {t:'산길 통신 기지',pre:[
  '명단은 한 번에 넘어가지 않았다. 판 쪽이 값을 다 받을 때까지 절반만 보냈기 때문이다. 나머지 절반이 산길 통신 기지의 중계 장비를 지나고 있다.',
  '레이븐은 바이퍼를 찾아갔다. 바이퍼는 사격장 관리인으로 살고 있었다. 돌아올 이유가 없다고 했다. 명단 얘기를 듣고는 한참 있다가 물었다. "그 명단에 내 관측수 이름도 있어?"',
  '없었다. 그 사람은 여섯이 아니니까. 바이퍼는 그 대답을 듣고 총을 챙겼다. 안도해서가 아니었다. 그렇다면 그가 지금 어느 편에 서 있는지 알 것 같아서였다.',
  '탑 위의 초병은 바이퍼 몫이다. 레이븐은 아래로 들어간다.'],post:[
- '장비는 끊었다. 그러나 전송 기록을 보니 앞의 절반은 이미 도착해 있었다.',
+ '장비는 끊었다. 그러나 전송 기록을 보니 [[앞의 절반은 이미 도착해 있었다.]]',
  '바이퍼는 능선에서 내려오며 탄 한 발을 주머니에 넣었다. 언제나 한 발은 남겨서 돌아온다. 누구에게 쓸 한 발인지는 말하지 않는다.'],q:'먼저 넘어간 절반에 누가 들어 있는가.'},
 {t:'위장 법인 사무실',pre:[
  '누가 샀는지 알려면 헬리오스의 서버를 봐야 한다. 그 서버의 물류 프로그램을 짠 사람이 글리치다. 스무 살 때 외주로 받은 일이었다. 무엇을 실어 나르는 프로그램인지는 나중에 알았다.',
  '글리치는 처음에 거절했다. 자기가 지운 이름이 그 명단에 있다는 말을 듣고도 웃었다. "지운 이름을 어떻게 팔아요."',
  '레이븐은 대답 대신 접속 권한 목록을 보여 줬다. 글리치의 옛 계정이 살아 있었다. 누군가 글리치의 손버릇을 흉내 내 그 서버에 드나들고 있었다. 글리치는 웃음을 거두고 헤드폰을 목에 걸었다.',
  '서버실까지 카메라가 석 대다. 글리치가 눈을 맡는다.'],post:[
- '서버에서 나온 구매 기록은 이상했다. 대금이 돈이 아니었다. 폐광에 쌓아 둔 무기 한 창고였다. 그리고 판 사람의 계정은 헬리오스 바깥, 정부 망에서 들어온 것이었다.',
+ '서버에서 나온 구매 기록은 이상했다. 대금이 돈이 아니었다. 폐광에 쌓아 둔 무기 한 창고였다. 그리고 [[판 사람의 계정은 헬리오스 바깥, 정부 망에서 들어온 것이었다.]]',
  '로그 끝에 주석 한 줄이 남아 있었다. 변수 이름 짓는 버릇도, 줄 바꾸는 자리도 글리치와 똑같았다. "아직도 사탕 물고 일해?"',
  '글리치는 입에 문 사탕을 깨물어 부쉈다. 그 줄을 지우지 않고 창을 닫았다.'],q:'정부 망 안에서 누가 무기를 값으로 받는가.'},
 {t:'폐광',pre:[
@@ -668,29 +695,30 @@ ch:[
  '정문은 쓰지 않는다. 금 간 벽이 있으면 브릭이 문으로 만든다.'],post:[
  '무기고는 무너졌다. 먼지가 가라앉을 때까지 브릭은 나오지 않았다. 바이퍼가 무전으로 불렀다. "뭐 봐?" 브릭이 대답했다. "도장."',
  '상자마다 찍힌 검수 도장은 민간 회사의 것이 아니었다. 국가 조달 번호였다. 브릭이 군에 있을 때 매일 보던, 자기 분대에 보급품을 실어 오던 바로 그 번호 체계였다.',
- '명단값으로 넘어간 무기는 헬리오스의 물건이 아니었다. 정부 창고에서 나온 것이었다.'],q:'순서가 거꾸로다. 명단을 판 게 아니라, 무기를 주고 여섯을 치워 달라고 산 것이라면.'},
+ '명단값으로 넘어간 무기는 헬리오스의 물건이 아니었다. [[정부 창고에서 나온 것이었다.]]'],q:'순서가 거꾸로다. 명단을 판 게 아니라, 무기를 주고 여섯을 치워 달라고 산 것이라면.'},
 {t:'후원자 저택',pre:[
  '거래를 주선한 사람은 헬리오스의 후원자다. 전직 장관. 그의 저택에서 선거 자금 파티가 열린다. 서재 금고에 거래 장부가 있다.',
  '미라주는 부르지 않아도 왔다. 초대장을 받았기 때문이다. 본명으로. 보낸 사람은 헬리오스의 법무 책임자, 미라주가 오래전 임무로 접근했다가 임무가 끝난 뒤에도 잊지 못한 남자다.',
  '미라주는 그 초대가 덫인지 내민 손인지 모른 채 드레스를 입었다. 저택에는 경호 책임자 워든이 있다. 변장을 알아보는 사람이다. 눈에 띄지 않고 지나가야 한다.'],post:[
  '복도에서 워든과 마주쳤다. 미라주의 걸음도 시선도 완벽했다. 워든은 지나치다가 반 걸음을 늦췄다. "향수가 바뀌었네."',
  '미라주의 심장이 한 번 건너뛰었다. 그 향수를 쓰던 시절을 아는 사람은 제6과 사람뿐이다. 워든은 그대로 걸어갔다. 경보는 울리지 않았다.',
- '금고의 장부에는 명단을 넘긴 사람의 이름 대신 사번이 적혀 있었다. 제6과의 사번 체계였다. 그런데 여섯 중 누구의 것도 아닌 번호였다.'],q:'제6과에 일곱 번째 번호가 있는가.'},
+ '금고의 장부에는 명단을 넘긴 사람의 이름 대신 사번이 적혀 있었다. 제6과의 사번 체계였다. 그런데 [[여섯 중 누구의 것도 아닌 번호였다.]]'],q:'제6과에 일곱 번째 번호가 있는가.'},
 {t:'격리 병동',pre:[
  '그 번호를 아는 사람이 하나 있다. 헬리오스에 잡힌 정보원이다. 총을 맞고 격리 병동에 누워 있다. 죽기 전에 데려와야 한다. 데려와도 살릴 사람이 없으면 소용없다.',
  '닥은 변두리 의원에서 밤 진료를 보고 있었다. 레이븐이 "격리 병동"이라고 했을 때 닥은 진료 가방을 닫던 손을 멈췄다. 10년 전, 닥이 사망 진단서에 서명하지 않은 환자가 실려 간 곳이 거기였다.',
  '닥은 간판을 내리지 않고 불만 끄고 나왔다. 금방 돌아올 생각이었다.'],post:[
  '닥은 정보원의 가슴을 누르며 숫자를 셌다. 레이븐이 무전으로 시간이 없다고 했다. "알아. 근데 얘는 지금 죽는 중이고, 난 그걸 싫어해."',
- '정보원은 눈을 뜨자마자 번호의 주인을 말했다. 일곱 번째 번호는 요원의 것이 아니었다. 지휘관 자리에 붙는 번호였다.',
+ '정보원은 눈을 뜨자마자 번호의 주인을 말했다. 일곱 번째 번호는 요원의 것이 아니었다. [[지휘관 자리에 붙는 번호였다.]]',
  '그날 밤 여섯이 처음으로 한 방에 모였다. 누구도 먼저 말하지 않았다. 여섯 명이 동시에 무전기를 봤다.',
- '명단은 안에서 나갔다.'],q:'그 "안"은 어디까지인가.'}]};
+ '[[명단은 안에서 나갔다.]]'],q:'그 "안"은 어디까지인가.'}]};
+function nv(x){return x.replace(/"([^"<]+)"/g,'<em class="d">“$1”</em>').replace(/\[\[(.+?)\]\]/g,'<em class="k">$1</em>');}
 function reader(o){
-  var h=(o.img?'<div class="hero big"><span class="bg" style="background-image:url('+o.img+')"></span></div>':'')+'<div class="nv">'+(o.html||o.p.map(function(x){return '<p>'+x+'</p>';}).join(''))+(o.q?'<p class="q">남는 의문 — '+o.q+'</p>':'')+'</div>'+(o.btn?'<button class="nvb" data-k="0">'+o.btn+'</button>':'');
+  var h=(o.img?'<div class="hero big"><span class="bg" style="'+bgs(o.img)+'"></span></div>':'')+'<div class="nv">'+(o.html||o.p.map(function(x){return '<p>'+nv(x)+'</p>';}).join(''))+(o.q?'<p class="q">남는 의문 — '+o.q+'</p>':'')+'</div>'+(o.btn?'<button class="nvb" data-k="0">'+o.btn+'</button>':'');
   page(o.t,o.sub,h,o.back,[o.next]);
 }
 function novelRead(n){
   if(n==='p'){reader({t:NOVEL.pro.t,sub:'SEASON 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,back:blackbox});return;}
-  if(n==='all'){var h='<h3>프롤로그 — '+NOVEL.pro.t+'</h3>'+NOVEL.pro.p.map(function(x){return '<p>'+x+'</p>';}).join('');NOVEL.ch.forEach(function(c,i){h+='<h3>'+(i+1)+'장 — '+c.t+'</h3>'+c.pre.concat(c.post).map(function(x){return '<p>'+x+'</p>';}).join('')+'<p class="q">남는 의문 — '+c.q+'</p>';});reader({t:'여섯이 모이기까지',sub:'SEASON 1 // 전체',img:'a_raven_7.jpg',html:h,back:blackbox});return;}
+  if(n==='all'){var h='<h3>프롤로그 — '+NOVEL.pro.t+'</h3>'+NOVEL.pro.p.map(function(x){return '<p>'+nv(x)+'</p>';}).join('');NOVEL.ch.forEach(function(c,i){h+='<h3>'+(i+1)+'장 — '+c.t+'</h3>'+c.pre.concat(c.post).map(function(x){return '<p>'+nv(x)+'</p>';}).join('')+'<p class="q">남는 의문 — '+c.q+'</p>';});reader({t:'여섯이 모이기까지',sub:'SEASON 1 // 전체',img:'a_raven_7.jpg',html:h,back:blackbox});return;}
   var c=NOVEL.ch[+n];reader({t:c.t,sub:'SEASON 1 // '+(+n+1)+'장',img:mimg(+n),p:c.pre.concat(c.post),q:c.q,back:blackbox});
 }
 function bm(i,t){var g=PROG.b[i]||[];return '<'+(t||'i')+' class="bm">'+[0,1,2].map(function(k){return g[k]?'◆':'◇';}).join('')+'</'+(t||'i')+'>';}
@@ -701,20 +729,20 @@ function page(t,sub,html,back,acts,h){
   el.innerHTML='<div class="ph"><button data-b="1">‹</button><div><i>'+sub+'</i><h2>'+t+'</h2></div><span><b>◆</b> '+badgeTotal()+' · <b>P</b> '+(PROG.pt||0).toLocaleString()+'</span></div><div class="pb">'+html+'</div>';el.scrollTop=0;
 }
 function pgHide(){$('pg').className='hide';$('pg').innerHTML='';}
-function cd(k,img,label,sub,o){o=o||{};return '<button class="cd'+(o.w?' w':'')+(o.s?' s':'')+(o.lock?' lock':'')+(o.cold?' cold':'')+'" data-k="'+k+'"><span class="bg" style="background-image:url('+img+')"></span>'+(o.no?'<span class="no">'+o.no+'</span>':'')+(o.tag?'<em'+(o.on?' class="on"':'')+'>'+o.tag+'</em>':'')+'<i>'+(o.eye||'')+'</i><b>'+label+'</b>'+(sub?'<u>'+sub+'</u>':'')+(o.x||'')+'</button>';}
-function info(t,sub,img,body,back){page(t,sub,(img?'<div class="hero"><span class="bg" style="background-image:url('+img+')"></span></div>':'')+body,back);}
+function cd(k,img,label,sub,o){o=o||{};return '<button class="cd'+(o.w?' w':'')+(o.s?' s':'')+(o.lock?' lock':'')+(o.cold?' cold':'')+'" data-k="'+k+'"><span class="bg" style="'+bgs(img)+'"></span>'+(o.no?'<span class="no">'+o.no+'</span>':'')+(o.tag?'<em'+(o.on?' class="on"':'')+'>'+o.tag+'</em>':'')+'<i>'+(o.eye||'')+'</i><b>'+label+'</b>'+(sub?'<u>'+sub+'</u>':'')+(o.x||'')+'</button>';}
+function info(t,sub,img,body,back){page(t,sub,(img?'<div class="hero"><span class="bg" style="'+bgs(img)+'"></span></div>':'')+body,back);}
 var NAVI={agents:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>',box:'<rect x="4" y="7" width="16" height="12"/><path d="M4 11h16M9 7V4h6v3M10 14.5h4"/>',shop:'<path d="M4 8h16l-1.5 12h-13zM8.5 8V6.5a3.5 3.5 0 017 0V8"/>',rank:'<path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4c0 3 1.5 4 3 4M17 6h3c0 3-1.5 4-3 4M12 14v4M8 20h8"/>',set:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>'};
 function home(){
   started=false;setPre(true);hideOv();pgHide();msHide();
-  var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen(),rnd=function(){return 'a_'+ids[fl(Math.random()*6)]+'_'+(2+fl(Math.random()*6))+'.jpg';};
+  var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen(),rnd=function(){return 'a_'+ids[fl(Math.random()*6)]+'_'+(2+fl(Math.random()*6))+'.jpg';},hi='a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg',pi='a_'+b+'_'+fl(Math.random()*2)+'.jpg',ri=rnd(),ri2=rnd(),nx=0;for(var q=0;q<NBASE;q++)if(!PROG.c[q]){nx=q;break;}var kv=mimg(nx);
   var nav=[['agents','요원'],['box','블랙박스'],['shop','SHOP'],['rank','랭킹'],['set','설정']];
   $('hm').className='';
   $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><span>'+DF.n+'</span><button data-h="tip">TIP</button></div>'+
-   '<div class="hh"><img src="a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg" alt=""><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
-   '<button class="ht main" data-h="main"><i>STORY MISSION · SEASON 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' · 여섯이 모이기까지</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
-   '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="background-image:url(a_'+b+'_'+fl(Math.random()*2)+'.jpg)"></span><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
-   (flag('seasonal')?'<button class="ht pic" data-h="season"><span class="bg" style="background-image:url('+rnd()+')"></span><i>SEASONAL</i><b>시즈널 미션</b><u>블러디 크리스마스</u></button>':'')+
-   (flag('special')?'<button class="ht pic soon" data-h="special"><span class="bg" style="background-image:url('+rnd()+')"></span><i>SPECIAL</i><b>스페셜 미션</b><u>이름이 있던 시절</u></button>':'')+'</div>'+
+   '<div class="hh"><img src="'+hi+'" style="object-position:'+fp(hi)+'" alt=""><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
+   '<button class="ht main" data-h="main"><span class="bg" style="'+bgs(kv)+'"></span><i>STORY MISSION · SEASON 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' · 여섯이 모이기까지</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
+   '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="'+bgs(pi)+'"></span><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
+   (flag('seasonal')?'<button class="ht pic" data-h="season"><span class="bg" style="'+bgs(ri)+'"></span><i>SEASONAL</i><b>시즈널 미션</b><u>블러디 크리스마스</u></button>':'')+
+   (flag('special')?'<button class="ht pic soon" data-h="special"><span class="bg" style="'+bgs(ri2)+'"></span><i>SPECIAL</i><b>스페셜 미션</b><u>이름이 있던 시절</u></button>':'')+'</div>'+
    '<div class="hf">SILENT SIX v'+VERSION+'</div></div>'+
    '<div class="hn">'+nav.map(function(x){return '<button data-h="'+x[0]+'"><svg viewBox="0 0 24 24">'+NAVI[x[0]]+'</svg><b>'+x[1]+'</b></button>';}).join('')+'</div>';
 }
@@ -724,17 +752,17 @@ function seasons(){
 }
 function menu(){
   var L=[],A=[],i;for(i=0;i<NBASE;i++)if(vis(i)){(function(i){L.push(cd(A.length,mimg(i),MIS[i].title,MIS[i].code.split(' // ')[1],{no:'0'+(i+1),x:bm(i,'span'),tag:PROG.c[i]?'CLEAR':'',on:1}));A.push(function(){brief(i);});})(i);}
-  page('시즌 1','STORY MISSION // '+DF.n,'<p>여섯 개의 밤. 지나간 밤에도 다시 들어갈 수 있다. ◆는 그 밤에 남긴 증거다.</p><div class="cg one">'+L.join('')+'</div>',seasons,A);
+  page('시즌 1','STORY MISSION // '+DF.n,'<p>여섯 개의 밤. 지나간 밤에도 다시 들어갈 수 있다. ◆는 그 밤에 남긴 <em class="k">증거</em>다.</p><div class="cg one">'+L.join('')+'</div>',seasons,A);
 }
 function storyMenu(){
   var ids=Object.keys(STORY);
-  page('개인 미션','PERSONAL // SEASON 1','<p>임무가 끝나도 끝나지 않는 일이 있다. 요원마다 세 번의 밤, 그리고 마지막 하룻밤.</p><div class="cg">'+ids.map(function(id,k){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return cd(k,'a_'+id+'_0.jpg',OPD[id].n,n+' / 3'+(PROG.end[id]?' · 그날 밤 ♥':''),{eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
+  page('개인 미션','PERSONAL // SEASON 1','<p>임무가 끝나도 끝나지 않는 일이 있다. 요원마다 세 번의 밤, 그리고 <em class="k">마지막 하룻밤.</em></p><div class="cg">'+ids.map(function(id,k){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return cd(k,'a_'+id+'_0.jpg',OPD[id].n,n+' / 3'+(PROG.end[id]?' · 그날 밤 ♥':''),{eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
 }
 function storyAgent(id){
   var L=[],A=[];
   STORY[id].ch.forEach(function(c,ci){var mi=SIDX[id][ci];if(!vis(mi))return;L.push(cd(A.length,mimg(mi),c.t,'',{no:'0'+(ci+1),x:bm(mi,'span'),tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
   L.push(cd(A.length,'e_'+id+'.jpg','시즌 2 추가분','시즌 2와 함께 열린다',{eye:'LOCKED',lock:1,tag:'LOCKED'}));A.push(function(){});
-  page(OPD[id].n,'PERSONAL // '+OPD[id].role,'<div class="hero"><span class="bg" style="background-image:url(a_'+id+'_1.jpg)"></span><div>'+OPD[id].tag.replace('<br>',' ')+'</div></div><div class="cg">'+L.join('')+'</div>',storyMenu,A);
+  page(OPD[id].n,'PERSONAL // '+OPD[id].role,'<div class="hero"><span class="bg" style="'+bgs('a_'+id+'_1.jpg')+'"></span><div>'+OPD[id].tag.replace('<br>',' ')+'</div></div><div class="cg">'+L.join('')+'</div>',storyMenu,A);
 }
 function seasonal(){
   var S=[['SPRING','벚꽃 축제 경호선','a_mirage_4.jpg'],['SUMMER','휴양지 리조트 잠입','a_viper_3.jpg'],['AUTUMN','수확제 가면 행렬','a_glitch_5.jpg'],['설','귀성 열차','a_brick_4.jpg'],['추석','보름달 아래 한옥 마을','a_doc_4.jpg']],n=0;WIDX.forEach(function(mi){if(PROG.c[mi])n++;});
@@ -742,10 +770,10 @@ function seasonal(){
 }
 function winter(){
   var L=[],A=[];WIDX.forEach(function(mi,ci){if(!vis(mi))return;L.push(cd(A.length,mimg(mi),MIS[mi].title,'',{no:'0'+(ci+1),x:bm(mi,'span'),cold:1,tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
-  page('블러디 크리스마스','SEASONAL // WINTER','<p>성탄 전야. 산타는 하룻밤에 다섯 집을 돈다. 우리는 그 뒤를 따라간다. 눈이 발자국을 지워 준다.</p><div class="cg">'+L.join('')+'</div>',seasonal,A);
+  page('블러디 크리스마스','SEASONAL // WINTER','<p>성탄 전야. 산타는 하룻밤에 다섯 집을 돈다. 우리는 그 뒤를 따라간다. <em class="k">눈이 발자국을 지워 준다.</em></p><div class="cg">'+L.join('')+'</div>',seasonal,A);
 }
 function special(){
-  page('스페셜 미션','SPECIAL // PREQUEL','<p>식스가 되기 전, 그들에게도 이름이 있었다. 지금의 그 사람을 만든 하룻밤. 성인 등급으로 준비 중.</p><div class="cg">'+SPECIAL.map(function(x,k){return cd(k,'a_'+x[0]+'_3.jpg',x[1],OPD[x[0]].n+' · '+x[2],{eye:'PREQUEL',tag:'SOON',lock:1});}).join('')+'</div><label>코스튬 · 번외</label><div class="cg">'+cd(6,'a_mirage_0.jpg','코스튬 미션','클리어하면 새 착장이 열린다',{s:1,eye:'COSTUME',tag:'SOON',lock:1})+cd(7,'a_brick_7.jpg','번외 미션','규칙을 비튼 도전',{s:1,eye:'EXTRA',tag:'SOON',lock:1})+'</div>',home,SPECIAL.map(function(x){return function(){info(x[1],'PREQUEL // '+OPD[x[0]].n,'a_'+x[0]+'_3.jpg','<p>'+x[3]+'</p><p style="color:var(--dim)">준비 중. 전용 이미지와 함께 열린다.</p>',special);};}).concat([function(){info('코스튬 미션','SPECIAL // COMING','a_mirage_0.jpg','<p>클리어하면 요원의 새 착장이 열린다. 준비 중.</p>',special);},function(){info('번외 미션','SPECIAL // COMING','a_brick_7.jpg','<p>제한 시간, 무장 해제, 1인 침투처럼 규칙을 비튼 도전 미션. 준비 중.</p>',special);}]));
+  page('스페셜 미션','SPECIAL // PREQUEL','<p>식스가 되기 전, 그들에게도 이름이 있었다. 지금의 그 사람을 만든 <em class="k">하룻밤.</em> 성인 등급으로 준비 중.</p><div class="cg">'+SPECIAL.map(function(x,k){return cd(k,'a_'+x[0]+'_3.jpg',x[1],OPD[x[0]].n+' · '+x[2],{eye:'PREQUEL',tag:'SOON',lock:1});}).join('')+'</div><label>코스튬 · 번외</label><div class="cg">'+cd(6,'a_mirage_0.jpg','코스튬 미션','클리어하면 새 착장이 열린다',{s:1,eye:'COSTUME',tag:'SOON',lock:1})+cd(7,'a_brick_7.jpg','번외 미션','규칙을 비튼 도전',{s:1,eye:'EXTRA',tag:'SOON',lock:1})+'</div>',home,SPECIAL.map(function(x){return function(){info(x[1],'PREQUEL // '+OPD[x[0]].n,'a_'+x[0]+'_3.jpg','<p>'+x[3]+'</p><p style="color:var(--dim)">준비 중. 전용 이미지와 함께 열린다.</p>',special);};}).concat([function(){info('코스튬 미션','SPECIAL // COMING','a_mirage_0.jpg','<p>클리어하면 요원의 새 착장이 열린다. 준비 중.</p>',special);},function(){info('번외 미션','SPECIAL // COMING','a_brick_7.jpg','<p>제한 시간, 무장 해제, 1인 침투처럼 규칙을 비튼 도전 미션. 준비 중.</p>',special);}]));
 }
 function agents(){
   var ids=Object.keys(STORY);
@@ -753,17 +781,17 @@ function agents(){
 }
 function agentHub(id){
   var o=OPD[id],so=storyOpen();
-  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="background-image:url(a_'+id+'_7.jpg)"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p><div class="cg c3">'+cd(0,'a_'+id+'_2.jpg','갤러리','착장 8컷',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','개인 미션',so?'요원별 3판':'시즌 1 클리어 시',{eye:'PERSONAL',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',agents,
+  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="'+bgs('a_'+id+'_7.jpg')+'"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p><div class="cg c3">'+cd(0,'a_'+id+'_2.jpg','갤러리','착장 8컷',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','개인 미션',so?'요원별 3판':'시즌 1 클리어 시',{eye:'PERSONAL',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',agents,
    [function(){RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so)storyAgent(id);},function(){info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 1:1로 주고받는 이미지 채팅. 성인 인증과 결제 뒤에 열린다. 준비 중.</p>',function(){agentHub(id);});}]);
 }
 function blackbox(){
-  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 사라지지 않는다. 여기에 남는다. 한 장을 넘길 때마다 이야기가 이어진다.</p><label>소설 — 시즌 1 · 여섯이 모이기까지 ('+nd+' / '+NBASE+')</label><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'시즌 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div><label>미션 클리어 이미지</label><div class="cg c3">',i;
+  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 사라지지 않는다. <em class="k">여기에 남는다.</em> 한 장을 넘길 때마다 이야기가 이어진다.</p><label>소설 — 시즌 1 · 여섯이 모이기까지 ('+nd+' / '+NBASE+')</label><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'시즌 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div><label>미션 클리어 이미지</label><div class="cg c3">',i;
   for(i=0;i<NBASE;i++)h+=cd(99,mimg(i),MIS[i].title,'',{no:'0'+(i+1),lock:!PROG.c[i],tag:PROG.c[i]?'':'LOCKED'});
   h+='</div><label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
   page('블랙박스','BLACK BOX',h,home,[],function(e){var n=e.target.dataset.n;if(n!==undefined)novelRead(n);});
 }
 function shop(){
-  page('SHOP','POINT · BADGE · STORE','<p>공짜는 없다. 작전에서 번 것만 쓴다. 점수 100점에 1P, 조건 하나에 배지 하나.</p><div class="cg">'+cd(0,'a_glitch_3.jpg','포인트샵','소모품 · 프로필 꾸미기',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','요원 착장 · 추가 미션',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_1.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
+  page('SHOP','POINT · BADGE · STORE','<p><em class="k">공짜는 없다.</em> 작전에서 번 것만 쓴다. 점수 100점에 1P, 조건 하나에 배지 하나.</p><div class="cg">'+cd(0,'a_glitch_3.jpg','포인트샵','소모품 · 프로필 꾸미기',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','요원 착장 · 추가 미션',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_1.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
 }
 function ranking(tab){
   tab=tab||0;
@@ -800,7 +828,7 @@ function settings(){
   $('pg').onchange=function(e){if(e.target.id==='svol')snd('ok');};
 }
 function tipsPage(back){
-  var h='<p>아홉 가지만 손에 익히면 된다. 나머지는 그들이 가르쳐 준다.</p><label>CONTROL — 손에 익혀라</label>'+tipCards(),i;
+  var h='<p><em class="k">아홉 가지</em>만 손에 익히면 된다. 나머지는 그들이 가르쳐 준다.</p><label>CONTROL — 손에 익혀라</label>'+tipCards(),i;
   for(i=0;i<NBASE;i++){var mt=missionTips(MIS[i]);if(mt.length)h+='<label>INTEL — 0'+(i+1)+' '+MIS[i].title+'</label>'+intel(mt);}
   page('TIP','HOW TO PLAY',h,back||home);
 }
@@ -1362,7 +1390,7 @@ function nextScene(){
   var s=SCQ.shift(),el=$('sc');
   if(!s){el.className='hide';var d=SCD;SCD=null;if(d)d();return;}
   el.className='';if(el.style&&el.style.setProperty)el.style.setProperty('--c',s.c||'#ff3b52');
-  var im=$('sci');im.className='';im.src=s.img||'';if(typeof setTimeout!=='undefined')setTimeout(function(){im.className='on';},40);
+  var im=$('sci');im.className='';im.src=s.img||'';if(im.style)im.style.objectPosition=fp(s.img);if(typeof setTimeout!=='undefined')setTimeout(function(){im.className='on';},40);
   $('sck').textContent=s.k;$('sch').innerHTML=s.h;$('scp').innerHTML=s.p||'';
   var b=$('scn');b.innerHTML='';
   mk(b,SCQ.length?'다음':(s.end||'확인'),nextScene,true);
@@ -1378,7 +1406,7 @@ var OPS=[
  {img:'o3.jpg',c:'#ff8a2a',k:'SIX IN',l:['여섯이','들어간다.']},
  {img:'a_raven_7.jpg',c:'#ff3b52',k:'TACTICAL STEALTH',title:true}],opi=0,opt=null;
 var OPCIN=false,OPQ=[],opq=0,opT=null,opFin=null;
-function opImg(id,i){return '<div class="sk2"><div class="im"><img class="b" src="a_'+id+'_'+i+'.jpg" alt=""><img class="g" src="a_'+id+'_'+i+'.jpg" alt=""></div></div>';}
+function opImg(id,i){var f='a_'+id+'_'+i+'.jpg',a=fxy(f),p=fp(f);return '<div class="sk2"><div class="im" style="transform-origin:'+a[0]+'% '+(a[1]+8)+'%"><img class="b" src="'+f+'" style="object-position:'+p+'" alt=""><img class="g" src="'+f+'" style="object-position:'+p+'" alt=""></div></div>';}
 function opA(id,i,cam,d,name,line){
   return {d:d,c:OPD[id].col,cls:'sx rp',cam:cam,h:opImg(id,i)+'<div class="ly tone"></div><div class="ly leak"></div><div class="ly vg"></div><div class="ly gr"></div><div class="ly fl"></div>'+(name?'<div class="tx2"><b>'+name+'</b><em>'+line+'</em></div>':'')};
 }
@@ -1496,7 +1524,7 @@ function missionCard(){
   var got=PROG.b[MI]||[],el=$('ms'),st=!!M.story;
   el.style.setProperty('--c',OPD[M.ops[M.ops.length-1].id].col);
   el.className='';
-  el.innerHTML='<div class="mv">'+M.ops.map(function(o,k){var d=OPD[o.id];return '<div class="ag" style="--c:'+d.col+'"><img src="a_'+o.id+'_'+(st?(k+MI)%2:(M.ops.length>1?6+((k+MI)%2):7))+'.jpg" alt=""><b><i>'+d.role+'</i>'+d.n+'</b></div>';}).join('')+
+  el.innerHTML='<div class="mv">'+M.ops.map(function(o,k){var d=OPD[o.id];return '<div class="ag" style="--c:'+d.col+'"><img src="a_'+o.id+'_'+(st?(k+MI)%2:(M.ops.length>1?6+((k+MI)%2):7))+'.jpg" style="object-position:'+fp('a_'+o.id+'_'+(st?(k+MI)%2:(M.ops.length>1?6+((k+MI)%2):7))+'.jpg')+'" alt=""><b><i>'+d.role+'</i>'+d.n+'</b></div>';}).join('')+
    '<div class="mt"><i>'+M.code+'</i><h2>'+M.title+'</h2></div></div>'+
    '<div class="mb"><div class="mg"><span>'+M.goal0+'</span><span>'+M.goal1+'</span></div>'+
    '<div class="bdg">'+badgeList().map(function(b,k){return '<span'+(got[k]?' class="on"':'')+'><b>'+(got[k]?'◆ ':'◇ ')+b[0]+'</b>'+b[1]+'</span>';}).join('')+'</div>'+
