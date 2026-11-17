@@ -15,6 +15,8 @@
 | `tools/map/` | 맵 그림에 격자를 맞출 때 쓰는 스크립트 |
 | `docs/CHANGELOG.md` | 버전별 변경 기록 |
 | `docs/STORY.md` | 세계관, 시즌 1 줄거리, 문구·이미지 규칙 |
+| `docs/WORLD.md` | 세계관 서사판(정치 구도, 연표, 시즌 1 여섯 장, 반전) |
+| `docs/CHARACTERS.md` | 요원 여섯의 개인 이야기 |
 
 ## 실행
 
