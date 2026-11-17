@@ -476,6 +476,15 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #hm .fxh .hl h1{font-size:min(64px,16vw);text-shadow:0 0 26px rgba(255,59,82,.35)}
 #hm .fxh .hl h1 b{animation:fxg 4.8s ease-in-out infinite}
 @keyframes fxg{0%,88%,100%{opacity:1;transform:none}90%{opacity:.6;transform:translateX(2px)}92%{opacity:1;transform:translateX(-1px)}94%{opacity:.75}}
+#pg .fold{display:flex;align-items:center;width:100%;text-align:left;padding:13px 14px;background:var(--tile);border-left:3px solid var(--c);margin:2px 0 6px}
+#pg .fold span{flex:1;min-width:0;pointer-events:none}
+#pg .fold i{display:block;font-style:normal;font-size:9.5px;letter-spacing:.28em;color:var(--c);font-weight:700}
+#pg .fold b{display:block;font:800 17px/1.25 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;margin-top:2px}
+#pg .fold u{display:block;text-decoration:none;font:500 12px/1.3 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:#aeb7c2;margin-top:2px}
+#pg .fold em{font-style:normal;font:700 12px/1 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:var(--ink);background:rgba(255,255,255,.1);padding:9px 12px;pointer-events:none}
+#pg .fold.open em{background:var(--c);color:#06080b}
+#pg .foldb.hide{display:none}
+#pg .foldb{margin-bottom:6px}
 #ro{position:fixed;inset:0;z-index:10;background:#06080b;display:flex;flex-direction:column;--c:#ff3b52}
 #ro.hide{display:none}
 #rot{display:flex;gap:3px;padding:10px 10px 8px}
@@ -639,7 +648,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.14.2';
+var VERSION='0.14.3';
 var PROG={c:{},s:{},b:{},end:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -802,11 +811,12 @@ function agentHub(id){
   page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="'+bgs('a_'+id+'_7.jpg')+'"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p><div class="cg c3">'+cd(0,'a_'+id+'_2.jpg','갤러리','착장 8컷',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','개인 미션',so?'요원별 3판':'시즌 1 클리어 시',{eye:'PERSONAL',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',agents,
    [function(){RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so)storyAgent(id);},function(){info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 1:1로 주고받는 이미지 채팅. 성인 인증과 결제 뒤에 열린다. 준비 중.</p>',function(){agentHub(id);});}]);
 }
+var BXO=false;
 function blackbox(){
-  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 사라지지 않는다. <em class="k">여기에 남는다.</em> 한 장을 넘길 때마다 이야기가 이어진다.</p><label>소설 — 시즌 1 · 여섯이 모이기까지 ('+nd+' / '+NBASE+')</label><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'시즌 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div><label>미션 클리어 이미지</label><div class="cg c3">',i;
+  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 사라지지 않는다. <em class="k">여기에 남는다.</em> 한 장을 넘길 때마다 이야기가 이어진다.</p><button class="fold'+(BXO?' open':'')+'" data-fold="1"><span><i>NOVEL · SEASON 1</i><b>소설 — 여섯이 모이기까지</b><u>'+nd+' / '+NBASE+'장 열림</u></span><em>'+(BXO?'접기':'펼치기')+'</em></button><div class="foldb'+(BXO?'':' hide')+'"><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'시즌 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div></div><label>미션 클리어 이미지</label><div class="cg c3">',i;
   for(i=0;i<NBASE;i++)h+=cd(99,mimg(i),MIS[i].title,'',{no:'0'+(i+1),lock:!PROG.c[i],tag:PROG.c[i]?'':'LOCKED'});
   h+='</div><label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
-  page('블랙박스','BLACK BOX',h,home,[],function(e){var n=e.target.dataset.n;if(n!==undefined)novelRead(n);});
+  page('블랙박스','BLACK BOX',h,home,[],function(e){var t=e.target,n=t.dataset.n;while(t&&t.id!=='pg'&&!(t.dataset&&t.dataset.fold))t=t.parentNode;if(t&&t.dataset&&t.dataset.fold){BXO=!BXO;var sc=$('pg').scrollTop;blackbox();$('pg').scrollTop=sc;return;}if(n!==undefined)novelRead(n);});
 }
 function shop(){
   page('SHOP','POINT · BADGE · STORE','<p><em class="k">공짜는 없다.</em> 작전에서 번 것만 쓴다. 점수 100점에 1P, 조건 하나에 배지 하나.</p><div class="cg">'+cd(0,'a_glitch_3.jpg','포인트샵','소모품 · 프로필 꾸미기',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','요원 착장 · 추가 미션',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_1.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
