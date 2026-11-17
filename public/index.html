@@ -458,6 +458,24 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #hm .ht.main .bar{position:absolute;z-index:2;background:rgba(255,255,255,.14)}
 #hm .hh{flex:0 0 22vh;min-height:140px}
 #hm .hl h1{font-size:min(56px,14vw)}
+#hm .hh.fxh{flex:0 0 190px;min-height:190px;background:#06080b}
+#hm .fx{position:absolute;inset:0;overflow:hidden;background:
+ radial-gradient(120% 90% at 0% 100%,rgba(255,59,82,.34),rgba(255,59,82,0) 58%),
+ radial-gradient(70% 70% at 100% 0%,rgba(90,120,170,.22),rgba(90,120,170,0) 60%),
+ repeating-linear-gradient(115deg,rgba(255,255,255,.035) 0 1px,transparent 1px 13px),
+ linear-gradient(180deg,#0b1018,#06080b)}
+#hm .fx i{position:absolute;right:-70px;top:-70px;width:260px;height:260px;border-radius:50%;border:1px solid rgba(255,59,82,.5);opacity:0;animation:fxr 4.8s cubic-bezier(.2,.6,.3,1) infinite}
+#hm .fx i:nth-child(2){animation-delay:1.6s}
+#hm .fx i:nth-child(3){animation-delay:3.2s}
+@keyframes fxr{0%{transform:scale(.15);opacity:.9}100%{transform:scale(1.5);opacity:0}}
+#hm .fx b{position:absolute;top:0;bottom:0;left:-40%;width:34%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.09) 45%,rgba(255,59,82,.16) 55%,transparent);transform:skewX(-18deg);animation:fxs 6.5s ease-in-out infinite}
+@keyframes fxs{0%,55%{left:-45%}100%{left:125%}}
+#hm .fx:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.22) 0 1px,transparent 1px 3px);opacity:.5}
+#hm .fxh .hsh{background:linear-gradient(rgba(6,8,11,0) 55%,#06080b)}
+#hm .fxh .hl{bottom:14px}
+#hm .fxh .hl h1{font-size:min(64px,16vw);text-shadow:0 0 26px rgba(255,59,82,.35)}
+#hm .fxh .hl h1 b{animation:fxg 4.8s ease-in-out infinite}
+@keyframes fxg{0%,88%,100%{opacity:1;transform:none}90%{opacity:.6;transform:translateX(2px)}92%{opacity:1;transform:translateX(-1px)}94%{opacity:.75}}
 #ro{position:fixed;inset:0;z-index:10;background:#06080b;display:flex;flex-direction:column;--c:#ff3b52}
 #ro.hide{display:none}
 #rot{display:flex;gap:3px;padding:10px 10px 8px}
@@ -621,7 +639,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.14.1';
+var VERSION='0.14.2';
 var PROG={c:{},s:{},b:{},end:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -738,7 +756,7 @@ function home(){
   var nav=[['agents','요원'],['box','블랙박스'],['shop','SHOP'],['rank','랭킹'],['set','설정']];
   $('hm').className='';
   $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><span>'+DF.n+'</span><button data-h="tip">TIP</button></div>'+
-   '<div class="hh"><img src="'+hi+'" style="object-position:'+fp(hi)+'" alt=""><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
+   '<div class="hh fxh"><div class="fx"><i></i><i></i><i></i><b></b></div><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
    '<button class="ht main" data-h="main"><span class="bg" style="'+bgs(kv)+'"></span><i>STORY MISSION · SEASON 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' · 여섯이 모이기까지</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
    '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="'+bgs(pi)+'"></span><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
    (flag('seasonal')?'<button class="ht pic" data-h="season"><span class="bg" style="'+bgs(ri)+'"></span><i>SEASONAL</i><b>시즈널 미션</b><u>블러디 크리스마스</u></button>':'')+
