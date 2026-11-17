@@ -501,6 +501,18 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #pg .hero.lk .bg{filter:blur(16px) brightness(.6);transform:scale(1.2)}
 #ro{position:fixed;inset:0;z-index:10;background:#06080b;display:flex;flex-direction:column;--c:#ff3b52}
 #ro.hide{display:none}
+#vw{position:fixed;inset:0;z-index:40;background:#000;display:flex;align-items:center;justify-content:center}
+#vw.hide{display:none}
+#vw img{width:100%;height:100%;object-fit:contain;-webkit-user-select:none;user-select:none}
+#vw button{position:absolute;right:calc(14px + env(safe-area-inset-right));width:46px;height:46px;border-radius:50%;background:rgba(6,8,11,.62);color:#fff;display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+#vw button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#vwx{top:calc(14px + env(safe-area-inset-top))}
+#vwd{bottom:calc(18px + env(safe-area-inset-bottom));background:var(--c)!important;color:#06080b!important}
+#vw u{position:absolute;left:0;right:0;bottom:calc(30px + env(safe-area-inset-bottom));text-align:center;text-decoration:none;font-size:12px;letter-spacing:.08em;color:#dfe6ee;pointer-events:none}
+#roc img{cursor:zoom-in}
+#hm .hud button.lg{background:rgba(255,255,255,.1);color:var(--ink)}
+#pg .row button.gg{background:#fff;color:#111}#pg .row button.ap{background:#000;color:#fff;border:1px solid rgba(255,255,255,.25)}
+#pg tr.me td{color:var(--c);font-weight:700}
 #rot{display:flex;gap:3px;padding:10px 10px 8px}
 #rot button{flex:1;min-width:0;height:36px;font-size:12px;letter-spacing:.06em;color:#8a96a3}
 #rot button.sel{background:var(--c);color:#0a0d11}
@@ -542,6 +554,7 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 <div id="ms" class="hide"></div>
 <div id="pg" class="hide"></div>
 <div id="snow" class="hide"></div>
+<div id="vw" class="hide"><img id="vwi" alt=""><u id="vwm"></u><button id="vwx" aria-label="닫기"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button id="vwd" aria-label="앨범에 저장"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></svg></button></div>
 <div id="ro" class="hide"><div id="rot"></div><div id="row"><div id="roc"></div><button id="rop">‹</button><button id="ron2">›</button></div>
  <div id="rob"><div id="rol"></div><div id="rodots"></div><div id="ron"></div><div id="rog"></div><div id="rod"></div><button id="rox">돌아가기</button></div></div>
 <script>
@@ -662,10 +675,76 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.15.1';
+var VERSION='0.16.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
+var SB={url:'https://bfbupxsjvdjhjecorpwf.supabase.co',key:'sb_publishable_kEUUk0p9bgnTpoykFKa89w_Lq1KuL4m'},sb=null,USER=null,SBQ=[],SBBUSY=false,SBMSG='';
+try{SBQ=JSON.parse(localStorage.getItem('s6q')||'[]')||[];}catch(e){SBQ=[];}
+function sbOn(){return !!SB.key;}
+function qSave(){try{localStorage.setItem('s6q',JSON.stringify(SBQ));}catch(e){}}
+function rpc(fn,a){return sb.rpc(fn,a||{}).then(function(r){if(r.error)throw r.error;return r.data;});}
+function kIdx(){var o={};MIS.forEach(function(m,i){o[m.key]=i;});return o;}
+function hasLocal(){var k;for(k in PROG.c)return true;for(k in PROG.g)return true;return (PROG.pt||0)>0;}
+function localExport(){
+  var o={pt:PROG.pt||0,name:PROG.name||'',clears:[],badges:{},unlocks:[]},i,d,k;
+  for(i in PROG.s){if(!MIS[i])continue;for(d in PROG.s[i])o.clears.push({m:MIS[i].key,d:+d,t:Math.max(8,fl((PROG.c[i]||{})[d]||60)),s:PROG.s[i][d]});}
+  for(i in PROG.b){if(!MIS[i])continue;var g=PROG.b[i],bits=(g[0]?1:0)|(g[1]?2:0)|(g[2]?4:0);if(bits)o.badges[MIS[i].key]=bits;}
+  for(i in PROG.g)for(k=1;k<8;k++)if(PROG.g[i][k])o.unlocks.push('g:'+i+':'+k);
+  for(i in PROG.end)if(PROG.end[i])o.unlocks.push('end:'+i);
+  return o;
+}
+function applyState(st){
+  if(!st||!st.profile)return;var K=kIdx();PROG.c={};PROG.s={};PROG.b={};PROG.g={};PROG.end={};
+  (st.clears||[]).forEach(function(r){var i=K[r.m];if(i===undefined)return;(PROG.c[i]||(PROG.c[i]={}))[r.d]=r.t;(PROG.s[i]||(PROG.s[i]={}))[r.d]=r.s;});
+  var m;for(m in st.badges||{}){var i=K[m],b=st.badges[m];if(i!==undefined)PROG.b[i]=[!!(b&1),!!(b&2),!!(b&4)];}
+  (st.unlocks||[]).forEach(function(it){var a=it.split(':');if(a[0]==='g')(PROG.g[a[1]]||(PROG.g[a[1]]=[]))[+a[2]]=true;else if(a[0]==='end')PROG.end[a[1]]=true;});
+  PROG.pt=st.profile.pt||0;if(st.profile.name)PROG.name=st.profile.name;ADM=!!st.profile.admin;PROG.uid=USER?USER.id:null;saveProg();
+}
+function sbRefresh(){try{if($('hm').className!=='hide')home();}catch(e){}}
+function sbSync(){
+  if(!sb||!USER)return;
+  var ends=[],k;if(PROG.uid===USER.id)for(k in PROG.end)if(PROG.end[k])ends.push(k);
+  rpc('s6_state').then(function(st){
+    if(!st.profile.imported&&!PROG.uid&&hasLocal())return rpc('s6_import',{p:localExport()});
+    return st;
+  }).then(function(st){
+    if(PROG.uid&&PROG.uid!==USER.id){SBQ=[];qSave();}
+    if(!SBQ.length)applyState(st);else{PROG.uid=USER.id;ADM=!!st.profile.admin;saveProg();}
+    ends.forEach(function(id){if(!PROG.end[id])rpc('s6_end',{p_agent:id}).then(function(s2){if(!SBQ.length)applyState(s2);}).catch(function(){});});
+    sbRefresh();qFlush();
+  }).catch(function(e){SBMSG='서버와 닿지 않는다. 기록은 이 기기에 남겨 둔다.';});
+}
+function qFlush(){
+  if(!sb||!USER||SBBUSY||!SBQ.length)return;SBBUSY=true;var q=SBQ[0];
+  rpc('s6_clear',{p_mission:q.m,p_diff:q.d,p_time:q.t,p_score:q.s,p_bits:q.b,p_kv:q.kv||null}).then(function(st){
+    SBBUSY=false;SBQ.shift();qSave();if(SBQ.length)setTimeout(qFlush,9000);else{applyState(st);sbRefresh();}
+  }).catch(function(e){
+    SBBUSY=false;var msg=''+((e&&e.message)||'');
+    if(/too fast/.test(msg))setTimeout(qFlush,9000);
+    else if(/bad |login required/.test(msg)){SBQ.shift();qSave();setTimeout(qFlush,500);}
+  });
+}
+function sbClear(key,diff,t,score,bits,kv){if(!sbOn())return;if(!USER)return;SBQ.push({m:key,d:diff,t:Math.max(8,t),s:score,b:bits,kv:kv||null});if(SBQ.length>40)SBQ.shift();qSave();qFlush();}
+function sbLogin(){
+  if(!sb){SBMSG='서버 연결을 준비하고 있다.';return false;}
+  sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});return true;
+}
+function sbLogout(){
+  if(!sb)return;sb.auth.signOut().then(function(){USER=null;ADM=false;PROG.c={};PROG.s={};PROG.b={};PROG.end={};PROG.g={};PROG.pt=0;PROG.name='';PROG.uid=null;PROG.all=false;SBQ=[];qSave();saveProg();home();});
+}
+function sbInit(){
+  if(!sbOn()||typeof document==='undefined'||!document.createElement)return;
+  var sc=document.createElement('script');sc.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';sc.async=true;
+  sc.onload=function(){try{
+    sb=window.supabase.createClient(SB.url,SB.key);
+    sb.auth.onAuthStateChange(function(ev,ses){var u=ses&&ses.user;
+      if(u&&(!USER||USER.id!==u.id)){USER=u;setTimeout(sbSync,0);}
+      else if(!u&&USER){USER=null;ADM=false;sbRefresh();}});
+    sb.from('app_config').select('data').eq('id',1).maybeSingle().then(function(r){var d=r&&r.data&&r.data.data;if(d&&(d.hide||d.img||d.flags)){CFG={hide:d.hide||{},img:d.img||{},flags:d.flags||{}};sbRefresh();}});
+  }catch(e){}};
+  document.head.appendChild(sc);
+}
 function mainDone(){var n=0,i;for(i=0;i<NBASE;i++)if(PROG.c[i])n++;return n;}
 function storyOpen(){return PROG.all||mainDone()>=NBASE;}
 function mmss(s){return fl(s/60)+':'+('0'+(s%60)).slice(-2);}
@@ -773,7 +852,18 @@ function page(t,sub,html,back,acts,h){
   el.innerHTML='<div class="ph"><button data-b="1">‹</button><div><i>'+sub+'</i><h2>'+t+'</h2></div><span><b>◆</b> '+badgeTotal()+' · <b>P</b> '+(PROG.pt||0).toLocaleString()+'</span></div><div class="pb">'+html+'</div>';el.scrollTop=0;
 }
 function pgHide(){$('pg').className='hide';$('pg').innerHTML='';}
-function cd(k,img,label,sub,o){o=o||{};if(!o.kv&&!o.lock&&lk(img)){o.lock=1;if(!o.tag)o.tag='LOCKED';}return '<button class="cd'+(o.w?' w':'')+(o.s?' s':'')+(o.lock?' lock':'')+(o.cold?' cold':'')+'" data-k="'+k+'"><span class="bg" style="'+bgs(img)+'"></span>'+(o.no?'<span class="no">'+o.no+'</span>':'')+(o.tag?'<em'+(o.on?' class="on"':'')+'>'+o.tag+'</em>':'')+'<i>'+(o.eye||'')+'</i><b>'+label+'</b>'+(sub?'<u>'+sub+'</u>':'')+(o.x||'')+'</button>';}
+function cd(k,img,label,sub,o){o=o||{};if(!o.kv&&!o.lock&&lk(img)){o.lock=1;if(!o.tag)o.tag='LOCKED';}return '<button class="cd'+(o.w?' w':'')+(o.s?' s':'')+(o.lock?' lock':'')+(o.cold?' cold':'')+'" data-k="'+k+'"'+(o.view&&!o.lock?' data-view="'+img+'"':'')+'><span class="bg" style="'+bgs(img)+'"></span>'+(o.no?'<span class="no">'+o.no+'</span>':'')+(o.tag?'<em'+(o.on?' class="on"':'')+'>'+o.tag+'</em>':'')+'<i>'+(o.eye||'')+'</i><b>'+label+'</b>'+(sub?'<u>'+sub+'</u>':'')+(o.x||'')+'</button>';}
+var VWF='';
+function viewer(f,ok){if(!f||(!ok&&lk(f)))return;VWF=f;$('vwi').src=f;$('vwm').textContent='';$('vw').className='';}
+function vwSave(){
+  var f=VWF,name='SILENT_SIX_'+f.replace(/^.*\//,''),done=function(t){$('vwm').textContent=t;setTimeout(function(){if($('vwm'))$('vwm').textContent='';},2600);};
+  var dl=function(u){var a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();done('저장했다.');};
+  fetch(f).then(function(r){return r.blob();}).then(function(b){
+    var file=null;try{file=new File([b],name,{type:b.type||'image/jpeg'});}catch(e){}
+    if(file&&navigator.canShare&&navigator.canShare({files:[file]}))return navigator.share({files:[file]}).then(function(){done('');}).catch(function(){});
+    var u=URL.createObjectURL(b);dl(u);setTimeout(function(){URL.revokeObjectURL(u);},4000);
+  }).catch(function(){dl(f);});
+}
 function info(t,sub,img,body,back){page(t,sub,(img?'<div class="hero'+(lk(img)?' lk':'')+'"><span class="bg" style="'+bgs(img)+'"></span></div>':'')+body,back);}
 var NAVI={agents:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>',box:'<rect x="4" y="7" width="16" height="12"/><path d="M4 11h16M9 7V4h6v3M10 14.5h4"/>',shop:'<path d="M4 8h16l-1.5 12h-13zM8.5 8V6.5a3.5 3.5 0 017 0V8"/>',rank:'<path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4c0 3 1.5 4 3 4M17 6h3c0 3-1.5 4-3 4M12 14v4M8 20h8"/>',set:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>'};
 function home(){
@@ -781,7 +871,7 @@ function home(){
   var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen(),rnd=function(){return 'a_'+ids[fl(Math.random()*6)]+'_'+(2+fl(Math.random()*6))+'.jpg';},hi='a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg',pi='a_'+b+'_0.jpg',ri=gFree(),ri2=gFree(),nx=0;for(var q=0;q<NBASE;q++)if(!PROG.c[q]){nx=q;break;}var kv=mimg(nx);
   var nav=[['agents','요원'],['box','블랙박스'],['shop','SHOP'],['rank','랭킹'],['set','설정']];
   $('hm').className='';
-  $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><span>'+DF.n+'</span><button data-h="tip">TIP</button></div>'+
+  $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><span>'+DF.n+'</span>'+(sbOn()&&!USER?'<button class="lg" data-h="set">LOGIN</button>':'')+'<button data-h="tip">TIP</button></div>'+
    '<div class="hh fxh"><div class="fx"><i></i><i></i><i></i><b></b></div><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
    '<button class="ht main" data-h="main"><span class="bg" style="'+bgs(kv)+'"></span><i>STORY MISSION · SEASON 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' · 여섯이 모이기까지</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
    '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="'+bgs(pi)+'"></span><i>PERSONAL</i><b>개인 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
@@ -831,16 +921,16 @@ function agentHub(id){
 var BXO=false;
 function blackbox(){
   var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 사라지지 않는다. <em class="k">여기에 남는다.</em> 한 장을 넘길 때마다 이야기가 이어진다.</p><button class="fold'+(BXO?' open':'')+'" data-fold="1"><span><i>NOVEL · SEASON 1</i><b>소설 — 여섯이 모이기까지</b><u>'+nd+' / '+NBASE+'장 열림</u></span><em>'+(BXO?'접기':'펼치기')+'</em></button><div class="foldb'+(BXO?'':' hide')+'"><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'시즌 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div></div><label>미션 클리어 이미지</label><div class="cg c3">',i;
-  for(i=0;i<NBASE;i++)h+=cd(99,mimg(i),MIS[i].title,'',{kv:1,no:'0'+(i+1),lock:!PROG.c[i],tag:PROG.c[i]?'':'LOCKED'});
-  h+='</div><label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
-  page('블랙박스','BLACK BOX',h,home,[],function(e){var t=e.target,n=t.dataset.n;while(t&&t.id!=='pg'&&!(t.dataset&&t.dataset.fold))t=t.parentNode;if(t&&t.dataset&&t.dataset.fold){BXO=!BXO;var sc=$('pg').scrollTop;blackbox();$('pg').scrollTop=sc;return;}if(n!==undefined)novelRead(n);});
+  for(i=0;i<NBASE;i++)h+=cd(99,mimg(i),MIS[i].title,'',{kv:1,view:1,no:'0'+(i+1),lock:!PROG.c[i],tag:PROG.c[i]?'':'LOCKED'});
+  h+='</div><label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{view:1,lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
+  page('블랙박스','BLACK BOX',h,home,[],function(e){var t=e.target,n=t.dataset.n,v=t;while(v&&v.id!=='pg'&&!(v.dataset&&v.dataset.view))v=v.parentNode;if(v&&v.dataset&&v.dataset.view){viewer(v.dataset.view,true);return;}while(t&&t.id!=='pg'&&!(t.dataset&&t.dataset.fold))t=t.parentNode;if(t&&t.dataset&&t.dataset.fold){BXO=!BXO;var sc=$('pg').scrollTop;blackbox();$('pg').scrollTop=sc;return;}if(n!==undefined)novelRead(n);});
 }
 function shop(){
   page('SHOP','POINT · BADGE · STORE','<p><em class="k">공짜는 없다.</em> 작전에서 번 것만 쓴다. 점수 100점에 1P, 조건 하나에 배지 하나.</p><div class="cg">'+cd(0,'a_glitch_0.jpg','포인트샵','소모품 · 프로필 꾸미기',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','요원 착장 · 추가 미션',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_0.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
 }
 function ranking(tab){
   tab=tab||0;
-  var h='<div class="seg" style="grid-template-columns:repeat(3,1fr);margin-bottom:12px">'+['미션별','통합','개인 미션'].map(function(t,k){return '<button data-t="'+k+'"'+(k===tab?' class="sel"':'')+'>'+t+'</button>';}).join('')+'</div>',i,tot=[0,0,0,0];
+  var h='<div class="seg" style="grid-template-columns:repeat(4,1fr);margin-bottom:12px">'+['미션별','통합','개인 미션','온라인'].map(function(t,k){return '<button data-t="'+k+'"'+(k===tab?' class="sel"':'')+'>'+t+'</button>';}).join('')+'</div>',i,tot=[0,0,0,0];
   if(tab===0){
     h+='<table><tr><th>미션</th>'+DIFFS.map(function(d){return '<th>'+d.n+'</th>';}).join('')+'</tr>';
     for(i=0;i<NBASE;i++){var c=PROG.c[i]||{},p=PROG.s[i]||{};h+='<tr><td>0'+(i+1)+' '+MIS[i].title+'</td>'+DIFFS.map(function(d,k){if(p[k]==null)return '<td>—</td>';return '<td class="best">'+p[k].toLocaleString()+'<br><span style="color:var(--dim);font-weight:400;font-size:11px">'+mmss(c[k])+'</span></td>';}).join('')+'</tr>';}
@@ -848,27 +938,34 @@ function ranking(tab){
   }else if(tab===1){
     var all=0,st=0,wn=0;for(i=0;i<MIS.length;i++){var q=PROG.s[i]||{},k;for(k in q){if(i<NBASE){tot[k]+=q[k];all+=q[k];}else if(MIS[i].winter)wn+=q[k];else st+=q[k];}}
     h+='<table><tr><th>항목</th><th>기록</th></tr>'+DIFFS.map(function(d,k){return '<tr><td>시즌 1 합계 · '+d.n+'</td><td'+(tot[k]?' class="best"':'')+'>'+(tot[k]?tot[k].toLocaleString():'—')+'</td></tr>';}).join('')+'<tr><td>스토리 미션</td><td>'+all.toLocaleString()+'</td></tr><tr><td>개인 미션</td><td>'+st.toLocaleString()+'</td></tr><tr><td>시즈널 미션</td><td>'+wn.toLocaleString()+'</td></tr><tr><td>총점</td><td class="best">'+(all+st+wn).toLocaleString()+'</td></tr><tr><td>특임 배지</td><td>'+badgeTotal()+' / '+(MIS.length*3)+'</td></tr></table>';
+  }else if(tab===3){
+    h+='<div id="rko"><p style="color:var(--dim)">'+(sb?'순위를 불러오는 중…':'온라인 순위는 서버가 연결되면 열린다.')+'</p></div>';
   }else{
     h+='<table><tr><th>요원</th><th>1</th><th>2</th><th>3</th><th>합계</th></tr>'+Object.keys(STORY).map(function(id){var sum=0;return '<tr><td>'+OPD[id].n+'</td>'+SIDX[id].map(function(mi){var q=PROG.s[mi]||{},b=0,k;for(k in q)if(q[k]>b)b=q[k];sum+=b;return '<td>'+(b?b.toLocaleString():'—')+'</td>';}).join('')+'<td class="best">'+(sum?sum.toLocaleString():'—')+'</td></tr>';}).join('')+'</table>';
   }
-  h+='<p style="margin-top:14px;color:var(--dim)">기록은 이 기기에만 남는다. 다른 지휘관과 겨루는 날은 곧 온다.</p>';
+  h+='<p style="margin-top:14px;color:var(--dim)">'+(USER?'기록은 계정에 남는다. 온라인 순위는 스토리 미션 최고 점수의 합으로 매긴다.':'기록은 이 기기에만 남는다. 로그인하면 계정에 남고 순위에 오른다.')+'</p>';
+  if(tab===3&&sb)rpc('s6_rank',{p_mission:null,p_diff:null,p_limit:50}).then(function(rows){var el=$('rko');if(!el)return;el.innerHTML=rows&&rows.length?'<table><tr><th>#</th><th>지휘관</th><th>점수</th></tr>'+rows.map(function(r){return '<tr'+(r.me?' class="me"':'')+'><td>'+r.rank+'</td><td>'+(''+r.name).replace(/[<>&]/g,'')+'</td><td class="best">'+(+r.score).toLocaleString()+'</td></tr>';}).join('')+'</table>':'<p style="color:var(--dim)">아직 아무도 오르지 않았다. 첫 줄은 비어 있다.</p>';}).catch(function(){var el=$('rko');if(el)el.innerHTML='<p style="color:var(--dim)">서버와 닿지 않는다.</p>';});
   page('랭킹','RANKING // '+(PROG.name?PROG.name.toUpperCase():'HANDLER'),h,home,[],function(e){var t=e.target.dataset.t;if(t!==undefined)ranking(+t);});
 }
 function settings(){
-  var h='<label>난이도</label><div class="seg">'+DIFFS.map(function(d,k){return '<button data-d="'+k+'"'+(k===DIFF?' class="sel"':'')+'><i>'+d.n+'</i>'+d.k+'</button>';}).join('')+'</div><p style="margin-top:10px">'+DF.d+' · 점수 배수 × '+[0.6,0.8,1,1.5][DIFF]+'</p>'+
+  var h='<label>계정</label>'+(USER?'<div class="row"><span>로그인됨<small>'+((USER.email||'').replace(/[<>&"]/g,''))+' · 기록이 계정에 남는다</small></span><button id="sout">로그아웃</button></div>':'<div class="row"><span>Google로 로그인<small>기록 · 포인트 · 랭킹을 계정에 남긴다</small></span><button id="sgo" class="gg">Google</button></div><div class="row"><span>Apple로 로그인<small>준비 중</small></span><button id="sap" class="ap"> Apple</button></div>')+(SBMSG?'<p style="color:var(--c)">'+SBMSG+'</p>':'')+
+   '<label>난이도</label><div class="seg">'+DIFFS.map(function(d,k){return '<button data-d="'+k+'"'+(k===DIFF?' class="sel"':'')+'><i>'+d.n+'</i>'+d.k+'</button>';}).join('')+'</div><p style="margin-top:10px">'+DF.d+' · 점수 배수 × '+[0.6,0.8,1,1.5][DIFF]+'</p>'+
    '<label>사운드</label><div class="row"><span>음량</span><input type="range" id="svol" min="0" max="100" value="'+Math.round(PROG.vol*100)+'"></div>'+
    '<label>프로필</label><div class="row"><span>호출명<small>랭킹과 홈에 표시</small></span><input type="text" id="snm" maxlength="12" placeholder="HANDLER" value="'+(PROG.name||'').replace(/"/g,'')+'"></div>'+
    '<label>화면</label><div class="row"><span>오프닝 다시 보기</span><button id="sop">보기</button></div><div class="row"><span>플레이 TIP</span><button id="stip">열기</button></div>'+
-   '<label>기록</label><div class="row"><span>개인 미션 전체 열기<small>테스트용</small></span><button id="sall"'+(PROG.all?' class="sel"':'')+'>'+(PROG.all?'ON':'OFF')+'</button></div><div class="row"><span>기록 지우기<small>점수 · 배지 · 포인트</small></span><button id="srst">지우기</button></div>'+
-   '<label>관리</label><div class="row"><span>관리자<small>미션 · 이미지 공개 설정</small></span><button id="sadm">'+(ADM?'열기':'코드 입력')+'</button></div><p style="color:var(--dim);text-align:center;margin-top:18px">SILENT SIX v'+VERSION+'</p>';
-  var keep=function(){var n=$('snm');if(n)PROG.name=(''+n.value).trim();saveProg();};
+   '<label>기록</label>'+(!sbOn()||ADM?'<div class="row"><span>개인 미션 전체 열기<small>테스트용</small></span><button id="sall"'+(PROG.all?' class="sel"':'')+'>'+(PROG.all?'ON':'OFF')+'</button></div>':'')+'<div class="row"><span>기록 지우기<small>점수 · 배지 · 포인트</small></span><button id="srst">지우기</button></div>'+
+   (sbOn()&&!ADM?'':'<label>관리</label><div class="row"><span>관리자<small>미션 · 이미지 공개 설정</small></span><button id="sadm">'+(ADM?'열기':'코드 입력')+'</button></div>')+'<p style="color:var(--dim);text-align:center;margin-top:18px">SILENT SIX v'+VERSION+'</p>';
+  var keep=function(){var n=$('snm');if(!n)return;var v=(''+n.value).trim();if(v!==PROG.name&&sb&&USER)rpc('s6_name',{p_name:v}).catch(function(){});PROG.name=v;saveProg();};SBMSG='';
   page('설정','SETTINGS',h,function(){keep();home();},[],function(e){var t=e.target,d=t.dataset.d;
     if(d!==undefined){keep();setDiff(+d);settings();}
     else if(t.id==='sall'){keep();PROG.all=!PROG.all;saveProg();settings();}
     else if(t.id==='sop'){keep();pgHide();opSelect();}
     else if(t.id==='stip'){keep();tipsPage(settings);}
     else if(t.id==='sadm'){keep();if(ADM)admin();else adminLogin();}
-    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.end={};PROG.g={};PROG.pt=0;saveProg();say('없던 일이 됐다.');settings();}});
+    else if(t.id==='sgo'){keep();if(!sbLogin())settings();}
+    else if(t.id==='sap'){SBMSG='Apple 로그인은 준비 중이다. 지금은 Google로.';settings();}
+    else if(t.id==='sout'){sbLogout();}
+    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.end={};PROG.g={};PROG.pt=0;SBQ=[];qSave();saveProg();if(sb&&USER)rpc('s6_reset').catch(function(){});say('없던 일이 됐다.');settings();}});
   $('pg').oninput=function(e){if(e.target.id==='svol'){PROG.vol=e.target.value/100;saveProg();}};
   $('pg').onchange=function(e){if(e.target.id==='svol')snd('ok');};
 }
@@ -879,6 +976,7 @@ function tipsPage(back){
 }
 function hex(buf){return Array.prototype.map.call(new Uint8Array(buf),function(b){return ('0'+b.toString(16)).slice(-2);}).join('');}
 function adminLogin(msg){
+  if(sbOn()){settings();return;}
   page('관리자','ADMIN // LOCKED','<p>관리자 코드를 넣는다. 코드는 이 화면 밖 어디에도 저장되지 않는다.</p><div class="row"><span>코드</span><input type="password" id="acode" autocomplete="off"></div><div class="row"><span>'+(msg||'')+'</span><button id="ago" class="sel">확인</button></div>',settings,[],function(e){
     if(e.target.id!=='ago')return;var v=(''+$('acode').value).trim();
     if(!(window.crypto&&crypto.subtle)){adminLogin('이 환경에서는 확인할 수 없다(https 필요)');return;}
@@ -889,21 +987,21 @@ function adminLogin(msg){
 function admin(){
   if(!ADM){adminLogin();return;}
   var grp=[['스토리 미션',function(i){return i<NBASE;}],['개인 미션',function(i){return !!MIS[i].story;}],['시즈널 — 블러디 크리스마스',function(i){return !!MIS[i].winter;}]];
-  var h='<p>여기서 바꾼 내용은 이 기기에 바로 적용된다. 모든 사용자에게 적용하려면 "설정 파일 받기"로 받은 config.json을 저장소의 public 폴더에 올린다.</p><label>구역 공개</label>'+[['story','개인 미션'],['seasonal','시즈널 미션'],['special','스페셜 미션'],['endings','그날 밤 이미지']].map(function(f){return '<div class="row"><span>'+f[1]+'</span><button data-f="'+f[0]+'"'+(flag(f[0])?' class="sel"':'')+'>'+(flag(f[0])?'공개':'비공개')+'</button></div>';}).join('');
+  var h=(sbOn()?'<p>여기서 바꾼 내용은 서버에 저장되고 <em class="k">모든 사용자에게</em> 적용된다. <span id="asv"></span></p>':'<p>여기서 바꾼 내용은 이 기기에 바로 적용된다. 모든 사용자에게 적용하려면 "설정 파일 받기"로 받은 config.json을 저장소의 public 폴더에 올린다.</p>')+'<label>구역 공개</label>'+[['story','개인 미션'],['seasonal','시즈널 미션'],['special','스페셜 미션'],['endings','그날 밤 이미지']].map(function(f){return '<div class="row"><span>'+f[1]+'</span><button data-f="'+f[0]+'"'+(flag(f[0])?' class="sel"':'')+'>'+(flag(f[0])?'공개':'비공개')+'</button></div>';}).join('');
   grp.forEach(function(g){h+='<label>'+g[0]+'</label>';MIS.forEach(function(m,i){if(!g[1](i))return;var imgs=[];m.ops.forEach(function(o){for(var k=0;k<8;k++)imgs.push('a_'+o.id+'_'+k+'.jpg');imgs.push('e_'+o.id+'.jpg');});var cur=mimg(i);
     h+='<div class="row"><span>'+m.title+'<small>'+m.key+'</small></span><select data-i="'+i+'">'+imgs.map(function(f){return '<option'+(f===cur?' selected':'')+'>'+f+'</option>';}).join('')+'</select><button data-v="'+i+'"'+(vis(i)?' class="sel"':'')+'>'+(vis(i)?'공개':'비공개')+'</button></div>';});});
   h+='<label>내보내기</label><div class="row"><span>설정 파일 받기<small>config.json</small></span><button id="adl">받기</button></div><div class="row"><span>이 기기 설정 초기화</span><button id="arst">초기화</button></div><div class="row"><span>관리자 나가기</span><button id="aout">잠그기</button></div>';
-  var sv=function(){try{localStorage.setItem('s6cfg',JSON.stringify(CFG));}catch(e){}};
+  var sv=function(){try{localStorage.setItem('s6cfg',JSON.stringify(CFG));}catch(e){}if(sb&&USER&&ADM){clearTimeout(admin.t);admin.t=setTimeout(function(){rpc('s6_cfg_set',{p:CFG}).then(function(){if($('asv'))$('asv').textContent='저장됨.';}).catch(function(){if($('asv'))$('asv').textContent='저장에 실패했다.';});},500);}};
   page('관리자','ADMIN',h,settings,[],function(e){var t=e.target,d=t.dataset;
     if(d.f){CFG.flags[d.f]=!flag(d.f);sv();admin();}
     else if(d.v!==undefined){var k=MIS[+d.v].key;if(CFG.hide[k])delete CFG.hide[k];else CFG.hide[k]=true;sv();admin();}
     else if(t.id==='adl'){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(CFG,null,1)],{type:'application/json'}));a.download='config.json';document.body.appendChild(a);a.click();a.remove();}
-    else if(t.id==='arst'){CFG={hide:{},img:{},flags:{}};try{localStorage.removeItem('s6cfg');}catch(e2){}admin();}
+    else if(t.id==='arst'){CFG={hide:{},img:{},flags:{}};sv();try{localStorage.removeItem('s6cfg');}catch(e2){}admin();}
     else if(t.id==='aout'){ADM=false;settings();}});
   $('pg').onchange=function(e){var i=e.target.dataset&&e.target.dataset.i;if(i!==undefined){CFG.img[MIS[+i].key]=e.target.value;sv();}};$('pg').oninput=null;
 }
 function ending(id){
-  hideOv();setPre(true);PROG.end[id]=true;saveProg();
+  hideOv();setPre(true);PROG.end[id]=true;saveProg();if(sb&&USER)setTimeout(function(){rpc('s6_end',{p_agent:id}).catch(function(){});},SBQ.length||SBBUSY?10000:0);
   scene(STORY[id].end.map(function(e,i){return {k:'AFTER // '+OPD[id].n+' '+(i+1)+'/3',h:e[0],p:e[1],img:i===2?'e_'+id+'.jpg':'a_'+id+'_'+(i?1:0)+'.jpg',c:OPD[id].col};}),storyMenu);
 }
 var M=MIS[0],MI=0,MAP=M.MAP,COLS=12,ROWS=20,HF=M.proj,HFI=null,WAKE=60,S;
@@ -1534,6 +1632,7 @@ $('hm').addEventListener('click',function(e){
 });
 $('pg').addEventListener('click',function(e){
   var t=e.target;if(t.dataset&&t.dataset.b){var b=PGB;pgHide();(b||home)();return;}
+  if(t.dataset&&t.dataset.view){viewer(t.dataset.view,true);return;}
   if(t.dataset&&t.dataset.k!==undefined){var f=PGA[+t.dataset.k];if(f)f();return;}
   if(PGH)PGH(e);
 });
@@ -1553,6 +1652,8 @@ function gLeft(id){var n=0,k;for(k=1;k<8;k++)if(!gOpen(id,k))n+=GCOST[k];return 
 function gCount(id){var n=0,k;for(k=0;k<8;k++)if(gOpen(id,k))n++;return n;}
 function gBuy(id,k){
   var all=k==='all',cost=all?Math.min(GALL,gLeft(id)):GCOST[k],g=PROG.g[id]||(PROG.g[id]=[]),i;
+  if(sb&&USER&&(PROG.pt||0)>=cost){if(SBBUSY||SBQ.length){ROMSG='방금 작전 기록을 올리는 중이다. 잠시 뒤에 다시.';roShow(id,ROK);qFlush();return;}ROMSG='확인하는 중…';roShow(id,ROK);
+    rpc('s6_buy',{p_agent:id,p_k:all?0:k}).then(function(st){applyState(st);snd('ok');ROMSG='';roShow(id,ROK);}).catch(function(e){ROMSG=/not enough/.test(''+(e&&e.message))?'포인트가 모자란다.':'서버와 닿지 않는다. 잠시 뒤에 다시.';roShow(id,ROK);});return;}
   if((PROG.pt||0)<cost){ROMSG='포인트가 모자란다. '+cost+'P가 필요하고 지금 '+(PROG.pt||0)+'P다.';roShow(id,ROK);return;}
   PROG.pt-=cost;if(all)for(i=1;i<8;i++)g[i]=true;else g[k]=true;saveProg();snd('ok');ROMSG='';roShow(id,ROK);
 }
@@ -1566,7 +1667,7 @@ function roShow(id,keep){
 function roLab(){var h='';for(var i=0;i<8;i++)h+='<i'+(i===ROK?' class="on"':'')+'></i>';$('rol').innerHTML='<b>'+FIT[fl(ROK/2)]+'</b><span>POSE '+(ROK%2+1)+' · '+(ROK+1)+' / 8</span>';$('rodots').innerHTML=h;}
 function roGo(k){var c=$('roc');k=Math.max(0,Math.min(7,k));if(c.scrollTo)c.scrollTo({left:k*c.clientWidth,behavior:'smooth'});}
 $('roc').addEventListener('scroll',function(){var c=$('roc'),k=Math.round(c.scrollLeft/(c.clientWidth||1));if(k!==ROK){ROK=k;roLab();}});
-$('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t.getAttribute('data-id'),u=t.getAttribute&&t.getAttribute('data-u');if(u!==null&&u!==undefined){gBuy(ROI,+u);return;}if(t.getAttribute&&t.getAttribute('data-ua')){gBuy(ROI,'all');return;}if(id){ROMSG='';roShow(id);}else if(t.id==='rop')roGo(ROK-1);else if(t.id==='ron2')roGo(ROK+1);else if(t.id==='rox'){$('ro').className='hide';if(RORET){var rr=RORET;RORET=null;rr();}else home();}});
+$('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t.getAttribute('data-id'),u=t.getAttribute&&t.getAttribute('data-u');if(t.tagName==='IMG'&&t.parentNode&&t.parentNode.className!=='lk'){viewer(t.getAttribute('src'));return;}if(u!==null&&u!==undefined){gBuy(ROI,+u);return;}if(t.getAttribute&&t.getAttribute('data-ua')){gBuy(ROI,'all');return;}if(id){ROMSG='';roShow(id);}else if(t.id==='rop')roGo(ROK-1);else if(t.id==='ron2')roGo(ROK+1);else if(t.id==='rox'){$('ro').className='hide';if(RORET){var rr=RORET;RORET=null;rr();}else home();}});
 function brief(i){
   setPre(true);hideOv();hmHide();pgHide();loadMission(i);if(CFG.img[M.key])M.img=CFG.img[M.key];S=newState();UIK='';
   var c=OPD[M.ops[M.ops.length-1].id].col;
@@ -1613,10 +1714,10 @@ function result(){
   var bh=bl.map(function(b,i){var ok=b[2](),isNew=ok&&!got[i];if(isNew){got[i]=true;nw++;}return '<tr><td>'+(got[i]?'◆':'◇')+' '+b[0]+(isNew?' <b style="color:var(--c)">NEW</b>':'')+'</td><td style="text-align:left;color:'+(ok?'var(--ink)':'var(--dim)')+'">'+b[1]+(ok?' ✓':'')+'</td></tr>';}).join('');
   var gain=Math.round(sc.score/100);PROG.pt=(PROG.pt||0)+gain;
   var kvm=/^a_([a-z]+)_(\d)\.jpg/.exec(MIS[MI].img||''),kvn=false;if(kvm&&+kvm[2]>0&&!gOpen(kvm[1],+kvm[2])){(PROG.g[kvm[1]]||(PROG.g[kvm[1]]=[]))[+kvm[2]]=true;kvn=true;}
-  saveProg();
+  saveProg();sbClear(M.key,DIFF,s,sc.score,bl.reduce(function(a,x,i){return a|(x[2]()?1<<i:0);},0),kvn?'g:'+kvm[1]+':'+kvm[2]:null);
   var b=[['다시 도전',restart,true],['미션 선택',M.story?storyMenu:M.winter?winter:menu]];if(M.story){var sid=M.story.id;if(M.story.ci<2)b.unshift(['다음 이야기',function(){brief(MI+1);},true]);else b.unshift(['그날 밤',function(){ending(sid);},true]);}else if(M.winter){if(MI<MIS.length-1&&MIS[MI+1].winter)b.unshift(['다음 판',function(){brief(MI+1);},true]);}else if(MI<NBASE-1)b.unshift(['다음 미션',function(){brief(MI+1);},true]);
   overlay(sc.score.toLocaleString()+' 점','MISSION CLEAR // '+sc.grade+' RANK'+(best?' // BEST':''),
-   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P</td></tr>'+(kvn?'<tr><td>갤러리</td><td><em class="k">이 작전의 그림이 열렸다</em></td></tr>':'')+'</table>'+
+   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P</td></tr>'+(kvn?'<tr><td>갤러리</td><td><em class="k">이 작전의 그림이 열렸다</em></td></tr>':'')+(sbOn()&&!USER?'<tr><td>기록</td><td style="color:var(--dim)">이 기기에만 남는다 · 로그인하면 계정에 남는다</td></tr>':'')+'</table>'+
    '<label style="margin-top:14px">특임 배지'+(nw?' — '+nw+'개 획득':'')+' (보유 '+badgeTotal()+')</label><table>'+bh+'</table>',b,null,true);
 }
 function showEnd(){
@@ -1729,7 +1830,9 @@ function frame(t){
   hud();draw();requestAnimationFrame(frame);
 }
 try{var sd=+localStorage.getItem('s6diff');if(localStorage.getItem('s6diff')!==null&&sd>=0&&sd<4)setDiff(sd);}catch(e){}
+$('vw').addEventListener('click',function(e){var t=e.target;if(t.id==='vwd'){vwSave();return;}if(t.id==='vwx')$('vw').className='hide';});
 loadMission(0);S=newState();resize();try{opSelect();}catch(e){opening();}
+try{sbInit();}catch(e){}
 requestAnimationFrame(frame);
 </script>
 </body>
