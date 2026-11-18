@@ -366,51 +366,85 @@
   }
  },
  "nights": {
-  "mood": "Tone: romance first. The viewer is the handler she trusts, and every cut is seen through his eyes; he is never shown (at most the edge of a hand or shoulder). Soft practical light only (a lamp, a candle, a rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Feeling comes from small things: a held gaze, an unplanned half smile, fingers reaching toward the camera, hair tucked behind an ear. Unguarded rather than posed. Everything physical is implied, never shown.",
-  "cuts": [
-   "ARRIVAL. She comes in through the door still in her mission gear, tired, and finds the viewer waiting. Relief crosses her face.",
-   "UNWINDING. She puts the night down piece by piece: gear off, {sig}",
-   "QUIET TALK. Sitting close with a drink, knees almost touching, she tells what happened tonight. {talk}",
-   "CLOSING THE DISTANCE. She leans in toward the camera, one hand reaching for the viewer, outer layer gone, a camisole or loose shirt, a look that asks a question.",
-   "THE NIGHT. Lamp-lit bed or sofa, lingerie-level sleepwear or an oversized shirt, sheets and shadow doing the covering. She lies close, eyes on the viewer. Tender, slow, implied intimacy only.",
-   "MORNING AFTER. First light through the window, she is wrapped in a sheet or the viewer's shirt, hair loose, a soft unguarded smile. {morn} Match the mood of the ending reference image."
-  ],
+  "mood": "Tone: the night swings back and forth between ROMANTIC cuts and EROTIC cuts, and the contrast is the point. The viewer is the handler she trusts; every cut is seen through his eyes and he is never shown (at most the edge of a hand, a tie, a shoulder). ROMANTIC cuts: quiet, unguarded, soft practical light, a held gaze, small gestures, real feeling. EROTIC cuts: voluptuous, seductive and bold. Low light, glistening skin, lingerie-level or swimsuit-level outfits, clinging fabric, a direct inviting look, a pose that knows exactly what it is doing. Shallow depth of field, gentle film grain, cinematic color. The heat is in the pose, the gaze and the styling; everything beyond that is implied, never shown.",
   "agents": {
    "raven": {
+    "title": "스카프를 푸는 밤",
+    "feel": "로맨틱 중심",
     "place": "A small safehouse room above the harbor, rain on the window, one warm lamp.",
-    "sig": "she finally unties the red scarf she has worn for three years and holds it out toward the viewer.",
-    "talk": "She has just learned that her teammate chose to stay behind; the guilt she carried is loosening.",
-    "morn": "The red scarf lies folded on the bedside table; she is not wearing it."
+    "cuts": [
+     "ARRIVAL. She comes in through the door still in her mission gear, tired, and finds the viewer waiting. Relief crosses her face.",
+     "UNWINDING. She puts the night down piece by piece: gear off, she finally unties the red scarf she has worn for three years and holds it out toward the viewer.",
+     "QUIET TALK. Sitting close with a drink, knees almost touching, she tells what happened tonight. She has just learned that her teammate chose to stay behind; the guilt she carried is loosening.",
+     "CLOSING THE DISTANCE. She leans in toward the camera, one hand reaching for the viewer, outer layer gone, a camisole or loose shirt, a look that asks a question.",
+     "THE NIGHT. Lamp-lit bed or sofa, lingerie-level sleepwear or an oversized shirt, sheets and shadow doing the covering. She lies close, eyes on the viewer. Tender, slow, implied intimacy only.",
+     "MORNING AFTER. First light through the window, she is wrapped in a sheet or the viewer's shirt, hair loose, a soft unguarded smile. The red scarf lies folded on the bedside table; she is not wearing it. Match the mood of the ending reference image."
+    ]
    },
    "viper": {
-    "place": "A mountain lodge with a wide window, snow outside, a fireplace.",
-    "sig": "the rifle set against the wall, one unspent round placed upright on the table, her hair let down.",
-    "talk": "She did not fire, and for once that was the right call; she is learning to breathe without a scope.",
-    "morn": "The single round still stands on the table in the dawn light."
+    "title": "설산 노천탕",
+    "feel": "뇌쇄적 · 차가운 유혹",
+    "place": "A mountain lodge with an outdoor hot spring in deep snow, then its fire-lit room. Night, falling snow, rising steam.",
+    "cuts": [
+     "EROTIC. She is already in the steaming outdoor bath, back to the viewer, hair pinned up, a black bikini, snow falling on her bare shoulders. She looks over her shoulder with a cool stare and curls one finger: come here.",
+     "ROMANTIC. Close on her face in the steam. Her wet hand rests flat on the viewer's chest as she counts his breathing the way a sniper does, eyes calm and soft for once.",
+     "EROTIC. She rises out of the water, a thin white bath robe clinging wet to her figure, steam curling off her skin, the cold gaze turned hot. Water runs down her collarbone.",
+     "ROMANTIC. Inside by the fire, robe loose off one shoulder, she dries her hair and places a single unspent rifle round in the viewer's open palm: the shot she chose not to take.",
+     "EROTIC. On a fur rug before the fireplace, robe open over black lace lingerie, lying on her side with a steady sniper's stare, one hand hooked in the viewer's collar pulling him down.",
+     "ROMANTIC. Blue dawn through the big window. She sleeps against the viewer's shoulder under a blanket, the rifle left by the door for the first time, snow light on her face."
+    ]
    },
    "glitch": {
-    "place": "Her apartment full of monitors, neon from the street below.",
-    "sig": "she switches off every screen one by one until only a lamp is left, then takes off her glasses and headphones.",
-    "talk": "She burned the last copy of her real name tonight; only six people know her now, and she is about to tell a seventh.",
-    "morn": "All the screens are dark; morning light is the only glow."
+    "title": "화면 속과 화면 밖",
+    "feel": "도발적 · 장난스러운 유혹",
+    "place": "Her small apartment full of monitors and LED strips, neon from the street below. Teal and magenta light.",
+    "cuts": [
+     "EROTIC. Framed as a video call on a screen, with glitch artifacts at the edges: she sits back in her chair in an oversized hoodie slipping off one shoulder, bare legs up on the desk, tongue out, headphones on. A dare to come over.",
+     "ROMANTIC. The door. She pulls the viewer by the wrist into the dark room lit only by monitors, glasses crooked, a shy real smile she was not ready to show.",
+     "EROTIC. Perched on the desk among keyboards, hoodie unzipped over a neon-teal lace bralette and short shorts, legs crossed toward the viewer, a headphone cable wound around one finger. Decadent neon on her skin.",
+     "ROMANTIC. She turns the screens off one by one. In the glow of the last laptop she types her real name, turns the screen toward the viewer and waits, small and honest.",
+     "EROTIC. On the bed under an LED strip, lying upside down with her hair spilling over the edge, a teal lingerie set and thigh-high socks, looking at the viewer upside down, one arm reaching up for him.",
+     "ROMANTIC. Morning, every screen dark. She sits at the window in the viewer's shirt with a mug, typing lazily, and looks back over her shoulder with a sleepy grin."
+    ]
    },
    "brick": {
-    "place": "A loft above a boxing gym, a heavy bag in the corner, brick walls.",
-    "sig": "she closes the door quietly for once, sets four dog tags on the table and lets the viewer unwrap the tape from her hands.",
-    "talk": "She found her people; she does not have to break anything tonight.",
-    "morn": "The dog tags hang by the window catching the light."
+    "title": "문 닫은 체육관",
+    "feel": "육감적 · 날것의 몸",
+    "place": "A boxing gym after closing: a ring, heavy bags, a locker room, then the rooftop. Warm tungsten light, sweat and chalk in the air.",
+    "cuts": [
+     "ROMANTIC. She closes the gym door quietly, for once, and hangs four dog tags on the ring post, touching them with two fingers.",
+     "EROTIC. At the heavy bag in a sports bra and shorts, taped fists, skin glistening with sweat, every muscle lit from the side. Between punches she glances at the viewer and grins.",
+     "EROTIC. In the ring she has the viewer backed against the ropes: one arm braced on the top rope beside his head, face inches away, breathing hard, a slow daring smile.",
+     "ROMANTIC. Sitting on the ring apron, she holds out her hands and lets the viewer unwrap the tape. Bruised knuckles, quiet eyes, shoulders finally dropped.",
+     "EROTIC. The locker room, steam from the showers. Wrapped in a single towel, wet hair down, leaning back against the lockers, she tugs the towel around the viewer's neck to pull him closer.",
+     "ROMANTIC. Sunrise on the gym roof. She sits in an oversized hoodie sharing one blanket, head on the viewer's shoulder, the city waking below."
+    ]
    },
    "mirage": {
-    "place": "A hotel suite with a mirrored vanity, city lights beyond the curtains.",
-    "sig": "at the mirror she takes off the earrings, the gloves and the makeup until it is her own bare face looking back.",
-    "talk": "Tonight she walked away without acting; she wants to be seen without a role.",
-    "morn": "Bare-faced, no jewelry, nothing performed."
+    "title": "호텔 스위트, 가면을 벗는 밤",
+    "feel": "퇴폐적 · 치명적",
+    "place": "A grand hotel: the bar, the mirrored elevator, then a suite with a vanity and floor-to-ceiling windows over the city. Gold light and deep shadow.",
+    "cuts": [
+     "EROTIC. At the hotel bar in a backless black gown, she slides a room key card across the counter with a gloved fingertip, lips at the rim of her glass, eyes never leaving the viewer.",
+     "EROTIC. The mirrored elevator. She touches up her lipstick while watching the viewer through the mirror, gown slit open along her leg, her other hand trailing down his tie.",
+     "ROMANTIC. At the suite's vanity she takes off the earrings, the gloves and the makeup. Her own bare face looks out of the mirror, asking to be seen without a role.",
+     "EROTIC. By the window, a silk robe sliding off both shoulders over black lace lingerie and stockings, champagne in hand, the city glittering behind her. Decadent and unhurried.",
+     "ROMANTIC. On satin sheets in the same lingerie, lying on her stomach with her chin on her hands and her feet in the air, bare-faced, laughing for real.",
+     "ROMANTIC. Morning on the balcony in the viewer's white shirt, no makeup, no jewelry, coffee in both hands, nothing performed."
+    ]
    },
    "doc": {
-    "place": "The back room of a small clinic turned into a home, plants on the sill, a desk lamp.",
-    "sig": "she hangs up the white coat, washes her hands and, for once, lets the viewer bandage her scraped knuckles.",
-    "talk": "After ten years she wrote 'discharged' on the chart; the one she could not save walked out on his own feet.",
-    "morn": "The closed chart rests on the desk beside two coffee cups."
+    "title": "진료 시간 종료",
+    "feel": "육감적 · 직설적인 유혹",
+    "place": "A small clinic after hours and the room behind it: an exam table, a desk lamp, plants on the sill. Warm lamp light with a lime-green accent.",
+    "cuts": [
+     "EROTIC. She locks the clinic door and flips the sign to CLOSED. White coat over a fitted dress, she snaps on one glove and smirks at the viewer: your turn for a checkup.",
+     "ROMANTIC. But first she holds out her scraped knuckles and, for once, lets someone else do the bandaging. A tired, grateful smile.",
+     "EROTIC. Sitting on the exam table, coat off her shoulders, blouse open over a lime-green lace top, she presses the stethoscope to the viewer's chest and leans in close to listen, eyes up at him.",
+     "ROMANTIC. Among the plants on the windowsill she waters them under the lamp and talks about the senior medic who walked out on his own feet. The chart lies closed on the desk.",
+     "EROTIC. Her room behind the clinic. A lime-green silk slip, stethoscope still around her neck, lying back on the bed with one tattooed arm above her head and the other hand beckoning.",
+     "ROMANTIC. Morning. Two coffee cups on the desk; she sits in the viewer's shirt writing one word at the bottom of the chart, 'discharged', and smiles up."
+    ]
    }
   }
  }
