@@ -4,3 +4,4 @@ node_modules/
 tools/studio/__pycache__/
 SILENT6_output/
 .vercel/
+tools/clear_studio/missions.json.bak

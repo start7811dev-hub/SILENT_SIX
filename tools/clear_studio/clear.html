@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SILENT SIX Clear Studio</title>
+<style>
+:root{--c:#ff3b52;--bg:#06080b;--tile:#121821;--ink:#eef1f5;--dim:#8a94a1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid #1c2430;position:sticky;top:0;background:var(--bg);z-index:5}
+header h1{margin:0;font-size:18px;letter-spacing:.04em}header h1 b{color:var(--c)}header span{color:var(--dim);font-size:12px}
+header .sp{flex:1}
+button{font:inherit;border:0;background:#1c2430;color:var(--ink);padding:8px 12px;cursor:pointer;border-radius:3px}
+button.p{background:var(--c);color:#06080b;font-weight:700}button:disabled{opacity:.4;cursor:default}
+main{display:grid;grid-template-columns:250px 1fr;min-height:calc(100vh - 58px)}
+aside{border-right:1px solid #1c2430;padding:14px}
+aside label,section label{display:block;font-size:11px;letter-spacing:.2em;color:var(--dim);font-weight:700;margin:14px 0 6px}
+aside label:first-child{margin-top:0}
+input,select,textarea{width:100%;background:#0d1219;border:1px solid #1c2430;color:var(--ink);padding:7px 9px;font:inherit;border-radius:3px}
+textarea{resize:vertical;min-height:58px;line-height:1.45}
+.ml button{display:block;width:100%;text-align:left;margin-bottom:4px;background:var(--tile);border-left:3px solid transparent}
+.ml button.on{border-left-color:var(--c);background:#1a2230}.ml button small{display:block;color:var(--dim);font-size:11px}
+section{padding:18px 22px;max-width:1180px}
+.row{display:grid;grid-template-columns:120px 1fr 1fr;gap:10px}
+.ag{display:flex;flex-wrap:wrap;gap:8px}
+.ag div{width:112px;background:var(--tile);padding:6px;text-align:center;border:2px solid transparent;cursor:pointer;border-radius:3px}
+.ag div.on{border-color:var(--c)}.ag div.miss{outline:1px dashed #a33}
+.ag img{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:50% 10%;background:#0d1219;display:block}
+.ag b{display:block;font-size:12px;margin-top:4px}.ag small{color:var(--dim);font-size:10.5px;display:block}
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px}
+.tc{background:var(--tile);padding:10px;border-radius:3px;display:flex;flex-direction:column;gap:7px}
+.tc h3{margin:0;font-size:15px;display:flex;align-items:baseline;gap:6px}.tc h3 i{font-style:normal;color:var(--c);font-size:11px;letter-spacing:.1em}
+.tc .cond{color:var(--dim);font-size:11.5px;margin-top:-4px}
+.tc .pv{aspect-ratio:2/3;background:#0d1219 center/cover;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:12px;text-align:center;padding:8px}
+.tc .fn{font:12px ui-monospace,Menlo,monospace;color:#c4ccd6}
+.tc .st{font-size:12px;color:var(--dim);min-height:18px}.tc .st.err{color:#ff7a8a}.tc .st.ok{color:#9be23a}
+details{margin-top:4px}details summary{cursor:pointer;color:var(--dim);font-size:12px}details pre{white-space:pre-wrap;font:11.5px/1.5 ui-monospace,Menlo,monospace;color:#c4ccd6;background:#0d1219;padding:8px;margin:6px 0 0}
+.bar{display:flex;gap:8px;align-items:center;margin:16px 0 4px;flex-wrap:wrap}
+.hint{color:var(--dim);font-size:12.5px}
+@media(max-width:1000px){.tg{grid-template-columns:repeat(2,1fr)}main{grid-template-columns:1fr}aside{border-right:0;border-bottom:1px solid #1c2430}}
+</style></head><body>
+<header><h1>SILENT <b>SIX</b> — Clear Studio</h1><span id="hout"></span><div class="sp"></div>
+<button id="bsave">미션 정의 저장</button><button id="bopen">저장 폴더 열기</button></header>
+<main>
+<aside>
+ <label>OPENAI API KEY</label><input id="key" type="password" placeholder="sk-..." autocomplete="off">
+ <label>MODEL</label><input id="model" value="gpt-image-2">
+ <label>QUALITY</label><select id="qual"><option value="high">high</option><option value="medium">medium</option><option value="low">low</option><option value="">지정 안 함</option></select>
+ <label>MISSIONS</label><div class="ml" id="ml"></div>
+ <button id="badd" style="width:100%;margin-top:6px">+ 미션 추가</button>
+ <button id="ball" class="p" style="width:100%;margin-top:14px">전체 미션 일괄 생성</button>
+ <p class="hint" id="allst"></p>
+</aside>
+<section>
+ <div class="row">
+  <div><label>미션 키</label><input id="mkey"></div>
+  <div><label>제목</label><input id="mtitle"></div>
+  <div><label>장소 · 분위기 (영문 권장)</label><input id="mplace"></div>
+ </div>
+ <label>등장 요원 — 누르면 선택. 선택한 요원은 전부 한 장면에 나온다.</label>
+ <div class="ag" id="ag"></div>
+ <p class="hint">참조 이미지는 저장소 public 폴더의 a_요원_0.jpg를 자동으로 쓴다. 없으면 요원 칸을 Option+클릭해서 파일을 직접 고른다.</p>
+ <div class="bar"><button id="bm4" class="p">이 미션 4장 생성</button><span class="hint">파일명은 r_미션키_번호.jpg (0 클리어 · 1 전투 · 2 도발 · 3 고자극). 저장소 public 폴더에 올리면 게임에 바로 붙는다.</span></div>
+ <div class="tg" id="tg"></div>
+ <label>공통 화풍 (전 미션 공통)</label><textarea id="style"></textarea>
+ <label>단계별 연출 지시 (전 미션 공통)</label><div id="tdir"></div>
+</section>
+</main>
+<input type="file" id="fref" accept="image/*" style="display:none">
+<script>
+// 수위 고정 문구. 모든 프롬프트 끝에 붙는다.
+var RATING='All characters are adult women in their late twenties. Sensual and glamorous is fine, but everyone stays fully covered: no nudity, no exposed nipples or genitals, no sexual acts.';
+var D=null,cur=0,REF={},BUSY={};
+var $=function(i){return document.getElementById(i);};
+function esc(s){return (''+(s==null?'':s)).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function fname(m,t){return 'r_'+m.key+'_'+D.tiers[t].file;}
+function prompt(m,t){
+  var ids=m.agents||[],n=ids.length,who=ids.map(function(id,i){var a=D.agents[id]||{name:id.toUpperCase(),look:''};return 'Reference image '+(i+1)+' is '+a.name+(a.look?' ('+a.look+')':'')+'.';}).join(' ');
+  var cast=n>1?'This image must show all '+n+' characters together in one scene: '+ids.map(function(id){return (D.agents[id]||{}).name||id;}).join(' and ')+'. Do not merge or drop anyone; each keeps her own face, hair and build exactly as in her reference image.':'Keep the same woman exactly as in the reference image: same face, hair and build.';
+  return [who,cast,'Setting: '+m.place,'Tier — '+D.tiers[t].dir,'Scene: '+(m.scenes[t]||''),D.style,RATING].filter(Boolean).join('\n\n');
+}
+function loadRef(id){
+  return new Promise(function(res){
+    if(REF[id]!==undefined){res(REF[id]);return;}
+    fetch('/ref/'+id).then(function(r){if(!r.ok)throw 0;return r.blob();}).then(function(b){var fr=new FileReader();fr.onload=function(){REF[id]=fr.result;res(REF[id]);};fr.readAsDataURL(b);}).catch(function(){REF[id]=null;res(null);});
+  });
+}
+function drawList(){
+  $('ml').innerHTML=D.missions.map(function(m,i){return '<button data-i="'+i+'"'+(i===cur?' class="on"':'')+'>'+esc(m.key)+' · '+esc(m.title)+'<small>'+(m.agents||[]).join(' + ')+'</small></button>';}).join('');
+}
+function drawAgents(){
+  var m=D.missions[cur];
+  Promise.all(Object.keys(D.agents).map(loadRef)).then(function(){
+    $('ag').innerHTML=Object.keys(D.agents).map(function(id){var on=(m.agents||[]).indexOf(id)>=0;return '<div data-a="'+id+'" class="'+(on?'on':'')+(REF[id]?'':' miss')+'">'+(REF[id]?'<img src="'+REF[id]+'">':'<img alt="">')+'<b>'+esc(D.agents[id].name)+'</b><small>'+(REF[id]?(on?'출연':'—'):'참조 없음')+'</small></div>';}).join('');
+  });
+}
+function drawTiers(){
+  var m=D.missions[cur];
+  $('tg').innerHTML=D.tiers.map(function(t,i){var f=fname(m,i);return '<div class="tc"><h3>'+esc(t.name)+' <i>#'+t.file+'</i></h3><div class="cond">'+esc(t.cond)+'</div><div class="pv" id="pv'+i+'" style="background-image:url(/out/'+f+'.jpg?t='+Date.now()+')"></div><div class="fn">'+f+'.jpg</div><textarea data-s="'+i+'" placeholder="이 단계의 장면 (영문 권장)">'+esc(m.scenes[i]||'')+'</textarea><button class="p" data-g="'+i+'">생성</button><div class="st" id="st'+i+'"></div><details><summary>보낼 프롬프트 보기</summary><pre id="pp'+i+'"></pre></details></div>';}).join('');
+  D.tiers.forEach(function(t,i){$('pp'+i).textContent=prompt(m,i);});
+}
+function drawGlobal(){
+  $('style').value=D.style||'';
+  $('tdir').innerHTML=D.tiers.map(function(t,i){return '<div class="row" style="grid-template-columns:120px 1fr;margin-bottom:6px"><input data-tn="'+i+'" value="'+esc(t.name)+'"><input data-td="'+i+'" value="'+esc(t.dir)+'"></div>';}).join('');
+}
+function draw(){var m=D.missions[cur];drawList();$('mkey').value=m.key;$('mtitle').value=m.title;$('mplace').value=m.place||'';drawAgents();drawTiers();}
+function st(i,t,c){var e=$('st'+i);if(e){e.textContent=t;e.className='st'+(c?' '+c:'');}}
+function gen(mi,ti){
+  var m=D.missions[mi],k=mi+':'+ti;
+  if(BUSY[k])return Promise.resolve(false);
+  var key=$('key').value.trim();if(!key){if(mi===cur)st(ti,'API 키를 먼저 넣어 주세요.','err');return Promise.resolve(false);}
+  if(!(m.agents||[]).length){if(mi===cur)st(ti,'등장 요원을 한 명 이상 고르세요.','err');return Promise.resolve(false);}
+  BUSY[k]=1;if(mi===cur)st(ti,'생성 중… 1~3분 걸린다.');
+  return Promise.all(m.agents.map(loadRef)).then(function(refs){
+    var miss=m.agents.filter(function(id,i){return !refs[i];});
+    if(miss.length)throw new Error('참조 이미지가 없다: '+miss.join(', ')+' (요원 칸을 Option+클릭해서 지정)');
+    return fetch('/api/gen',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key,model:$('model').value.trim()||'gpt-image-2',quality:$('qual').value,size:'1024x1536',prompt:prompt(m,ti),refs:refs,name:fname(m,ti)})}).then(function(r){return r.json();});
+  }).then(function(j){
+    if(!j.ok)throw new Error(j.error||'요청 실패');
+    return new Promise(function(res,rej){(function poll(){fetch('/api/job?id='+j.job).then(function(r){return r.json();}).then(function(r){if(!r.done){setTimeout(poll,2500);return;}if(!r.ok)rej(new Error(r.error));else res(r);}).catch(rej);})();});
+  }).then(function(r){
+    delete BUSY[k];if(mi===cur){st(ti,r.jpg?'완료 · JPG로 저장했다.':'완료 · PNG로 저장했다(JPG 변환 실패).','ok');var pv=$('pv'+ti);if(pv)pv.style.backgroundImage='url('+r.file+')';}return true;
+  }).catch(function(e){delete BUSY[k];if(mi===cur)st(ti,''+(e.message||e),'err');return false;});
+}
+function seq(list){var ok=0,i=0;return (function next(){if(i>=list.length)return Promise.resolve(ok);var x=list[i++];$('allst').textContent=(i)+' / '+list.length+' 생성 중 · '+D.missions[x[0]].key+' #'+x[1];return gen(x[0],x[1]).then(function(r){if(r)ok++;return next();});})();}
+function save(){return fetch('/api/missions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(D)}).then(function(r){return r.json();});}
+
+document.addEventListener('input',function(e){
+  var t=e.target,m=D&&D.missions[cur];if(!m)return;
+  if(t.id==='key'){try{localStorage.setItem('s6key',t.value);}catch(x){}return;}
+  if(t.id==='mkey'){m.key=t.value.trim().replace(/[^A-Za-z0-9_-]/g,'');drawList();}
+  else if(t.id==='mtitle'){m.title=t.value;drawList();}
+  else if(t.id==='mplace')m.place=t.value;
+  else if(t.id==='style')D.style=t.value;
+  else if(t.dataset.s!==undefined)m.scenes[+t.dataset.s]=t.value;
+  else if(t.dataset.tn!==undefined)D.tiers[+t.dataset.tn].name=t.value;
+  else if(t.dataset.td!==undefined)D.tiers[+t.dataset.td].dir=t.value;
+  else return;
+  D.tiers.forEach(function(x,i){var p=$('pp'+i);if(p)p.textContent=prompt(m,i);});
+});
+var PICK=null;
+document.addEventListener('click',function(e){
+  var t=e.target,a=t.closest&&t.closest('[data-a]'),b=t.closest&&t.closest('[data-i]');
+  if(b){cur=+b.dataset.i;draw();return;}
+  if(a){var id=a.dataset.a,m=D.missions[cur];if(e.altKey||!REF[id]){PICK=id;$('fref').click();if(!e.altKey&&!REF[id]){}return;}var k=m.agents.indexOf(id);if(k>=0)m.agents.splice(k,1);else m.agents.push(id);draw();return;}
+  if(t.dataset.g!==undefined){gen(cur,+t.dataset.g);return;}
+  if(t.id==='bm4'){t.disabled=true;seq([0,1,2,3].map(function(i){return [cur,i];})).then(function(n){t.disabled=false;$('allst').textContent='이 미션 '+n+' / 4 완료';});}
+  else if(t.id==='ball'){if(!confirm('전체 '+D.missions.length+'개 미션, '+(D.missions.length*4)+'장을 차례로 생성합니다. API 비용이 그만큼 듭니다. 진행할까요?'))return;t.disabled=true;var L=[];D.missions.forEach(function(m,mi){for(var i=0;i<4;i++)L.push([mi,i]);});seq(L).then(function(n){t.disabled=false;$('allst').textContent='전체 '+n+' / '+L.length+' 완료';draw();});}
+  else if(t.id==='badd'){D.missions.push({key:'NEW-'+(D.missions.length+1),title:'새 미션',agents:[],place:'',scenes:['','','','']});cur=D.missions.length-1;draw();}
+  else if(t.id==='bsave'){save().then(function(r){t.textContent=r.ok?'저장됨':'저장 실패';setTimeout(function(){t.textContent='미션 정의 저장';},1600);});}
+  else if(t.id==='bopen')fetch('/api/open',{method:'POST',body:'{}'});
+});
+$('fref').addEventListener('change',function(){var f=this.files[0],id=PICK;if(!f||!id)return;var fr=new FileReader();fr.onload=function(){REF[id]=fr.result;var m=D.missions[cur];if(m.agents.indexOf(id)<0)m.agents.push(id);draw();};fr.readAsDataURL(f);this.value='';});
+try{$('key').value=localStorage.getItem('s6key')||'';}catch(x){}
+Promise.all([fetch('/api/missions').then(function(r){return r.json();}),fetch('/api/list').then(function(r){return r.json();})]).then(function(a){
+  D=a[0];D.missions.forEach(function(m){m.scenes=m.scenes||['','','',''];m.agents=m.agents||[];});
+  $('hout').textContent='저장: '+a[1].out+(a[1].repo?'':' · 저장소 밖에서 실행 중(참조 이미지를 직접 지정)');
+  drawGlobal();draw();
+});
+</script></body></html>

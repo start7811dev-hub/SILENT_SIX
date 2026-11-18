@@ -1,0 +1,148 @@
+{
+ "version": 1,
+ "note": "미션 클리어 이미지 정의. tiers 순서 = 파일 번호(0 일반, 1 전투, 2 도발, 3 고자극). 미션을 추가하려면 missions에 항목을 더한다.",
+ "style": "Semi-realistic anime illustration, cinematic lighting, rich detail, the same art style as the reference images. Vertical 2:3 composition. Every face fully visible and unobstructed, heads in the upper half of the frame with clear space above the hair. No text, no logo, no watermark.",
+ "agents": {
+  "raven": {
+   "name": "RAVEN",
+   "look": "short messy black hair, sharp eyes, signature red scarf, black tactical gear"
+  },
+  "viper": {
+   "name": "VIPER",
+   "look": "silver-lavender hair, cool gaze, purple-accented sniper suit, long suppressed rifle"
+  },
+  "glitch": {
+   "name": "GLITCH",
+   "look": "dark hair with teal highlights, glasses, headphones around the neck, small recon drone"
+  },
+  "brick": {
+   "name": "BRICK",
+   "look": "strong athletic build, breacher gear, orange accents"
+  },
+  "mirage": {
+   "name": "MIRAGE",
+   "look": "long dark wavy hair, elegant and poised, gold accents"
+  },
+  "doc": {
+   "name": "DOC",
+   "look": "dark curly hair tied up high, hoop earrings, tattooed forearm, lime-green medic accents, tranquilizer dart pistol"
+  }
+ },
+ "tiers": [
+  {
+   "name": "클리어",
+   "file": 0,
+   "cond": "모든 난이도 · 클리어",
+   "dir": "Mission accomplished. A calm, confident moment right after the objective is done. Full mission outfit."
+  },
+  {
+   "name": "전투",
+   "file": 1,
+   "cond": "HARD 이상 · 배지 1",
+   "dir": "The most intense combat moment of this mission, dynamic action pose, motion and impact. Full mission outfit."
+  },
+  {
+   "name": "도발",
+   "file": 2,
+   "cond": "HARD 이상 · 배지 2",
+   "dir": "After the mission. A teasing, provocative pose aimed straight at the viewer, mission outfit loosened and partly unzipped, playful confident expression."
+  },
+  {
+   "name": "고자극",
+   "file": 3,
+   "cond": "HARD 이상 · 배지 3",
+   "dir": "A private moment after the mission. The most sensual image of the set: lingerie-level or swimsuit-level outfit themed to this mission, intimate mood, implied closeness only."
+  }
+ ],
+ "missions": [
+  {
+   "key": "S1-01",
+   "title": "혼자 남은 사람",
+   "agents": [
+    "raven"
+   ],
+   "place": "Harbor warehouse no. 3 at night, stacked shipping containers, sodium lamps, wet concrete, sea fog.",
+   "scenes": [
+    "She walks out of the warehouse door at dawn, the freed hostage a blurred silhouette behind her, glancing back over her shoulder.",
+    "She takes down a masked guard from behind between the containers, red scarf whipping in the air.",
+    "She sits on a shipping crate by the pier, jacket unzipped low, pulling the red scarf down from her lips with a smirk, harbor lights behind.",
+    "A small safehouse room above the harbor at dawn. She leans on the window frame in black lace lingerie with the red scarf still around her neck, her gear dropped on the floor."
+   ]
+  },
+  {
+   "key": "S1-02",
+   "title": "원거리 지원",
+   "agents": [
+    "raven",
+    "viper"
+   ],
+   "place": "A mountain road checkpoint at night, pine forest, a watchtower and a radio mast, cold mist.",
+   "scenes": [
+    "The two walk away side by side from the dead radio mast, the sniper carrying her rifle on her shoulder, the leader with a hand on her knife.",
+    "The sniper lies prone taking the shot at the watchtower while the leader crouches beside her calling the wind, muzzle flash and drifting mist.",
+    "Both lean against a parked off-road vehicle on the mountain road, jackets open, one fixing the other's collar, both looking at the viewer with teasing smiles.",
+    "A mountain cabin by a fireplace. Both in lace lingerie under one shared blanket, the rifle resting against the wall, warm firelight."
+   ]
+  },
+  {
+   "key": "S1-03",
+   "title": "눈이 되는 자",
+   "agents": [
+    "raven",
+    "glitch"
+   ],
+   "place": "A corporate front office at night, glass walls, a cold blue server room, dead CCTV monitors.",
+   "scenes": [
+    "Inside the elevator on the way out, the hacker holds up a data drive with a grin while the leader stands with arms crossed.",
+    "The hacker kills the cameras from a tablet as her drone hovers, the leader slipping through the server racks with a knife, screens going black one by one.",
+    "The dark executive office. The hacker sits on the CEO's desk with legs crossed and glasses pushed up, the leader leaning on the desk beside her, shirts loosened.",
+    "A high-floor hotel room, city neon through the window. Both in lingerie, the hacker with headphones still around her neck, the leader with her red scarf, laptops forgotten on the bed."
+   ]
+  },
+  {
+   "key": "S1-04",
+   "title": "길을 내는 자",
+   "agents": [
+    "viper",
+    "brick"
+   ],
+   "place": "An abandoned mine, timber-braced tunnels, an armory deep inside, dust in lamp light.",
+   "scenes": [
+    "The two walk out of the mine mouth into morning light, dusted grey, the breacher with a sledge on her shoulder, the sniper slinging her rifle.",
+    "The breacher smashes through a cracked wall in a burst of rubble while the sniper covers the tunnel with her rifle, debris frozen mid-air.",
+    "Sitting on ammunition crates in the armory, tank tops and unzipped suits, wiping dust off each other, grinning at the viewer.",
+    "A mountain hot spring at night after the job. Both in swimsuits in rising steam, towels on the rocks, lantern light."
+   ]
+  },
+  {
+   "key": "S1-05",
+   "title": "가면 무도회",
+   "agents": [
+    "mirage",
+    "glitch"
+   ],
+   "place": "A patron's mansion during a masquerade ball, chandeliers, a grand staircase, a study with a hidden safe.",
+   "scenes": [
+    "The two descend the grand staircase leaving the party, masks in hand, the ledger tucked under an arm, exchanging a look.",
+    "In the study, the infiltrator in an evening gown and mask opens the safe while the hacker crouches under the desk with a laptop, a guard's shadow at the door.",
+    "On the ballroom balcony, the infiltrator lifts her mask with a knowing smile, gown slit showing her leg, the hacker beside her in a loosened waiter vest.",
+    "The mansion's powder room, gilded mirrors and candlelight. Both in lace lingerie still wearing their masquerade masks, champagne glasses in hand."
+   ]
+  },
+  {
+   "key": "S1-06",
+   "title": "마지막 한 명",
+   "agents": [
+    "raven",
+    "doc"
+   ],
+   "place": "An isolation ward of a private hospital at night, long white corridors, red emergency lights.",
+   "scenes": [
+    "The two support a wounded informant, seen from behind, down the corridor toward the exit, both looking forward, steady.",
+    "The medic fires a tranquilizer dart down the corridor as the leader covers her flank with a knife, red emergency light and falling guards.",
+    "An empty ward room after the fight. The medic sits on the bed edge with her coat open, the leader leans in the doorway with scarf loosened, both eyeing the viewer.",
+    "A safehouse at night. The medic in lingerie under an open white coat bandages the leader's shoulder, the leader in lingerie with her red scarf, a tender close moment."
+   ]
+  }
+ ]
+}

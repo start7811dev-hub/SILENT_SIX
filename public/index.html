@@ -361,6 +361,12 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #pg .pb label{display:block;font-size:10.5px;letter-spacing:.3em;color:var(--dim);font-weight:700;margin:18px 0 8px}
 #pg .cg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 #pg .cg.c3{grid-template-columns:repeat(3,1fr)}
+#pg .cg.c4{grid-template-columns:repeat(4,1fr);gap:5px}
+#pg .cg.c4 .cd{padding:6px 7px;aspect-ratio:2/3}#pg .cg.c4 .cd b{font-size:12.5px}#pg .cg.c4 .cd u{font-size:9.5px;margin-top:1px}#pg .cg.c4 .cd i{display:none}
+#pg .cg.c4 .cd em{right:4px;top:4px;font-size:7.5px;letter-spacing:.12em;padding:3px 4px}
+#pg .rwh{display:flex;align-items:baseline;gap:8px;margin:14px 0 6px;font:800 15px/1.2 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+#pg .rwh i{font-style:normal;font:800 12px/1 system-ui,sans-serif;letter-spacing:.14em;color:var(--c)}#pg .rwh u{margin-left:auto;text-decoration:none;font:600 11px/1 system-ui,sans-serif;color:var(--dim)}
+#ovi{cursor:zoom-in}
 #pg .cd{position:relative;aspect-ratio:3/4;padding:10px 11px;text-align:left;overflow:hidden;background:var(--tile);display:flex;flex-direction:column;justify-content:flex-end}
 #pg .cd.w{grid-column:1/-1;aspect-ratio:16/9}
 #pg .cd.s{aspect-ratio:16/10}
@@ -690,7 +696,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.17.2';
+var VERSION='0.18.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -702,7 +708,8 @@ function rpc(fn,a){return sb.rpc(fn,a||{}).then(function(r){if(r.error)throw r.e
 function kIdx(){var o={};MIS.forEach(function(m,i){o[m.key]=i;});return o;}
 function hasLocal(){var k;for(k in PROG.c)return true;for(k in PROG.g)return true;return (PROG.pt||0)>0;}
 function localExport(){
-  var o={pt:PROG.pt||0,name:PROG.name||'',clears:[],badges:{},unlocks:[]},i,d,k;
+  var o={pt:PROG.pt||0,name:PROG.name||'',clears:[],badges:{},hbadges:{},unlocks:[]},i,d,k;
+  for(i in PROG.hb||{}){if(!MIS[i])continue;var hg=PROG.hb[i],hbits=(hg[0]?1:0)|(hg[1]?2:0)|(hg[2]?4:0);if(hbits)o.hbadges[MIS[i].key]=hbits;}
   for(i in PROG.s){if(!MIS[i])continue;for(d in PROG.s[i])o.clears.push({m:MIS[i].key,d:+d,t:Math.max(8,fl((PROG.c[i]||{})[d]||60)),s:PROG.s[i][d]});}
   for(i in PROG.b){if(!MIS[i])continue;var g=PROG.b[i],bits=(g[0]?1:0)|(g[1]?2:0)|(g[2]?4:0);if(bits)o.badges[MIS[i].key]=bits;}
   for(i in PROG.g)for(k=1;k<8;k++)if(PROG.g[i][k])o.unlocks.push('g:'+i+':'+k);
@@ -710,9 +717,10 @@ function localExport(){
   return o;
 }
 function applyState(st){
-  if(!st||!st.profile)return;var K=kIdx();PROG.c={};PROG.s={};PROG.b={};PROG.g={};PROG.end={};
+  if(!st||!st.profile)return;var K=kIdx();PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.g={};PROG.end={};
   (st.clears||[]).forEach(function(r){var i=K[r.m];if(i===undefined)return;(PROG.c[i]||(PROG.c[i]={}))[r.d]=r.t;(PROG.s[i]||(PROG.s[i]={}))[r.d]=r.s;});
   var m;for(m in st.badges||{}){var i=K[m],b=st.badges[m];if(i!==undefined)PROG.b[i]=[!!(b&1),!!(b&2),!!(b&4)];}
+  for(m in st.hbadges||{}){var i2=K[m],b2=st.hbadges[m];if(i2!==undefined&&b2)PROG.hb[i2]=[!!(b2&1),!!(b2&2),!!(b2&4)];}
   (st.unlocks||[]).forEach(function(it){var a=it.split(':');if(a[0]==='g')(PROG.g[a[1]]||(PROG.g[a[1]]=[]))[+a[2]]=true;else if(a[0]==='end')PROG.end[a[1]]=true;});
   PROG.pt=st.profile.pt||0;if(st.profile.name)PROG.name=st.profile.name;ADM=!!st.profile.admin;PROG.uid=USER?USER.id:null;saveProg();
 }
@@ -746,7 +754,7 @@ function sbLogin(){
   sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});return true;
 }
 function sbLogout(){
-  if(!sb)return;sb.auth.signOut().then(function(){USER=null;ADM=false;PROG.c={};PROG.s={};PROG.b={};PROG.end={};PROG.g={};PROG.pt=0;PROG.name='';PROG.uid=null;PROG.all=false;SBQ=[];qSave();saveProg();home();});
+  if(!sb)return;sb.auth.signOut().then(function(){USER=null;ADM=false;PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.end={};PROG.g={};PROG.pt=0;PROG.name='';PROG.uid=null;PROG.all=false;SBQ=[];qSave();saveProg();home();});
 }
 function sbInit(){
   if(!sbOn()||typeof document==='undefined'||!document.createElement)return;
@@ -761,6 +769,12 @@ function sbInit(){
   document.head.appendChild(sc);
 }
 var KVI={seasonal:false,special:false};
+/* 미션 클리어 이미지: r_<미션키>_<0..3>.jpg — 0 일반, 1 전투(HARD 이상 배지 1), 2 도발(배지 2), 3 고자극(배지 3) */
+var RWN=['클리어','전투','도발','고자극'],RWC=['미션 클리어','HARD ◆1','HARD ◆2','HARD ◆3'],RWI={};
+function rwKeys(){var a=[];for(var i=0;i<NBASE;i++)a.push(i);return a;}
+function rwProbe(){if(typeof Image==='undefined')return;rwKeys().forEach(function(i){for(var n=0;n<4;n++)(function(f){var im=new Image();im.onload=function(){RWI[f]=true;};im.src=f;})('r_'+MIS[i].key+'_'+n+'.jpg');});}
+function rwTier(i){if(!PROG.c[i])return -1;var h=(PROG.hb||{})[i]||[],n=0;for(var k=0;k<3;k++)if(h[k])n++;return n;}
+function rwImg(i,n){var f='r_'+MIS[i].key+'_'+n+'.jpg';return RWI[f]?f:(n===0?mimg(i):null);}
 function kvProbe(){if(typeof Image==='undefined')return;['seasonal','special'].forEach(function(k){var im=new Image();im.onload=function(){KVI[k]=true;sbRefresh();};im.src='kv_'+k+'.jpg';});}
 function mainDone(){var n=0,i;for(i=0;i<NBASE;i++)if(PROG.c[i])n++;return n;}
 function storyOpen(){return PROG.all||mainDone()>=NBASE;}
@@ -963,9 +977,11 @@ function agentHub(id){
 }
 var BXO=false;
 function blackbox(){
-  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 전부 여기 담겨 있어. 잊고 싶어도, <em class="k">블랙박스는 잊지 않아.</em></p><button class="fold'+(BXO?' open':'')+'" data-fold="1"><span><i>NOVEL · S1 · EPISODE 1</i><b>소설 — 여섯이 모이기까지</b><u>'+nd+' / '+NBASE+'장 열림</u></span><em>'+(BXO?'접기':'펼치기')+'</em></button><div class="foldb'+(BXO?'':' hide')+'"><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'에피소드 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div></div><label>미션 클리어 이미지</label><div class="cg c3">',i;
-  for(i=0;i<NBASE;i++)h+=cd(99,mimg(i),MIS[i].title,'',{kv:1,view:1,no:'0'+(i+1),lock:!PROG.c[i],tag:PROG.c[i]?'':'LOCKED'});
-  h+='</div><label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{view:1,lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
+  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 전부 여기 담겨 있어. 잊고 싶어도, <em class="k">블랙박스는 잊지 않아.</em></p><button class="fold'+(BXO?' open':'')+'" data-fold="1"><span><i>NOVEL · S1 · EPISODE 1</i><b>소설 — 여섯이 모이기까지</b><u>'+nd+' / '+NBASE+'장 열림</u></span><em>'+(BXO?'접기':'펼치기')+'</em></button><div class="foldb'+(BXO?'':' hide')+'"><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'에피소드 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div></div><label>미션 클리어 이미지 — 미션마다 네 장</label><p style="color:var(--dim);margin-top:-2px">깨면 한 장. <em class="k">HARD 이상</em>에서 배지를 딸 때마다 한 장씩 더.</p>',i;
+  for(i=0;i<NBASE;i++){var tr=rwTier(i);h+='<div class="rwh"><i>0'+(i+1)+'</i>'+MIS[i].title+'<u>'+(tr<0?'0':tr+1)+' / 4</u></div><div class="cg c4">';
+    for(var rn=0;rn<4;rn++){var op=tr>=rn,im=rwImg(i,rn);h+=cd(99,op?im:(im||mimg(i)),RWN[rn],op?(im?'':'이미지 준비 중'):RWC[rn],{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':'LOCKED'});}
+    h+='</div>';}
+  h+='<label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{view:1,lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
   page('블랙박스','BLACK BOX',h,home,[],function(e){var t=e.target,n=t.dataset.n,v=t;while(v&&v.id!=='pg'&&!(v.dataset&&v.dataset.view))v=v.parentNode;if(v&&v.dataset&&v.dataset.view){viewer(v.dataset.view,true);return;}while(t&&t.id!=='pg'&&!(t.dataset&&t.dataset.fold))t=t.parentNode;if(t&&t.dataset&&t.dataset.fold){BXO=!BXO;var sc=$('pg').scrollTop;blackbox();$('pg').scrollTop=sc;return;}if(n!==undefined)novelRead(n);});
 }
 function shop(){
@@ -1008,7 +1024,7 @@ function settings(){
     else if(t.id==='sgo'){keep();if(!sbLogin())settings();}
     else if(t.id==='sap'){SBMSG='Apple 로그인은 준비 중이다. 지금은 Google로.';settings();}
     else if(t.id==='sout'){sbLogout();}
-    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.end={};PROG.g={};PROG.pt=0;SBQ=[];qSave();saveProg();if(sb&&USER)rpc('s6_reset').catch(function(){});say('없던 일이 됐다.');settings();}});
+    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.end={};PROG.g={};PROG.pt=0;SBQ=[];qSave();saveProg();if(sb&&USER)rpc('s6_reset').catch(function(){});say('없던 일이 됐다.');settings();}});
   $('pg').oninput=function(e){if(e.target.id==='svol'){PROG.vol=e.target.value/100;saveProg();}};
   $('pg').onchange=function(e){if(e.target.id==='svol')snd('ok');};
 }
@@ -1755,13 +1771,17 @@ function result(){
   var pc=PROG.c[MI]||(PROG.c[MI]={}),ps=PROG.s[MI]||(PROG.s[MI]={});
   if(!(pc[DIFF]<=s))pc[DIFF]=s;if(!(ps[DIFF]>=sc.score)){ps[DIFF]=sc.score;best=true;}
   var bh=bl.map(function(b,i){var ok=b[2](),isNew=ok&&!got[i];if(isNew){got[i]=true;nw++;}return '<tr><td>'+(got[i]?'◆':'◇')+' '+b[0]+(isNew?' <b style="color:var(--c)">NEW</b>':'')+'</td><td style="text-align:left;color:'+(ok?'var(--ink)':'var(--dim)')+'">'+b[1]+(ok?' ✓':'')+'</td></tr>';}).join('');
+  var rw0=MI<NBASE?rwTier(MI):-9,rw1=rw0,rwi=null,rwt='';
+  if(MI<NBASE){if(DIFF>=2){var hb=(PROG.hb||(PROG.hb={}))[MI]||(PROG.hb[MI]=[false,false,false]);bl.forEach(function(b,i){if(b[2]())hb[i]=true;});}rw1=rwTier(MI);
+    for(var rn=rw1;rn>=0&&!rwi;rn--)rwi=rwImg(MI,rn);
+    rwt=rw1>rw0&&rw1>0?'<em class="k">'+RWN[rw1]+' 컷이 블랙박스에 담겼다</em>':rw0<0?'<em class="k">클리어 컷이 블랙박스에 담겼다</em>':DIFF<2?'<span style="color:var(--dim)">HARD 이상에서 배지를 따면 특별 컷이 열린다</span>':rw1<3?'<span style="color:var(--dim)">배지를 더 모으면 다음 컷이 열린다 · '+rw1+' / 3</span>':'<span style="color:var(--dim)">네 장 모두 열었다</span>';}
   var gain=Math.round(sc.score/100);PROG.pt=(PROG.pt||0)+gain;
   var kvm=/^a_([a-z]+)_(\d)\.jpg/.exec(MIS[MI].img||''),kvn=false;if(kvm&&+kvm[2]>0&&!gOpen(kvm[1],+kvm[2])){(PROG.g[kvm[1]]||(PROG.g[kvm[1]]=[]))[+kvm[2]]=true;kvn=true;}
   saveProg();sbClear(M.key,DIFF,s,sc.score,bl.reduce(function(a,x,i){return a|(x[2]()?1<<i:0);},0),kvn?'g:'+kvm[1]+':'+kvm[2]:null);
   var b=[['다시 도전',restart,true],['미션 선택',M.story?storyMenu:M.winter?winter:menu]];if(M.story){var sid=M.story.id;if(M.story.ci<2)b.unshift(['다음 이야기',function(){brief(MI+1);},true]);else b.unshift(['그날 밤',function(){ending(sid);},true]);}else if(M.winter){if(MI<MIS.length-1&&MIS[MI+1].winter)b.unshift(['다음 판',function(){brief(MI+1);},true]);}else if(MI<NBASE-1)b.unshift(['다음 미션',function(){brief(MI+1);},true]);
   overlay(sc.score.toLocaleString()+' 점','MISSION CLEAR // '+sc.grade+' RANK'+(best?' // BEST':''),
-   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P</td></tr>'+(kvn?'<tr><td>갤러리</td><td><em class="k">이 작전의 그림이 열렸다</em></td></tr>':'')+(sbOn()&&!USER?'<tr><td>기록</td><td style="color:var(--dim)">이 기기에만 남는다 · 로그인하면 계정에 남는다</td></tr>':'')+'</table>'+
-   '<label style="margin-top:14px">특임 배지'+(nw?' — '+nw+'개 획득':'')+' (보유 '+badgeTotal()+')</label><table>'+bh+'</table>',b,null,true);
+   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P</td></tr>'+(rwt?'<tr><td>클리어 이미지</td><td>'+rwt+'</td></tr>':'')+(kvn?'<tr><td>갤러리</td><td><em class="k">이 작전의 그림이 열렸다</em></td></tr>':'')+(sbOn()&&!USER?'<tr><td>기록</td><td style="color:var(--dim)">이 기기에만 남는다 · 로그인하면 계정에 남는다</td></tr>':'')+'</table>'+
+   '<label style="margin-top:14px">특임 배지'+(nw?' — '+nw+'개 획득':'')+' (보유 '+badgeTotal()+')</label><table>'+bh+'</table>',b,rwi,true);
 }
 function showEnd(){
   if(S.over.win&&MI<NBASE){snd('ok');var ch=NOVEL.ch[MI],go=function(){pgHide();result();};reader({t:ch.t,sub:'MISSION CLEAR // '+(MI+1)+'장',img:M.img,p:ch.post,q:ch.q,btn:'결과 보기',next:go,back:go});}
@@ -1873,9 +1893,10 @@ function frame(t){
   hud();draw();requestAnimationFrame(frame);
 }
 try{var sd=+localStorage.getItem('s6diff');if(localStorage.getItem('s6diff')!==null&&sd>=0&&sd<4)setDiff(sd);}catch(e){}
+$('ovi').addEventListener('click',function(){var f=this.getAttribute('src');if(f)viewer(f,true);});
 $('vw').addEventListener('click',function(e){var t=e.target;if(t.id==='vwd'){vwSave();return;}if(t.id==='vwx')$('vw').className='hide';});
 loadMission(0);S=newState();resize();try{if(PROG.op==='a'||PROG.op==='b')opening(PROG.op);else opSelect();}catch(e){opening();}
-try{kvProbe();}catch(e){}
+try{kvProbe();rwProbe();}catch(e){}
 try{sbInit();}catch(e){}
 requestAnimationFrame(frame);
 </script>
