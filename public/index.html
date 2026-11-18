@@ -696,7 +696,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.18.0';
+var VERSION='0.18.2';
 var PROG={c:{},s:{},b:{},end:{},g:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -708,8 +708,8 @@ function rpc(fn,a){return sb.rpc(fn,a||{}).then(function(r){if(r.error)throw r.e
 function kIdx(){var o={};MIS.forEach(function(m,i){o[m.key]=i;});return o;}
 function hasLocal(){var k;for(k in PROG.c)return true;for(k in PROG.g)return true;return (PROG.pt||0)>0;}
 function localExport(){
-  var o={pt:PROG.pt||0,name:PROG.name||'',clears:[],badges:{},hbadges:{},unlocks:[]},i,d,k;
-  for(i in PROG.hb||{}){if(!MIS[i])continue;var hg=PROG.hb[i],hbits=(hg[0]?1:0)|(hg[1]?2:0)|(hg[2]?4:0);if(hbits)o.hbadges[MIS[i].key]=hbits;}
+  var o={pt:PROG.pt||0,name:PROG.name||'',clears:[],badges:{},hbest:{},unlocks:[]},i,d,k;
+  for(i in PROG.hb||{}){if(MIS[i]&&PROG.hb[i]>0)o.hbest[MIS[i].key]=+PROG.hb[i];}
   for(i in PROG.s){if(!MIS[i])continue;for(d in PROG.s[i])o.clears.push({m:MIS[i].key,d:+d,t:Math.max(8,fl((PROG.c[i]||{})[d]||60)),s:PROG.s[i][d]});}
   for(i in PROG.b){if(!MIS[i])continue;var g=PROG.b[i],bits=(g[0]?1:0)|(g[1]?2:0)|(g[2]?4:0);if(bits)o.badges[MIS[i].key]=bits;}
   for(i in PROG.g)for(k=1;k<8;k++)if(PROG.g[i][k])o.unlocks.push('g:'+i+':'+k);
@@ -720,7 +720,7 @@ function applyState(st){
   if(!st||!st.profile)return;var K=kIdx();PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.g={};PROG.end={};
   (st.clears||[]).forEach(function(r){var i=K[r.m];if(i===undefined)return;(PROG.c[i]||(PROG.c[i]={}))[r.d]=r.t;(PROG.s[i]||(PROG.s[i]={}))[r.d]=r.s;});
   var m;for(m in st.badges||{}){var i=K[m],b=st.badges[m];if(i!==undefined)PROG.b[i]=[!!(b&1),!!(b&2),!!(b&4)];}
-  for(m in st.hbadges||{}){var i2=K[m],b2=st.hbadges[m];if(i2!==undefined&&b2)PROG.hb[i2]=[!!(b2&1),!!(b2&2),!!(b2&4)];}
+  for(m in st.hbest||{}){var i2=K[m];if(i2!==undefined&&st.hbest[m]>0)PROG.hb[i2]=+st.hbest[m];}
   (st.unlocks||[]).forEach(function(it){var a=it.split(':');if(a[0]==='g')(PROG.g[a[1]]||(PROG.g[a[1]]=[]))[+a[2]]=true;else if(a[0]==='end')PROG.end[a[1]]=true;});
   PROG.pt=st.profile.pt||0;if(st.profile.name)PROG.name=st.profile.name;ADM=!!st.profile.admin;PROG.uid=USER?USER.id:null;saveProg();
 }
@@ -769,11 +769,12 @@ function sbInit(){
   document.head.appendChild(sc);
 }
 var KVI={seasonal:false,special:false};
-/* 미션 클리어 이미지: r_<미션키>_<0..3>.jpg — 0 일반, 1 전투(HARD 이상 배지 1), 2 도발(배지 2), 3 고자극(배지 3) */
-var RWN=['클리어','전투','도발','고자극'],RWC=['미션 클리어','HARD ◆1','HARD ◆2','HARD ◆3'],RWI={};
-function rwKeys(){var a=[];for(var i=0;i<NBASE;i++)a.push(i);return a;}
-function rwProbe(){if(typeof Image==='undefined')return;rwKeys().forEach(function(i){for(var n=0;n<4;n++)(function(f){var im=new Image();im.onload=function(){RWI[f]=true;};im.src=f;})('r_'+MIS[i].key+'_'+n+'.jpg');});}
-function rwTier(i){if(!PROG.c[i])return -1;var h=(PROG.hb||{})[i]||[],n=0;for(var k=0;k<3;k++)if(h[k])n++;return n;}
+/* 미션 클리어 이미지: r_<미션키>_<0..3>.jpg — 0 일반, 1 전투 · 2 도발 · 3 고자극 = HARD 이상 '한 판'에서 딴 배지 1 · 2 · 3개. 여러 판의 배지는 합치지 않는다. PROG.hb[i] = 한 판 최고 개수 */
+var RWN=['클리어','전투','도발','고자극'],RWC=['미션 클리어','한 판 ◆1','한 판 ◆2','한 판 ◆3'],RWI={};
+var RWP={},RWT=0;
+function rwProbeM(i,cb){if(typeof Image==='undefined'||RWP[i]||!MIS[i])return;RWP[i]=1;for(var n=0;n<4;n++)(function(f){var im=new Image();im.onload=function(){RWI[f]=true;if(cb){clearTimeout(RWT);RWT=setTimeout(cb,250);}};im.src=f;})('r_'+MIS[i].key+'_'+n+'.jpg');}
+function rwProbe(){for(var i=0;i<NBASE;i++)rwProbeM(i);}
+function rwTier(i){if(!PROG.c[i])return -1;var h=(PROG.hb||{})[i];return typeof h==='number'?Math.max(0,Math.min(3,h)):0;}
 function rwImg(i,n){var f='r_'+MIS[i].key+'_'+n+'.jpg';return RWI[f]?f:(n===0?mimg(i):null);}
 function kvProbe(){if(typeof Image==='undefined')return;['seasonal','special'].forEach(function(k){var im=new Image();im.onload=function(){KVI[k]=true;sbRefresh();};im.src='kv_'+k+'.jpg';});}
 function mainDone(){var n=0,i;for(i=0;i<NBASE;i++)if(PROG.c[i])n++;return n;}
@@ -975,14 +976,23 @@ function agentHub(id){
    [function(){$('pg').style.removeProperty('--c');RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so){$('pg').style.removeProperty('--c');storyAgent(id);}},function(){$('pg').style.removeProperty('--c');info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 단둘이 주고받는 대화. <em class="k">성인 인증과 결제</em>를 마친 사람에게만 열려. 준비 중.</p>',function(){agentHub(id);});}]);
   $('pg').style.setProperty('--c',o.col);
 }
-var BXO=false;
+var BXO=false,BXS={r:false,w:false};
 function blackbox(){
-  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 전부 여기 담겨 있어. 잊고 싶어도, <em class="k">블랙박스는 잊지 않아.</em></p><button class="fold'+(BXO?' open':'')+'" data-fold="1"><span><i>NOVEL · S1 · EPISODE 1</i><b>소설 — 여섯이 모이기까지</b><u>'+nd+' / '+NBASE+'장 열림</u></span><em>'+(BXO?'접기':'펼치기')+'</em></button><div class="foldb'+(BXO?'':' hide')+'"><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'에피소드 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div></div><label>미션 클리어 이미지 — 미션마다 네 장</label><p style="color:var(--dim);margin-top:-2px">깨면 한 장. <em class="k">HARD 이상</em>에서 배지를 딸 때마다 한 장씩 더.</p>',i;
-  for(i=0;i<NBASE;i++){var tr=rwTier(i);h+='<div class="rwh"><i>0'+(i+1)+'</i>'+MIS[i].title+'<u>'+(tr<0?'0':tr+1)+' / 4</u></div><div class="cg c4">';
-    for(var rn=0;rn<4;rn++){var op=tr>=rn,im=rwImg(i,rn);h+=cd(99,op?im:(im||mimg(i)),RWN[rn],op?(im?'':'이미지 준비 중'):RWC[rn],{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':'LOCKED'});}
-    h+='</div>';}
+  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 전부 여기 담겨 있어. 잊고 싶어도, <em class="k">블랙박스는 잊지 않아.</em></p><button class="fold'+(BXO?' open':'')+'" data-fold="1"><span><i>NOVEL · S1 · EPISODE 1</i><b>소설 — 여섯이 모이기까지</b><u>'+nd+' / '+NBASE+'장 열림</u></span><em>'+(BXO?'접기':'펼치기')+'</em></button><div class="foldb'+(BXO?'':' hide')+'"><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'에피소드 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div></div><label>미션 클리어 이미지 — 미션마다 네 장</label><p style="color:var(--dim);margin-top:-2px">깨면 한 장. <em class="k">HARD 이상, 한 판에서</em> 딴 배지 수만큼 더 열려. 여러 판의 배지는 합쳐지지 않아.</p>',i;
+  var rre=function(){if($('pg').querySelector('.rwh')){var sc=$('pg').scrollTop;blackbox();$('pg').scrollTop=sc;}};
+  var rg=function(mi,no){rwProbeM(mi,rre);var tr=rwTier(mi),o='<div class="rwh"><i>'+no+'</i>'+MIS[mi].title+'<u>'+(tr<0?'0':tr+1)+' / 4</u></div><div class="cg c4">';
+    for(var rn=0;rn<4;rn++){var op=tr>=rn,im=rwImg(mi,rn);o+=cd(99,op?im:(im||mimg(mi)),RWN[rn],op?(im?'':'이미지 준비 중'):RWC[rn],{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':'LOCKED'});}
+    return o+'</div>';};
+  var rcnt=function(L){var a=0;L.forEach(function(mi){a+=rwTier(mi)+1;});return a+' / '+(L.length*4)+'장';};
+  var rfold=function(k,eye,t,L){return '<button class="fold'+(BXS[k]?' open':'')+'" data-fold="'+k+'" style="margin-top:14px"><span><i>'+eye+'</i><b>'+t+'</b><u>'+rcnt(L)+'</u></span><em>'+(BXS[k]?'접기':'펼치기')+'</em></button>';};
+  for(i=0;i<NBASE;i++)h+=rg(i,'0'+(i+1));
+  var RL=[];ids.forEach(function(id){SIDX[id].forEach(function(mi){RL.push(mi);});});
+  h+=rfold('r','ROMANTIC · TAKE 1 · 2 · 3','로맨틱 미션',RL);
+  if(BXS.r)ids.forEach(function(id){SIDX[id].forEach(function(mi,ci){h+=rg(mi,OPD[id].n+' · TAKE '+(ci+1));});});
+  h+=rfold('w','SEASONAL · WINTER','블러디 크리스마스',WIDX);
+  if(BXS.w)WIDX.forEach(function(mi,ci){h+=rg(mi,'0'+(ci+1));});
   h+='<label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{view:1,lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
-  page('블랙박스','BLACK BOX',h,home,[],function(e){var t=e.target,n=t.dataset.n,v=t;while(v&&v.id!=='pg'&&!(v.dataset&&v.dataset.view))v=v.parentNode;if(v&&v.dataset&&v.dataset.view){viewer(v.dataset.view,true);return;}while(t&&t.id!=='pg'&&!(t.dataset&&t.dataset.fold))t=t.parentNode;if(t&&t.dataset&&t.dataset.fold){BXO=!BXO;var sc=$('pg').scrollTop;blackbox();$('pg').scrollTop=sc;return;}if(n!==undefined)novelRead(n);});
+  page('블랙박스','BLACK BOX',h,home,[],function(e){var t=e.target,n=t.dataset.n,v=t;while(v&&v.id!=='pg'&&!(v.dataset&&v.dataset.view))v=v.parentNode;if(v&&v.dataset&&v.dataset.view){viewer(v.dataset.view,true);return;}while(t&&t.id!=='pg'&&!(t.dataset&&t.dataset.fold))t=t.parentNode;if(t&&t.dataset&&t.dataset.fold){if(t.dataset.fold==='1')BXO=!BXO;else BXS[t.dataset.fold]=!BXS[t.dataset.fold];var sc=$('pg').scrollTop;blackbox();$('pg').scrollTop=sc;return;}if(n!==undefined)novelRead(n);});
 }
 function shop(){
   page('SHOP','POINT · BADGE · STORE','<p><em class="k">사일런트 식스에 공짜는 없어.</em> 쓰고 싶다면 벌고, 벌고 싶다면 참전하라!</p><div class="cg">'+cd(0,'a_glitch_0.jpg','포인트샵','100점에 1P · 번 만큼만 쓴다',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','증거를 내면 옷이 나온다',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_0.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
@@ -1728,6 +1738,7 @@ function roGo(k){var c=$('roc');k=Math.max(0,Math.min(7,k));if(c.scrollTo)c.scro
 $('roc').addEventListener('scroll',function(){var c=$('roc'),k=Math.round(c.scrollLeft/(c.clientWidth||1));if(k!==ROK){ROK=k;roLab();}});
 $('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t.getAttribute('data-id'),u=t.getAttribute&&t.getAttribute('data-u');if(t.tagName==='IMG'&&t.parentNode&&t.parentNode.className!=='lk'){viewer(t.getAttribute('src'));return;}if(u!==null&&u!==undefined){gBuy(ROI,+u);return;}if(t.getAttribute&&t.getAttribute('data-ua')){gBuy(ROI,'all');return;}if(id){ROMSG='';roShow(id);}else if(t.id==='rop')roGo(ROK-1);else if(t.id==='ron2')roGo(ROK+1);else if(t.id==='rox'){$('ro').className='hide';if(RORET){var rr=RORET;RORET=null;rr();}else home();}});
 function brief(i){
+  rwProbeM(i);
   setPre(true);hideOv();hmHide();pgHide();loadMission(i);if(CFG.img[M.key])M.img=CFG.img[M.key];S=newState();UIK='';
   var c=OPD[M.ops[M.ops.length-1].id].col;
   if(MI<NBASE){var ch=NOVEL.ch[MI];reader({t:ch.t,sub:'S1 · EPISODE 1 // '+(MI+1)+'장',img:M.img,p:ch.pre,btn:'작전 브리핑',next:missionCard,back:menu});}
@@ -1771,10 +1782,10 @@ function result(){
   var pc=PROG.c[MI]||(PROG.c[MI]={}),ps=PROG.s[MI]||(PROG.s[MI]={});
   if(!(pc[DIFF]<=s))pc[DIFF]=s;if(!(ps[DIFF]>=sc.score)){ps[DIFF]=sc.score;best=true;}
   var bh=bl.map(function(b,i){var ok=b[2](),isNew=ok&&!got[i];if(isNew){got[i]=true;nw++;}return '<tr><td>'+(got[i]?'◆':'◇')+' '+b[0]+(isNew?' <b style="color:var(--c)">NEW</b>':'')+'</td><td style="text-align:left;color:'+(ok?'var(--ink)':'var(--dim)')+'">'+b[1]+(ok?' ✓':'')+'</td></tr>';}).join('');
-  var rw0=MI<NBASE?rwTier(MI):-9,rw1=rw0,rwi=null,rwt='';
-  if(MI<NBASE){if(DIFF>=2){var hb=(PROG.hb||(PROG.hb={}))[MI]||(PROG.hb[MI]=[false,false,false]);bl.forEach(function(b,i){if(b[2]())hb[i]=true;});}rw1=rwTier(MI);
+  var rw0=rwTier(MI),rw1=rw0,rwi=null,rwt='';
+  {if(DIFF>=2){var hn=0;bl.forEach(function(b){if(b[2]())hn++;});if(!PROG.hb)PROG.hb={};if(!(PROG.hb[MI]>=hn))PROG.hb[MI]=hn;}rw1=rwTier(MI);
     for(var rn=rw1;rn>=0&&!rwi;rn--)rwi=rwImg(MI,rn);
-    rwt=rw1>rw0&&rw1>0?'<em class="k">'+RWN[rw1]+' 컷이 블랙박스에 담겼다</em>':rw0<0?'<em class="k">클리어 컷이 블랙박스에 담겼다</em>':DIFF<2?'<span style="color:var(--dim)">HARD 이상에서 배지를 따면 특별 컷이 열린다</span>':rw1<3?'<span style="color:var(--dim)">배지를 더 모으면 다음 컷이 열린다 · '+rw1+' / 3</span>':'<span style="color:var(--dim)">네 장 모두 열었다</span>';}
+    rwt=rw1>rw0&&rw1>0?'<em class="k">'+RWN[rw1]+' 컷이 블랙박스에 담겼다</em>':rw0<0?'<em class="k">클리어 컷이 블랙박스에 담겼다</em>':DIFF<2?'<span style="color:var(--dim)">HARD 이상, 한 판에서 딴 배지 수만큼 특별 컷이 열린다</span>':rw1<3?'<span style="color:var(--dim)">한 판에 배지 '+(rw1+1)+'개를 따면 다음 컷이 열린다</span>':'<span style="color:var(--dim)">네 장 모두 열었다</span>';}
   var gain=Math.round(sc.score/100);PROG.pt=(PROG.pt||0)+gain;
   var kvm=/^a_([a-z]+)_(\d)\.jpg/.exec(MIS[MI].img||''),kvn=false;if(kvm&&+kvm[2]>0&&!gOpen(kvm[1],+kvm[2])){(PROG.g[kvm[1]]||(PROG.g[kvm[1]]=[]))[+kvm[2]]=true;kvn=true;}
   saveProg();sbClear(M.key,DIFF,s,sc.score,bl.reduce(function(a,x,i){return a|(x[2]()?1<<i:0);},0),kvn?'g:'+kvm[1]+':'+kvm[2]:null);

@@ -27,7 +27,7 @@ create table if not exists public.badges(
   bits smallint not null default 0 check (bits between 0 and 7),
   primary key(user_id, mission)
 );
-alter table public.badges add column if not exists hbits smallint not null default 0 check (hbits between 0 and 7); -- HARD 이상에서 딴 배지(클리어 이미지 단계)
+alter table public.badges add column if not exists hbest smallint not null default 0 check (hbest between 0 and 3); -- HARD 이상 '한 판'에서 딴 배지의 최고 개수(클리어 이미지 단계)
 create table if not exists public.unlocks(
   user_id uuid not null references auth.users(id) on delete cascade,
   item text not null,
@@ -102,7 +102,7 @@ begin
     'profile', (select jsonb_build_object('name', name, 'pt', pt, 'admin', is_admin, 'imported', imported) from profiles where id = u),
     'clears', coalesce((select jsonb_agg(jsonb_build_object('m', mission, 'd', diff, 't', best_time, 's', best_score)) from clears where user_id = u), '[]'::jsonb),
     'badges', coalesce((select jsonb_object_agg(mission, bits) from badges where user_id = u), '{}'::jsonb),
-    'hbadges', coalesce((select jsonb_object_agg(mission, hbits) from badges where user_id = u and hbits > 0), '{}'::jsonb),
+    'hbest', coalesce((select jsonb_object_agg(mission, hbest) from badges where user_id = u and hbest > 0), '{}'::jsonb),
     'unlocks', coalesce((select jsonb_agg(item) from unlocks where user_id = u), '[]'::jsonb)
   );
 end $$;
@@ -124,8 +124,8 @@ begin
     set best_time = least(clears.best_time, excluded.best_time),
         best_score = greatest(clears.best_score, excluded.best_score),
         updated_at = now();
-  insert into badges(user_id, mission, bits, hbits) values (u, p_mission, p_bits, case when p_diff >= 2 then p_bits else 0 end)
-  on conflict (user_id, mission) do update set bits = badges.bits | excluded.bits, hbits = badges.hbits | excluded.hbits;
+  insert into badges(user_id, mission, bits, hbest) values (u, p_mission, p_bits, case when p_diff >= 2 then (p_bits & 1) + ((p_bits >> 1) & 1) + ((p_bits >> 2) & 1) else 0 end)
+  on conflict (user_id, mission) do update set bits = badges.bits | excluded.bits, hbest = greatest(badges.hbest, excluded.hbest);
   if p_kv is not null and p_kv ~ '^g:(raven|viper|glitch|brick|mirage|doc):[1-7]$' then
     insert into unlocks(user_id, item) values (u, p_kv) on conflict do nothing;
   end if;
@@ -204,9 +204,9 @@ begin
       on conflict (user_id, mission) do update set bits = badges.bits | excluded.bits;
     end if;
   end loop;
-  for r in select jsonb_build_object('m', key, 'b', value) from jsonb_each(coalesce(p->'hbadges', '{}'::jsonb)) limit 100 loop
-    if s6_mission_ok(r->>'m') and (r->>'b')::int between 0 and 7 and exists (select 1 from clears where user_id = u and mission = r->>'m' and diff >= 2) then
-      update badges set hbits = hbits | ((r->>'b')::int & bits) where user_id = u and mission = r->>'m';
+  for r in select jsonb_build_object('m', key, 'b', value) from jsonb_each(coalesce(p->'hbest', '{}'::jsonb)) limit 100 loop
+    if s6_mission_ok(r->>'m') and (r->>'b')::int between 0 and 3 and exists (select 1 from clears where user_id = u and mission = r->>'m' and diff >= 2) then
+      update badges set hbest = greatest(hbest, least((r->>'b')::int, (bits & 1) + ((bits >> 1) & 1) + ((bits >> 2) & 1))) where user_id = u and mission = r->>'m';
     end if;
   end loop;
   for it in select jsonb_array_elements_text(coalesce(p->'unlocks', '[]'::jsonb)) limit 100 loop

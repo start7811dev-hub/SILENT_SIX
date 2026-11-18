@@ -43,9 +43,10 @@ details{margin-top:4px}details summary{cursor:pointer;color:var(--dim);font-size
  <label>OPENAI API KEY</label><input id="key" type="password" placeholder="sk-..." autocomplete="off">
  <label>MODEL</label><input id="model" value="gpt-image-2">
  <label>QUALITY</label><select id="qual"><option value="high">high</option><option value="medium">medium</option><option value="low">low</option><option value="">지정 안 함</option></select>
+ <label>묶음</label><select id="grp"></select>
  <label>MISSIONS</label><div class="ml" id="ml"></div>
  <button id="badd" style="width:100%;margin-top:6px">+ 미션 추가</button>
- <button id="ball" class="p" style="width:100%;margin-top:14px">전체 미션 일괄 생성</button>
+ <button id="ball" class="p" style="width:100%;margin-top:14px">이 묶음 일괄 생성</button>
  <p class="hint" id="allst"></p>
 </aside>
 <section>
@@ -59,8 +60,10 @@ details{margin-top:4px}details summary{cursor:pointer;color:var(--dim);font-size
  <p class="hint">참조 이미지는 저장소 public 폴더의 a_요원_0.jpg를 자동으로 쓴다. 없으면 요원 칸을 Option+클릭해서 파일을 직접 고른다.</p>
  <div class="bar"><button id="bm4" class="p">이 미션 4장 생성</button><span class="hint">파일명은 r_미션키_번호.jpg (0 클리어 · 1 전투 · 2 도발 · 3 고자극). 저장소 public 폴더에 올리면 게임에 바로 붙는다.</span></div>
  <div class="tg" id="tg"></div>
- <label>공통 화풍 (전 미션 공통)</label><textarea id="style"></textarea>
- <label>단계별 연출 지시 (전 미션 공통)</label><div id="tdir"></div>
+ <label>미션 요약 — 장면 칸이 비어 있으면 이 요약과 묶음의 단계 지시로 만든다 (영문 권장)</label><textarea id="mbeat"></textarea>
+ <label id="gl1">이 묶음의 분위기 지침</label><textarea id="gmood" style="min-height:96px"></textarea>
+ <label id="gl2">이 묶음의 단계별 연출 지시</label><div id="tdir"></div>
+ <label>공통 화풍 (전 묶음 공통)</label><textarea id="style"></textarea>
 </section>
 </main>
 <input type="file" id="fref" accept="image/*" style="display:none">
@@ -74,7 +77,8 @@ function fname(m,t){return 'r_'+m.key+'_'+D.tiers[t].file;}
 function prompt(m,t){
   var ids=m.agents||[],n=ids.length,who=ids.map(function(id,i){var a=D.agents[id]||{name:id.toUpperCase(),look:''};return 'Reference image '+(i+1)+' is '+a.name+(a.look?' ('+a.look+')':'')+'.';}).join(' ');
   var cast=n>1?'This image must show all '+n+' characters together in one scene: '+ids.map(function(id){return (D.agents[id]||{}).name||id;}).join(' and ')+'. Do not merge or drop anyone; each keeps her own face, hair and build exactly as in her reference image.':'Keep the same woman exactly as in the reference image: same face, hair and build.';
-  return [who,cast,'Setting: '+m.place,'Tier — '+D.tiers[t].dir,'Scene: '+(m.scenes[t]||''),D.style,RATING].filter(Boolean).join('\n\n');
+  var g=D.groups[m.group]||D.groups.story,sc=(m.scenes[t]||'').trim();
+  return [who,cast,'Setting: '+m.place,m.beat?'What this mission is about: '+m.beat:'','Direction for this image: '+g.tiers[t],sc?'Scene: '+sc:'',g.mood,D.style,RATING].filter(Boolean).join('\n\n');
 }
 function loadRef(id){
   return new Promise(function(res){
@@ -83,7 +87,8 @@ function loadRef(id){
   });
 }
 function drawList(){
-  $('ml').innerHTML=D.missions.map(function(m,i){return '<button data-i="'+i+'"'+(i===cur?' class="on"':'')+'>'+esc(m.key)+' · '+esc(m.title)+'<small>'+(m.agents||[]).join(' + ')+'</small></button>';}).join('');
+  var g=$('grp').value;
+  $('ml').innerHTML=D.missions.map(function(m,i){return m.group!==g?'':'<button data-i="'+i+'"'+(i===cur?' class="on"':'')+'>'+esc(m.key)+'<small>'+esc(m.title)+' · '+(m.agents||[]).join(' + ')+'</small></button>';}).join('');
 }
 function drawAgents(){
   var m=D.missions[cur];
@@ -93,14 +98,16 @@ function drawAgents(){
 }
 function drawTiers(){
   var m=D.missions[cur];
-  $('tg').innerHTML=D.tiers.map(function(t,i){var f=fname(m,i);return '<div class="tc"><h3>'+esc(t.name)+' <i>#'+t.file+'</i></h3><div class="cond">'+esc(t.cond)+'</div><div class="pv" id="pv'+i+'" style="background-image:url(/out/'+f+'.jpg?t='+Date.now()+')"></div><div class="fn">'+f+'.jpg</div><textarea data-s="'+i+'" placeholder="이 단계의 장면 (영문 권장)">'+esc(m.scenes[i]||'')+'</textarea><button class="p" data-g="'+i+'">생성</button><div class="st" id="st'+i+'"></div><details><summary>보낼 프롬프트 보기</summary><pre id="pp'+i+'"></pre></details></div>';}).join('');
+  $('tg').innerHTML=D.tiers.map(function(t,i){var f=fname(m,i);return '<div class="tc"><h3>'+esc(t.name)+' <i>#'+t.file+'</i></h3><div class="cond">'+esc(t.cond)+'</div><div class="pv" id="pv'+i+'" style="background-image:url(/out/'+f+'.jpg?t='+Date.now()+')"></div><div class="fn">'+f+'.jpg</div><textarea data-s="'+i+'" placeholder="비우면 미션 요약 + 단계 지시로 생성">'+esc(m.scenes[i]||'')+'</textarea><button class="p" data-g="'+i+'">생성</button><div class="st" id="st'+i+'"></div><details><summary>보낼 프롬프트 보기</summary><pre id="pp'+i+'"></pre></details></div>';}).join('');
   D.tiers.forEach(function(t,i){$('pp'+i).textContent=prompt(m,i);});
 }
 function drawGlobal(){
-  $('style').value=D.style||'';
-  $('tdir').innerHTML=D.tiers.map(function(t,i){return '<div class="row" style="grid-template-columns:120px 1fr;margin-bottom:6px"><input data-tn="'+i+'" value="'+esc(t.name)+'"><input data-td="'+i+'" value="'+esc(t.dir)+'"></div>';}).join('');
+  var m=D.missions[cur],g=D.groups[m.group];
+  $('style').value=D.style||'';$('gmood').value=g.mood||'';
+  $('gl1').textContent='['+g.name+'] 묶음의 분위기 지침';$('gl2').textContent='['+g.name+'] 묶음의 단계별 연출 지시';
+  $('tdir').innerHTML=D.tiers.map(function(t,i){return '<div class="row" style="grid-template-columns:90px 1fr;margin-bottom:6px;align-items:start"><div style="padding-top:8px;font-weight:700">'+esc(t.name)+'</div><textarea data-td="'+i+'">'+esc(g.tiers[i]||'')+'</textarea></div>';}).join('');
 }
-function draw(){var m=D.missions[cur];drawList();$('mkey').value=m.key;$('mtitle').value=m.title;$('mplace').value=m.place||'';drawAgents();drawTiers();}
+function draw(){var m=D.missions[cur];drawList();$('mkey').value=m.key;$('mtitle').value=m.title;$('mplace').value=m.place||'';$('mbeat').value=m.beat||'';drawAgents();drawTiers();drawGlobal();}
 function st(i,t,c){var e=$('st'+i);if(e){e.textContent=t;e.className='st'+(c?' '+c:'');}}
 function gen(mi,ti){
   var m=D.missions[mi],k=mi+':'+ti;
@@ -128,10 +135,11 @@ document.addEventListener('input',function(e){
   if(t.id==='mkey'){m.key=t.value.trim().replace(/[^A-Za-z0-9_-]/g,'');drawList();}
   else if(t.id==='mtitle'){m.title=t.value;drawList();}
   else if(t.id==='mplace')m.place=t.value;
+  else if(t.id==='mbeat')m.beat=t.value;
   else if(t.id==='style')D.style=t.value;
+  else if(t.id==='gmood')D.groups[m.group].mood=t.value;
   else if(t.dataset.s!==undefined)m.scenes[+t.dataset.s]=t.value;
-  else if(t.dataset.tn!==undefined)D.tiers[+t.dataset.tn].name=t.value;
-  else if(t.dataset.td!==undefined)D.tiers[+t.dataset.td].dir=t.value;
+  else if(t.dataset.td!==undefined)D.groups[m.group].tiers[+t.dataset.td]=t.value;
   else return;
   D.tiers.forEach(function(x,i){var p=$('pp'+i);if(p)p.textContent=prompt(m,i);});
 });
@@ -142,16 +150,18 @@ document.addEventListener('click',function(e){
   if(a){var id=a.dataset.a,m=D.missions[cur];if(e.altKey||!REF[id]){PICK=id;$('fref').click();if(!e.altKey&&!REF[id]){}return;}var k=m.agents.indexOf(id);if(k>=0)m.agents.splice(k,1);else m.agents.push(id);draw();return;}
   if(t.dataset.g!==undefined){gen(cur,+t.dataset.g);return;}
   if(t.id==='bm4'){t.disabled=true;seq([0,1,2,3].map(function(i){return [cur,i];})).then(function(n){t.disabled=false;$('allst').textContent='이 미션 '+n+' / 4 완료';});}
-  else if(t.id==='ball'){if(!confirm('전체 '+D.missions.length+'개 미션, '+(D.missions.length*4)+'장을 차례로 생성합니다. API 비용이 그만큼 듭니다. 진행할까요?'))return;t.disabled=true;var L=[];D.missions.forEach(function(m,mi){for(var i=0;i<4;i++)L.push([mi,i]);});seq(L).then(function(n){t.disabled=false;$('allst').textContent='전체 '+n+' / '+L.length+' 완료';draw();});}
-  else if(t.id==='badd'){D.missions.push({key:'NEW-'+(D.missions.length+1),title:'새 미션',agents:[],place:'',scenes:['','','','']});cur=D.missions.length-1;draw();}
+  else if(t.id==='ball'){var gg=$('grp').value,L=[];D.missions.forEach(function(m,mi){if(m.group===gg)for(var i=0;i<4;i++)L.push([mi,i]);});if(!confirm('['+D.groups[gg].name+'] 묶음 '+(L.length/4)+'개 미션, '+L.length+'장을 차례로 생성합니다. API 비용이 그만큼 듭니다. 진행할까요?'))return;t.disabled=true;seq(L).then(function(n){t.disabled=false;$('allst').textContent='전체 '+n+' / '+L.length+' 완료';draw();});}
+  else if(t.id==='badd'){D.missions.push({group:$('grp').value,key:'NEW-'+(D.missions.length+1),title:'새 미션',agents:[],place:'',beat:'',scenes:['','','','']});cur=D.missions.length-1;draw();}
   else if(t.id==='bsave'){save().then(function(r){t.textContent=r.ok?'저장됨':'저장 실패';setTimeout(function(){t.textContent='미션 정의 저장';},1600);});}
   else if(t.id==='bopen')fetch('/api/open',{method:'POST',body:'{}'});
 });
 $('fref').addEventListener('change',function(){var f=this.files[0],id=PICK;if(!f||!id)return;var fr=new FileReader();fr.onload=function(){REF[id]=fr.result;var m=D.missions[cur];if(m.agents.indexOf(id)<0)m.agents.push(id);draw();};fr.readAsDataURL(f);this.value='';});
 try{$('key').value=localStorage.getItem('s6key')||'';}catch(x){}
 Promise.all([fetch('/api/missions').then(function(r){return r.json();}),fetch('/api/list').then(function(r){return r.json();})]).then(function(a){
-  D=a[0];D.missions.forEach(function(m){m.scenes=m.scenes||['','','',''];m.agents=m.agents||[];});
+  D=a[0];D.missions.forEach(function(m){m.scenes=m.scenes||['','','',''];m.agents=m.agents||[];m.group=D.groups[m.group]?m.group:'story';});
+  $('grp').innerHTML=Object.keys(D.groups).map(function(k){return '<option value="'+k+'">'+esc(D.groups[k].name)+'</option>';}).join('');
+  $('grp').addEventListener('change',function(){var g=this.value;for(var i=0;i<D.missions.length;i++)if(D.missions[i].group===g){cur=i;break;}draw();});
   $('hout').textContent='저장: '+a[1].out+(a[1].repo?'':' · 저장소 밖에서 실행 중(참조 이미지를 직접 지정)');
-  drawGlobal();draw();
+  draw();
 });
 </script></body></html>

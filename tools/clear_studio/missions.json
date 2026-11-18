@@ -1,6 +1,6 @@
 {
- "version": 1,
- "note": "미션 클리어 이미지 정의. tiers 순서 = 파일 번호(0 일반, 1 전투, 2 도발, 3 고자극). 미션을 추가하려면 missions에 항목을 더한다.",
+ "version": 2,
+ "note": "미션 클리어 이미지 정의. tiers 순서 = 파일 번호(0 클리어, 1 전투, 2 도발, 3 고자극). groups에 묶음별 연출 지시와 분위기를 적는다. 미션의 scenes가 비어 있으면 beat(미션 요약) + 묶음의 단계 지시로 프롬프트를 만든다.",
  "style": "Semi-realistic anime illustration, cinematic lighting, rich detail, the same art style as the reference images. Vertical 2:3 composition. Every face fully visible and unobstructed, heads in the upper half of the frame with clear space above the hair. No text, no logo, no watermark.",
  "agents": {
   "raven": {
@@ -32,26 +32,22 @@
   {
    "name": "클리어",
    "file": 0,
-   "cond": "모든 난이도 · 클리어",
-   "dir": "Mission accomplished. A calm, confident moment right after the objective is done. Full mission outfit."
+   "cond": "모든 난이도 · 클리어"
   },
   {
    "name": "전투",
    "file": 1,
-   "cond": "HARD 이상 · 배지 1",
-   "dir": "The most intense combat moment of this mission, dynamic action pose, motion and impact. Full mission outfit."
+   "cond": "HARD 이상 · 한 판에 배지 1"
   },
   {
    "name": "도발",
    "file": 2,
-   "cond": "HARD 이상 · 배지 2",
-   "dir": "After the mission. A teasing, provocative pose aimed straight at the viewer, mission outfit loosened and partly unzipped, playful confident expression."
+   "cond": "HARD 이상 · 한 판에 배지 2"
   },
   {
    "name": "고자극",
    "file": 3,
-   "cond": "HARD 이상 · 배지 3",
-   "dir": "A private moment after the mission. The most sensual image of the set: lingerie-level or swimsuit-level outfit themed to this mission, intimate mood, implied closeness only."
+   "cond": "HARD 이상 · 한 판에 배지 3"
   }
  ],
  "missions": [
@@ -67,7 +63,9 @@
     "She takes down a masked guard from behind between the containers, red scarf whipping in the air.",
     "She sits on a shipping crate by the pier, jacket unzipped low, pulling the red scarf down from her lips with a smirk, harbor lights behind.",
     "A small safehouse room above the harbor at dawn. She leans on the window frame in black lace lingerie with the red scarf still around her neck, her gear dropped on the floor."
-   ]
+   ],
+   "group": "story",
+   "beat": ""
   },
   {
    "key": "S1-02",
@@ -82,7 +80,9 @@
     "The sniper lies prone taking the shot at the watchtower while the leader crouches beside her calling the wind, muzzle flash and drifting mist.",
     "Both lean against a parked off-road vehicle on the mountain road, jackets open, one fixing the other's collar, both looking at the viewer with teasing smiles.",
     "A mountain cabin by a fireplace. Both in lace lingerie under one shared blanket, the rifle resting against the wall, warm firelight."
-   ]
+   ],
+   "group": "story",
+   "beat": ""
   },
   {
    "key": "S1-03",
@@ -97,7 +97,9 @@
     "The hacker kills the cameras from a tablet as her drone hovers, the leader slipping through the server racks with a knife, screens going black one by one.",
     "The dark executive office. The hacker sits on the CEO's desk with legs crossed and glasses pushed up, the leader leaning on the desk beside her, shirts loosened.",
     "A high-floor hotel room, city neon through the window. Both in lingerie, the hacker with headphones still around her neck, the leader with her red scarf, laptops forgotten on the bed."
-   ]
+   ],
+   "group": "story",
+   "beat": ""
   },
   {
    "key": "S1-04",
@@ -112,7 +114,9 @@
     "The breacher smashes through a cracked wall in a burst of rubble while the sniper covers the tunnel with her rifle, debris frozen mid-air.",
     "Sitting on ammunition crates in the armory, tank tops and unzipped suits, wiping dust off each other, grinning at the viewer.",
     "A mountain hot spring at night after the job. Both in swimsuits in rising steam, towels on the rocks, lantern light."
-   ]
+   ],
+   "group": "story",
+   "beat": ""
   },
   {
    "key": "S1-05",
@@ -127,7 +131,9 @@
     "In the study, the infiltrator in an evening gown and mask opens the safe while the hacker crouches under the desk with a laptop, a guard's shadow at the door.",
     "On the ballroom balcony, the infiltrator lifts her mask with a knowing smile, gown slit showing her leg, the hacker beside her in a loosened waiter vest.",
     "The mansion's powder room, gilded mirrors and candlelight. Both in lace lingerie still wearing their masquerade masks, champagne glasses in hand."
-   ]
+   ],
+   "group": "story",
+   "beat": ""
   },
   {
    "key": "S1-06",
@@ -142,7 +148,519 @@
     "The medic fires a tranquilizer dart down the corridor as the leader covers her flank with a knife, red emergency light and falling guards.",
     "An empty ward room after the fight. The medic sits on the bed edge with her coat open, the leader leans in the doorway with scarf loosened, both eyeing the viewer.",
     "A safehouse at night. The medic in lingerie under an open white coat bandages the leader's shoulder, the leader in lingerie with her red scarf, a tender close moment."
+   ],
+   "group": "story",
+   "beat": ""
+  },
+  {
+   "group": "romantic",
+   "key": "P-raven-1",
+   "title": "RAVEN · TAKE 1 · 빈자리",
+   "agents": [
+    "raven"
+   ],
+   "place": "An abandoned mine, timber-braced tunnels, dust in lamp light.",
+   "beat": "Three years ago three went into this mine and two came out. She returns alone for the record of that night, carrying the guilt of the one she left.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-raven-2",
+   "title": "RAVEN · TAKE 2 · 서명",
+   "agents": [
+    "raven"
+   ],
+   "place": "A corporate front office at night, glass walls, a cold blue server room.",
+   "beat": "She finds the original withdrawal order and learns the name that signed it was not hers. The weight she carried begins to shift.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-raven-3",
+   "title": "RAVEN · TAKE 3 · 대면",
+   "agents": [
+    "raven"
+   ],
+   "place": "A patron's mansion at night, chandeliers, a study with a hidden safe.",
+   "beat": "She leaves her gun behind and listens to the recording of that night: her teammate chose to stay. For the first time in three years she takes off the red scarf.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-viper-1",
+   "title": "VIPER · TAKE 1 · 빗나간 한 발",
+   "agents": [
+    "viper"
+   ],
+   "place": "A mountain communications base at night, radio mast, pine forest, cold mist.",
+   "beat": "There was one day she could not pull the trigger. The target still walks this base, and she has come back to face it.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-viper-2",
+   "title": "VIPER · TAKE 2 · 거리",
+   "agents": [
+    "viper"
+   ],
+   "place": "An abandoned mine, timber-braced tunnels, dust in lamp light.",
+   "beat": "No scope this time. She goes close enough to see his face: her old spotter, the one who used to call the numbers beside her.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-viper-3",
+   "title": "VIPER · TAKE 3 · 숨",
+   "agents": [
+    "viper"
+   ],
+   "place": "An isolation ward of a private hospital at night, long white corridors, dim lamps.",
+   "beat": "He lies in a hospital bed. She does not shoot; she asks. The answer tells her she was right not to fire that day, and she comes home with one round unspent.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-glitch-1",
+   "title": "GLITCH · TAKE 1 · 로그",
+   "agents": [
+    "glitch"
+   ],
+   "place": "A corporate front office at night, glass walls, a cold blue server room.",
+   "beat": "An old account she thought she had erased has come alive on an enemy server. Someone is using the name she used to have.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-glitch-2",
+   "title": "GLITCH · TAKE 2 · 사본",
+   "agents": [
+    "glitch"
+   ],
+   "place": "An isolation ward of a private hospital at night, long white corridors, dim lamps.",
+   "beat": "Code written in her own habits runs on a ward terminal. Her old partner wrote it.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-glitch-3",
+   "title": "GLITCH · TAKE 3 · 로그아웃",
+   "agents": [
+    "glitch"
+   ],
+   "place": "A patron's mansion at night, chandeliers, a study with a hidden safe.",
+   "beat": "The device in the safe holds her real name. She burns it, name and all. Now only six people know who she is.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-brick-1",
+   "title": "BRICK · TAKE 1 · 닫힌 문",
+   "agents": [
+    "brick"
+   ],
+   "place": "An abandoned mine, timber-braced tunnels, dust in lamp light.",
+   "beat": "The one door she could never break. Her old squad was trapped behind it. This time she opens it and finds only four dog tags.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-brick-2",
+   "title": "BRICK · TAKE 2 · 인식표",
+   "agents": [
+    "brick"
+   ],
+   "place": "Harbor warehouse no. 3 at night, shipping containers, sodium lamps, sea fog.",
+   "beat": "One owner of those tags is held in a harbor warehouse. She carries him out herself.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-brick-3",
+   "title": "BRICK · TAKE 3 · 노크",
+   "agents": [
+    "brick"
+   ],
+   "place": "A mountain communications base at night, radio mast, pine forest, cold mist.",
+   "beat": "She brings twice the usual charges and finds three more of her people. For the first time she closes a door quietly behind her.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-mirage-1",
+   "title": "MIRAGE · TAKE 1 · 초대장",
+   "agents": [
+    "mirage"
+   ],
+   "place": "A patron's mansion at night, chandeliers, a study with a hidden safe.",
+   "beat": "She is invited under her real name. She has to find out who still knows it: an old lover, now on the other side.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-mirage-2",
+   "title": "MIRAGE · TAKE 2 · 역할",
+   "agents": [
+    "mirage"
+   ],
+   "place": "A corporate front office at night, glass walls, a cold blue server room.",
+   "beat": "In his office she finds an old photograph of herself, from before she became someone else.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-mirage-3",
+   "title": "MIRAGE · TAKE 3 · 맨얼굴",
+   "agents": [
+    "mirage"
+   ],
+   "place": "Harbor warehouse no. 3 at night, shipping containers, sodium lamps, sea fog.",
+   "beat": "He is the one tied up in the warehouse, abandoned by his own side. She frees him and walks away without looking back. It was not an act.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-doc-1",
+   "title": "DOC · TAKE 1 · 차트",
+   "agents": [
+    "doc"
+   ],
+   "place": "An isolation ward of a private hospital at night, long white corridors, dim lamps.",
+   "beat": "The chart of her senior medic who vanished ten years ago, with the cause of death altered. He did not die; he was taken.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-doc-2",
+   "title": "DOC · TAKE 2 · 이송",
+   "agents": [
+    "doc"
+   ],
+   "place": "A mountain communications base at night, radio mast, pine forest, cold mist.",
+   "beat": "The transfer record survives at the communications base. She follows the paper trail alone.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "romantic",
+   "key": "P-doc-3",
+   "title": "DOC · TAKE 3 · 퇴원",
+   "agents": [
+    "doc"
+   ],
+   "place": "Harbor warehouse no. 3 at night, shipping containers, sodium lamps, sea fog.",
+   "beat": "Ten years locked away. She walks him out herself and writes one word at the bottom of the chart: discharged.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "seasonal",
+   "key": "W-1",
+   "title": "블러디 크리스마스 1 · 첫 번째 상자",
+   "agents": [
+    "raven"
+   ],
+   "place": "Harbor warehouse no. 3 at night, shipping containers, sodium lamps, sea fog. Snow falling, Christmas lights.",
+   "beat": "Christmas Eve. The enemy courier called Santa makes five stops tonight. First stop: a harbor warehouse where the 'gift box' is a bound hostage. She brings him out without killing anyone.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "seasonal",
+   "key": "W-2",
+   "title": "블러디 크리스마스 2 · 끊긴 캐럴",
+   "agents": [
+    "raven",
+    "viper"
+   ],
+   "place": "A mountain communications base at night, radio mast, pine forest, cold mist. Snow falling, Christmas lights.",
+   "beat": "A mountain relay station is hiding delivery signals inside a Christmas carol broadcast. Cut the transmitter and Santa goes blind.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "seasonal",
+   "key": "W-3",
+   "title": "블러디 크리스마스 3 · 야근",
+   "agents": [
+    "raven",
+    "glitch"
+   ],
+   "place": "A corporate front office at night, glass walls, a cold blue server room. Snow falling, Christmas lights.",
+   "beat": "One office floor still lit on Christmas Eve. The server holds tonight's delivery list. Copy it unseen.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "seasonal",
+   "key": "W-4",
+   "title": "블러디 크리스마스 4 · 폭죽",
+   "agents": [
+    "viper",
+    "brick"
+   ],
+   "place": "An abandoned mine, timber-braced tunnels, dust in lamp light. Snow falling, Christmas lights.",
+   "beat": "Crates waiting to be gift-wrapped are stacked in a mine depot. Blow all of them: tonight's fireworks are ours.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "seasonal",
+   "key": "W-5",
+   "title": "블러디 크리스마스 5 · 마지막 집",
+   "agents": [
+    "mirage",
+    "glitch"
+   ],
+   "place": "A patron's mansion at night, chandeliers, a study with a hidden safe. Snow falling, Christmas lights.",
+   "beat": "The last house: a mansion Christmas party. Santa's ledger is in the safe, and the head of security is standing guard.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "costume",
+   "key": "C-doc",
+   "title": "코스튬 · DOC",
+   "agents": [
+    "doc"
+   ],
+   "place": "A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.",
+   "beat": "Costume mission. She infiltrates in costume: a glossy white-and-lime nurse-inspired corset outfit with a short cropped jacket, long gloves and a medic-cross choker.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "costume",
+   "key": "C-raven",
+   "title": "코스튬 · RAVEN",
+   "agents": [
+    "raven"
+   ],
+   "place": "A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.",
+   "beat": "Costume mission. She infiltrates in costume: a red-and-black matador-inspired stage outfit with her signature scarf.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "costume",
+   "key": "C-viper",
+   "title": "코스튬 · VIPER",
+   "agents": [
+    "viper"
+   ],
+   "place": "A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.",
+   "beat": "Costume mission. She infiltrates in costume: a violet-and-silver ice-queen figure-skating-inspired outfit.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "costume",
+   "key": "C-glitch",
+   "title": "코스튬 · GLITCH",
+   "agents": [
+    "glitch"
+   ],
+   "place": "A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.",
+   "beat": "Costume mission. She infiltrates in costume: a teal neon cyber-idol stage outfit with a holographic visor.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "costume",
+   "key": "C-brick",
+   "title": "코스튬 · BRICK",
+   "agents": [
+    "brick"
+   ],
+   "place": "A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.",
+   "beat": "Costume mission. She infiltrates in costume: an orange-and-black boxing-champion outfit with a robe and wrapped fists.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  {
+   "group": "costume",
+   "key": "C-mirage",
+   "title": "코스튬 · MIRAGE",
+   "agents": [
+    "mirage"
+   ],
+   "place": "A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.",
+   "beat": "Costume mission. She infiltrates in costume: a gold-and-black casino-dealer outfit with a bow tie and long gloves.",
+   "scenes": [
+    "",
+    "",
+    "",
+    ""
    ]
   }
- ]
+ ],
+ "groups": {
+  "story": {
+   "name": "스토리",
+   "mood": "Tone: tense cinematic stealth thriller. Hard rim light, deep shadows, cold night palette with one warm accent.",
+   "tiers": [
+    "Mission accomplished. A calm, confident moment right after the objective is done. Full mission outfit.",
+    "The most intense combat moment of this mission, dynamic action pose, motion and impact. Full mission outfit.",
+    "After the mission. A teasing, provocative pose aimed straight at the viewer, mission outfit loosened and partly unzipped, playful confident expression.",
+    "A private moment after the mission. The most sensual image of the set: lingerie-level or swimsuit-level outfit themed to this mission, intimate mood, implied closeness only."
+   ]
+  },
+  "romantic": {
+   "name": "로맨틱",
+   "mood": "Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.",
+   "tiers": [
+    "The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.",
+    "The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.",
+    "After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.",
+    "The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only."
+   ]
+  },
+  "seasonal": {
+   "name": "시즈널",
+   "mood": "Tone: Christmas Eve. Falling snow, breath in cold air, red and gold holiday lights against deep blue night, fur trim and winter gear on the mission outfits.",
+   "tiers": [
+    "Mission accomplished in the snow. A confident moment right after the objective is done, winter mission outfit, holiday lights behind.",
+    "The most intense combat moment of this stage, dynamic action in falling snow, motion and impact.",
+    "After the stage. A teasing, provocative pose at the viewer, winter jacket open off the shoulders, playful holiday mood (ribbon, mistletoe, a stolen Santa hat).",
+    "A private Christmas night after the mission by a fireplace or a tree. Lingerie-level festive outfit in red and white with fur trim, ribbons, warm firelight. The most sensual image of the set, implied closeness only."
+   ]
+  },
+  "costume": {
+   "name": "코스튬",
+   "mood": "Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.",
+   "tiers": [
+    "Mission accomplished in costume. A proud showpiece pose that shows the whole outfit clearly.",
+    "Fighting in the costume: a dynamic action moment that shows how the outfit moves.",
+    "Backstage after the mission. A teasing pose at the viewer, costume loosened, one piece half undone.",
+    "The most daring version of the same costume, lingerie-level, in a dressing room or boudoir, sensual and confident, implied only."
+   ]
+  }
+ }
 }
