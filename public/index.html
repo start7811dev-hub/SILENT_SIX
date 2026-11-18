@@ -272,10 +272,10 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #hm .h4 .ht.pic b{font-size:16px}#hm .h4 .ht.pic i{font-size:9px;letter-spacing:.22em}#hm .h4 .ht.pic u{font-size:11px;line-height:1.3}
 #hm .ht.lock:after,#hm .ht.soon:after{right:6px;top:6px;font-size:9px;letter-spacing:.2em;padding:3px 5px 3px 7px}
 #hm .hb{padding-bottom:86px}
-#hm .hn{position:fixed;left:0;right:0;bottom:0;z-index:4;display:grid;grid-template-columns:repeat(5,1fr);background:#0a0d11;border-top:1px solid rgba(255,255,255,.1);padding-bottom:env(safe-area-inset-bottom)}
-#hm .hn button{background:none;height:58px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;clip-path:none}
-#hm .hn button i{font-style:normal;font-size:9.5px;letter-spacing:.2em;color:var(--c);font-weight:700}
-#hm .hn button b{font-size:13.5px;font-family:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;font-weight:700}
+#nv{position:fixed;left:0;right:0;bottom:0;z-index:10;display:grid;grid-template-columns:repeat(5,1fr);background:#0a0d11;border-top:1px solid rgba(255,255,255,.1);padding-bottom:env(safe-area-inset-bottom)}
+#nv button{background:none;height:58px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;clip-path:none}
+#nv button i{font-style:normal;font-size:9.5px;letter-spacing:.2em;color:var(--c);font-weight:700}
+#nv button b{font-size:13.5px;font-family:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;font-weight:700}
 #ovx .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0 14px}
 #ovx .cards div{position:relative;aspect-ratio:3/4;background:var(--tile) center 15%/cover;overflow:hidden}
 #ovx .cards div.no{display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.22em;color:var(--dim);font-weight:700}
@@ -407,11 +407,11 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #pg th,#pg td{padding:8px 4px;text-align:right;border-bottom:1px solid rgba(255,255,255,.08);font-variant-numeric:tabular-nums}
 #pg th:first-child,#pg td:first-child{text-align:left}#pg th{font-size:10.5px;letter-spacing:.14em;color:var(--dim)}#pg td.best{color:var(--c);font-weight:700}
 #hm .hud button{height:28px;padding:0 10px 0 11px;font-size:11px;letter-spacing:.22em;font-weight:700;background:var(--c);color:#06080b}
-#hm .hn{grid-template-columns:repeat(5,1fr);padding:6px 6px calc(6px + env(safe-area-inset-bottom));gap:2px;background:rgba(10,13,17,.96);backdrop-filter:blur(10px)}
-#hm .hn button{height:66px;gap:5px;border-radius:0}
-#hm .hn button svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
-#hm .hn button b{font-size:12px;letter-spacing:.02em;pointer-events:none}
-#hm .hn button:active{background:rgba(255,255,255,.08);color:var(--c)}
+#nv{grid-template-columns:repeat(6,1fr);padding:6px 4px calc(6px + env(safe-area-inset-bottom));gap:2px;background:rgba(10,13,17,.96);backdrop-filter:blur(10px)}
+#nv button{height:66px;gap:5px;border-radius:0}
+#nv button svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#nv button b{font-size:12px;letter-spacing:.02em;pointer-events:none}
+#nv button:active{background:rgba(255,255,255,.08);color:var(--c)}
 #hm .hb{padding-bottom:104px}
 #op .st img{inset:auto;left:50%;top:34%;width:auto;height:150%;max-width:none;object-fit:fill}
 #snow{position:fixed;inset:0;z-index:3;pointer-events:none;background-image:radial-gradient(2px 2px at 20px 30px,#fff,transparent),radial-gradient(2px 2px at 90px 120px,rgba(255,255,255,.8),transparent),radial-gradient(1.5px 1.5px at 150px 60px,#fff,transparent),radial-gradient(2.5px 2.5px at 60px 170px,rgba(255,255,255,.7),transparent),radial-gradient(1.5px 1.5px at 180px 190px,#fff,transparent);background-size:210px 230px;animation:snw 7s linear infinite;opacity:.75}
@@ -520,6 +520,13 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #hm .hud button.lg{background:rgba(255,255,255,.1);color:var(--ink)}
 #pg .row button.gg{background:#fff;color:#111}#pg .row button.ap{background:#000;color:#fff;border:1px solid rgba(255,255,255,.25)}
 #pg tr.me td{color:var(--c);font-weight:700}
+#nv.hide{display:none}
+#nv button{color:#8a94a1}#nv button.on{color:var(--ink)}#nv button.on svg{color:var(--c)}
+#nv button b{font-size:11.5px}
+#pg .pb{padding-bottom:calc(104px + env(safe-area-inset-bottom))}
+#pg.fit .pb{padding-bottom:calc(90px + env(safe-area-inset-bottom))!important}
+#pg.nonav .pb{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+#pg.nonav .nvb{position:fixed;left:50%;transform:translateX(-50%);width:min(592px,calc(100% - 28px));bottom:calc(14px + env(safe-area-inset-bottom));margin:0;z-index:4;box-shadow:0 -18px 30px 12px rgba(6,8,11,.92)}
 /* 한 화면 맞춤 레이아웃: 헤더 + 범위 칩 + 남은 높이를 채우는 본문 */
 #pg.fit{overflow:hidden;display:flex;flex-direction:column}
 #pg.fit .ph{position:relative;flex:0 0 auto}
@@ -620,6 +627,7 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 <div id="hm" class="hide"></div>
 <div id="ms" class="hide"></div>
 <div id="pg" class="hide"></div>
+<div id="nv" class="hn hide"></div>
 <div id="snow" class="hide"></div>
 <div id="vw" class="hide"><img id="vwi" alt=""><u id="vwm"></u><button id="vwx" aria-label="닫기"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button id="vwd" aria-label="앨범에 저장"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></svg></button></div>
 <div id="ro" class="hide"><div id="rot"></div><div id="row"><div id="roc"></div><button id="rop">‹</button><button id="ron2">›</button></div>
@@ -742,7 +750,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.20.0';
+var VERSION='0.21.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -923,7 +931,7 @@ ch:[
 function nv(x){return x.replace(/"([^"<]+)"/g,'<em class="d">“$1”</em>').replace(/\[\[(.+?)\]\]/g,'<em class="k">$1</em>');}
 function reader(o){
   var h=(o.img?'<div class="hero big"><span class="bg" style="'+bgs(o.img)+'"></span></div>':'')+'<div class="nv">'+(o.html||o.p.map(function(x){return '<p>'+nv(x)+'</p>';}).join(''))+(o.q?'<p class="q">남는 의문 — '+o.q+'</p>':'')+'</div>'+(o.btn?'<button class="nvb" data-k="0">'+o.btn+'</button>':'');
-  page(o.t,o.sub,h,o.back,[o.next]);
+  page(o.t,o.sub,h,o.back,[o.next]);if(o.btn)$('pg').className='nonav';
 }
 function novelRead(n){
   if(n==='p'){reader({t:NOVEL.pro.t,sub:'S1 · EPISODE 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,back:bbNovel});return;}
@@ -952,7 +960,7 @@ function vwSave(){
   }).catch(function(){dl(f);});
 }
 function info(t,sub,img,body,back){page(t,sub,(img?'<div class="hero'+(lk(img)?' lk':'')+'"><span class="bg" style="'+bgs(img)+'"></span></div>':'')+body,back);}
-var NAVI={agents:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>',box:'<rect x="4" y="7" width="16" height="12"/><path d="M4 11h16M9 7V4h6v3M10 14.5h4"/>',shop:'<path d="M4 8h16l-1.5 12h-13zM8.5 8V6.5a3.5 3.5 0 017 0V8"/>',rank:'<path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4c0 3 1.5 4 3 4M17 6h3c0 3-1.5 4-3 4M12 14v4M8 20h8"/>',set:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>'};
+var NAVI={home:'<path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/>',agents:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>',box:'<rect x="4" y="7" width="16" height="12"/><path d="M4 11h16M9 7V4h6v3M10 14.5h4"/>',shop:'<path d="M4 8h16l-1.5 12h-13zM8.5 8V6.5a3.5 3.5 0 017 0V8"/>',rank:'<path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4c0 3 1.5 4 3 4M17 6h3c0 3-1.5 4-3 4M12 14v4M8 20h8"/>',set:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>'};
 function home(){
   started=false;setPre(true);hideOv();pgHide();msHide();
   var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen(),rnd=function(){return 'a_'+ids[fl(Math.random()*6)]+'_'+(2+fl(Math.random()*6))+'.jpg';},hi='a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg',pi='a_'+b+'_0.jpg',ri=KVI.seasonal?'kv_seasonal.jpg':null,ri2=KVI.special?'kv_special.jpg':null,nx=0;for(var q=0;q<NBASE;q++)if(!PROG.c[q]){nx=q;break;}var kv=mimg(nx);
@@ -964,8 +972,23 @@ function home(){
    '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="'+bgs(pi)+'"></span><i>ROMANTIC</i><b>로맨틱 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
    (flag('seasonal')?'<button class="ht pic" data-h="season"><span class="bg'+(ri?'':' none')+'" style="'+(ri?bgs(ri):'')+'"></span><i>SEASONAL</i><b>시즈널 미션</b><u>블러디 크리스마스</u></button>':'')+
    (flag('special')?'<button class="ht pic soon" data-h="special"><span class="bg'+(ri2?'':' none')+'" style="'+(ri2?bgs(ri2):'')+'"></span><i>SPECIAL</i><b>스페셜 미션</b><u>코스튬 · 룰브레이크</u></button>':'')+'</div>'+
-   '<div class="hf">SILENT SIX v'+VERSION+'</div></div>'+
-   '<div class="hn">'+nav.map(function(x){return '<button data-h="'+x[0]+'"><svg viewBox="0 0 24 24">'+NAVI[x[0]]+'</svg><b>'+x[1]+'</b></button>';}).join('')+'</div>';
+   '<div class="hf">SILENT SIX v'+VERSION+'</div></div>';
+  NAVK='home';navSync();
+}
+/* 전역 하단 내비: 홈과 메뉴 화면에서 항상 보이고, 오프닝·미션 진입·플레이·컷씬·결과에서는 숨는다. */
+var NAVK='home',NAVL=[['home','홈'],['agents','요원'],['box','블랙박스'],['shop','SHOP'],['rank','랭킹'],['set','설정']];
+function navGo(h){
+  NAVK=h;
+  if(h==='home'){pgHide();home();}else if(h==='agents')agents();else if(h==='box')blackbox();else if(h==='shop')shop();else if(h==='rank')ranking(0);else if(h==='set')settings();
+  navSync();
+}
+function navSync(){
+  var el=$('nv');if(!el||!el.style)return;
+  var vis=function(id){var x=$(id);return !!x&&(''+x.className).indexOf('hide')<0;};
+  var show=(vis('hm')||(vis('pg')&&(''+$('pg').className).indexOf('nonav')<0))&&!vis('op')&&!vis('ms')&&!vis('sc')&&!vis('ro')&&!vis('ov')&&!started;
+  if(!show){if(el.className!=='hn hide')el.className='hn hide';return;}
+  var h=NAVL.map(function(x){return '<button data-h="'+x[0]+'"'+(x[0]===NAVK?' class="on"':'')+'><svg viewBox="0 0 24 24">'+NAVI[x[0]]+'</svg><b>'+x[1]+'</b></button>';}).join('');
+  if(el.innerHTML!==h)el.innerHTML=h;if(el.className!=='hn')el.className='hn';
 }
 function hmHide(){$('hm').className='hide';$('hm').innerHTML='';}
 function seasons(){
@@ -1799,13 +1822,11 @@ $('hm').addEventListener('click',function(e){
   else if(h==='story'){if(storyOpen())storyMenu();else info('로맨틱 미션','ROMANTIC // LOCKED',null,'<p>아직은 못 들어와. <em class="k">여섯이 다 모인 뒤에야</em> 이 문이 열려. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 테이크는 세 번. 끝까지 가면 그날 밤이 남아.</p>',home);}
   else if(h==='season')seasonal();
   else if(h==='special')special();
-  else if(h==='agents')agents();
-  else if(h==='box')blackbox();
-  else if(h==='shop')shop();
-  else if(h==='rank')ranking(0);
-  else if(h==='set')settings();
+  else if(h==='set')navGo('set');
   else if(h==='tip')tipsPage(home);
 });
+$('nv').addEventListener('click',function(e){var t=e.target;while(t&&t!==this&&!(t.dataset&&t.dataset.h))t=t.parentNode;if(t&&t!==this)navGo(t.dataset.h);});
+try{if(typeof MutationObserver!=='undefined'){var NVO=new MutationObserver(function(){navSync();});['hm','pg','ms','op','sc','ro','ov'].forEach(function(id){var x=$(id);if(x)NVO.observe(x,{attributes:true,attributeFilter:['class']});});}}catch(e){}
 $('pg').addEventListener('click',function(e){
   var t=e.target;if(t.dataset&&t.dataset.b){var b=PGB;pgHide();(b||home)();return;}
   if(t.dataset&&t.dataset.view){viewer(t.dataset.view,true);return;}
