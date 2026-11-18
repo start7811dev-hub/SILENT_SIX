@@ -159,81 +159,82 @@
    "agents": [
     "raven"
    ],
-   "place": "Harbor warehouse no. 3 at night, shipping containers, sodium lamps, sea fog. Snow falling, Christmas lights.",
-   "beat": "Christmas Eve. The enemy courier called Santa makes five stops tonight. First stop: a harbor warehouse where the 'gift box' is a bound hostage. She brings him out without killing anyone.",
+   "place": "18:40. A snowy city-hall square Christmas market at dusk: rows of wooden stalls with string lights, a giant decorated tree, a carousel, crowds as soft blurred silhouettes.",
+   "beat": "She goes in alone among the crowd to lift Santa's delivery list hidden under the giant tree. Civilians everywhere, so nobody dies tonight.",
    "scenes": [
-    "",
-    "",
-    "",
-    ""
+    "She walks out of the market through falling snow with a small ribbon-tied box under her arm, glancing back at the glowing tree.",
+    "Behind the stalls, in the dark service lane, she chokes out a fake shopper in a Santa hat, string lights blurred behind them, red scarf flying.",
+    "Leaning on a closed stall counter with a cup of mulled wine, winter jacket open, she pulls the red scarf down and smirks at the viewer, carousel lights spinning behind.",
+    "A small attic room above the square, fairy lights in the window. She sits on the sill in red-and-black lace lingerie with the scarf loose around her neck, the stolen box unopened beside her."
    ]
   },
   {
    "group": "seasonal",
    "key": "W-2",
-   "title": "블러디 크리스마스 2 · 끊긴 캐럴",
+   "title": "블러디 크리스마스 2 · 화차 44호",
    "agents": [
-    "raven",
-    "viper"
+    "brick",
+    "glitch"
    ],
-   "place": "A mountain communications base at night, radio mast, pine forest, cold mist. Snow falling, Christmas lights.",
-   "beat": "A mountain relay station is hiding delivery signals inside a Christmas carol broadcast. Cut the transmitter and Santa goes blind.",
+   "place": "20:10. A freight rail yard at night in snow: long lines of boxcars on parallel tracks, two floodlight towers, a signal cabin, steam and frost.",
+   "beat": "Find the marked boxcar among dozens, kill the floodlights, breach the car wall and blow Santa's crates.",
    "scenes": [
-    "",
-    "",
-    "",
-    ""
+    "The two walk down the track away from a burning boxcar, the breacher with a sledge on her shoulder, the hacker flipping a detonator switch closed.",
+    "The floodlights die as the hacker's drone sparks; in the sudden dark the breacher smashes through the boxcar wall in a burst of splinters and snow.",
+    "Sitting in an open boxcar door with legs dangling, jackets open over tank tops, sharing a thermos, both grinning at the viewer, sparks drifting past.",
+    "Inside a warm caboose with a small iron stove. Both in festive red-and-white lingerie with fur trim, the hacker in a Santa hat, the breacher warming her taped hands at the stove."
    ]
   },
   {
    "group": "seasonal",
    "key": "W-3",
-   "title": "블러디 크리스마스 3 · 야근",
+   "title": "블러디 크리스마스 3 · 얼음 위의 선물",
    "agents": [
-    "raven",
-    "glitch"
+    "viper",
+    "doc"
    ],
-   "place": "A corporate front office at night, glass walls, a cold blue server room. Snow falling, Christmas lights.",
-   "beat": "One office floor still lit on Christmas Eve. The server holds tonight's delivery list. Copy it unseen.",
+   "place": "22:30. A vast frozen lake under moonlight: ice-fishing huts, a long pier, a boathouse, a lodge and a birch forest on the shore, gusts of blowing snow.",
+   "beat": "A witness is being held in the boathouse as tonight's 'gift'. Cross the open ice under cover of the blizzard, one shot only, and bring him out alive.",
    "scenes": [
-    "",
-    "",
-    "",
-    ""
+    "On the shore at the forest edge, the medic supports a rescued man wrapped in a blanket, seen from behind, while the sniper covers the lake with her rifle.",
+    "The sniper lies prone on the ice in white camouflage taking a single shot through blowing snow while the medic sprints low toward the boathouse with her dart pistol.",
+    "Inside an ice-fishing hut by a lantern, both with parkas open, the sniper blowing on her fingers, the medic holding out a flask toward the viewer with a wink.",
+    "The lodge sauna room after the mission, steam and cedar wood. Both wrapped in white towels, hair damp, the sniper's rifle propped by the door, snow at the window."
    ]
   },
   {
    "group": "seasonal",
    "key": "W-4",
-   "title": "블러디 크리스마스 4 · 폭죽",
+   "title": "블러디 크리스마스 4 · 자정 미사",
    "agents": [
-    "viper",
-    "brick"
+    "mirage",
+    "raven"
    ],
-   "place": "An abandoned mine, timber-braced tunnels, dust in lamp light. Snow falling, Christmas lights.",
-   "beat": "Crates waiting to be gift-wrapped are stacked in a mine depot. Blow all of them: tonight's fireworks are ours.",
+   "place": "00:00. A grand cathedral at midnight mass: long rows of pews, stone pillars, hundreds of candles, a choir loft, an altar, bells ringing in the tower.",
+   "beat": "Swap the money bag in the offering box behind the altar for one with a tracker, during the midnight bells, without touching a single guard.",
    "scenes": [
-    "",
-    "",
-    "",
-    ""
+    "The two leave by the side door into the snow, the infiltrator in a choir robe carrying the swapped bag, the leader holding the heavy door, bells above them.",
+    "In the candlelit nave the infiltrator glides past a guard in her choir robe while the leader crouches between the pews in shadow, knife ready, as the great bell swings.",
+    "Up in the bell tower stairs, the infiltrator has the choir robe slipping off her shoulders over an evening dress, the leader leans on the stone wall, both looking down at the viewer.",
+    "A candlelit room in the old rectory. Both in black lace lingerie, the infiltrator with a red ribbon at her throat, the leader with her scarf, candles and frost on the leaded window."
    ]
   },
   {
    "group": "seasonal",
    "key": "W-5",
-   "title": "블러디 크리스마스 5 · 마지막 집",
+   "title": "블러디 크리스마스 5 · 산타의 썰매",
    "agents": [
-    "mirage",
+    "raven",
+    "viper",
     "glitch"
    ],
-   "place": "A patron's mansion at night, chandeliers, a study with a hidden safe. Snow falling, Christmas lights.",
-   "beat": "The last house: a mansion Christmas party. Santa's ledger is in the safe, and the head of security is standing guard.",
+   "place": "03:30. A private airfield in heavy snow: a lit runway, a hangar with a private jet, a control tower with a slow searchlight, fuel trucks and a snowplow.",
+   "beat": "Reach the jet before it takes off and seize Santa's cargo. Inside there is only an empty ribbon-tied box and a card addressed to them.",
    "scenes": [
-    "",
-    "",
-    "",
-    ""
+    "The three stand on the runway at dawn as the grounded jet sits behind them, the leader holding an empty ribbon-tied box and a card, snow easing.",
+    "Runway lights streak past: the leader sprints for the open hangar, the sniper fires from the top of a snowplow, the hacker crouches with her drone as the searchlight freezes.",
+    "Inside the jet's cabin, the three lounge across the leather seats with flight jackets open, the hacker wearing the pilot's cap, champagne from the galley, all looking at the viewer.",
+    "A hotel suite at Christmas dawn with a lit tree. All three in red-and-white festive lingerie with fur trim, the empty gift box open on the bed between them, soft morning light."
    ]
   },
   {
@@ -447,5 +448,30 @@
     ]
    }
   }
+ },
+ "maps": {
+  "common": "Top-down three-quarter (isometric quarter view) painted game map, 1536x1024, the whole area visible at once, clear readable walkable ground and solid obstacles, consistent scale, no characters, no text, no UI. Painterly but clean edges so that cover objects are easy to tell from open ground.",
+  "items": [
+   {
+    "file": "bgw1.jpg",
+    "desc": "A snowy city-hall square Christmas market at dusk. Four rows of wooden stalls forming narrow alleys, a giant decorated tree in the center, a carousel on one side, a fountain and a small stage at the edges, dark service lanes behind the stalls. Bright warm string lights in the center, dark blue shadow at the edges."
+   },
+   {
+    "file": "bgw2.jpg",
+    "desc": "A freight rail yard at night in snow. Five parallel tracks running left to right with long lines of boxcars and gaps between cars, stacked containers, two tall floodlight towers at the ends casting wide circles of light, a signal cabin in the middle. Very wide layout."
+   },
+   {
+    "file": "bgw3.jpg",
+    "desc": "A vast frozen lake at night under moonlight. Open ice across half the image with a few ice-fishing huts and sled piles, a long wooden pier, a boathouse, a lodge on the shore and a dense birch forest along one edge. Wide and empty, wind-blown snow streaks on the ice."
+   },
+   {
+    "file": "bgw4.jpg",
+    "desc": "The interior of a grand cathedral at midnight, roof removed for the top-down view. Two long rows of pews down the nave, stone pillars, side aisles with confessional booths, an altar with an offering box, a choir loft, a bell-tower stair and a crypt entrance. Hundreds of candles, warm light near the altar, cold stone elsewhere."
+   },
+   {
+    "file": "bgw5.jpg",
+    "desc": "A private airfield in heavy snow before dawn. A lit runway and taxiway, an open hangar with a private jet inside, a control tower, two fuel trucks and a snowplow, snowbanks along the runway edge, a chain-link fence and open snowfield beyond. Runway edge lights in rows."
+   }
+  ]
  }
 }
