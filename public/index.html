@@ -314,6 +314,7 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 @media (orientation:landscape){#op .st h3.km{font-size:7vh}}
 #hm .ht.pic{background:var(--tile)}
 #hm .ht.pic .bg{position:absolute;inset:0;background:center 12%/cover}
+#hm .h4 .ht.pic .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(6,8,11,0) 38%,rgba(6,8,11,.94) 86%)}
 #hm .ht.pic.lock .bg{filter:blur(9px) brightness(.8);transform:scale(1.15)}
 #ms{position:fixed;inset:0;z-index:9;background:#06080b;display:flex;flex-direction:column}
 #ms.hide{display:none}
@@ -682,7 +683,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.17.0';
+var VERSION='0.17.1';
 var PROG={c:{},s:{},b:{},end:{},g:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -785,7 +786,8 @@ var SPECIAL=[
  ['mirage','첫 무대','카지노','딜러로 위장한 첫 임무. 표적과 보낸 사흘 동안 어디까지가 연기였는지 지금도 말하지 않는다.'],
  ['doc','야간 당직','야전병원','군의관 시절의 밤 근무. 살린 사람과 못 살린 사람, 그리고 규정으로는 안 되는 사이였던 한 사람.']];
 var FACE2={raven:[[42,12],[45,13],[42,13],[55,15],[70,25],[36,12],[30,37],[52,8],[45,13]],viper:[[40,12],[47,15],[33,18],[52,13],[55,35],[50,22],[55,15],[42,12],[50,15]],glitch:[[45,17],[45,22],[33,20],[45,20],[48,17],[45,17],[22,20],[48,12],[45,18]],brick:[[40,12],[45,12],[38,13],[60,10],[50,10],[30,13],[50,8],[55,15],[50,12]],mirage:[[57,10],[64,17],[36,20],[50,35],[45,10],[40,26],[40,13],[45,12],[45,13]],doc:[[50,15],[35,12],[50,15],[45,12],[45,17],[55,15],[50,15],[45,13],[45,10]]};
-function fxy(f){var m=/^([ae])_([a-z]+)(?:_(\d))?\.jpg/.exec(f||''),a;if(!m||!FACE2[m[2]])return [50,14];a=FACE2[m[2]][m[1]==='e'?8:+m[3]];return a||[50,14];}
+var KVF={'kv_seasonal.jpg':[48,15],'kv_special.jpg':[52,15]};
+function fxy(f){if(KVF[f])return KVF[f];var m=/^([ae])_([a-z]+)(?:_(\d))?\.jpg/.exec(f||''),a;if(!m||!FACE2[m[2]])return [50,14];a=FACE2[m[2]][m[1]==='e'?8:+m[3]];return a||[50,14];}
 function fp(f){var a=fxy(f);return a[0]+'% '+Math.max(0,a[1]-10)+'%';}
 function lk(f){var m=/^a_([a-z]+)_(\d)\.jpg/.exec(f||'');return !!m&&!gOpen(m[1],+m[2]);}
 function gBest(id){for(var k=7;k>0;k--)if(gOpen(id,k))return 'a_'+id+'_'+k+'.jpg';return 'a_'+id+'_0.jpg';}
