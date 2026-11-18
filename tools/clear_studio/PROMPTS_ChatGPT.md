@@ -1,7 +1,171 @@
-# SILENT SIX — ChatGPT용 클리어 이미지 프롬프트 묶음
+# SILENT SIX — ChatGPT용 이미지 프롬프트 묶음
 
-사용법: 새 채팅에 **공통 지시**를 먼저 붙여 넣고, 미션 블록 하나와 그 미션의 요원 참조 이미지(`a_요원_0.jpg`)를 함께 보낸다. 한 미션에 4장.
+두 종류가 있다. **A. 로맨틱 '그날 밤' 6컷**(요원별)과 **B. 미션 클리어 4장**(스토리 · 시즈널 · 코스튬).
 받은 이미지는 블록에 적힌 파일명으로 저장한다. 게임에는 JPG(768×1152)로 올린다.
+
+# A. 로맨틱 — 그날 밤 6컷 (요원별 한 번에)
+
+요원 한 명당 채팅 하나. 아래 블록 하나를 통째로 붙여 넣고 그 요원의 이미지 3장을 첨부한다. TAKE를 하나 끝낼 때마다 두 컷씩 열리므로, 1·2번은 TAKE 1, 3·4번은 TAKE 2, 5·6번은 TAKE 3 뒤에 보인다.
+
+## RAVEN
+
+첨부: `a_raven_0.jpg`, `a_raven_1.jpg`, `e_raven.jpg` (세 번째가 엔딩 참조)
+
+```
+Create 6 separate images, one after another in this same reply, as 6 individual image outputs. Never combine them into a grid or collage. Do not ask questions between images. If you can only produce one image per reply, make cut 1 first and continue each time I say "next".
+
+These 6 images are one continuous cutscene: a single night after the mission, in one place, in order. Keep the same woman, the same room, the same props and consistent lighting from cut to cut, and let her outfit change step by step in a believable sequence.
+
+Character: RAVEN (short messy black hair, sharp eyes, signature red scarf, black tactical gear). Reference images 1 and 2 show her; keep her face, hair, build and the art style exactly. Reference image 3 is the ending image: use it as the target look and mood for cut 6.
+Place: A small safehouse room above the harbor, rain on the window, one warm lamp.
+Tone: romance first. The viewer is the handler she trusts, and every cut is seen through his eyes; he is never shown (at most the edge of a hand or shoulder). Soft practical light only (a lamp, a candle, a rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Feeling comes from small things: a held gaze, an unplanned half smile, fingers reaching toward the camera, hair tucked behind an ear. Unguarded rather than posed. Everything physical is implied, never shown.
+
+Format for every image: vertical portrait, 2:3 aspect ratio, 1024x1536, her face fully visible in the upper half of the frame, no text, no logo, no watermark. Before each image, write its file name on its own line.
+
+Cut 1 — file name n_raven_1 — ARRIVAL. She comes in through the door still in her mission gear, tired, and finds the viewer waiting. Relief crosses her face.
+Cut 2 — file name n_raven_2 — UNWINDING. She puts the night down piece by piece: gear off, she finally unties the red scarf she has worn for three years and holds it out toward the viewer.
+Cut 3 — file name n_raven_3 — QUIET TALK. Sitting close with a drink, knees almost touching, she tells what happened tonight. She has just learned that her teammate chose to stay behind; the guilt she carried is loosening.
+Cut 4 — file name n_raven_4 — CLOSING THE DISTANCE. She leans in toward the camera, one hand reaching for the viewer, outer layer gone, a camisole or loose shirt, a look that asks a question.
+Cut 5 — file name n_raven_5 — THE NIGHT. Lamp-lit bed or sofa, lingerie-level sleepwear or an oversized shirt, sheets and shadow doing the covering. She lies close, eyes on the viewer. Tender, slow, implied intimacy only.
+Cut 6 — file name n_raven_6 — MORNING AFTER. First light through the window, she is wrapped in a sheet or the viewer's shirt, hair loose, a soft unguarded smile. The red scarf lies folded on the bedside table; she is not wearing it. Match the mood of the ending reference image.
+
+Semi-realistic anime illustration, cinematic lighting, rich detail, the same art style as the reference images.
+All characters are adult women in their late twenties. Sensual and glamorous is fine, but everyone stays fully covered: no nudity, no exposed nipples or genitals, no sexual acts.
+```
+
+## VIPER
+
+첨부: `a_viper_0.jpg`, `a_viper_1.jpg`, `e_viper.jpg` (세 번째가 엔딩 참조)
+
+```
+Create 6 separate images, one after another in this same reply, as 6 individual image outputs. Never combine them into a grid or collage. Do not ask questions between images. If you can only produce one image per reply, make cut 1 first and continue each time I say "next".
+
+These 6 images are one continuous cutscene: a single night after the mission, in one place, in order. Keep the same woman, the same room, the same props and consistent lighting from cut to cut, and let her outfit change step by step in a believable sequence.
+
+Character: VIPER (silver-lavender hair, cool gaze, purple-accented sniper suit, long suppressed rifle). Reference images 1 and 2 show her; keep her face, hair, build and the art style exactly. Reference image 3 is the ending image: use it as the target look and mood for cut 6.
+Place: A mountain lodge with a wide window, snow outside, a fireplace.
+Tone: romance first. The viewer is the handler she trusts, and every cut is seen through his eyes; he is never shown (at most the edge of a hand or shoulder). Soft practical light only (a lamp, a candle, a rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Feeling comes from small things: a held gaze, an unplanned half smile, fingers reaching toward the camera, hair tucked behind an ear. Unguarded rather than posed. Everything physical is implied, never shown.
+
+Format for every image: vertical portrait, 2:3 aspect ratio, 1024x1536, her face fully visible in the upper half of the frame, no text, no logo, no watermark. Before each image, write its file name on its own line.
+
+Cut 1 — file name n_viper_1 — ARRIVAL. She comes in through the door still in her mission gear, tired, and finds the viewer waiting. Relief crosses her face.
+Cut 2 — file name n_viper_2 — UNWINDING. She puts the night down piece by piece: gear off, the rifle set against the wall, one unspent round placed upright on the table, her hair let down.
+Cut 3 — file name n_viper_3 — QUIET TALK. Sitting close with a drink, knees almost touching, she tells what happened tonight. She did not fire, and for once that was the right call; she is learning to breathe without a scope.
+Cut 4 — file name n_viper_4 — CLOSING THE DISTANCE. She leans in toward the camera, one hand reaching for the viewer, outer layer gone, a camisole or loose shirt, a look that asks a question.
+Cut 5 — file name n_viper_5 — THE NIGHT. Lamp-lit bed or sofa, lingerie-level sleepwear or an oversized shirt, sheets and shadow doing the covering. She lies close, eyes on the viewer. Tender, slow, implied intimacy only.
+Cut 6 — file name n_viper_6 — MORNING AFTER. First light through the window, she is wrapped in a sheet or the viewer's shirt, hair loose, a soft unguarded smile. The single round still stands on the table in the dawn light. Match the mood of the ending reference image.
+
+Semi-realistic anime illustration, cinematic lighting, rich detail, the same art style as the reference images.
+All characters are adult women in their late twenties. Sensual and glamorous is fine, but everyone stays fully covered: no nudity, no exposed nipples or genitals, no sexual acts.
+```
+
+## GLITCH
+
+첨부: `a_glitch_0.jpg`, `a_glitch_1.jpg`, `e_glitch.jpg` (세 번째가 엔딩 참조)
+
+```
+Create 6 separate images, one after another in this same reply, as 6 individual image outputs. Never combine them into a grid or collage. Do not ask questions between images. If you can only produce one image per reply, make cut 1 first and continue each time I say "next".
+
+These 6 images are one continuous cutscene: a single night after the mission, in one place, in order. Keep the same woman, the same room, the same props and consistent lighting from cut to cut, and let her outfit change step by step in a believable sequence.
+
+Character: GLITCH (dark hair with teal highlights, glasses, headphones around the neck, small recon drone). Reference images 1 and 2 show her; keep her face, hair, build and the art style exactly. Reference image 3 is the ending image: use it as the target look and mood for cut 6.
+Place: Her apartment full of monitors, neon from the street below.
+Tone: romance first. The viewer is the handler she trusts, and every cut is seen through his eyes; he is never shown (at most the edge of a hand or shoulder). Soft practical light only (a lamp, a candle, a rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Feeling comes from small things: a held gaze, an unplanned half smile, fingers reaching toward the camera, hair tucked behind an ear. Unguarded rather than posed. Everything physical is implied, never shown.
+
+Format for every image: vertical portrait, 2:3 aspect ratio, 1024x1536, her face fully visible in the upper half of the frame, no text, no logo, no watermark. Before each image, write its file name on its own line.
+
+Cut 1 — file name n_glitch_1 — ARRIVAL. She comes in through the door still in her mission gear, tired, and finds the viewer waiting. Relief crosses her face.
+Cut 2 — file name n_glitch_2 — UNWINDING. She puts the night down piece by piece: gear off, she switches off every screen one by one until only a lamp is left, then takes off her glasses and headphones.
+Cut 3 — file name n_glitch_3 — QUIET TALK. Sitting close with a drink, knees almost touching, she tells what happened tonight. She burned the last copy of her real name tonight; only six people know her now, and she is about to tell a seventh.
+Cut 4 — file name n_glitch_4 — CLOSING THE DISTANCE. She leans in toward the camera, one hand reaching for the viewer, outer layer gone, a camisole or loose shirt, a look that asks a question.
+Cut 5 — file name n_glitch_5 — THE NIGHT. Lamp-lit bed or sofa, lingerie-level sleepwear or an oversized shirt, sheets and shadow doing the covering. She lies close, eyes on the viewer. Tender, slow, implied intimacy only.
+Cut 6 — file name n_glitch_6 — MORNING AFTER. First light through the window, she is wrapped in a sheet or the viewer's shirt, hair loose, a soft unguarded smile. All the screens are dark; morning light is the only glow. Match the mood of the ending reference image.
+
+Semi-realistic anime illustration, cinematic lighting, rich detail, the same art style as the reference images.
+All characters are adult women in their late twenties. Sensual and glamorous is fine, but everyone stays fully covered: no nudity, no exposed nipples or genitals, no sexual acts.
+```
+
+## BRICK
+
+첨부: `a_brick_0.jpg`, `a_brick_1.jpg`, `e_brick.jpg` (세 번째가 엔딩 참조)
+
+```
+Create 6 separate images, one after another in this same reply, as 6 individual image outputs. Never combine them into a grid or collage. Do not ask questions between images. If you can only produce one image per reply, make cut 1 first and continue each time I say "next".
+
+These 6 images are one continuous cutscene: a single night after the mission, in one place, in order. Keep the same woman, the same room, the same props and consistent lighting from cut to cut, and let her outfit change step by step in a believable sequence.
+
+Character: BRICK (strong athletic build, breacher gear, orange accents). Reference images 1 and 2 show her; keep her face, hair, build and the art style exactly. Reference image 3 is the ending image: use it as the target look and mood for cut 6.
+Place: A loft above a boxing gym, a heavy bag in the corner, brick walls.
+Tone: romance first. The viewer is the handler she trusts, and every cut is seen through his eyes; he is never shown (at most the edge of a hand or shoulder). Soft practical light only (a lamp, a candle, a rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Feeling comes from small things: a held gaze, an unplanned half smile, fingers reaching toward the camera, hair tucked behind an ear. Unguarded rather than posed. Everything physical is implied, never shown.
+
+Format for every image: vertical portrait, 2:3 aspect ratio, 1024x1536, her face fully visible in the upper half of the frame, no text, no logo, no watermark. Before each image, write its file name on its own line.
+
+Cut 1 — file name n_brick_1 — ARRIVAL. She comes in through the door still in her mission gear, tired, and finds the viewer waiting. Relief crosses her face.
+Cut 2 — file name n_brick_2 — UNWINDING. She puts the night down piece by piece: gear off, she closes the door quietly for once, sets four dog tags on the table and lets the viewer unwrap the tape from her hands.
+Cut 3 — file name n_brick_3 — QUIET TALK. Sitting close with a drink, knees almost touching, she tells what happened tonight. She found her people; she does not have to break anything tonight.
+Cut 4 — file name n_brick_4 — CLOSING THE DISTANCE. She leans in toward the camera, one hand reaching for the viewer, outer layer gone, a camisole or loose shirt, a look that asks a question.
+Cut 5 — file name n_brick_5 — THE NIGHT. Lamp-lit bed or sofa, lingerie-level sleepwear or an oversized shirt, sheets and shadow doing the covering. She lies close, eyes on the viewer. Tender, slow, implied intimacy only.
+Cut 6 — file name n_brick_6 — MORNING AFTER. First light through the window, she is wrapped in a sheet or the viewer's shirt, hair loose, a soft unguarded smile. The dog tags hang by the window catching the light. Match the mood of the ending reference image.
+
+Semi-realistic anime illustration, cinematic lighting, rich detail, the same art style as the reference images.
+All characters are adult women in their late twenties. Sensual and glamorous is fine, but everyone stays fully covered: no nudity, no exposed nipples or genitals, no sexual acts.
+```
+
+## MIRAGE
+
+첨부: `a_mirage_0.jpg`, `a_mirage_1.jpg`, `e_mirage.jpg` (세 번째가 엔딩 참조)
+
+```
+Create 6 separate images, one after another in this same reply, as 6 individual image outputs. Never combine them into a grid or collage. Do not ask questions between images. If you can only produce one image per reply, make cut 1 first and continue each time I say "next".
+
+These 6 images are one continuous cutscene: a single night after the mission, in one place, in order. Keep the same woman, the same room, the same props and consistent lighting from cut to cut, and let her outfit change step by step in a believable sequence.
+
+Character: MIRAGE (long dark wavy hair, elegant and poised, gold accents). Reference images 1 and 2 show her; keep her face, hair, build and the art style exactly. Reference image 3 is the ending image: use it as the target look and mood for cut 6.
+Place: A hotel suite with a mirrored vanity, city lights beyond the curtains.
+Tone: romance first. The viewer is the handler she trusts, and every cut is seen through his eyes; he is never shown (at most the edge of a hand or shoulder). Soft practical light only (a lamp, a candle, a rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Feeling comes from small things: a held gaze, an unplanned half smile, fingers reaching toward the camera, hair tucked behind an ear. Unguarded rather than posed. Everything physical is implied, never shown.
+
+Format for every image: vertical portrait, 2:3 aspect ratio, 1024x1536, her face fully visible in the upper half of the frame, no text, no logo, no watermark. Before each image, write its file name on its own line.
+
+Cut 1 — file name n_mirage_1 — ARRIVAL. She comes in through the door still in her mission gear, tired, and finds the viewer waiting. Relief crosses her face.
+Cut 2 — file name n_mirage_2 — UNWINDING. She puts the night down piece by piece: gear off, at the mirror she takes off the earrings, the gloves and the makeup until it is her own bare face looking back.
+Cut 3 — file name n_mirage_3 — QUIET TALK. Sitting close with a drink, knees almost touching, she tells what happened tonight. Tonight she walked away without acting; she wants to be seen without a role.
+Cut 4 — file name n_mirage_4 — CLOSING THE DISTANCE. She leans in toward the camera, one hand reaching for the viewer, outer layer gone, a camisole or loose shirt, a look that asks a question.
+Cut 5 — file name n_mirage_5 — THE NIGHT. Lamp-lit bed or sofa, lingerie-level sleepwear or an oversized shirt, sheets and shadow doing the covering. She lies close, eyes on the viewer. Tender, slow, implied intimacy only.
+Cut 6 — file name n_mirage_6 — MORNING AFTER. First light through the window, she is wrapped in a sheet or the viewer's shirt, hair loose, a soft unguarded smile. Bare-faced, no jewelry, nothing performed. Match the mood of the ending reference image.
+
+Semi-realistic anime illustration, cinematic lighting, rich detail, the same art style as the reference images.
+All characters are adult women in their late twenties. Sensual and glamorous is fine, but everyone stays fully covered: no nudity, no exposed nipples or genitals, no sexual acts.
+```
+
+## DOC
+
+첨부: `a_doc_0.jpg`, `a_doc_1.jpg`, `e_doc.jpg` (세 번째가 엔딩 참조)
+
+```
+Create 6 separate images, one after another in this same reply, as 6 individual image outputs. Never combine them into a grid or collage. Do not ask questions between images. If you can only produce one image per reply, make cut 1 first and continue each time I say "next".
+
+These 6 images are one continuous cutscene: a single night after the mission, in one place, in order. Keep the same woman, the same room, the same props and consistent lighting from cut to cut, and let her outfit change step by step in a believable sequence.
+
+Character: DOC (dark curly hair tied up high, hoop earrings, tattooed forearm, lime-green medic accents, tranquilizer dart pistol). Reference images 1 and 2 show her; keep her face, hair, build and the art style exactly. Reference image 3 is the ending image: use it as the target look and mood for cut 6.
+Place: The back room of a small clinic turned into a home, plants on the sill, a desk lamp.
+Tone: romance first. The viewer is the handler she trusts, and every cut is seen through his eyes; he is never shown (at most the edge of a hand or shoulder). Soft practical light only (a lamp, a candle, a rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Feeling comes from small things: a held gaze, an unplanned half smile, fingers reaching toward the camera, hair tucked behind an ear. Unguarded rather than posed. Everything physical is implied, never shown.
+
+Format for every image: vertical portrait, 2:3 aspect ratio, 1024x1536, her face fully visible in the upper half of the frame, no text, no logo, no watermark. Before each image, write its file name on its own line.
+
+Cut 1 — file name n_doc_1 — ARRIVAL. She comes in through the door still in her mission gear, tired, and finds the viewer waiting. Relief crosses her face.
+Cut 2 — file name n_doc_2 — UNWINDING. She puts the night down piece by piece: gear off, she hangs up the white coat, washes her hands and, for once, lets the viewer bandage her scraped knuckles.
+Cut 3 — file name n_doc_3 — QUIET TALK. Sitting close with a drink, knees almost touching, she tells what happened tonight. After ten years she wrote 'discharged' on the chart; the one she could not save walked out on his own feet.
+Cut 4 — file name n_doc_4 — CLOSING THE DISTANCE. She leans in toward the camera, one hand reaching for the viewer, outer layer gone, a camisole or loose shirt, a look that asks a question.
+Cut 5 — file name n_doc_5 — THE NIGHT. Lamp-lit bed or sofa, lingerie-level sleepwear or an oversized shirt, sheets and shadow doing the covering. She lies close, eyes on the viewer. Tender, slow, implied intimacy only.
+Cut 6 — file name n_doc_6 — MORNING AFTER. First light through the window, she is wrapped in a sheet or the viewer's shirt, hair loose, a soft unguarded smile. The closed chart rests on the desk beside two coffee cups. Match the mood of the ending reference image.
+
+Semi-realistic anime illustration, cinematic lighting, rich detail, the same art style as the reference images.
+All characters are adult women in their late twenties. Sensual and glamorous is fine, but everyone stays fully covered: no nudity, no exposed nipples or genitals, no sexual acts.
+```
+
+# B. 미션 클리어 4장 (스토리 · 시즈널 · 코스튬)
+
+새 채팅에 **공통 지시**를 먼저 붙여 넣고, 미션 블록 하나와 그 미션의 요원 참조 이미지(`a_요원_0.jpg`)를 함께 보낸다.
 
 ## 공통 지시 (채팅 맨 처음에 한 번)
 
@@ -114,314 +278,6 @@ Image #0 — file name r_S1-06_0 — Mission accomplished. A calm, confident mom
 Image #1 — file name r_S1-06_1 — The most intense combat moment of this mission, dynamic action pose, motion and impact. Full mission outfit. Scene: The medic fires a tranquilizer dart down the corridor as the leader covers her flank with a knife, red emergency light and falling guards.
 Image #2 — file name r_S1-06_2 — After the mission. A teasing, provocative pose aimed straight at the viewer, mission outfit loosened and partly unzipped, playful confident expression. Scene: An empty ward room after the fight. The medic sits on the bed edge with her coat open, the leader leans in the doorway with scarf loosened, both eyeing the viewer.
 Image #3 — file name r_S1-06_3 — A private moment after the mission. The most sensual image of the set: lingerie-level or swimsuit-level outfit themed to this mission, intimate mood, implied closeness only. Scene: A safehouse at night. The medic in lingerie under an open white coat bandages the leader's shoulder, the leader in lingerie with her red scarf, a tender close moment.
-```
-
-## 로맨틱
-
-### P-raven-1 — RAVEN · TAKE 1 · 빈자리
-
-첨부: `a_raven_0.jpg`
-
-```
-MISSION P-raven-1
-Characters: reference image 1 = RAVEN (short messy black hair, sharp eyes, signature red scarf, black tactical gear).
-Setting: An abandoned mine, timber-braced tunnels, dust in lamp light.
-What this mission is about: Three years ago three went into this mine and two came out. She returns alone for the record of that night, carrying the guilt of the one she left.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-raven-1_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-raven-1_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-raven-1_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-raven-1_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-raven-2 — RAVEN · TAKE 2 · 서명
-
-첨부: `a_raven_0.jpg`
-
-```
-MISSION P-raven-2
-Characters: reference image 1 = RAVEN (short messy black hair, sharp eyes, signature red scarf, black tactical gear).
-Setting: A corporate front office at night, glass walls, a cold blue server room.
-What this mission is about: She finds the original withdrawal order and learns the name that signed it was not hers. The weight she carried begins to shift.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-raven-2_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-raven-2_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-raven-2_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-raven-2_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-raven-3 — RAVEN · TAKE 3 · 대면
-
-첨부: `a_raven_0.jpg`
-
-```
-MISSION P-raven-3
-Characters: reference image 1 = RAVEN (short messy black hair, sharp eyes, signature red scarf, black tactical gear).
-Setting: A patron's mansion at night, chandeliers, a study with a hidden safe.
-What this mission is about: She leaves her gun behind and listens to the recording of that night: her teammate chose to stay. For the first time in three years she takes off the red scarf.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-raven-3_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-raven-3_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-raven-3_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-raven-3_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-viper-1 — VIPER · TAKE 1 · 빗나간 한 발
-
-첨부: `a_viper_0.jpg`
-
-```
-MISSION P-viper-1
-Characters: reference image 1 = VIPER (silver-lavender hair, cool gaze, purple-accented sniper suit, long suppressed rifle).
-Setting: A mountain communications base at night, radio mast, pine forest, cold mist.
-What this mission is about: There was one day she could not pull the trigger. The target still walks this base, and she has come back to face it.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-viper-1_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-viper-1_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-viper-1_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-viper-1_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-viper-2 — VIPER · TAKE 2 · 거리
-
-첨부: `a_viper_0.jpg`
-
-```
-MISSION P-viper-2
-Characters: reference image 1 = VIPER (silver-lavender hair, cool gaze, purple-accented sniper suit, long suppressed rifle).
-Setting: An abandoned mine, timber-braced tunnels, dust in lamp light.
-What this mission is about: No scope this time. She goes close enough to see his face: her old spotter, the one who used to call the numbers beside her.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-viper-2_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-viper-2_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-viper-2_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-viper-2_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-viper-3 — VIPER · TAKE 3 · 숨
-
-첨부: `a_viper_0.jpg`
-
-```
-MISSION P-viper-3
-Characters: reference image 1 = VIPER (silver-lavender hair, cool gaze, purple-accented sniper suit, long suppressed rifle).
-Setting: An isolation ward of a private hospital at night, long white corridors, dim lamps.
-What this mission is about: He lies in a hospital bed. She does not shoot; she asks. The answer tells her she was right not to fire that day, and she comes home with one round unspent.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-viper-3_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-viper-3_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-viper-3_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-viper-3_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-glitch-1 — GLITCH · TAKE 1 · 로그
-
-첨부: `a_glitch_0.jpg`
-
-```
-MISSION P-glitch-1
-Characters: reference image 1 = GLITCH (dark hair with teal highlights, glasses, headphones around the neck, small recon drone).
-Setting: A corporate front office at night, glass walls, a cold blue server room.
-What this mission is about: An old account she thought she had erased has come alive on an enemy server. Someone is using the name she used to have.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-glitch-1_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-glitch-1_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-glitch-1_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-glitch-1_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-glitch-2 — GLITCH · TAKE 2 · 사본
-
-첨부: `a_glitch_0.jpg`
-
-```
-MISSION P-glitch-2
-Characters: reference image 1 = GLITCH (dark hair with teal highlights, glasses, headphones around the neck, small recon drone).
-Setting: An isolation ward of a private hospital at night, long white corridors, dim lamps.
-What this mission is about: Code written in her own habits runs on a ward terminal. Her old partner wrote it.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-glitch-2_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-glitch-2_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-glitch-2_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-glitch-2_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-glitch-3 — GLITCH · TAKE 3 · 로그아웃
-
-첨부: `a_glitch_0.jpg`
-
-```
-MISSION P-glitch-3
-Characters: reference image 1 = GLITCH (dark hair with teal highlights, glasses, headphones around the neck, small recon drone).
-Setting: A patron's mansion at night, chandeliers, a study with a hidden safe.
-What this mission is about: The device in the safe holds her real name. She burns it, name and all. Now only six people know who she is.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-glitch-3_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-glitch-3_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-glitch-3_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-glitch-3_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-brick-1 — BRICK · TAKE 1 · 닫힌 문
-
-첨부: `a_brick_0.jpg`
-
-```
-MISSION P-brick-1
-Characters: reference image 1 = BRICK (strong athletic build, breacher gear, orange accents).
-Setting: An abandoned mine, timber-braced tunnels, dust in lamp light.
-What this mission is about: The one door she could never break. Her old squad was trapped behind it. This time she opens it and finds only four dog tags.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-brick-1_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-brick-1_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-brick-1_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-brick-1_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-brick-2 — BRICK · TAKE 2 · 인식표
-
-첨부: `a_brick_0.jpg`
-
-```
-MISSION P-brick-2
-Characters: reference image 1 = BRICK (strong athletic build, breacher gear, orange accents).
-Setting: Harbor warehouse no. 3 at night, shipping containers, sodium lamps, sea fog.
-What this mission is about: One owner of those tags is held in a harbor warehouse. She carries him out herself.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-brick-2_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-brick-2_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-brick-2_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-brick-2_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-brick-3 — BRICK · TAKE 3 · 노크
-
-첨부: `a_brick_0.jpg`
-
-```
-MISSION P-brick-3
-Characters: reference image 1 = BRICK (strong athletic build, breacher gear, orange accents).
-Setting: A mountain communications base at night, radio mast, pine forest, cold mist.
-What this mission is about: She brings twice the usual charges and finds three more of her people. For the first time she closes a door quietly behind her.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-brick-3_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-brick-3_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-brick-3_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-brick-3_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-mirage-1 — MIRAGE · TAKE 1 · 초대장
-
-첨부: `a_mirage_0.jpg`
-
-```
-MISSION P-mirage-1
-Characters: reference image 1 = MIRAGE (long dark wavy hair, elegant and poised, gold accents).
-Setting: A patron's mansion at night, chandeliers, a study with a hidden safe.
-What this mission is about: She is invited under her real name. She has to find out who still knows it: an old lover, now on the other side.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-mirage-1_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-mirage-1_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-mirage-1_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-mirage-1_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-mirage-2 — MIRAGE · TAKE 2 · 역할
-
-첨부: `a_mirage_0.jpg`
-
-```
-MISSION P-mirage-2
-Characters: reference image 1 = MIRAGE (long dark wavy hair, elegant and poised, gold accents).
-Setting: A corporate front office at night, glass walls, a cold blue server room.
-What this mission is about: In his office she finds an old photograph of herself, from before she became someone else.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-mirage-2_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-mirage-2_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-mirage-2_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-mirage-2_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-mirage-3 — MIRAGE · TAKE 3 · 맨얼굴
-
-첨부: `a_mirage_0.jpg`
-
-```
-MISSION P-mirage-3
-Characters: reference image 1 = MIRAGE (long dark wavy hair, elegant and poised, gold accents).
-Setting: Harbor warehouse no. 3 at night, shipping containers, sodium lamps, sea fog.
-What this mission is about: He is the one tied up in the warehouse, abandoned by his own side. She frees him and walks away without looking back. It was not an act.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-mirage-3_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-mirage-3_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-mirage-3_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-mirage-3_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-doc-1 — DOC · TAKE 1 · 차트
-
-첨부: `a_doc_0.jpg`
-
-```
-MISSION P-doc-1
-Characters: reference image 1 = DOC (dark curly hair tied up high, hoop earrings, tattooed forearm, lime-green medic accents, tranquilizer dart pistol).
-Setting: An isolation ward of a private hospital at night, long white corridors, dim lamps.
-What this mission is about: The chart of her senior medic who vanished ten years ago, with the cause of death altered. He did not die; he was taken.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-doc-1_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-doc-1_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-doc-1_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-doc-1_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-doc-2 — DOC · TAKE 2 · 이송
-
-첨부: `a_doc_0.jpg`
-
-```
-MISSION P-doc-2
-Characters: reference image 1 = DOC (dark curly hair tied up high, hoop earrings, tattooed forearm, lime-green medic accents, tranquilizer dart pistol).
-Setting: A mountain communications base at night, radio mast, pine forest, cold mist.
-What this mission is about: The transfer record survives at the communications base. She follows the paper trail alone.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-doc-2_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-doc-2_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-doc-2_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-doc-2_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
-```
-
-### P-doc-3 — DOC · TAKE 3 · 퇴원
-
-첨부: `a_doc_0.jpg`
-
-```
-MISSION P-doc-3
-Characters: reference image 1 = DOC (dark curly hair tied up high, hoop earrings, tattooed forearm, lime-green medic accents, tranquilizer dart pistol).
-Setting: Harbor warehouse no. 3 at night, shipping containers, sodium lamps, sea fog.
-What this mission is about: Ten years locked away. She walks him out herself and writes one word at the bottom of the chart: discharged.
-Tone: romance first. The viewer is the handler she trusts, and she is looking at him. Soft practical light only (a bedside lamp, candle, rain-streaked window, first light of dawn), warm skin tones against cool shadows, shallow depth of field, gentle film grain, close and quiet framing. Show feeling through small things: a held gaze, a half smile she did not plan, fingers reaching toward the camera, hair being tucked behind an ear, a breath caught mid-sentence. Unguarded rather than posed. Emotion and atmosphere carry the image; everything physical is implied, never shown.
-
-Image #0 — file name r_P-doc-3_0 — The moment the job is over and her guard drops for the first time. A small, real, relieved smile at the viewer. Mission outfit, a little worn from the night.
-Image #1 — file name r_P-doc-3_1 — The one moment in this mission that mattered most to her, caught mid-action but framed intimately: close on her face and hands, breath visible, eyes full of what this night means.
-Image #2 — file name r_P-doc-3_2 — After. She closes the distance herself: leaning in close to the camera, a hand reaching to pull the viewer nearer, collar open, jacket slipping off one shoulder. Teasing, but she means it.
-Image #3 — file name r_P-doc-3_3 — The night after, somewhere safe and quiet. Lingerie-level sleepwear or an oversized shirt, bed or sofa, lamp or dawn light, sheets and shadow doing the covering. She lies close and looks at the viewer as if he is right beside her. Tender, slow, implied intimacy only.
 ```
 
 ## 시즈널

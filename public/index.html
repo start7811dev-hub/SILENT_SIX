@@ -520,6 +520,17 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #hm .hud button.lg{background:rgba(255,255,255,.1);color:var(--ink)}
 #pg .row button.gg{background:#fff;color:#111}#pg .row button.ap{background:#000;color:#fff;border:1px solid rgba(255,255,255,.25)}
 #pg tr.me td{color:var(--c);font-weight:700}
+#pg .intro{padding:6px 0 16px;margin-bottom:12px;border-bottom:1px solid rgba(255,255,255,.1)}
+#pg .intro i{display:block;font-style:normal;font:700 10.5px/1 system-ui,sans-serif;letter-spacing:.3em;color:var(--c);text-transform:uppercase}
+#pg .intro b{display:block;font:800 28px/1.15 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:-.02em;margin:8px 0 10px}
+#pg .intro p{font:500 14.5px/1.6 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:#d5dbe3;margin:0}
+#pg .intro small{display:block;font:500 12px/1.55 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:var(--dim);margin-top:10px}
+#pg .rwd{background:var(--tile);border-left:3px solid var(--c);padding:12px 14px;margin:0 0 14px}
+#pg .rwd i{display:block;font-style:normal;font:700 10px/1 system-ui,sans-serif;letter-spacing:.28em;color:var(--c);margin-bottom:7px}
+#pg .rwd p{margin:0;font:500 13px/1.6 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:#d5dbe3}
+#pg .rwd ol{margin:8px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
+#pg .rwd li{background:rgba(255,255,255,.06);padding:7px 4px;text-align:center;font:700 12px/1.3 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+#pg .rwd li small{display:block;font:500 10px/1.3 system-ui,sans-serif;color:var(--dim);margin-top:2px}
 #pg .hero div i.hk{display:block;font-style:normal;font:700 10.5px/1 system-ui,sans-serif;letter-spacing:.32em;color:var(--c);margin-bottom:7px}
 #pg .hero div b.ht2{display:block;font:800 31px/1.12 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:-.03em}
 #pg .hero div small{display:block;font:500 13px/1.3 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:#c4ccd6;margin-top:6px}
@@ -696,7 +707,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.18.2';
+var VERSION='0.19.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -771,6 +782,13 @@ function sbInit(){
 var KVI={seasonal:false,special:false};
 /* 미션 클리어 이미지: r_<미션키>_<0..3>.jpg — 0 일반, 1 전투 · 2 도발 · 3 고자극 = HARD 이상 '한 판'에서 딴 배지 1 · 2 · 3개. 여러 판의 배지는 합치지 않는다. PROG.hb[i] = 한 판 최고 개수 */
 var RWN=['클리어','전투','도발','고자극'],RWC=['미션 클리어','한 판 ◆1','한 판 ◆2','한 판 ◆3'],RWI={};
+function intro(eye,t,body,note){return '<div class="intro"><i>'+eye+'</i><b>'+t+'</b><p>'+body+'</p>'+(note?'<small>'+note+'</small>':'')+'</div>';}
+/* 로맨틱 "그날 밤" 컷: n_<요원>_<1..6>.jpg — TAKE 하나를 끝낼 때마다 두 컷씩 열린다. 6번 컷이 없으면 기존 e_<요원>.jpg를 쓴다. */
+var NCUT=6,NPI={},NPP={},NPT=0;
+function nProbe(id,cb){if(typeof Image==='undefined'||NPP[id])return;NPP[id]=1;for(var k=1;k<=NCUT;k++)(function(f){var im=new Image();im.onload=function(){NPI[f]=true;if(cb){clearTimeout(NPT);NPT=setTimeout(cb,250);}};im.src=f;})('n_'+id+'_'+k+'.jpg');}
+function nTakes(id){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return n;}
+function nOpen(id){return Math.min(NCUT,nTakes(id)*2);}
+function nImg(id,k){var f='n_'+id+'_'+k+'.jpg';return NPI[f]?f:(k===NCUT?'e_'+id+'.jpg':null);}
 var RWP={},RWT=0;
 function rwProbeM(i,cb){if(typeof Image==='undefined'||RWP[i]||!MIS[i])return;RWP[i]=1;for(var n=0;n<4;n++)(function(f){var im=new Image();im.onload=function(){RWI[f]=true;if(cb){clearTimeout(RWT);RWT=setTimeout(cb,250);}};im.src=f;})('r_'+MIS[i].key+'_'+n+'.jpg');}
 function rwProbe(){for(var i=0;i<NBASE;i++)rwProbeM(i);}
@@ -873,9 +891,9 @@ function reader(o){
   page(o.t,o.sub,h,o.back,[o.next]);
 }
 function novelRead(n){
-  if(n==='p'){reader({t:NOVEL.pro.t,sub:'S1 · EPISODE 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,back:blackbox});return;}
-  if(n==='all'){var h='<h3>프롤로그 — '+NOVEL.pro.t+'</h3>'+NOVEL.pro.p.map(function(x){return '<p>'+nv(x)+'</p>';}).join('');NOVEL.ch.forEach(function(c,i){h+='<h3>'+(i+1)+'장 — '+c.t+'</h3>'+c.pre.concat(c.post).map(function(x){return '<p>'+nv(x)+'</p>';}).join('')+'<p class="q">남는 의문 — '+c.q+'</p>';});reader({t:'여섯이 모이기까지',sub:'SEASON 1 // 전체',img:'a_raven_7.jpg',html:h,back:blackbox});return;}
-  var c=NOVEL.ch[+n];reader({t:c.t,sub:'S1 · EPISODE 1 // '+(+n+1)+'장',img:mimg(+n),p:c.pre.concat(c.post),q:c.q,back:blackbox});
+  if(n==='p'){reader({t:NOVEL.pro.t,sub:'S1 · EPISODE 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,back:bbNovel});return;}
+  if(n==='all'){var h='<h3>프롤로그 — '+NOVEL.pro.t+'</h3>'+NOVEL.pro.p.map(function(x){return '<p>'+nv(x)+'</p>';}).join('');NOVEL.ch.forEach(function(c,i){h+='<h3>'+(i+1)+'장 — '+c.t+'</h3>'+c.pre.concat(c.post).map(function(x){return '<p>'+nv(x)+'</p>';}).join('')+'<p class="q">남는 의문 — '+c.q+'</p>';});reader({t:'여섯이 모이기까지',sub:'SEASON 1 // 전체',img:'a_raven_7.jpg',html:h,back:bbNovel});return;}
+  var c=NOVEL.ch[+n];reader({t:c.t,sub:'S1 · EPISODE 1 // '+(+n+1)+'장',img:mimg(+n),p:c.pre.concat(c.post),q:c.q,back:bbNovel});
 }
 function bm(i,t){var g=PROG.b[i]||[];return '<'+(t||'i')+' class="bm">'+[0,1,2].map(function(k){return g[k]?'◆':'◇';}).join('')+'</'+(t||'i')+'>';}
 var PGB=null,PGA=[],PGH=null,RORET=null;
@@ -916,48 +934,49 @@ function home(){
 }
 function hmHide(){$('hm').className='hide';$('hm').innerHTML='';}
 function seasons(){
-  page('스토리 미션','STORY MISSION','<p>'+WORLD.join('</p><p>')+'</p><div class="cg">'+cd(0,mimg(4),'지워진 이름들','에피소드 1 · '+mainDone()+' / '+NBASE,{kv:1,w:1,eye:'SEASON 1',tag:'OPEN',on:1})+cd(1,'a_raven_7.jpg','설계자','시즌 1이 끝나면 열린다',{w:1,eye:'SEASON 2',tag:'COMING',lock:1})+cd(2,'a_viper_3.jpg','이름이 있던 시절','프리퀄 · 여섯 개의 하룻밤',{w:1,eye:'SEASON 3',tag:'COMING',lock:1})+'</div>',home,[season1,function(){info('설계자','SEASON 2 // COMING','a_raven_7.jpg','<p>여섯을 한자리에 모은 손이 있어. <em class="k">그 손이 누구 건지</em> 물을 차례야. 준비 중.</p>',seasons);},season3]);
+  page('스토리 미션','STORY MISSION',intro('Silent Six Main Story','Season Mission','헬리오스와 6과의 대립에 숨은 비밀,<br>그 배후 세력을 파헤치기 위한 6과의 사투가 시즌으로 펼쳐집니다.')+'<div class="cg">'+cd(0,mimg(4),'지워진 이름들','에피소드 1 진행 중 · '+mainDone()+' / '+NBASE,{kv:1,w:1,eye:'SEASON 1',tag:'OPEN',on:1})+cd(1,'a_raven_7.jpg','설계자','시즌 1을 마치면 열립니다',{w:1,eye:'SEASON 2',tag:'COMING',lock:1})+cd(2,'a_viper_3.jpg','이름이 있던 시절','프리퀄 · 여섯 개의 하룻밤',{w:1,eye:'SEASON 3',tag:'COMING',lock:1})+'</div>',home,[season1,function(){info('설계자','SEASON 2 // COMING','a_raven_7.jpg','<p>여섯 요원을 한자리에 모은 인물, <em class="k">설계자</em>의 정체를 쫓는 시즌입니다. 준비 중입니다.</p>',seasons);},season3]);
 }
 function season1(){
-  var n=mainDone(),go=function(){if(PROG.pro)menu();else{PROG.pro=1;saveProg();reader({t:NOVEL.pro.t,sub:'S1 · EPISODE 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,btn:'에피소드 1 시작',next:menu,back:menu});}},soon=function(k){return function(){info('EPISODE '+k,'SEASON 1 // COMING',null,'<p>아직 쓰이지 않은 밤이야. <em class="k">앞의 에피소드를 끝낸 자</em>에게만 열려.</p>',season1);};};
-  page('지워진 이름들','SEASON 1 // EPISODE 1 – 5','<p>시즌 하나에 에피소드 다섯. <em class="k">한 에피소드를 끝내야</em> 다음이 열려. 건너뛰는 길은 없어.</p><div class="cg">'+cd(0,mimg(4),'여섯이 모이기까지',n+' / '+NBASE+' 완료',{kv:1,w:1,eye:'EPISODE 1',tag:n>=NBASE?'CLEAR':'OPEN',on:1})+cd(1,'a_raven_7.jpg','누가 흘렸나','에피소드 1을 끝내면 이어진다',{w:1,eye:'EPISODE 2',tag:'COMING',lock:1})+'</div><div class="cg c3">'+[3,4,5].map(function(k){return cd(k-1,null,'미공개','',{eye:'EPISODE '+k,tag:'COMING',lock:1});}).join('')+'</div>',seasons,[go,function(){info('누가 흘렸나','S1 · EPISODE 2 // COMING','a_raven_7.jpg','<p>여섯이 모였어. <em class="k">이제 서로를 의심할 차례야.</em> 준비 중.</p>',season1);},soon(3),soon(4),soon(5)]);
+  var n=mainDone(),go=function(){if(PROG.pro)menu();else{PROG.pro=1;saveProg();reader({t:NOVEL.pro.t,sub:'S1 · EPISODE 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,btn:'에피소드 1 시작',next:menu,back:menu});}},soon=function(k){return function(){info('EPISODE '+k,'SEASON 1 // COMING',null,'<p>아직 공개되지 않은 에피소드입니다. <em class="k">앞선 에피소드를 모두 클리어하면</em> 차례로 열립니다.</p>',season1);};};
+  page('지워진 이름들','SEASON 1',intro('Season 1 · 지워진 이름들','시즌 1. Episode','6과의 요원들이 다시 모인 이유와<br>그들이 마주할 운명의 이야기가 시작됩니다.','* 시즌 1은 에피소드 5까지 이어지며, 에피소드는 순서대로 열립니다.')+'<div class="cg">'+cd(0,mimg(4),'여섯이 모이기까지',n+' / '+NBASE+' 스테이지 클리어',{kv:1,w:1,eye:'EPISODE 1',tag:n>=NBASE?'CLEAR':'OPEN',on:1})+cd(1,'a_raven_7.jpg','누가 흘렸나','에피소드 1을 마치면 이어집니다',{w:1,eye:'EPISODE 2',tag:'COMING',lock:1})+[3,4,5].map(function(k){return cd(k-1,null,'미공개','',{w:1,eye:'EPISODE '+k,tag:'COMING',lock:1});}).join('')+'</div>',seasons,[go,function(){info('누가 흘렸나','S1 · EPISODE 2 // COMING','a_raven_7.jpg','<p>여섯이 모인 뒤, <em class="k">내부의 누군가가 정보를 흘리고 있다</em>는 의심에서 시작하는 에피소드입니다. 준비 중입니다.</p>',season1);},soon(3),soon(4),soon(5)]);
 }
 function mOpen(i){return i===0||!!PROG.c[i-1]||!!PROG.all;}
+function rwdBox(where){return '<div class="rwd"><i>REWARD CUT</i><p>스테이지를 클리어하면 <em class="k">리워드 컷</em>을 얻습니다. 얻은 컷은 블랙박스 &gt; '+where+'에 담깁니다.</p><ol><li>클리어<small>클리어만 하면</small></li><li>전투<small>HARD↑ 배지 1</small></li><li>도발<small>HARD↑ 배지 2</small></li><li>고자극<small>HARD↑ 배지 3</small></li></ol><p style="margin-top:8px;color:var(--dim);font-size:12px">* 배지 수는 한 판 기준입니다. 여러 판의 배지는 합산되지 않습니다.</p></div>';}
 function menu(){
-  var L=[],A=[],i,done=mainDone()>=NBASE;for(i=0;i<NBASE;i++)if(vis(i)){(function(i){var ok=mOpen(i);L.push(cd(A.length,mimg(i),MIS[i].title,ok?MIS[i].code.split(' // ')[1]:'앞의 밤을 먼저 끝내라',{kv:1,no:'0'+(i+1),x:bm(i,'span'),lock:!ok,tag:PROG.c[i]?'CLEAR':ok?'':'LOCKED',on:1}));A.push(function(){if(ok)brief(i);});})(i);}
-  page('여섯이 모이기까지','S1 · EPISODE 1 // '+DF.n,'<p>'+(done?'여섯 번의 밤을 전부 끝냈어. <em class="k">이제 어느 밤으로든</em> 돌아갈 수 있어. ◆는 그 밤에 남긴 증거야.':'여섯 번의 밤은 <em class="k">순서대로만</em> 열려. 전부 끝낸 자만 원하는 밤으로 돌아갈 수 있어.')+'</p><div class="cg one">'+L.join('')+'</div>',season1,A);
+  var L=[],A=[],i;for(i=0;i<NBASE;i++)if(vis(i)){(function(i){var ok=mOpen(i);L.push(cd(A.length,mimg(i),MIS[i].title,ok?MIS[i].code.split(' // ')[1]:'앞 스테이지를 먼저 클리어하세요',{kv:1,no:'0'+(i+1),x:bm(i,'span'),lock:!ok,tag:PROG.c[i]?'CLEAR':ok?'':'LOCKED',on:1}));A.push(function(){if(ok)brief(i);});})(i);}
+  page('여섯이 모이기까지','S1 · EPISODE 1 // '+DF.n,intro('Season 1 · Episode 1','여섯이 모이기까지','6과의 각 요원에게 주어진 베일에 싸인 임무.<br>미션을 클리어하며 탐욕의 진실을 파헤쳐 보세요.','* 스테이지는 이야기 순서대로 오픈되며, 모두 클리어한 경우에는 자유롭게 재도전이 가능합니다.')+rwdBox('클리어 갤러리')+'<div class="cg one">'+L.join('')+'</div>',season1,A);
 }
 function season3(){
-  page('이름이 있던 시절','SEASON 3 // PREQUEL','<p>식스가 되기 전, 그들에게도 이름이 있었어. <em class="k">그 이름을 부르던 밤</em>으로 돌아간다. 성인 등급으로 준비 중.</p><div class="cg">'+SPECIAL.map(function(x,k){return cd(k,'a_'+x[0]+'_3.jpg',x[1],OPD[x[0]].n+' · '+x[2],{eye:'EPISODE '+(k+1),tag:'SOON',lock:1});}).join('')+'</div>',seasons,SPECIAL.map(function(x,k){return function(){info(x[1],'S3 · EPISODE '+(k+1)+' // '+OPD[x[0]].n,'a_'+x[0]+'_3.jpg','<p>'+x[3]+'</p><p style="color:var(--dim)">준비 중. 전용 이미지와 함께 열린다.</p>',season3);};}));
+  page('이름이 있던 시절','SEASON 3 // PREQUEL',intro('Season 3 · Prequel','이름이 있던 시절','6과에 들어오기 전, 여섯 요원에게 이름이 있던 시절의 이야기입니다.<br>요원마다 한 편씩, 성인 등급으로 준비 중입니다.')+'<div class="cg">'+SPECIAL.map(function(x,k){return cd(k,'a_'+x[0]+'_3.jpg',x[1],OPD[x[0]].n+' · '+x[2],{w:1,eye:'EPISODE '+(k+1),tag:'SOON',lock:1});}).join('')+'</div>',seasons,SPECIAL.map(function(x,k){return function(){info(x[1],'S3 · EPISODE '+(k+1)+' // '+OPD[x[0]].n,'a_'+x[0]+'_3.jpg','<p>'+x[3]+'</p><p style="color:var(--dim)">준비 중입니다. 전용 이미지와 함께 공개됩니다.</p>',season3);};}));
 }
 function storyMenu(){
   var ids=Object.keys(STORY);
-  page('로맨틱 미션','ROMANTIC // TAKE 1 · 2 · 3','<p>작전이 끝났다고 밤까지 끝난 건 아니야. 요원마다 테이크는 세 번, <em class="k">NG는 없어.</em></p><div class="cg">'+ids.map(function(id,k){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return cd(k,'a_'+id+'_0.jpg',OPD[id].n,'TAKE '+n+' / 3'+(PROG.end[id]?' · 그날 밤 ♥':''),{eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
+  page('로맨틱 미션','ROMANTIC MISSION',intro('Silent Six Romantic','Romantic Mission','임무가 끝난 뒤, 요원 한 사람과 마주하는 이야기입니다.<br>요원마다 TAKE 1 · 2 · 3으로 이어집니다.','* TAKE를 클리어할 때마다 그날 밤의 이야기가 두 컷씩 열리며, 블랙박스 &gt; 로맨틱 갤러리에 담깁니다.')+'<div class="cg">'+ids.map(function(id,k){var n=nTakes(id);return cd(k,'a_'+id+'_0.jpg',OPD[id].n,'TAKE '+n+' / 3 · 그날 밤 '+nOpen(id)+' / '+NCUT+' 컷',{w:1,eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
 }
 function storyAgent(id){
-  var L=[],A=[];
-  STORY[id].ch.forEach(function(c,ci){var mi=SIDX[id][ci];if(!vis(mi))return;L.push(cd(A.length,mimg(mi),c.t,'',{kv:1,eye:'TAKE '+(ci+1),x:bm(mi,'span'),tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
-  L.push(cd(A.length,'e_'+id+'.jpg','다음 테이크','에피소드 2와 함께 열린다',{eye:'TAKE 4',lock:1,tag:'LOCKED'}));A.push(function(){});
-  page(OPD[id].n,'ROMANTIC // '+OPD[id].role,'<div class="hero"><span class="bg" style="'+bgs('a_'+id+'_0.jpg')+'"></span><div>'+OPD[id].tag.replace('<br>',' ')+'</div></div><div class="cg">'+L.join('')+'</div>',storyMenu,A);
+  var L=[],A=[];nProbe(id);
+  STORY[id].ch.forEach(function(c,ci){var mi=SIDX[id][ci];if(!vis(mi))return;L.push(cd(A.length,mimg(mi),c.t,'클리어 시 그날 밤 '+(ci*2+1)+' · '+(ci*2+2)+'번 컷',{kv:1,w:1,eye:'TAKE '+(ci+1),x:bm(mi,'span'),tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
+  L.push(cd(A.length,'e_'+id+'.jpg','다음 테이크','에피소드 2와 함께 열립니다',{w:1,eye:'TAKE 4',lock:1,tag:'LOCKED'}));A.push(function(){});
+  page(OPD[id].n,'ROMANTIC // '+OPD[id].role,intro('Romantic · '+OPD[id].n,OPD[id].tag.replace('<br>',' '),OPD[id].n+'의 지난 일을 따라가는 세 번의 TAKE입니다.<br>세 TAKE를 모두 마치면 그날 밤의 이야기가 완성됩니다.')+'<div class="cg">'+L.join('')+'</div>',storyMenu,A);
 }
 var SFO=false;
 function seasonal(){
   var S=[['SPRING','벚꽃 축제 경호선'],['SUMMER','휴양지 리조트 잠입'],['AUTUMN','수확제 가면 행렬'],['설','귀성 열차'],['추석','보름달 아래 한옥 마을']],n=0;WIDX.forEach(function(mi){if(PROG.c[mi])n++;});
   var kv=KVI.seasonal?'kv_seasonal.jpg':'a_raven_5.jpg';
-  page('시즈널 미션','SEASONAL // WINTER','<div class="hero big"><span class="bg" style="'+bgs(kv)+'"></span><div><i class="hk">WINTER · NOW OPEN</i><b class="ht2">블러디 크리스마스</b><small>성탄 전야 하룻밤 · '+n+' / 5 완료</small></div></div><p>계절이 바뀌면 표적도 바뀌지. <em class="k">이 겨울이 가기 전에</em> 끝내.</p><button class="cta" data-k="0">블러디 크리스마스 진입</button>'+
-   '<button class="fold'+(SFO?' open':'')+'" data-fold="1"><span><i>COMING SOON</i><b>다음 계절</b><u>봄 · 여름 · 가을 · 설 · 추석</u></span><em>'+(SFO?'접기':'펼치기')+'</em></button><div class="foldb'+(SFO?'':' hide')+'">'+S.map(function(x){return '<div class="row"><span>'+x[1]+'<small>'+x[0]+'</small></span><u>SOON</u></div>';}).join('')+'<p style="color:var(--dim)">아직 그 계절이 오지 않았어. 열리는 날, 배지 셋과 전용 착장이 함께 온다.</p></div>',home,[winter],function(e){var t=e.target;while(t&&t.id!=='pg'&&!(t.dataset&&t.dataset.fold))t=t.parentNode;if(t&&t.dataset&&t.dataset.fold){SFO=!SFO;var sc=$('pg').scrollTop;seasonal();$('pg').scrollTop=sc;}});
+  page('시즈널 미션','SEASONAL // WINTER','<div class="hero big"><span class="bg" style="'+bgs(kv)+'"></span><div><i class="hk">WINTER · NOW OPEN</i><b class="ht2">블러디 크리스마스</b><small>성탄 전야 하룻밤 · '+n+' / 5 완료</small></div></div>'+intro('Silent Six Seasonal','Seasonal Mission','계절과 명절마다 열리는 6과의 번외 작전입니다.<br>지금은 겨울 시즌 <em class="k">블러디 크리스마스</em>가 열려 있습니다.')+'<button class="cta" data-k="0">블러디 크리스마스 진입</button>'+
+   '<button class="fold'+(SFO?' open':'')+'" data-fold="1"><span><i>COMING SOON</i><b>다음 계절</b><u>봄 · 여름 · 가을 · 설 · 추석</u></span><em>'+(SFO?'접기':'펼치기')+'</em></button><div class="foldb'+(SFO?'':' hide')+'">'+S.map(function(x){return '<div class="row"><span>'+x[1]+'<small>'+x[0]+'</small></span><u>SOON</u></div>';}).join('')+'<p style="color:var(--dim)">해당 계절에 맞춰 공개됩니다. 시즌마다 전용 배지와 착장이 함께 제공됩니다.</p></div>',home,[winter],function(e){var t=e.target;while(t&&t.id!=='pg'&&!(t.dataset&&t.dataset.fold))t=t.parentNode;if(t&&t.dataset&&t.dataset.fold){SFO=!SFO;var sc=$('pg').scrollTop;seasonal();$('pg').scrollTop=sc;}});
 }
 function winter(){
-  var L=[],A=[];WIDX.forEach(function(mi,ci){if(!vis(mi))return;L.push(cd(A.length,mimg(mi),MIS[mi].title,'',{kv:1,no:'0'+(ci+1),x:bm(mi,'span'),cold:1,tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
-  page('블러디 크리스마스','SEASONAL // WINTER','<p>성탄 전야, 산타는 하룻밤에 다섯 집을 돌아. <em class="k">우리는 그 뒤를 따라간다.</em> 발자국은 눈이 지워 줄 거야.</p><div class="cg">'+L.join('')+'</div>',seasonal,A);
+  var L=[],A=[];WIDX.forEach(function(mi,ci){if(!vis(mi))return;L.push(cd(A.length,mimg(mi),MIS[mi].title,'',{kv:1,w:1,no:'0'+(ci+1),x:bm(mi,'span'),cold:1,tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
+  page('블러디 크리스마스','SEASONAL // WINTER',intro('Seasonal · Winter','블러디 크리스마스','성탄 전야, 헬리오스의 배달 책임자 \'산타\'가 하룻밤에 다섯 곳을 돕니다.<br>그 뒤를 쫓는 6과의 다섯 스테이지입니다.','* 스테이지는 원하는 순서로 도전할 수 있습니다.')+rwdBox('시즈널 · 스페셜 갤러리')+'<div class="cg">'+L.join('')+'</div>',seasonal,A);
 }
 function special(){
   var kv=KVI.special?'kv_special.jpg':'a_mirage_0.jpg';
-  page('스페셜 미션','SPECIAL // 2 MODES','<p>규칙대로만 하면 재미없잖아. <em class="k">옷을 바꾸거나, 판을 뒤집거나.</em> 고르는 건 너야.</p><div class="cg">'+cd(0,kv,'코스튬 미션','끝까지 가면 새 옷이 네 거야',{kv:1,w:1,eye:'COSTUME',tag:'SOON',on:1})+cd(1,'a_brick_7.jpg','룰브레이크 미션','규칙을 하나 버리고 들어간다',{w:1,eye:'RULE BREAK',tag:'SOON',lock:1})+'</div>',home,[costume,function(){info('룰브레이크 미션','SPECIAL // RULE BREAK','a_brick_7.jpg','<p>시간을 뺏거나, 무기를 뺏거나, 혼자 보내거나. <em class="k">규칙 하나를 버리고</em> 들어가는 판이야. 준비 중.</p>',special);}]);
+  page('스페셜 미션','SPECIAL // 2 MODES',intro('Silent Six Special','Special Mission','본편과 다른 규칙으로 즐기는 6과의 특별 작전입니다.<br>코스튬 미션과 룰브레이크 미션으로 나뉩니다.')+'<div class="cg">'+cd(0,kv,'코스튬 미션','특별 의상으로 투입되는 미션',{kv:1,w:1,eye:'COSTUME',tag:'SOON',on:1})+cd(1,'a_brick_7.jpg','룰브레이크 미션','규칙 하나를 바꿔 도전하는 미션',{w:1,eye:'RULE BREAK',tag:'SOON',lock:1})+'</div>',home,[costume,function(){info('룰브레이크 미션','SPECIAL // RULE BREAK','a_brick_7.jpg','<p>제한 시간, 무기 금지, 단독 투입처럼 <em class="k">규칙 하나를 바꾼 조건</em>으로 도전하는 미션입니다. 준비 중입니다.</p>',special);}]);
 }
 function costume(){
   var kv=KVI.special?'kv_special.jpg':'a_mirage_0.jpg';
-  page('코스튬 미션','SPECIAL // COSTUME','<div class="hero big"><span class="bg" style="'+bgs(kv)+'"></span><div><i class="hk">COSTUME · DOC</i><b class="ht2">옷이 바뀌면<br>작전도 바뀌어.</b><small>끝까지 살아 나오면 그 옷은 요원의 옷장에 걸린다</small></div></div><p>오늘의 무대 의상은 정해졌어. <em class="k">입고 들어가서, 입은 채로 나와.</em></p><button class="cta off">코스튬 미션 준비 중</button>',special,[]);
+  page('코스튬 미션','SPECIAL // COSTUME','<div class="hero big"><span class="bg" style="'+bgs(kv)+'"></span><div><i class="hk">COSTUME · DOC</i><b class="ht2">옷이 바뀌면<br>작전도 바뀌어.</b><small>끝까지 살아 나오면 그 옷은 요원의 옷장에 걸린다</small></div></div>'+intro('Special · Costume','Costume Mission','요원이 특별 의상으로 투입되는 미션입니다.<br>클리어하면 해당 의상이 요원의 옷장에 추가됩니다.')+'<button class="cta off">코스튬 미션 준비 중</button>',special,[]);
 }
 var AST={raven:[5,3,4,1,3],viper:[1,5,4,2,2],glitch:[1,2,3,5,1],brick:[4,3,1,2,5],mirage:[3,2,5,3,2],doc:[2,3,4,4,3]},ASTN=['근접','사격','은신','기술','체력'];
 var ASK={ko:'등 뒤에서 한 번에. 소리는 없어.',knife:'한 번 닿으면 다시는 못 일어나.',pistol:'마지막 수단. 총성이 8칸을 깨워.',carry:'남긴 흔적은 치우고 간다.',snipe:'10칸 밖에서 끝내. 탄은 세 발뿐.',hack:'카메라의 눈을 25초 감겨.',lure:'드론 소리로 적을 딴 데로 불러.',breach:'문이 없으면 만들어. 금 간 벽을 부숴.',disg:'경비의 옷을 입고 정문으로 걸어 들어가.',dart:'5칸, 무음. 재우고 지나가.'},ASKN={disg:['변장','DISGUISE']};
@@ -977,22 +996,47 @@ function agentHub(id){
   $('pg').style.setProperty('--c',o.col);
 }
 var BXO=false,BXS={r:false,w:false};
+function bbClick(re){return function(e){var t=e.target,n=t.dataset.n,v=t;while(v&&v.id!=='pg'&&!(v.dataset&&v.dataset.view))v=v.parentNode;if(v&&v.dataset&&v.dataset.view){viewer(v.dataset.view,true);return;}if(n!==undefined)novelRead(n);};}
+function bbKeep(fn){return function(){if($('pg').querySelector('.rwh')){var sc=$('pg').scrollTop;fn();$('pg').scrollTop=sc;}};}
+function rwRow(mi,no,re){rwProbeM(mi,re);var tr=rwTier(mi),o='<div class="rwh"><i>'+no+'</i>'+MIS[mi].title+'<u>'+(tr<0?'0':tr+1)+' / 4</u></div><div class="cg c4">';
+  for(var rn=0;rn<4;rn++){var op=tr>=rn,im=rwImg(mi,rn);o+=cd(99,op?im:(im||mimg(mi)),RWN[rn],op?(im?'':'이미지 준비 중'):RWC[rn],{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':'LOCKED'});}
+  return o+'</div>';}
+function rwCount(L){var a=0;L.forEach(function(mi){a+=rwTier(mi)+1;});return a;}
 function blackbox(){
-  var ids=Object.keys(STORY),nd=mainDone(),h='<p>지나간 작전은 전부 여기 담겨 있어. 잊고 싶어도, <em class="k">블랙박스는 잊지 않아.</em></p><button class="fold'+(BXO?' open':'')+'" data-fold="1"><span><i>NOVEL · S1 · EPISODE 1</i><b>소설 — 여섯이 모이기까지</b><u>'+nd+' / '+NBASE+'장 열림</u></span><em>'+(BXO?'접기':'펼치기')+'</em></button><div class="foldb'+(BXO?'':' hide')+'"><div class="row"><span>프롤로그<small>'+NOVEL.pro.t+'</small></span><button data-n="p">읽기</button></div>'+NOVEL.ch.map(function(c,i){return '<div class="row"><span>'+(i+1)+'장<small>'+(PROG.c[i]?c.t:'미션을 클리어하면 열린다')+'</small></span>'+(PROG.c[i]?'<button data-n="'+i+'">읽기</button>':'<u>LOCKED</u>')+'</div>';}).join('')+'<div class="row"><span>전체 읽기<small>'+(nd>=NBASE?'에피소드 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있다')+'</small></span>'+(nd>=NBASE?'<button data-n="all" class="sel">읽기</button>':'<u>'+nd+' / '+NBASE+'</u>')+'</div></div><label>미션 클리어 이미지 — 미션마다 네 장</label><p style="color:var(--dim);margin-top:-2px">깨면 한 장. <em class="k">HARD 이상, 한 판에서</em> 딴 배지 수만큼 더 열려. 여러 판의 배지는 합쳐지지 않아.</p>',i;
-  var rre=function(){if($('pg').querySelector('.rwh')){var sc=$('pg').scrollTop;blackbox();$('pg').scrollTop=sc;}};
-  var rg=function(mi,no){rwProbeM(mi,rre);var tr=rwTier(mi),o='<div class="rwh"><i>'+no+'</i>'+MIS[mi].title+'<u>'+(tr<0?'0':tr+1)+' / 4</u></div><div class="cg c4">';
-    for(var rn=0;rn<4;rn++){var op=tr>=rn,im=rwImg(mi,rn);o+=cd(99,op?im:(im||mimg(mi)),RWN[rn],op?(im?'':'이미지 준비 중'):RWC[rn],{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':'LOCKED'});}
-    return o+'</div>';};
-  var rcnt=function(L){var a=0;L.forEach(function(mi){a+=rwTier(mi)+1;});return a+' / '+(L.length*4)+'장';};
-  var rfold=function(k,eye,t,L){return '<button class="fold'+(BXS[k]?' open':'')+'" data-fold="'+k+'" style="margin-top:14px"><span><i>'+eye+'</i><b>'+t+'</b><u>'+rcnt(L)+'</u></span><em>'+(BXS[k]?'접기':'펼치기')+'</em></button>';};
-  for(i=0;i<NBASE;i++)h+=rg(i,'0'+(i+1));
-  var RL=[];ids.forEach(function(id){SIDX[id].forEach(function(mi){RL.push(mi);});});
-  h+=rfold('r','ROMANTIC · TAKE 1 · 2 · 3','로맨틱 미션',RL);
-  if(BXS.r)ids.forEach(function(id){SIDX[id].forEach(function(mi,ci){h+=rg(mi,OPD[id].n+' · TAKE '+(ci+1));});});
-  h+=rfold('w','SEASONAL · WINTER','블러디 크리스마스',WIDX);
-  if(BXS.w)WIDX.forEach(function(mi,ci){h+=rg(mi,'0'+(ci+1));});
-  h+='<label>리워드 이미지 — 그날 밤</label><div class="cg c3">'+(flag('endings')?ids.map(function(id){return cd(99,'e_'+id+'.jpg',OPD[id].n,'',{view:1,lock:!PROG.end[id],tag:PROG.end[id]?'':'LOCKED'});}).join(''):'')+'</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>';
-  page('블랙박스','BLACK BOX',h,home,[],function(e){var t=e.target,n=t.dataset.n,v=t;while(v&&v.id!=='pg'&&!(v.dataset&&v.dataset.view))v=v.parentNode;if(v&&v.dataset&&v.dataset.view){viewer(v.dataset.view,true);return;}while(t&&t.id!=='pg'&&!(t.dataset&&t.dataset.fold))t=t.parentNode;if(t&&t.dataset&&t.dataset.fold){if(t.dataset.fold==='1')BXO=!BXO;else BXS[t.dataset.fold]=!BXS[t.dataset.fold];var sc=$('pg').scrollTop;blackbox();$('pg').scrollTop=sc;return;}if(n!==undefined)novelRead(n);});
+  var ids=Object.keys(STORY),nd=mainDone(),sl=[],i;for(i=0;i<NBASE;i++)sl.push(i);
+  var nn=0;ids.forEach(function(id){nn+=nOpen(id);});
+  var top=function(L){for(var q=L.length-1;q>=0;q--){for(var r=rwTier(L[q]);r>=0;r--){var f=rwImg(L[q],r);if(f)return f;}}return null;};
+  page('블랙박스','BLACK BOX',intro('Silent Six Black Box','Black Box','지나온 작전의 기록이 모이는 곳입니다.<br>소설과 리워드 컷을 종류별로 모아 볼 수 있습니다.')+'<div class="cg">'+
+   cd(0,mimg(4),'사일런트 식스 소설','시즌 · 에피소드별 노벨 · '+nd+' / '+NBASE+'장 열림',{kv:1,w:1,eye:'NOVEL',on:1})+
+   cd(1,top(sl)||mimg(0),'클리어 갤러리','에피소드 · 미션별 리워드 컷 · '+rwCount(sl)+' / '+(NBASE*4)+'장',{kv:1,w:1,eye:'CLEAR GALLERY',lock:!rwCount(sl),tag:rwCount(sl)?'':'EMPTY'})+
+   cd(2,'a_mirage_0.jpg','로맨틱 갤러리','요원별 그날 밤 · '+nn+' / '+(ids.length*NCUT)+'컷',{w:1,eye:'ROMANTIC GALLERY',lock:!nn,tag:nn?'':'EMPTY'})+
+   cd(3,KVI.seasonal?'kv_seasonal.jpg':'a_raven_5.jpg','시즈널 · 스페셜 갤러리','블러디 크리스마스 · 코스튬 · '+rwCount(WIDX)+' / '+(WIDX.length*4)+'장',{kv:1,w:1,eye:'SEASONAL · SPECIAL'})+
+   '</div><label>음성 스토리</label><div class="row"><span>요원별 음성 기록<small>미션 사이의 무전과 독백</small></span><u>SOON</u></div>',home,[bbNovel,bbClear,bbRomantic,bbSeasonal]);
+}
+function bbNovel(){
+  var nd=mainDone();
+  page('사일런트 식스 소설','BLACK BOX // NOVEL',intro('Black Box · Novel','사일런트 식스 소설','스토리 미션을 클리어할 때마다 그 장의 이야기가 소설로 남습니다.<br>시즌 · 에피소드별로 모아 읽을 수 있습니다.')+
+   '<div class="rwh"><i>S1</i>EPISODE 1 · 여섯이 모이기까지<u>'+nd+' / '+NBASE+'</u></div><div class="cg">'+cd(90,NOVEL.pro.img,NOVEL.pro.t,'',{kv:1,w:1,eye:'PROLOGUE'})+NOVEL.ch.map(function(c,i){return cd(91+i,mimg(i),PROG.c[i]?c.t:'잠긴 장','',{kv:1,w:1,eye:(i+1)+'장',lock:!PROG.c[i],tag:PROG.c[i]?'':'LOCKED'});}).join('')+cd(98,'a_raven_7.jpg','전체 읽기',nd>=NBASE?'에피소드 1 전편':'여섯 장을 모두 열면 이어서 읽을 수 있습니다',{w:1,eye:'EPISODE 1 · FULL',lock:nd<NBASE,tag:nd>=NBASE?'':nd+' / '+NBASE})+'</div>'+
+   '<div class="rwh"><i>S1</i>EPISODE 2 – 5<u>COMING</u></div><p style="color:var(--dim)">에피소드가 공개되면 이곳에 이어서 쌓입니다.</p>',blackbox,[]);
+  PGA[90]=function(){novelRead('p');};NOVEL.ch.forEach(function(c,i){PGA[91+i]=function(){if(PROG.c[i])novelRead(i);};});PGA[98]=function(){if(nd>=NBASE)novelRead('all');};
+}
+function bbClear(){
+  var h=intro('Black Box · Clear Gallery','클리어 갤러리','스토리 미션에서 얻은 리워드 컷입니다.<br>에피소드 · 미션별로 네 장씩 모입니다.')+rwdBox('클리어 갤러리')+'<div class="rwh" style="margin-top:0"><i>S1</i>EPISODE 1 · 여섯이 모이기까지<u></u></div>',re=bbKeep(bbClear),i;
+  for(i=0;i<NBASE;i++)h+=rwRow(i,'0'+(i+1),re);
+  page('클리어 갤러리','BLACK BOX // CLEAR',h,blackbox,[],bbClick());
+}
+function bbRomantic(){
+  var ids=Object.keys(STORY),re=bbKeep(bbRomantic),h=intro('Black Box · Romantic Gallery','로맨틱 갤러리','로맨틱 미션에서 얻은 그날 밤의 컷입니다.<br>TAKE 하나를 마칠 때마다 두 컷씩, 요원마다 여섯 컷이 이어집니다.')+'<div class="rwh" style="margin-top:0"><i>S1</i>SEASON 1<u></u></div>';
+  ids.forEach(function(id){nProbe(id,re);var no=nOpen(id);h+='<div class="rwh"><i style="color:'+OPD[id].col+'">'+OPD[id].n+'</i>'+OPD[id].role+'<u>'+no+' / '+NCUT+'</u></div><div class="cg c3">';
+    for(var k=1;k<=NCUT;k++){var op=k<=no,im=nImg(id,k);h+=cd(99,op?im:(im||'a_'+id+'_0.jpg'),'CUT '+k,op?(im?'':'이미지 준비 중'):'TAKE '+Math.ceil(k/2)+' 클리어',{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':'LOCKED'});}
+    h+='</div>';});
+  page('로맨틱 갤러리','BLACK BOX // ROMANTIC',h,blackbox,[],bbClick());
+}
+function bbSeasonal(){
+  var re=bbKeep(bbSeasonal),h=intro('Black Box · Seasonal · Special','시즈널 · 스페셜 갤러리','시즈널 미션과 스페셜 미션에서 얻은 리워드 컷입니다.')+'<div class="rwh" style="margin-top:0"><i>WINTER</i>블러디 크리스마스<u>'+rwCount(WIDX)+' / '+(WIDX.length*4)+'</u></div>';
+  WIDX.forEach(function(mi,ci){h+=rwRow(mi,'0'+(ci+1),re);});
+  h+='<div class="rwh"><i>SPECIAL</i>코스튬 미션<u>COMING</u></div><p style="color:var(--dim)">코스튬 미션이 열리면 이곳에 쌓입니다.</p>';
+  page('시즈널 · 스페셜 갤러리','BLACK BOX // SEASONAL',h,blackbox,[],bbClick());
 }
 function shop(){
   page('SHOP','POINT · BADGE · STORE','<p><em class="k">사일런트 식스에 공짜는 없어.</em> 쓰고 싶다면 벌고, 벌고 싶다면 참전하라!</p><div class="cg">'+cd(0,'a_glitch_0.jpg','포인트샵','100점에 1P · 번 만큼만 쓴다',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','증거를 내면 옷이 나온다',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_0.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
@@ -1071,7 +1115,10 @@ function admin(){
 }
 function ending(id){
   hideOv();setPre(true);PROG.end[id]=true;saveProg();if(sb&&USER)setTimeout(function(){rpc('s6_end',{p_agent:id}).catch(function(){});},SBQ.length||SBBUSY?10000:0);
-  scene(STORY[id].end.map(function(e,i){return {k:'AFTER // '+OPD[id].n+' '+(i+1)+'/3',h:e[0],p:e[1],img:i===2?'e_'+id+'.jpg':'a_'+id+'_'+(i?1:0)+'.jpg',c:OPD[id].col};}),storyMenu);
+  var fr=[];STORY[id].end.forEach(function(e,i){var a=nImg(id,i*2+1),b=nImg(id,i*2+2);
+    if(a&&b)fr.push({k:'THAT NIGHT // '+OPD[id].n+' · CUT '+(i*2+1),h:'',p:'',img:a,c:OPD[id].col});
+    fr.push({k:'THAT NIGHT // '+OPD[id].n+' · '+(i+1)+' / 3',h:e[0],p:e[1],img:b||a||(i===2?'e_'+id+'.jpg':'a_'+id+'_'+(i?1:0)+'.jpg'),c:OPD[id].col});});
+  scene(fr,storyMenu);
 }
 var M=MIS[0],MI=0,MAP=M.MAP,COLS=12,ROWS=20,HF=M.proj,HFI=null,WAKE=60,S;
 function norm(a){while(a>PI)a-=2*PI;while(a<-PI)a+=2*PI;return a;}
@@ -1738,7 +1785,7 @@ function roGo(k){var c=$('roc');k=Math.max(0,Math.min(7,k));if(c.scrollTo)c.scro
 $('roc').addEventListener('scroll',function(){var c=$('roc'),k=Math.round(c.scrollLeft/(c.clientWidth||1));if(k!==ROK){ROK=k;roLab();}});
 $('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t.getAttribute('data-id'),u=t.getAttribute&&t.getAttribute('data-u');if(t.tagName==='IMG'&&t.parentNode&&t.parentNode.className!=='lk'){viewer(t.getAttribute('src'));return;}if(u!==null&&u!==undefined){gBuy(ROI,+u);return;}if(t.getAttribute&&t.getAttribute('data-ua')){gBuy(ROI,'all');return;}if(id){ROMSG='';roShow(id);}else if(t.id==='rop')roGo(ROK-1);else if(t.id==='ron2')roGo(ROK+1);else if(t.id==='rox'){$('ro').className='hide';if(RORET){var rr=RORET;RORET=null;rr();}else home();}});
 function brief(i){
-  rwProbeM(i);
+  if(MIS[i]&&MIS[i].story)nProbe(MIS[i].story.id);else rwProbeM(i);
   setPre(true);hideOv();hmHide();pgHide();loadMission(i);if(CFG.img[M.key])M.img=CFG.img[M.key];S=newState();UIK='';
   var c=OPD[M.ops[M.ops.length-1].id].col;
   if(MI<NBASE){var ch=NOVEL.ch[MI];reader({t:ch.t,sub:'S1 · EPISODE 1 // '+(MI+1)+'장',img:M.img,p:ch.pre,btn:'작전 브리핑',next:missionCard,back:menu});}
@@ -1778,20 +1825,23 @@ function scoreCalc(){
   return {rows:r,sum:sum,mult:mult,score:Math.round(sum*mult),grade:sum>=6500?'S':sum>=5000?'A':sum>=3500?'B':'C'};
 }
 function result(){
-  var s=fl(S.t),sc=scoreCalc(),bl=badgeList(),got=PROG.b[MI]||(PROG.b[MI]=[false,false,false]),nw=0,best=false;
+  var fresh=!PROG.c[MI],s=fl(S.t),sc=scoreCalc(),bl=badgeList(),got=PROG.b[MI]||(PROG.b[MI]=[false,false,false]),nw=0,best=false;
   var pc=PROG.c[MI]||(PROG.c[MI]={}),ps=PROG.s[MI]||(PROG.s[MI]={});
   if(!(pc[DIFF]<=s))pc[DIFF]=s;if(!(ps[DIFF]>=sc.score)){ps[DIFF]=sc.score;best=true;}
   var bh=bl.map(function(b,i){var ok=b[2](),isNew=ok&&!got[i];if(isNew){got[i]=true;nw++;}return '<tr><td>'+(got[i]?'◆':'◇')+' '+b[0]+(isNew?' <b style="color:var(--c)">NEW</b>':'')+'</td><td style="text-align:left;color:'+(ok?'var(--ink)':'var(--dim)')+'">'+b[1]+(ok?' ✓':'')+'</td></tr>';}).join('');
-  var rw0=rwTier(MI),rw1=rw0,rwi=null,rwt='';
-  {if(DIFF>=2){var hn=0;bl.forEach(function(b){if(b[2]())hn++;});if(!PROG.hb)PROG.hb={};if(!(PROG.hb[MI]>=hn))PROG.hb[MI]=hn;}rw1=rwTier(MI);
+  var rw0=fresh?-1:rwTier(MI),rw1=rw0,rwi=null,rwt='',rwl='리워드 컷';
+  if(M.story){var nid=M.story.id,no=nOpen(nid);rwl='그날 밤';
+    for(var nk=no;nk>=1&&!rwi;nk--)rwi=nImg(nid,nk);
+    rwt=fresh?'<em class="k">'+(no-1)+' · '+no+'번 컷이 로맨틱 갤러리에 담겼다</em>':'<span style="color:var(--dim)">'+no+' / '+NCUT+' 컷 · TAKE를 끝낼 때마다 두 컷</span>';
+  }else{if(DIFF>=2){var hn=0;bl.forEach(function(b){if(b[2]())hn++;});if(!PROG.hb)PROG.hb={};if(!(PROG.hb[MI]>=hn))PROG.hb[MI]=hn;}rw1=rwTier(MI);
     for(var rn=rw1;rn>=0&&!rwi;rn--)rwi=rwImg(MI,rn);
-    rwt=rw1>rw0&&rw1>0?'<em class="k">'+RWN[rw1]+' 컷이 블랙박스에 담겼다</em>':rw0<0?'<em class="k">클리어 컷이 블랙박스에 담겼다</em>':DIFF<2?'<span style="color:var(--dim)">HARD 이상, 한 판에서 딴 배지 수만큼 특별 컷이 열린다</span>':rw1<3?'<span style="color:var(--dim)">한 판에 배지 '+(rw1+1)+'개를 따면 다음 컷이 열린다</span>':'<span style="color:var(--dim)">네 장 모두 열었다</span>';}
+    rwt=rw1>rw0&&rw1>0?'<em class="k">'+RWN[rw1]+' 컷이 블랙박스에 담겼다</em>':fresh?'<em class="k">클리어 컷이 블랙박스에 담겼다</em>':DIFF<2?'<span style="color:var(--dim)">HARD 이상, 한 판에서 딴 배지 수만큼 더 열린다</span>':rw1<3?'<span style="color:var(--dim)">한 판에 배지 '+(rw1+1)+'개를 따면 다음 컷이 열린다</span>':'<span style="color:var(--dim)">네 장 모두 열었다</span>';}
   var gain=Math.round(sc.score/100);PROG.pt=(PROG.pt||0)+gain;
   var kvm=/^a_([a-z]+)_(\d)\.jpg/.exec(MIS[MI].img||''),kvn=false;if(kvm&&+kvm[2]>0&&!gOpen(kvm[1],+kvm[2])){(PROG.g[kvm[1]]||(PROG.g[kvm[1]]=[]))[+kvm[2]]=true;kvn=true;}
   saveProg();sbClear(M.key,DIFF,s,sc.score,bl.reduce(function(a,x,i){return a|(x[2]()?1<<i:0);},0),kvn?'g:'+kvm[1]+':'+kvm[2]:null);
   var b=[['다시 도전',restart,true],['미션 선택',M.story?storyMenu:M.winter?winter:menu]];if(M.story){var sid=M.story.id;if(M.story.ci<2)b.unshift(['다음 이야기',function(){brief(MI+1);},true]);else b.unshift(['그날 밤',function(){ending(sid);},true]);}else if(M.winter){if(MI<MIS.length-1&&MIS[MI+1].winter)b.unshift(['다음 판',function(){brief(MI+1);},true]);}else if(MI<NBASE-1)b.unshift(['다음 미션',function(){brief(MI+1);},true]);
   overlay(sc.score.toLocaleString()+' 점','MISSION CLEAR // '+sc.grade+' RANK'+(best?' // BEST':''),
-   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P</td></tr>'+(rwt?'<tr><td>클리어 이미지</td><td>'+rwt+'</td></tr>':'')+(kvn?'<tr><td>갤러리</td><td><em class="k">이 작전의 그림이 열렸다</em></td></tr>':'')+(sbOn()&&!USER?'<tr><td>기록</td><td style="color:var(--dim)">이 기기에만 남는다 · 로그인하면 계정에 남는다</td></tr>':'')+'</table>'+
+   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P</td></tr>'+(rwt?'<tr><td>'+rwl+'</td><td>'+rwt+'</td></tr>':'')+(kvn?'<tr><td>갤러리</td><td><em class="k">이 작전의 그림이 열렸다</em></td></tr>':'')+(sbOn()&&!USER?'<tr><td>기록</td><td style="color:var(--dim)">이 기기에만 남는다 · 로그인하면 계정에 남는다</td></tr>':'')+'</table>'+
    '<label style="margin-top:14px">특임 배지'+(nw?' — '+nw+'개 획득':'')+' (보유 '+badgeTotal()+')</label><table>'+bh+'</table>',b,rwi,true);
 }
 function showEnd(){
