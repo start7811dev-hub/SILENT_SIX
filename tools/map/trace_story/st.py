@@ -33,3 +33,14 @@ def grid(n,out,z=0,S=1,lab=False,MAP=None,quads=False):
         W,Hh=1536*S,1024*S
         for k,(x0,y0) in enumerate([(W//2-800,0),(0,Hh//2-525),(W-1600,Hh//2-525),(W//2-800,Hh-1050)]):im.crop((x0,y0,x0+1600,y0+1050)).save('%s_%d.jpg'%(out,k),quality=80)
     else:im.save(out+'.jpg',quality=85)
+
+BASE=dict(CFG);OFF={}
+_H0=H
+def setgrid(n,ox,oy,c,r,h=46):
+    h0=_H0(1) if n!=2 else _H0(2)
+    OFF[n]=(ox,oy,homog([(0,0),(0,r),(c,0),(c,r)],[P(h0,ox,oy),P(h0,ox,oy+r),P(h0,ox+c,oy),P(h0,ox+c,oy+r)]));CFG[n]=(c,r,h)+CFG[n][3:]
+def H(n):
+    return OFF[n][2] if n in OFF else _H0(n)
+setgrid(4,-2,-5,25,31)
+setgrid(5,-3,-5,27,29)
+setgrid(2,-2,-3,23,25,h=0)
