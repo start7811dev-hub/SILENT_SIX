@@ -66,6 +66,9 @@ put(M,[(1,7),(1,8),(1,9),(2,6),(2,10),(2,13),(2,14),(2,15),(3,19),(5,19),(6,20),
 put(M,R(0,20,20,20)+R(20,0,20,20),'#');put(M,[(13,19),(19,13)],'.')
 M[1][12]='X'
 OUT[5]=dict(MAP=M,start=[(19,19),(18,18)],use=(12,2),obj=(12,1))
+# ---------- 4 mine (traced in mine.py)
+import mine as _mine
+OUT[4]=dict(MAP=_mine.M,start=[(14,27),(15,27)],use=(10,5),obj=(10,4))
 if __name__=='__main__':
     import sys
     for n in map(int,sys.argv[1:]):show(n)
