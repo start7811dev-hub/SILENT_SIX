@@ -16,7 +16,7 @@
 You are producing four pieces of premium key art for one stage of a game. They will be shown side by side as a set, so they must look like **four different illustrations by the same artist**, not four takes of one pose.
 
 ### Files
-- `refs/` — reference images of each character. For every character there are four: `_0` front portrait, `_3` close-up, `_4` dynamic action, `_6` combat. Use them for **identity** (face, hair, build, signature colours) and for **art style**.
+- `AGENTS.md` and `agents/sheet_<name>.jpg` — the cast bible. Each sheet has three labelled panels: `NAME-A` face (identity, this wins), `NAME-B` glam, `NAME-C` tactical outfit, plus her signature colour. Characters are referred to by code name. Read AGENTS.md first.
 - `look/` — four finished images from this game. They set the **quality bar**: level of detail, lighting, rendering finish. Match that finish. Do not copy their poses or compositions.
 
 ### Output
@@ -41,23 +41,29 @@ The four cuts are specified with a different **shot size, camera angle, head ang
 - the character must not simply stand facing the camera in more than one image;
 - the colour key changes from cut to cut as written.
 
-### Limits
-Sensual and glamorous is welcome, but everyone stays covered: no nudity, no exposed nipples or genitals, no sexual acts.
+### Wardrobe ladder — exposure rises from cut to cut
+- **CUT 0**: the full outfit, complete and intact.
+- **CUT 1**: the same outfit under stress: jacket open or torn at a shoulder, a zip pulled lower, a glove lost. Still dressed.
+- **CUT 2**: clearly more revealing: outer layers off, down to a fitted top or bralette and shorts or stockings, one strap slipping, bare shoulders, midriff and thighs.
+- **CUT 3**: the boldest. **No clothing and no underwear visible on her torso.** She is covered only by her own hands and arms, her hair, a turned shoulder or raised knee, or one prop named in the cut (her scarf, a fur blanket, a robe sliding off, a towel, steam). The pose must look natural and unposed, a private moment, not a pin-up presented to the camera. Keep one signature item on her (scarf, dog tags, glasses, goggles, earrings, armband) so she is still recognisably herself.
+
+### Limits (never cross)
+Implied only. Nipples, areolae and genitals are never visible in any cut: always fully hidden by hands, arms, hair, pose or the prop. No sexual acts, no touching between characters beyond leaning or an arm around a shoulder. Everyone is an adult woman in her late twenties.
 
 ---
 
 ## THIS STAGE
 
 **Characters**
-- RAVEN — short messy black hair, sharp amber eyes, signature long red scarf, black tactical gear with red trim. References: `refs/raven_0.jpg`, `refs/raven_3.jpg`, `refs/raven_4.jpg`, `refs/raven_6.jpg`.
-- VIPER — long silver-lavender hair, cool half-lidded gaze, purple-accented sniper suit, long suppressed rifle. References: `refs/viper_0.jpg`, `refs/viper_3.jpg`, `refs/viper_4.jpg`, `refs/viper_6.jpg`.
-- GLITCH — dark hair with teal highlights, glasses, headphones around the neck, teal-lit tech gear, a small recon drone. References: `refs/glitch_0.jpg`, `refs/glitch_3.jpg`, `refs/glitch_4.jpg`, `refs/glitch_6.jpg`.
+- **RAVEN — short messy black hair with long side bangs, sharp red-brown eyes, pale skin, lean athletic build, cool and unreadable expression, small silver pendant. Signature colour #FF3B52. Tactical outfit: matte black tactical bodysuit with red piping, chest rig, thigh holster, combat boots, fingerless red hand wraps, and her signature long tattered crimson scarf**. Sheet: `agents/sheet_raven.jpg`.
+- **VIPER — short silver-white hair swept to one side with an undercut, violet eyes, pale skin, tall slim build, cold half-lidded gaze, dog tags. Signature colour #B98CFF. Tactical outfit: black sniper bodysuit with violet seams, hooded short jacket, thigh straps, knee-high boots, purple fingerless gloves, a long suppressed sniper rifle, a violet neck scarf**. Sheet: `agents/sheet_viper.jpg`.
+- **GLITCH — black hair in a messy top bun with teal-dyed tips and a shaved side, large round glasses, teal eyes, fair skin, playful grin, headphones around the neck. Signature colour #3FE0E0. Tactical outfit: black tech jacket with glowing teal circuit lines over a fitted top, cargo pants with teal stitching, fingerless gloves with a wrist console, small recon drones hovering near her**. Sheet: `agents/sheet_glitch.jpg`.
 
 **Place.** 03:30. A private airfield before dawn in heavy snow: a lit runway with rows of amber edge lights, a control tower with a sweeping searchlight, an open hangar with a silver private jet inside, fuel trucks, a yellow snowplow, stacked cargo cases, snowbanks and a chain-link fence.
 
 **What happens.** Three agents cross the open apron before take-off and reach the jet's cargo. Inside there is only an empty ribbon-tied box and a card addressed to their own unit.
 
-**Tone.** Christmas Eve night. Winter mission outfits with fur trim and each agent's accent colour, breath in the cold, snow everywhere.
+**Tone.** Christmas Eve night. Each agent's tactical outfit from her sheet, winterised with fur trim, breath in the cold, snow everywhere.
 
 ## THE FOUR CUTS
 
@@ -71,9 +77,9 @@ Action shot, strong diagonal, camera high from the control tower's point of view
 
 ### CUT 2 — `r_W-5_2` — TEASE
 
-Medium three-shot at eye level on the jet's boarding stairs, each on a different step. GLITCH sits lowest, leaning forward with elbows on knees, grinning straight at the viewer with her glasses pushed up in her hair, a ribbon from the box tied round her neck like a bow. RAVEN sits in the middle, leaning back on her hands, head tilted, looking at the viewer through half-closed eyes with a dry smile, jacket off her shoulders. VIPER stands at the top leaning on the rail, looking down and away to the side with a small amused smile, a Santa hat dangling from her fingers. Colour key: warm cabin light from the jet door behind them, blue snow dawn.
+Medium three-shot at eye level on the jet's boarding stairs, each on a different step. GLITCH sits lowest, leaning forward with elbows on knees, grinning straight at the viewer with her glasses pushed up in her hair, a ribbon from the box tied round her neck like a bow. RAVEN sits in the middle, leaning back on her hands, head tilted, looking at the viewer through half-closed eyes with a dry smile, jacket off her shoulders over a bralette. VIPER stands at the top leaning on the rail, looking down and away to the side with a small amused smile, a Santa hat dangling from her fingers. Colour key: warm cabin light from the jet door behind them, blue snow dawn.
 
 ### CUT 3 — `r_W-5_3` — PRIVATE NIGHT
 
-Intimate interior, camera low and wide inside the jet's cabin: cream leather seats, a small decorated tree on the table, champagne flutes, snow streaking past the oval windows, first light of dawn. All three in festive lingerie in their own colours with fur trim. VIPER lies across a seat with her legs over the armrest, head back, eyes closed, humming. GLITCH sits cross-legged on the carpet wrapped in a blanket, looking up and laughing at something off-frame. RAVEN stands at a window with one hand on the frame, three-quarter back view, face in profile looking out at the dawn, the card in her other hand, thoughtful. Nobody looks at the camera. Colour key: rose-gold dawn and soft cabin amber.
+Intimate interior, camera low and wide inside the jet's cabin: cream leather seats, a small decorated tree on the table, champagne flutes, snow streaking past the oval windows, first light of dawn. None of them wears a top; each is covered only by her own arms and hair or a cabin blanket in her signature colour. VIPER lies across a seat with her legs over the armrest, head back, eyes closed, humming. GLITCH sits cross-legged on the carpet wrapped in a blanket, looking up and laughing at something off-frame. RAVEN stands at a window with one hand on the frame, three-quarter back view, face in profile looking out at the dawn, the card in her other hand, thoughtful. Nobody looks at the camera. Colour key: rose-gold dawn and soft cabin amber.
 

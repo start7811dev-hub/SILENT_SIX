@@ -5,14 +5,10 @@
 import sys, os, io, re, zipfile
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.join(HERE, '..', '..'); PUB = os.path.join(ROOT, 'public')
 AG = ['raven', 'viper', 'glitch', 'brick', 'mirage', 'doc']
-LOOK = {
- 'raven': ('RAVEN', 'short messy black hair, sharp eyes, signature red scarf', 'a red-and-black matador-inspired stage outfit with her signature red scarf'),
- 'viper': ('VIPER', 'silver-lavender hair, cool gaze', 'a violet-and-silver ice-queen figure-skating-inspired outfit'),
- 'glitch': ('GLITCH', 'dark hair with teal highlights, glasses, headphones around the neck', 'a teal-neon cyber-idol stage outfit with a holographic visor pushed up on her head'),
- 'brick': ('BRICK', 'strong athletic build, taped hands', 'an orange-and-black champion-boxer-inspired outfit with an open satin robe'),
- 'mirage': ('MIRAGE', 'elegant, poised, knowing smile', 'a gold-and-black casino-dealer-inspired outfit with a bow tie and waistcoat'),
- 'doc': ('DOC', 'dark curly hair tied up high, hoop earrings, tattooed forearm', 'a glossy white-and-lime nurse-inspired corset outfit with a short cropped jacket, long gloves and a medic-cross choker'),
-}
+sys.path.insert(0, os.path.join(HERE, '..', 'charsheet'))
+import build as CS
+COS = {'raven': 'a red-and-black matador-inspired stage outfit with her signature red scarf', 'viper': 'a violet-and-silver ice-queen figure-skating-inspired outfit', 'glitch': 'a teal-neon cyber-idol stage outfit with a holographic visor pushed up on her head', 'brick': 'an orange-and-black champion-boxer-inspired outfit with an open satin robe', 'mirage': 'a gold-and-black casino-dealer-inspired outfit with a bow tie and waistcoat', 'doc': 'a glossy white-and-lime nurse-inspired corset outfit with a short cropped jacket, long gloves and a medic-cross choker'}
+LOOK = {k: (v[0], v[5], COS[k]) for k, v in CS.A.items()}
 NPC = {
  'raven': [('의상 담당', 'the wardrobe mistress: a woman in her fifties, silver hair in a tight bun, black smock, a pin cushion on her wrist, a tape measure round her neck, a red rose pin'),
            ('마권업자', 'the bookmaker: a heavyset man in his forties, slicked-back hair, red waistcoat with gold trim, rolled sleeves, an unlit cigar, a ledger under his arm')],
@@ -56,7 +52,7 @@ MASTER = u'''# SILENT SIX — 코스튬 미션 원샷 생성 세트
 
 This archive is one production job in three parts. Do PART A, then PART B, then PART C, in the order written. Never skip ahead. Do not ask questions; where something is ambiguous, follow the reference files. Before every image, write its output file name on its own line. After each unit of work (one map in A, one character's three expressions in B, one agent's four images in C) stop and wait for "next".
 
-Folders: `guides/` map blueprints, `LEGEND.png` guide colours, `style/` two finished maps as style references for PART A, `refs/` one reference image per agent for PART B and PART C.
+Folders: `guides/` map blueprints, `LEGEND.png` guide colours, `style/` two finished maps as style references for PART A, `AGENTS.md` and `agents/sheet_<name>.jpg` the cast bible for PART B and PART C (three labelled panels per agent: `NAME-A` face, `NAME-B` glam, `NAME-C` tactical; read AGENTS.md before PART B).
 
 Everyone depicted is an adult. No text, no logos, no watermarks in any image.
 
@@ -75,10 +71,10 @@ These are visual-novel style conversation portraits. In the game two portraits f
 Rules for every portrait
 - Vertical 2:3, 1024x1536. **Transparent background** (PNG). If you cannot output transparency, use a flat pure green `#00FF00` background with no shadow on it.
 - Waist-up, one person, centred, head in the upper third with clear space above the hair. Nothing cropped at the sides.
-- Same semi-realistic anime illustration style as the images in `refs/`. Soft key light from the front, a thin rim light.
+- Same semi-realistic anime illustration style as the agent sheets in `agents/`. Soft key light from the front, a thin rim light.
 - Each character gets **three expressions: #0, #1, #2**. The three images must be the same person, same outfit, same pose and framing; only the face (and at most a small shoulder or hand shift) changes.
 - **Other people (n1, n2) face toward the RIGHT of the image** (three-quarter view). **Agents (me) face toward the LEFT of the image** (three-quarter view).
-- Agents: keep the woman exactly as in her reference image (face, hair, build), wearing the costume described. Fully clothed, glamorous, no nudity.
+- Agents: keep the woman exactly as on her sheet (panel A: face, hair, skin tone, build), wearing the costume described. Fully clothed, glamorous, no nudity.
 - No weapons in any portrait.
 
 Expressions for other people: #0 %s · #1 %s · #2 %s.
@@ -95,6 +91,53 @@ PC = u'''
 '''
 
 
+LADDER = u'''### Wardrobe ladder — exposure rises from cut to cut
+- **CUT 0**: the full outfit, complete and intact.
+- **CUT 1**: the same outfit under stress: jacket open or torn at a shoulder, a zip pulled lower, a glove lost. Still dressed.
+- **CUT 2**: clearly more revealing: outer layers off, down to a fitted top or bralette and shorts or stockings, one strap slipping, bare shoulders, midriff and thighs.
+- **CUT 3**: the boldest. **No clothing and no underwear visible on her torso.** She is covered only by her own hands and arms, her hair, a turned shoulder or raised knee, or one prop named in the cut (her scarf, a fur blanket, a robe sliding off, a towel, steam). The pose must look natural and unposed, a private moment, not a pin-up presented to the camera. Keep one signature item on her (scarf, dog tags, glasses, goggles, earrings, armband) so she is still recognisably herself.
+
+### Limits (never cross)
+Implied only. Nipples, areolae and genitals are never visible in any cut: always fully hidden by hands, arms, hair, pose or the prop. No sexual acts, no touching between characters beyond leaning or an arm around a shoulder. Everyone is an adult woman in her late twenties.
+'''
+
+VEN = {'raven': ('a circular show arena on a matador-themed gala night: sand ring under spotlights, red drapes, gold trim, banked seats, stage smoke', 'a wardrobe room with bulb-ringed mirrors, costume trunks and red roses'), 'viper': ('an indoor ice rink during a gala figure-skating show: violet and silver spotlights, frost haze, rink boards, glitter in the air', 'a locker room with frosted windows, skate bags, a bench and a rack of sequinned costumes'), 'glitch': ('backstage of a huge concert dome during an idol show: the back of a giant LED wall, teal lasers, flight cases, cables, magenta light leaking through', 'a small dressing room with a make-up mirror, fairy lights, energy-drink cans and a costume rail'), 'brick': ('a luxury hotel ballroom set up for a title fight: a boxing ring under a hard white light, dinner tables, orange and black bunting, chandeliers', "a fighters' locker room with a massage table, hanging robes, a title belt on a bench and steam from the showers"), 'mirage': ('a private penthouse casino at night: green baize tables, a roulette wheel, a gold-lit bar, black marble, city lights through tall windows', 'a VIP salon with a velvet chaise, a silk screen, scattered chips and a champagne bucket'), 'doc': ('a private cosmetic clinic and spa at night: white marble, lime-green accent light, a turquoise spa pool, orchids, soft steam', 'a sauna-side relaxation room with warm wood, folded white towels, an orchid and drifting steam')}
+SIG = {'raven': 'her long red scarf', 'viper': 'her dog tags and violet neck scarf', 'glitch': 'her round glasses and headphones', 'brick': 'her orange goggles and dog tags', 'mirage': 'her gold hoop earrings and a single black glove', 'doc': 'her medic-cross choker and hoop earrings'}
+PROP = {'raven': 'the red scarf itself, draped down her front', 'viper': 'a white towel held to her chest with one hand', 'glitch': 'an oversized tour hoodie held against her chest, not worn', 'brick': 'the open satin robe hanging from her elbows, her crossed forearms covering her chest', 'mirage': 'a fan of playing cards in one hand and her long hair over the other shoulder', 'doc': 'a white towel slipping low on her hips, one arm folded across her chest'}
+SHOTS = [
+ u"Full-body showpiece, camera low at knee height looking up, three-quarter view from her left. She stands mid-stride in the middle of the venue, weight on one hip, chin lifted, looking past the camera with a proud, composed half-smile. The whole costume is visible and intact. Colour key: her signature colour as stage light against deep shadow. Foreground: a blurred prop of the venue.",
+ u"Tension shot with a strong diagonal tilt, medium-full, camera high and to the side. No weapons. She walks in plain sight through the venue while a guard's blurred dark silhouette crosses the foreground. Her body faces away; her head is turned back over her shoulder in three-quarter profile, eyes sharp and alert, lips pressed, one hand lifting the hem or collar of the costume as she moves. Colour key: cold shadow cut by one hard warm light.",
+ u"Medium close-up from the waist up at eye level, shallow depth of field. Backstage after the job. She leans on a counter with her head tilted, looking straight into the lens with one eyebrow raised and a slow teasing smirk, biting the fingertip of a glove or pulling a strap down with one finger. Colour key: warm amber with her signature colour as a rim light. Foreground: blurred bulbs or bottles.",
+ u"Intimate private moment, camera low and slightly behind her in three-quarter back view, soft focus edges. She is not looking at the camera: head turned in profile, eyes half closed, a quiet private smile, caught mid-movement as she undresses. Colour key: candle or lamp gold with deep shadow.",
+]
+WARD = [
+ u"Wardrobe: the complete costume, intact.",
+ u"Wardrobe: the same costume in motion, jacket or robe open and slipping from one shoulder, one glove missing. Still dressed.",
+ u"Wardrobe: outer pieces off. Down to the costume's corset or bralette and its shorts or stockings, laces half undone, one strap off the shoulder, bare shoulders, midriff and thighs.",
+ u"Wardrobe: the costume lies discarded on a chair behind her. No clothing and no underwear visible on her torso. She is covered only by {prop}, plus her own arms, hair and the turn of her body. She still wears {sig}. Natural and unposed.",
+]
+NAMES_C = ['SHOWPIECE', 'IN PLAIN SIGHT', 'TEASE', 'PRIVATE']
+
+
+def partc():
+    t = u"""Four images per agent. They are shown side by side as a set, so they must look like **four different illustrations by the same artist**: each cut has a different shot size, camera angle, head angle, gaze, expression, pose and colour key. Follow each cut's camera text literally. No two images of one agent may share a camera angle or a facial expression, and she faces the camera directly in at most one of them.
+
+Format: vertical portrait 2:3, 1024x1536, one image per reply, file name on its own line first. After one agent's four images, wait for "next".
+
+Quality for every image: painterly high-end finish like the agent sheets; three depth layers (blurred foreground object, the agent, a fully painted venue with at least five specific props); two light sources of different colour plus a rim light; visible atmosphere (smoke, steam, glitter, bokeh). Hands and costume details drawn carefully. No text, no logo, no watermark.
+
+Identity: the agent exactly as on her sheet (panel A wins). Her signature colour must be present in every image.
+
+""" + LADDER + u"\n"
+    for ag in AG:
+        nm, look, cos = LOOK[ag]
+        t += u"## %s\n\n- Sheet: `agents/sheet_%s.jpg`\n- Costume: %s.\n- Venue: %s.\n- Private room (CUT 3): %s.\n\n" % (nm, ag, cos, VEN[ag][0], VEN[ag][1])
+        for k in range(4):
+            w = WARD[k].replace('{prop}', PROP[ag]).replace('{sig}', SIG[ag])
+            t += u"### CUT %d — `r_C-%s_%d` — %s\n\n%s %s%s\n\n" % (k, ag, k, NAMES_C[k], SHOTS[k], w, (u" Setting for this cut: the private room.") if k == 3 else (u" Setting: backstage of the venue." if k == 2 else u" Setting: the venue."))
+    return t
+
+
 def main(out):
     packs = os.path.join(HERE, 'packs', 'costume')
     md_a = io.open(os.path.join(packs, u'지시.md'), encoding='utf8').read()
@@ -109,13 +152,9 @@ def main(out):
         for k, (ko, desc) in enumerate(NPC[ag]):
             md += u'- **`d_C-%s_n%d_0.png`, `_1.png`, `_2.png`** — %s. Other person, faces RIGHT. %s.\n' % (ag, k + 1, ko, desc[0].upper() + desc[1:])
             n += 3
-        md += u'- **`d_C-%s_me_0.png`, `_1.png`, `_2.png`** — %s in costume. Agent, faces LEFT. Reference: `refs/a_%s_0.jpg` (%s). Outfit: %s.\n\n' % (ag, nm, ag, look, cos)
+        md += u'- **`d_C-%s_me_0.png`, `_1.png`, `_2.png`** — %s in costume. Agent, faces LEFT. Sheet: `agents/sheet_%s.jpg` (%s). Outfit: %s.\n\n' % (ag, nm, ag, look, cos)
         n += 3
-    pc = io.open(os.path.join(ROOT, 'tools', 'clear_studio', 'PROMPTS_Costume.md'), encoding='utf8').read()
-    common = re.search(r'## 공통 지시\s+```\n(.*?)```', pc, re.S).group(1)
-    blocks = pc[pc.index(u'## 요원별 블록') + len(u'## 요원별 블록'):].strip()
-    blocks = blocks.replace(u'첨부: `a_', u'Reference: `refs/a_')
-    md += PC + common.replace('For every mission block I send', 'For every mission block below').replace('I attach one reference image per character.', 'Each block names its reference image in `refs/`.') + '\n' + blocks + '\n'
+    md += PC + partc()
     os.makedirs(out, exist_ok=True)
     io.open(os.path.join(HERE, 'packs', u'Costume_TotalSet_지시.md'), 'w', encoding='utf8').write(md)
     zn = 'SILENT6_Costume_TotalSet'
@@ -126,9 +165,10 @@ def main(out):
     z.write(os.path.join(packs, 'LEGEND.png'), zn + '/LEGEND.png')
     z.write(os.path.join(PUB, 'bg5.jpg'), zn + '/style/style_ref_1.jpg'); z.write(os.path.join(PUB, 'bg4.jpg'), zn + '/style/style_ref_2.jpg')
     for ag in AG:
-        z.write(os.path.join(PUB, 'a_%s_0.jpg' % ag), zn + '/refs/a_%s_0.jpg' % ag)
+        z.write(os.path.join(HERE, '..', 'charsheet', 'out', 'sheet_%s.jpg' % ag), zn + '/agents/sheet_%s.jpg' % ag)
+    z.write(os.path.join(HERE, '..', 'charsheet', 'out', 'AGENTS.md'), zn + '/AGENTS.md')
     z.close()
-    print(zn, 'dialogue', n, 'reward', blocks.count('Image #'), os.path.getsize(os.path.join(out, zn + '.zip')) // 1024, 'KB', len(md))
+    print(zn, 'dialogue', n, 'reward', 24, os.path.getsize(os.path.join(out, zn + '.zip')) // 1024, 'KB', len(md))
 
 
 if __name__ == '__main__':

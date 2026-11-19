@@ -16,7 +16,7 @@
 You are producing four pieces of premium key art for one stage of a game. They will be shown side by side as a set, so they must look like **four different illustrations by the same artist**, not four takes of one pose.
 
 ### Files
-- `refs/` — reference images of each character. For every character there are four: `_0` front portrait, `_3` close-up, `_4` dynamic action, `_6` combat. Use them for **identity** (face, hair, build, signature colours) and for **art style**.
+- `AGENTS.md` and `agents/sheet_<name>.jpg` — the cast bible. Each sheet has three labelled panels: `NAME-A` face (identity, this wins), `NAME-B` glam, `NAME-C` tactical outfit, plus her signature colour. Characters are referred to by code name. Read AGENTS.md first.
 - `look/` — four finished images from this game. They set the **quality bar**: level of detail, lighting, rendering finish. Match that finish. Do not copy their poses or compositions.
 
 ### Output
@@ -41,21 +41,27 @@ The four cuts are specified with a different **shot size, camera angle, head ang
 - the character must not simply stand facing the camera in more than one image;
 - the colour key changes from cut to cut as written.
 
-### Limits
-Sensual and glamorous is welcome, but everyone stays covered: no nudity, no exposed nipples or genitals, no sexual acts.
+### Wardrobe ladder — exposure rises from cut to cut
+- **CUT 0**: the full outfit, complete and intact.
+- **CUT 1**: the same outfit under stress: jacket open or torn at a shoulder, a zip pulled lower, a glove lost. Still dressed.
+- **CUT 2**: clearly more revealing: outer layers off, down to a fitted top or bralette and shorts or stockings, one strap slipping, bare shoulders, midriff and thighs.
+- **CUT 3**: the boldest. **No clothing and no underwear visible on her torso.** She is covered only by her own hands and arms, her hair, a turned shoulder or raised knee, or one prop named in the cut (her scarf, a fur blanket, a robe sliding off, a towel, steam). The pose must look natural and unposed, a private moment, not a pin-up presented to the camera. Keep one signature item on her (scarf, dog tags, glasses, goggles, earrings, armband) so she is still recognisably herself.
+
+### Limits (never cross)
+Implied only. Nipples, areolae and genitals are never visible in any cut: always fully hidden by hands, arms, hair, pose or the prop. No sexual acts, no touching between characters beyond leaning or an arm around a shoulder. Everyone is an adult woman in her late twenties.
 
 ---
 
 ## THIS STAGE
 
 **Characters**
-- RAVEN — short messy black hair, sharp amber eyes, signature long red scarf, black tactical gear with red trim. References: `refs/raven_0.jpg`, `refs/raven_3.jpg`, `refs/raven_4.jpg`, `refs/raven_6.jpg`.
+- **RAVEN — short messy black hair with long side bangs, sharp red-brown eyes, pale skin, lean athletic build, cool and unreadable expression, small silver pendant. Signature colour #FF3B52. Tactical outfit: matte black tactical bodysuit with red piping, chest rig, thigh holster, combat boots, fingerless red hand wraps, and her signature long tattered crimson scarf**. Sheet: `agents/sheet_raven.jpg`.
 
 **Place.** 18:40, Christmas Eve. A snowy city-hall square Christmas market: rows of wooden stalls with red-and-white striped awnings and snow on the roofs, a giant decorated tree ringed by a low fence with a pile of wrapped gifts at its foot, a lit carousel, a frozen fountain, a small wooden stage with red curtains, an arched stone gate, iron street lamps, garlands and wreaths on the surrounding arcades.
 
 **What happens.** She goes in alone and lifts Santa's delivery list from the gift pile under the tree. The square is full of civilians, so nobody dies tonight.
 
-**Tone.** Christmas Eve night. Winter mission outfits with fur trim and each agent's accent colour, breath in the cold, snow everywhere.
+**Tone.** Christmas Eve night. Each agent's tactical outfit from her sheet, winterised with fur trim, breath in the cold, snow everywhere.
 
 ## THE FOUR CUTS
 
@@ -69,9 +75,9 @@ Dynamic action shot with a strong diagonal tilt, medium-full, camera high and to
 
 ### CUT 2 — `r_W-1_2` — TEASE
 
-Medium close-up from the waist up, camera slightly above eye level, shallow depth of field. She leans back on her elbows against a closed stall counter, head tilted to her right, looking straight into the lens with one eyebrow raised and a slow smirk, pulling the red scarf down off her mouth with two fingers. Winter jacket slipped off one shoulder over a fitted black top, a steaming cup of mulled wine by her hand, a stolen Santa hat hooked on a finger. Colour key: warm amber and candy red, carousel lights spinning into bokeh behind her. Foreground: a blurred garland with baubles.
+Medium close-up from the waist up, camera slightly above eye level, shallow depth of field. She leans back on her elbows against a closed stall counter, head tilted to her right, looking straight into the lens with one eyebrow raised and a slow smirk, pulling the red scarf down off her mouth with two fingers. Winter jacket hanging off both elbows over a black bralette, bare shoulders and midriff, a steaming cup of mulled wine by her hand, a stolen Santa hat hooked on a finger. Colour key: warm amber and candy red, carousel lights spinning into bokeh behind her. Foreground: a blurred garland with baubles.
 
 ### CUT 3 — `r_W-1_3` — PRIVATE NIGHT
 
-Intimate interior, full figure, camera low at floor level in three-quarter view from her right side. A small attic room above the square, fairy lights around a frosted window, a tiny tree, a wool blanket. She sits sideways on the window sill, one knee drawn up, in red-and-black lace lingerie with a fur-trimmed robe falling open at the shoulders and the scarf loose round her neck. She does not look at the camera: her head is turned toward the window, eyes half closed, a quiet private smile, the unopened envelope on the sill beside her. Colour key: firelight amber inside against blue snowlight from the window.
+Intimate interior, full figure, camera low at floor level in three-quarter view from her right side. A small attic room above the square, fairy lights around a frosted window, a tiny tree, a wool blanket. She sits sideways on the window sill, one knee drawn up, wearing nothing but her long red scarf, which drapes down her front, one arm folded across her chest; a fur-trimmed robe has slid off onto the sill behind her. She does not look at the camera: her head is turned toward the window, eyes half closed, a quiet private smile, the unopened envelope on the sill beside her. Colour key: firelight amber inside against blue snowlight from the window.
 

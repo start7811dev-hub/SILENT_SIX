@@ -16,7 +16,7 @@
 You are producing four pieces of premium key art for one stage of a game. They will be shown side by side as a set, so they must look like **four different illustrations by the same artist**, not four takes of one pose.
 
 ### Files
-- `refs/` — reference images of each character. For every character there are four: `_0` front portrait, `_3` close-up, `_4` dynamic action, `_6` combat. Use them for **identity** (face, hair, build, signature colours) and for **art style**.
+- `AGENTS.md` and `agents/sheet_<name>.jpg` — the cast bible. Each sheet has three labelled panels: `NAME-A` face (identity, this wins), `NAME-B` glam, `NAME-C` tactical outfit, plus her signature colour. Characters are referred to by code name. Read AGENTS.md first.
 - `look/` — four finished images from this game. They set the **quality bar**: level of detail, lighting, rendering finish. Match that finish. Do not copy their poses or compositions.
 
 ### Output
@@ -41,22 +41,28 @@ The four cuts are specified with a different **shot size, camera angle, head ang
 - the character must not simply stand facing the camera in more than one image;
 - the colour key changes from cut to cut as written.
 
-### Limits
-Sensual and glamorous is welcome, but everyone stays covered: no nudity, no exposed nipples or genitals, no sexual acts.
+### Wardrobe ladder — exposure rises from cut to cut
+- **CUT 0**: the full outfit, complete and intact.
+- **CUT 1**: the same outfit under stress: jacket open or torn at a shoulder, a zip pulled lower, a glove lost. Still dressed.
+- **CUT 2**: clearly more revealing: outer layers off, down to a fitted top or bralette and shorts or stockings, one strap slipping, bare shoulders, midriff and thighs.
+- **CUT 3**: the boldest. **No clothing and no underwear visible on her torso.** She is covered only by her own hands and arms, her hair, a turned shoulder or raised knee, or one prop named in the cut (her scarf, a fur blanket, a robe sliding off, a towel, steam). The pose must look natural and unposed, a private moment, not a pin-up presented to the camera. Keep one signature item on her (scarf, dog tags, glasses, goggles, earrings, armband) so she is still recognisably herself.
+
+### Limits (never cross)
+Implied only. Nipples, areolae and genitals are never visible in any cut: always fully hidden by hands, arms, hair, pose or the prop. No sexual acts, no touching between characters beyond leaning or an arm around a shoulder. Everyone is an adult woman in her late twenties.
 
 ---
 
 ## THIS STAGE
 
 **Characters**
-- BRICK — strong athletic build, taped hands, breacher gear with orange accents, a sledgehammer. References: `refs/brick_0.jpg`, `refs/brick_3.jpg`, `refs/brick_4.jpg`, `refs/brick_6.jpg`.
-- GLITCH — dark hair with teal highlights, glasses, headphones around the neck, teal-lit tech gear, a small recon drone. References: `refs/glitch_0.jpg`, `refs/glitch_3.jpg`, `refs/glitch_4.jpg`, `refs/glitch_6.jpg`.
+- **BRICK — very short bleached-blonde buzz cut, deep brown skin, amber eyes, powerful muscular build, orange goggles pushed up on her head, confident wide grin, dog tags. Signature colour #FF8A2A. Tactical outfit: heavy black breacher gear with orange accents, armoured vest, orange-banded gloves, belt of breaching charges, reinforced boots, a sledgehammer or a ballistic shield**. Sheet: `agents/sheet_brick.jpg`.
+- **GLITCH — black hair in a messy top bun with teal-dyed tips and a shaved side, large round glasses, teal eyes, fair skin, playful grin, headphones around the neck. Signature colour #3FE0E0. Tactical outfit: black tech jacket with glowing teal circuit lines over a fitted top, cargo pants with teal stitching, fingerless gloves with a wrist console, small recon drones hovering near her**. Sheet: `agents/sheet_glitch.jpg`.
 
 **Place.** 20:10. A freight rail yard at night in falling snow: long lines of red, green and blue boxcars with snow on their roofs, rails and sleepers on gravel, lamp-lit gaps between cars, a brick signal cabin with a chimney, two tall floodlight towers, a chain-link fence, stacked crates and timber, one boxcar glowing teal with gift-wrapped crates inside.
 
 **What happens.** The breacher and the hacker find the one marked boxcar among dozens, kill the floodlights, and blow Santa's crates.
 
-**Tone.** Christmas Eve night. Winter mission outfits with fur trim and each agent's accent colour, breath in the cold, snow everywhere.
+**Tone.** Christmas Eve night. Each agent's tactical outfit from her sheet, winterised with fur trim, breath in the cold, snow everywhere.
 
 ## THE FOUR CUTS
 
@@ -70,9 +76,9 @@ Action shot, hard diagonal, camera low and close beside the boxcar wall looking 
 
 ### CUT 2 — `r_W-2_2` — TEASE
 
-Medium two-shot at eye level, camera straight on. They sit in an open boxcar door, legs dangling, winter jackets open over tank tops. BRICK leans back on one arm, chin up, grinning wide straight at the viewer, a thermos lid in her taped hand. GLITCH leans against her shoulder, head tilted the other way, looking at the viewer over the top of her glasses with a teasing sideways smile, a ribbon from a gift box wound round her fingers, a Santa hat on her knee. Colour key: warm lantern gold inside the car, blue snow outside, sparks drifting past in the foreground.
+Medium two-shot at eye level, camera straight on. They sit in an open boxcar door, legs dangling, jackets tied round their waists, down to sports bralettes, bare midriffs steaming in the cold. BRICK leans back on one arm, chin up, grinning wide straight at the viewer, a thermos lid in her taped hand. GLITCH leans against her shoulder, head tilted the other way, looking at the viewer over the top of her glasses with a teasing sideways smile, a ribbon from a gift box wound round her fingers, a Santa hat on her knee. Colour key: warm lantern gold inside the car, blue snow outside, sparks drifting past in the foreground.
 
 ### CUT 3 — `r_W-2_3` — PRIVATE NIGHT
 
-Intimate interior, camera high, looking down at an angle into a warm caboose: iron stove, wool blankets, fairy lights along the ceiling, frosted windows. Both wear festive red-and-white lingerie with fur trim. BRICK sits on the floor against the bench, one knee up, head turned in profile toward the stove, eyes closed, calm, warming her taped hands. GLITCH lies along the bench above her on her stomach, Santa hat tipped over one eye, chin on her folded arms, looking down at BRICK with a soft sleepy smile. Neither looks at the camera. Colour key: stove amber and deep red shadow.
+Intimate interior, camera high, looking down at an angle into a warm caboose: iron stove, wool blankets, fairy lights along the ceiling, frosted windows. Neither wears a top: each is wrapped only in a loose wool blanket slipping off bare shoulders and back. BRICK sits on the floor against the bench, one knee up, head turned in profile toward the stove, eyes closed, calm, warming her taped hands. GLITCH lies along the bench above her on her stomach, Santa hat tipped over one eye, chin on her folded arms, looking down at BRICK with a soft sleepy smile. Neither looks at the camera. Colour key: stove amber and deep red shadow.
 

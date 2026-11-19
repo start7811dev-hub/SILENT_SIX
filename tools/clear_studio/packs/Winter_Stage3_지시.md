@@ -16,7 +16,7 @@
 You are producing four pieces of premium key art for one stage of a game. They will be shown side by side as a set, so they must look like **four different illustrations by the same artist**, not four takes of one pose.
 
 ### Files
-- `refs/` — reference images of each character. For every character there are four: `_0` front portrait, `_3` close-up, `_4` dynamic action, `_6` combat. Use them for **identity** (face, hair, build, signature colours) and for **art style**.
+- `AGENTS.md` and `agents/sheet_<name>.jpg` — the cast bible. Each sheet has three labelled panels: `NAME-A` face (identity, this wins), `NAME-B` glam, `NAME-C` tactical outfit, plus her signature colour. Characters are referred to by code name. Read AGENTS.md first.
 - `look/` — four finished images from this game. They set the **quality bar**: level of detail, lighting, rendering finish. Match that finish. Do not copy their poses or compositions.
 
 ### Output
@@ -41,22 +41,28 @@ The four cuts are specified with a different **shot size, camera angle, head ang
 - the character must not simply stand facing the camera in more than one image;
 - the colour key changes from cut to cut as written.
 
-### Limits
-Sensual and glamorous is welcome, but everyone stays covered: no nudity, no exposed nipples or genitals, no sexual acts.
+### Wardrobe ladder — exposure rises from cut to cut
+- **CUT 0**: the full outfit, complete and intact.
+- **CUT 1**: the same outfit under stress: jacket open or torn at a shoulder, a zip pulled lower, a glove lost. Still dressed.
+- **CUT 2**: clearly more revealing: outer layers off, down to a fitted top or bralette and shorts or stockings, one strap slipping, bare shoulders, midriff and thighs.
+- **CUT 3**: the boldest. **No clothing and no underwear visible on her torso.** She is covered only by her own hands and arms, her hair, a turned shoulder or raised knee, or one prop named in the cut (her scarf, a fur blanket, a robe sliding off, a towel, steam). The pose must look natural and unposed, a private moment, not a pin-up presented to the camera. Keep one signature item on her (scarf, dog tags, glasses, goggles, earrings, armband) so she is still recognisably herself.
+
+### Limits (never cross)
+Implied only. Nipples, areolae and genitals are never visible in any cut: always fully hidden by hands, arms, hair, pose or the prop. No sexual acts, no touching between characters beyond leaning or an arm around a shoulder. Everyone is an adult woman in her late twenties.
 
 ---
 
 ## THIS STAGE
 
 **Characters**
-- VIPER — long silver-lavender hair, cool half-lidded gaze, purple-accented sniper suit, long suppressed rifle. References: `refs/viper_0.jpg`, `refs/viper_3.jpg`, `refs/viper_4.jpg`, `refs/viper_6.jpg`.
-- DOC — dark curly hair tied up high, hoop earrings, tattooed forearm, lime-green medic accents, a tranquilizer dart pistol. References: `refs/doc_0.jpg`, `refs/doc_3.jpg`, `refs/doc_4.jpg`, `refs/doc_6.jpg`.
+- **VIPER — short silver-white hair swept to one side with an undercut, violet eyes, pale skin, tall slim build, cold half-lidded gaze, dog tags. Signature colour #B98CFF. Tactical outfit: black sniper bodysuit with violet seams, hooded short jacket, thigh straps, knee-high boots, purple fingerless gloves, a long suppressed sniper rifle, a violet neck scarf**. Sheet: `agents/sheet_viper.jpg`.
+- **DOC — dark curly hair tied up high with loose strands, green-hazel eyes, tan skin, full-sleeve tattoos on both arms, hoop earrings, dog tags, teasing confident smile. Signature colour #9BE23A. Tactical outfit: black tactical harness bodysuit with lime-green straps, a medic-cross armband, thigh pouches of syringes, fingerless gloves, a tranquilizer dart pistol; off duty a white lab coat**. Sheet: `agents/sheet_doc.jpg`.
 
 **Place.** 22:30. A vast frozen lake under a full moon in a blizzard: cracked blue ice with wind-blown snow streaks, small ice-fishing huts with lit windows, a wooden pier with lanterns, a timber boathouse, a lakeside lodge, sleds and barrels on the shore, bare birch trees and snow-covered rocks.
 
 **What happens.** The sniper covers the open ice while the medic crosses in the blizzard to reach a wounded witness held in the boathouse.
 
-**Tone.** Christmas Eve night. Winter mission outfits with fur trim and each agent's accent colour, breath in the cold, snow everywhere.
+**Tone.** Christmas Eve night. Each agent's tactical outfit from her sheet, winterised with fur trim, breath in the cold, snow everywhere.
 
 ## THE FOUR CUTS
 
@@ -70,9 +76,9 @@ Extreme action close shot split by depth. Foreground, very close and low: VIPER 
 
 ### CUT 2 — `r_W-3_2` — TEASE
 
-Medium shot, camera low at knee height looking up, inside the boathouse doorway with the lake behind. DOC kneels facing the viewer, pulling a lime-green glove off with her teeth, eyes up at the lens, a wicked playful grin, parka open over a fitted top. VIPER stands behind her leaning on the door frame, arms crossed, looking down at the viewer sideways with one eyebrow lifted and a cool smirk, the rifle propped beside her. Colour key: lantern gold inside, blue blizzard outside, steam of breath.
+Medium shot, camera low at knee height looking up, inside the boathouse doorway with the lake behind. DOC kneels facing the viewer, pulling a lime-green glove off with her teeth, eyes up at the lens, a wicked playful grin, parka open over a lime bralette. VIPER stands behind her leaning on the door frame, arms crossed, looking down at the viewer sideways with one eyebrow lifted and a cool smirk, the rifle propped beside her. Colour key: lantern gold inside, blue blizzard outside, steam of breath.
 
 ### CUT 3 — `r_W-3_3` — PRIVATE NIGHT
 
-Intimate interior seen through a foreground of blurred fairy lights, camera at eye level from the side. A lodge room with a stone fireplace, fur rugs, a small tree. VIPER lies on her back on the rug in violet-and-white festive lingerie with a fur shrug, one arm over her head, eyes on the ceiling, lips parted in a slow exhale. DOC sits beside her in red-and-lime lingerie with a ribbon choker, leaning on one hand, looking down at VIPER and brushing a strand of silver hair from her face, a tender smile. Neither looks at the camera. Colour key: deep fire orange and plum shadow.
+Intimate interior seen through a foreground of blurred fairy lights, camera at eye level from the side. A lodge room with a stone fireplace, fur rugs, a small tree. VIPER lies on her back on the rug bare under a white fur throw that covers her from the chest down, one arm over her head, the other hand holding the fur to her chest, eyes on the ceiling, lips parted in a slow exhale. DOC sits beside her bare-backed, seen from behind in three-quarter view with her knees drawn up and one arm across her chest, a ribbon choker and her hoop earrings on, leaning on one hand, looking down at VIPER and brushing a strand of silver hair from her face, a tender smile. Neither looks at the camera. Colour key: deep fire orange and plum shadow.
 
