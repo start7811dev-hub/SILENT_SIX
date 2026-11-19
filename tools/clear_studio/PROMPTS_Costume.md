@@ -1,7 +1,7 @@
 # SILENT SIX — 코스튬 미션 클리어 이미지 프롬프트 (ChatGPT용)
 
 요원 6명 × 4장. 새 채팅에 **공통 지시**를 먼저 붙여 넣고, 요원 블록 하나와 참조 이미지(`a_요원_0.jpg`)를 함께 보낸다.
-파일명 `r_C-요원_번호` (0 클리어 · 1 전투 · 2 도발 · 3 고자극). 게임에는 코스튬 미션이 아직 없어, 만들어 두면 미션이 열릴 때 붙인다.
+파일명 `r_C-요원_번호` (0 클리어 · 1 전투 · 2 도발 · 3 고자극). 미션 설계는 `docs/COSTUME.md`. 요원마다 장소가 다르다.
 
 ## 공통 지시
 
@@ -27,7 +27,7 @@ All characters are adult women in their late twenties. Sensual and glamorous is 
 ```
 MISSION C-doc
 Characters: reference image 1 = DOC (dark curly hair tied up high, hoop earrings, tattooed forearm, lime-green medic accents, tranquilizer dart pistol).
-Setting: A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.
+Setting: A private cosmetic clinic and spa for the very rich at night: white marble, lime-green accent light, a turquoise spa pool, orchids, soft steam.
 What this mission is about: Costume mission. She infiltrates in costume: a glossy white-and-lime nurse-inspired corset outfit with a short cropped jacket, long gloves and a medic-cross choker.
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
@@ -44,7 +44,7 @@ Image #3 — file name r_C-doc_3 — The most daring version of the same costume
 ```
 MISSION C-raven
 Characters: reference image 1 = RAVEN (short messy black hair, sharp eyes, signature red scarf, black tactical gear).
-Setting: A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.
+Setting: A circular show arena on a matador-themed gala night: a sand ring under spotlights, red drapes and gold trim, banked seats in shadow, stage smoke.
 What this mission is about: Costume mission. She infiltrates in costume: a red-and-black matador-inspired stage outfit with her signature scarf.
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
@@ -61,7 +61,7 @@ Image #3 — file name r_C-raven_3 — The most daring version of the same costu
 ```
 MISSION C-viper
 Characters: reference image 1 = VIPER (silver-lavender hair, cool gaze, purple-accented sniper suit, long suppressed rifle).
-Setting: A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.
+Setting: An indoor ice rink during a gala figure-skating show: violet and silver spotlights on the ice, frost haze, rink boards, glitter in the air.
 What this mission is about: Costume mission. She infiltrates in costume: a violet-and-silver ice-queen figure-skating-inspired outfit.
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
@@ -78,7 +78,7 @@ Image #3 — file name r_C-viper_3 — The most daring version of the same costu
 ```
 MISSION C-glitch
 Characters: reference image 1 = GLITCH (dark hair with teal highlights, glasses, headphones around the neck, small recon drone).
-Setting: A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.
+Setting: Backstage of a huge concert dome during an idol show: the back of a giant LED wall, teal lasers, flight cases and cables, magenta light leaking through.
 What this mission is about: Costume mission. She infiltrates in costume: a teal neon cyber-idol stage outfit with a holographic visor.
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
@@ -95,7 +95,7 @@ Image #3 — file name r_C-glitch_3 — The most daring version of the same cost
 ```
 MISSION C-brick
 Characters: reference image 1 = BRICK (strong athletic build, breacher gear, orange accents).
-Setting: A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.
+Setting: A luxury hotel ballroom converted for a championship title fight: a boxing ring under a hard white light, dinner tables, orange and black bunting, chandeliers.
 What this mission is about: Costume mission. She infiltrates in costume: an orange-and-black boxing-champion outfit with a robe and wrapped fists.
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
@@ -112,7 +112,7 @@ Image #3 — file name r_C-brick_3 — The most daring version of the same costu
 ```
 MISSION C-mirage
 Characters: reference image 1 = MIRAGE (long dark wavy hair, elegant and poised, gold accents).
-Setting: A theater backstage and its dressing room, vanity mirrors ringed with warm bulbs, costume racks, a neon accent light.
+Setting: A private penthouse casino at night: green baize tables, a roulette wheel, a gold-lit bar, black marble, city lights through tall windows.
 What this mission is about: Costume mission. She infiltrates in costume: a gold-and-black casino-dealer outfit with a bow tie and long gloves.
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
