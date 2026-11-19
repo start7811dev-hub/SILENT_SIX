@@ -92,15 +92,7 @@ def add(**k):
     MAPS.append(k)
 
 
-# ───────────────────────── 스토리 S1 · EP1 · 06
-add(id='s1_06', pack='story', file='bg6.jpg', ko='스토리 S1-06 · 마지막 한 명 — 격리 병동', size=P,
-    raw=["################", "#....#.....#...#", "#.CC.#..C..#.X.#", "#....#.....#...#", "#....#.....#...#", "##.#####.####.##",
-         "#..............#", "#..............#", "#.CC..CC..CC...#", "#..............#", "#..............#", "####.######.####",
-         "#......#.......#", "#.CC...#..CC...#", "#......#.......#", "#......#.......#", "#.C....#....C..#", "###.#######.####",
-         "#..............#", "#..C......C....#", "#..............#", "################"],
-    S=[(1, 20), (2, 20), (1, 19), (2, 19)], X=(13, 2),
-    scene="The interior of a sealed hospital isolation ward at night, roof removed. Sterile white-and-teal corridors, glass-walled patient rooms, plastic quarantine curtains, a nurses' station hall in the middle, an intensive-care room at the far end. Cold fluorescent light, a few flickering tubes, green emergency signs.",
-    leg={'#': 'ward walls with observation windows and sealed doors frames (door gaps stay open)', 'C': 'hospital beds, gurneys, medicine carts and the nurses\' desks', 'X': 'the informant\'s intensive-care bed with monitors and an IV stand', 'S': 'the airlock entrance (floor decal only)'})
+# 스토리 S1-06 은 그림을 먼저 받고 그림에서 충돌을 따 넣었다(tools/map/trace_s1_06). 가이드 없음.
 
 # ───────────────────────── 로맨틱 18
 add(id='raven_1', pack='romantic', file='bgp_raven_1.jpg', ko='RAVEN TAKE 1 · 빈자리 — 폭우 속 폐광촌', size=Q, border='B',

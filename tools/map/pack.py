@@ -9,7 +9,6 @@ import maps as MP, guide as G
 HERE = os.path.dirname(os.path.abspath(__file__))
 PUB = os.path.join(HERE, '..', '..', 'public')
 PACKS = {
-    'story': ('SILENT6_Map_Story_S1-06', '스토리 미션 시즌 1 · 에피소드 1 · 스테이지 6 맵 (1장)'),
     'romantic': ('SILENT6_Map_Romantic', '로맨틱 미션 맵 (요원 6명 × TAKE 3 = 18장)'),
     'winter': ('SILENT6_Map_BloodyChristmas', '블러디 크리스마스 맵 (5장)'),
     'costume': ('SILENT6_Map_Costume_v2', '코스튬 미션 맵 v2 — 큰 맵 (6장)'),
