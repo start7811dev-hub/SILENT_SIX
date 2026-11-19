@@ -756,7 +756,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.23.2';
+var VERSION='0.24.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -869,16 +869,31 @@ function vis(i){return !CFG.hide[MIS[i].key];}
 function mimg(i){return CFG.img[MIS[i].key]||MIS[i].img;}
 (function(){var i;for(i=0;i<NBASE;i++)MIS[i].key='S1-0'+(i+1);Object.keys(SIDX).forEach(function(id){SIDX[id].forEach(function(mi,ci){MIS[mi].key='P-'+id+'-'+(ci+1);});});})();
 var WINTER=[
- {b:0,t:'첫 번째 상자',copy:'선물은<br>사람이었다.',pre:'성탄 전야. 헬리오스의 배달 책임자, 통칭 산타가 하룻밤에 다섯 곳을 돈다. 첫 곳은 항구 창고. 상자 대신 사람이 묶여 있다.',post:['배달부를 데리고 나왔다.','그가 다음 배달지를 불었다. 산 위 통신 기지.'],bc:'nokill',img:'a_raven_5.jpg'},
- {b:1,t:'끊긴 캐럴',copy:'오늘 밤 방송은<br>여기까지.',pre:'통신 기지에서 캐럴에 섞어 배달 신호를 쏜다. 장비를 끊으면 산타는 눈이 먼다.',post:['캐럴이 끊겼다.','신호가 향하던 곳은 시내 사무실이었다.'],ol:'송출 장비',ov:'파괴',bc:'onesnipe',img:'a_viper_5.jpg'},
- {b:2,t:'야근',copy:'불 켜진 층은<br>하나뿐이다.',pre:'성탄 전야에 야근하는 사무실. 서버에 오늘 밤 받을 사람 명단이 있다.',post:['명단을 떴다.','상자는 전부 폐광에서 나온다.'],ol:'배달 명단',ov:'복사',bc:'noinv',img:'a_glitch_4.jpg'},
- {b:3,t:'폭죽',copy:'불꽃놀이는<br>우리가 한다.',pre:'폐광 창고에 포장을 기다리는 상자가 쌓여 있다. 전부 터뜨린다.',post:['상자는 한 개도 남지 않았다.','빈손이 된 산타는 후원자 저택으로 갔다.'],ol:'상자 창고',ov:'폭약 설치',bc:'noload',img:'a_brick_5.jpg'},
- {b:4,t:'마지막 집',copy:'굴뚝으로는<br>안 들어간다.',pre:'저택의 성탄 파티. 금고에 산타의 장부가 있다. 워든이 서 있다.',post:['장부를 들고 나왔다.','아침 신문에는 아무 일도 실리지 않았다. 메리 크리스마스.'],ol:'산타의 장부',ov:'회수',bc:'ghost',img:'a_mirage_5.jpg'}];
+ {t:'첫 번째 상자',copy:'선물은<br>명단이었다.',pre:'18:40, 시청 앞 크리스마스 마켓. 헬리오스의 배달 책임자, 통칭 산타가 오늘 밤 다섯 곳을 돈다. 첫 명단은 대형 트리 아래 선물 더미에 있다. 민간인이 많다. 아무도 죽이지 않는다.',post:['명단을 들고 광장을 빠져나왔다.', '다음 배달지는 화물 조차장, 화차 44호다.'],bc:'nokill',img:'a_raven_5.jpg',par:150,
+  m:{bg:'bgw1.jpg',sk:0.44,wake:90,opaque:'#BT',hts:{'#': 50, 'B': 80, 'T': 120, 'C': 28, 'X': 24, 'V': 0},proj:[36.0, -36.0, 768.0, 18.0, 18.0, 200.0, 0.0, -0.0, 1.0],MAP:["############BB#####", "#VVVVCCCC...BBB.C##", "#VVVVCCCCCCBBBB.C##", "#VVV..CC.C..BBB..##", "#VVV.....C...C..C##", "#..C....C...CC.CC##", "#.CC....C...C....##", "#.C....TTTT...C..##", "#..C.CCTTTT...C..##", "#.CC...TTTT..CC..##", "#CC....TTTT..C...##", "#.C.CC........C..##", "#...CC..X....CC..##", "#C.CC......C.....##", "#CC.....CC.C.....##", "#C...C.CC.CC.....##", "#...CC...........##", "###################", "###################"],
+  ops:[{id:'raven',x:14,y:15}],exit:[[14, 15], [15, 14], [14, 14], [15, 15]],objective:{x:8,y:12,use:[9,12],label:'배달 명단',verb:'회수',time:3},
+  guards:[{wps:[[11,4],[11,7]]},{wps:[[4,4],[4,9]]},{wps:[[13,6],[16,6]]},{wps:[[1,16],[6,16]]},{wps:[[10,4]],faces:[1.57,3.14],ft:5}]}},
+ {t:'화차 44호',copy:'노크는<br>한 번만 한다.',pre:'20:10, 화물 조차장. 화차 수십 량 가운데 한 량에만 산타의 상자가 실려 있다. 화차 사이 틈으로만 건널 수 있다.',post:['화차 44호가 통째로 날아갔다.', '남은 상자는 얼어붙은 호수의 보트하우스로 갔다.'],bc:'noload',img:'a_brick_5.jpg',par:240,
+  m:{bg:'bgw2.jpg',sk:0.42,wake:90,opaque:'#B',hts:{'#': 60, 'B': 46, 'C': 18, 'X': 46},proj:[35.574618746, -35.872892679, 599.89148668, 12.742952471, 13.104308189, 122.419621299, 0.001329182, -0.014388236, 1.0],MAP:["BBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBXBBBBBBBBBBBB", "..............C...CC......", ".....CC............CC.....", "..........................", "BBBBBBBBB.BBBBBBB.BBBBBBBB", "BBBBBBBBB.####BBB.BBBBBBBB", "..........####........CC..", "...CC....B####........CC..", "..........####C.BBBBBBBBBB", "BBBB.BBBBB####..BBBBBBBBBB", "BBBB.BBBBBB.....C.........", "...CC..C........C.........", "..........................", "BBBBBBBBBBBBBBBBBB.BBBBBBB", "BBBBBBBBBBBBBBBBBB.BBBBBBB"],
+  ops:[{id:'brick',x:18,y:17},{id:'glitch',x:18,y:16}],exit:[[18, 17], [18, 16], [18, 15]],objective:{x:13,y:3,use:[13,4],label:'화차 44호',verb:'폭약 설치',time:4},
+  guards:[{wps:[[1,6],[24,6]]},{wps:[[0,9],[8,9]]},{wps:[[15,10],[21,10]]},{wps:[[1,15],[16,15]]},{wps:[[24,5]],tower:true,faces:[3.14,2.7],ft:6}]}},
+ {t:'얼음 위의 선물',copy:'숨을 곳이<br>없는 밤.',pre:'22:30, 얼어붙은 호수. 상자를 본 증인이 건너편 보트하우스에 갇혀 있다. 얼음 위에는 오두막 몇 채뿐이다.',post:['증인은 제 발로 걸어 나왔다.', '그가 본 상자는 자정 미사가 열리는 대성당으로 갔다.'],bc:'onesnipe',img:'a_viper_5.jpg',par:240,
+  m:{bg:'bgw3.jpg',sk:0.44,wake:90,opaque:'#B',hts:{'#': 46, 'B': 40, 'T': 60, 'C': 16, 'X': 16, 'R': 20},proj:[29.834972886, -36.000512789, 770.0, 15.971777748, 17.681319737, 95.0, -0.004011415, -0.003208789, 1.0],MAP:["RRRRRRRRRRR#...#....R", "R..........#..X#.CT.R", "R...B......#...#....R", "R...B......#.###....R", "R...................R", "R...................R", "R.CC................R", "R.................T.R", "R........T.........TR", "R............C....C.R", "R.BBC........C...CC.R", "R.......BB.......C..R", "R.......BB......C...R", "R................C..R", "R..............C....R", "RC........T..CC.....R", "R..#######..CC......R", "R..#................R", "R..#CC...#..........R", "RRR#CC.C.#C...RRRR.RR", "RRR#######RRRRRRRRRRR"],
+  ops:[{id:'viper',x:18,y:17},{id:'doc',x:18,y:16}],exit:[[18, 17], [18, 16], [17, 17], [17, 16]],objective:{x:14,y:1,use:[13,1],label:'증인',verb:'응급 처치',time:4,by:'doc'},
+  guards:[{wps:[[6,4],[6,13]]},{wps:[[10,6],[16,6]]},{wps:[[12,5]],faces:[1.57,2.4],ft:5},{wps:[[6,14],[10,14]]}]}},
+ {t:'자정 미사',copy:'헌금은<br>우리가 걷는다.',pre:'00:00, 대성당. 제단 옆 헌금함에 산타의 돈가방이 들어 있다. 추적기가 든 가방으로 바꿔 놓고 나온다.',post:['가방을 바꿔 놓았다.', '추적기는 사설 비행장에서 멈췄다.'],bc:'ghost',img:'a_mirage_5.jpg',par:200,
+  m:{bg:'bgw4.jpg',sk:0.42,wake:90,opaque:'#B',hts:{'#': 40, 'B': 70, 'C': 16, 'X': 20},proj:[23.933742568, -34.503012953, 870.0, 11.289363576, 10.812195952, 240.0, -0.006565184, -0.006666533, 1.0],MAP:["....XCC.C.BB.###", ".......C...B...#", "..CC..C........#", "CC...C.........#", "C.......C.B....#", ".CC....CC.....B#", "C......C.......#", "....C....C.....#", "B..CC...CC...B.#", "B..C....C..C.B.#", ".....C....CC...#", "..B.CC....C....#", "....C.......C..#", "......C....CC.B#", ".....CC....C...#", "B....C..C....CC#", "B..B.B.CC...CC##", ".......C.....###", ".........C...###", "......B.CC##....", "#.......C####...", "############...."],
+  ops:[{id:'mirage',x:13,y:20},{id:'raven',x:14,y:20}],exit:[[13, 20], [14, 20], [13, 21], [14, 21]],objective:{x:4,y:0,use:[4,1],label:'헌금함',verb:'바꿔치기',time:3},
+  guards:[{wps:[[6,6],[9,13]]},{wps:[[1,8],[2,19]]},{wps:[[13,2],[13,12]]},{wps:[[1,4]],faces:[1.57,2.6],ft:6}]}},
+ {t:'산타의 썰매',copy:'이륙은<br>없다.',pre:'03:30, 사설 비행장. 격납고의 전용기가 산타의 썰매다. 뜨기 전에 화물을 확보한다.',post:['화물칸에는 리본 묶인 빈 상자와 카드 한 장뿐이었다.', '받는 사람 칸에 6과의 과 번호가 적혀 있다. 메리 크리스마스.'],bc:'nogun',img:'a_raven_6.jpg',par:260,
+  m:{bg:'bgw5.jpg',sk:0.44,wake:90,opaque:'#BJ',hts:{'#': 90, 'B': 38, 'J': 34, 'C': 20, 'X': 22, 'H': 0},proj:[31.401033293, -35.905018616, 665.0, 16.242231499, 14.93833385, 185.0, -0.002952265, -0.002947564, 1.0],MAP:["..........HHHHHHHHHHHH", "..........HHHHHHHHHHHH", "..........HH##########", "..........HH#CCJJ..HH#", "..........HH#..JJJJHH#", "..........HH#JJJJ.JHH#", "..........HH#..J.X.HH#", ".......C..HH#..J...HH#", ".BB.BBCC..HH#......H##", ".B..B..C..HH#.......C.", "...........C#.........", "####...............CC.", "####C...BBC...........", "####....BBC...........", "####............CC....", "####.CC.........B....."],
+  ops:[{id:'raven',x:10,y:14},{id:'viper',x:11,y:14}],exit:[[10, 14], [11, 14], [10, 15], [11, 15]],objective:{x:17,y:6,use:[17,7],label:'산타의 화물',verb:'확보',time:3},
+  guards:[{wps:[[4,5],[9,5]]},{wps:[[1,1],[8,1]]},{wps:[[13,4],[13,9]]},{wps:[[18,10],[21,12]]},{wps:[[4,10]],tower:true,faces:[-1.3,-0.4],ft:6}]}}];
 var WIDX=[];
 WINTER.forEach(function(c,ci){
-  var B=MIS[c.b],m={},k;for(k in B)m[k]=B[k];
-  m.title=c.t;m.code='BLOODY CHRISTMAS // '+(ci+1)+' / 5';m.copy=c.copy;m.pre=c.pre;m.post=c.post;m.img=c.img;m.bg='bgw'+(c.b+1)+'.jpg';m.winter=true;m.season='w';m.key='W-'+(ci+1);m.bc=c.bc;
-  if(B.objective){m.objective={x:B.objective.x,y:B.objective.y,use:B.objective.use,label:c.ol,verb:c.ov,time:B.objective.time};m.goal0=c.ol+' — '+c.ov;}else m.goal0='묶여 있는 배달부를 데리고 나와라';
+  var m={},k;for(k in c.m)m[k]=c.m[k];
+  m.title=c.t;m.code='BLOODY CHRISTMAS // '+(ci+1)+' / 5';m.copy=c.copy;m.pre=c.pre;m.post=c.post;m.img=c.img;m.winter=true;m.season='w';m.key='W-'+(ci+1);m.bc=c.bc;m.par=c.par;
+  m.goal0=m.objective.label+' — '+m.objective.verb;m.goal1=m.ops.length>1?'두 명 모두 진입 지점으로 복귀':'진입 지점으로 복귀';m.brief='<ul>'+RULES+'</ul>';
   WIDX.push(MIS.length);MIS.push(m);
 });
 var SPECIAL=[
