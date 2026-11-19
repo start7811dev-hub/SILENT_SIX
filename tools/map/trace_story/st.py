@@ -42,5 +42,5 @@ def setgrid(n,ox,oy,c,r,h=46):
 def H(n):
     return OFF[n][2] if n in OFF else _H0(n)
 setgrid(4,-2,-5,25,31)
-setgrid(5,-3,-5,27,29)
+CFG[5]=(21,21,44,(768,6),(5,462),(1530,462),(768,912))
 setgrid(2,-2,-3,23,25,h=0)
