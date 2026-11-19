@@ -775,7 +775,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.27.0';
+var VERSION='0.27.1';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1868,12 +1868,13 @@ function nextScene(){
   if(SCQ.length)mk(b,'건너뛰기',function(){SCQ=[];nextScene();});
 }
 /* 대화 화면: 왼쪽 상대, 오른쪽 요원. lines=[[누구,대사],...] */
+var DPORT={}; /* 대화용 누끼가 있는 요원: d_<요원>_0.webp */
 var DLGON=false,DLQ=[],DLD=null,DLGM=-1,DCAST={hq:{n:'지휘관',c:'#c9d2dc'},santa:{n:'산타',c:'#e0364f',side:'l'}};
-function dlgWho(k){var d=DCAST[k]||{},o=OPD[k],cast=(M.dlg&&M.dlg.cast)||{};return {n:d.n||(o?o.n:k),c:d.c||(o?o.col:'#fff'),side:d.side||(o?'r':''),img:cast[k]||(o?'a_'+k+'_6.jpg':''),card:!cast[k]&&!!o};}
+function dlgWho(k){var d=DCAST[k]||{},o=OPD[k],cast=(M.dlg&&M.dlg.cast)||{};return {n:d.n||(o?o.n:k),c:d.c||(o?o.col:'#fff'),side:d.side||(o?'r':''),img:cast[k]||(DPORT[k]?'d_'+k+'_0.webp':''),card:false};}
 function dlg(lines,done){
   DLQ=lines.slice();DLD=done||null;DLGON=true;var L=$('dgl'),R=$('dgr'),seen={l:'',r:''};
   lines.forEach(function(x){var w=dlgWho(x[0]);if(w.side&&!seen[w.side])seen[w.side]=x[0];});
-  [['l',L],['r',R]].forEach(function(a){var w=seen[a[0]]?dlgWho(seen[a[0]]):null;a[1].className=w?(w.card?'card':''):'off';if(w){a[1].src=w.img;if(w.card&&a[1].style)a[1].style.objectPosition=fp(w.img);}a[1].setAttribute&&a[1].setAttribute('data-w',seen[a[0]]||'');});
+  [['l',L],['r',R]].forEach(function(a){var w=seen[a[0]]?dlgWho(seen[a[0]]):null;a[1].className=w&&w.img?'':'off';if(w){a[1].src=w.img;if(w.card&&a[1].style)a[1].style.objectPosition=fp(w.img);}a[1].setAttribute&&a[1].setAttribute('data-w',seen[a[0]]||'');});
   $('dlg').className='';dlgNext();
 }
 function dlgNext(){
@@ -1881,7 +1882,7 @@ function dlgNext(){
   var w=dlgWho(x[0]),el=$('dlg'),L=$('dgl'),R=$('dgr'),t=w.side==='l'?L:w.side==='r'?R:null;
   if(el.style&&el.style.setProperty)el.style.setProperty('--c',w.c);
   if(t&&t.getAttribute&&t.getAttribute('data-w')!==x[0]){t.src=w.img;t.setAttribute('data-w',x[0]);if(t.style)t.style.objectPosition=w.card?fp(w.img):'bottom';}
-  [L,R].forEach(function(e){var c=(e.className||'').replace(/ ?on/,'');if(c==='off')return;if(e===t)c=(w.card?'card':'')+' on';e.className=c;});
+  [L,R].forEach(function(e){var c=(e.className||'').replace(/ ?on/,'');if(c==='off')return;if(e===t)c='on';e.className=c;});
   $('dgn').textContent=w.n;$('dgt').textContent=x[1];
 }
 if($('dlg').addEventListener)$('dlg').addEventListener('click',function(e){if(e.target&&e.target.id==='dgs'){DLQ=[];}dlgNext();});
@@ -2053,6 +2054,7 @@ function scoreCalc(){
   return {rows:r,sum:sum,mult:mult,score:Math.round(sum*mult),grade:sum>=6500?'S':sum>=5000?'A':sum>=3500?'B':'C'};
 }
 function result(){
+  setPre(true); /* 결과 화면에서는 조작 패널을 내린다 */
   var fresh=!PROG.c[MI],s=fl(S.t),sc=scoreCalc(),bl=badgeList(),got=PROG.b[MI]||(PROG.b[MI]=[false,false,false]),nw=0,best=false;
   var pc=PROG.c[MI]||(PROG.c[MI]={}),ps=PROG.s[MI]||(PROG.s[MI]={});
   if(!(pc[DIFF]<=s))pc[DIFF]=s;if(!(ps[DIFF]>=sc.score)){ps[DIFF]=sc.score;best=true;}
