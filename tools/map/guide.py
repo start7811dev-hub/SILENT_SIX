@@ -9,8 +9,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import maps as MP
 
 TW, TH, OY = 72, 36, 200
-FLAT = {'.': (46, 54, 64), '=': (150, 120, 60), '~': (60, 130, 170), 'S': (40, 190, 100), 'V': (10, 22, 48)}
-BLOCK = {'#': ((150, 160, 175), 46), 'B': ((70, 150, 125), 40), 'C': ((190, 145, 80), 22), 'W': ((235, 205, 50), 46), 'X': ((60, 235, 220), 58)}
+FLAT = {'.': (46, 54, 64), '=': (150, 120, 60), '~': (60, 130, 170), 'S': (40, 190, 100), 'V': (10, 22, 48), 'N': (225, 80, 170)}
+BLOCK = {'#': ((150, 160, 175), 46), 'B': ((70, 150, 125), 40), 'C': ((190, 145, 80), 22), 'W': ((235, 205, 50), 46), 'X': ((60, 235, 220), 58), 'D': ((60, 235, 220), 58)}
 BG = (6, 8, 11)
 
 
@@ -19,8 +19,8 @@ def rows_of(m):
 
 
 def proj(m):
-    cols, rows = m['size']
-    return [TW / 2, -TW / 2, 84 + rows * TW / 2, TH / 2, TH / 2, OY, 0, 0, 1]
+    cols, rows = m['size']; tw = m.get('tw', TW)
+    return [tw / 2, -tw / 2, (1536 - (cols + rows) * tw / 2) / 2 + rows * tw / 2, tw / 4, tw / 4, OY, 0, 0, 1]
 
 
 def shade(c, k):
@@ -42,7 +42,7 @@ def render(m, path, scale=1):
             d.polygon([P(x, y), P(x + 1, y), P(x + 1, y + 1), P(x, y + 1)], fill=base, outline=shade(base, 0.8))
     cells = sorted(((x, y) for y in range(rows) for x in range(cols) if g[y][x] in BLOCK), key=lambda c: (c[0] + c[1], c[0]))
     for x, y in cells:
-        col, h = BLOCK[g[y][x]]
+        col, h = BLOCK[g[y][x]]; h = h * m.get('tw', TW) / TW
         d.polygon([P(x, y + 1), P(x + 1, y + 1), P(x + 1, y + 1, h), P(x, y + 1, h)], fill=shade(col, 0.55))
         d.polygon([P(x + 1, y), P(x + 1, y + 1), P(x + 1, y + 1, h), P(x + 1, y, h)], fill=shade(col, 0.72))
         d.polygon([P(x, y, h), P(x + 1, y, h), P(x + 1, y + 1, h), P(x, y + 1, h)], fill=col, outline=shade(col, 0.85))
@@ -52,9 +52,9 @@ def render(m, path, scale=1):
 def legend(path):
     im = Image.new('RGB', (900, 420), (18, 22, 28)); d = ImageDraw.Draw(im)
     items = [('#', 'tall wall'), ('B', 'tall solid object'), ('C', 'low cover'), ('W', 'breakable wall'), ('X', 'objective'),
-             ('.', 'floor (walkable)'), ('=', 'marked floor (walkable)'), ('~', 'wet / ice floor (walkable)'), ('S', 'entry tiles (walkable)'), ('V', 'impassable flat: water / drop')]
+             ('.', 'floor (walkable)'), ('=', 'marked floor (walkable)'), ('~', 'wet / ice floor (walkable)'), ('S', 'entry tiles (walkable)'), ('V', 'impassable flat: water / drop'), ('N', 'conversation spot (walkable)')]
     for i, (ch, t) in enumerate(items):
-        x = 30 + (i // 5) * 440; y = 30 + (i % 5) * 76
+        x = 30 + (i // 6) * 440; y = 20 + (i % 6) * 66
         col = BLOCK[ch][0] if ch in BLOCK else FLAT[ch]
         d.rectangle([x, y, x + 56, y + 56], fill=col, outline=(255, 255, 255))
         d.text((x + 74, y + 20), t, fill=(235, 238, 242))
@@ -72,6 +72,6 @@ if __name__ == '__main__':
         print('%-9s %s reach=%d/%d %s' % (m['id'], 'OK ' if ok and seen == total else 'CHK', seen, total, '' if ok else 'OBJECTIVE UNREACHABLE'))
         d = os.path.join(out, m['pack']); os.makedirs(d, exist_ok=True)
         render(m, os.path.join(d, 'guide_%s.png' % m['id']))
-        data[m['id']] = {'pack': m['pack'], 'file': m['file'], 'title': m['ko'], 'size': list(m['size']), 'proj': proj(m), 'MAP': g, 'start': [list(s) for s in m['S']], 'objective': list(m['X'])}
+        data[m['id']] = {'pack': m['pack'], 'file': m['file'], 'title': m['ko'], 'size': list(m['size']), 'proj': proj(m), 'MAP': g, 'start': [list(s) for s in m['S']], 'objective': list(m['X']), 'decoys': [list(d) for d in m.get('D', [])], 'npc': [list(n) for n in m.get('N', [])], 'cell': m.get('tw', TW)}
     legend(os.path.join(out, 'LEGEND.png'))
     json.dump(data, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'maps.json'), 'w'), ensure_ascii=False, indent=1)

@@ -12,11 +12,11 @@ PACKS = {
     'story': ('SILENT6_Map_Story_S1-06', '스토리 미션 시즌 1 · 에피소드 1 · 스테이지 6 맵 (1장)'),
     'romantic': ('SILENT6_Map_Romantic', '로맨틱 미션 맵 (요원 6명 × TAKE 3 = 18장)'),
     'winter': ('SILENT6_Map_BloodyChristmas', '블러디 크리스마스 맵 (5장)'),
-    'costume': ('SILENT6_Map_Costume', '코스튬 미션 맵 (6장)'),
+    'costume': ('SILENT6_Map_Costume_v2', '코스튬 미션 맵 v2 — 큰 맵 (6장)'),
 }
-NAMES = {'#': 'GREY tall blocks', 'B': 'GREEN tall blocks', 'C': 'TAN low blocks', 'W': 'YELLOW tall blocks', 'X': 'the single CYAN block',
-         '=': 'AMBER flat tiles', '~': 'BLUE flat tiles', 'S': 'bright GREEN flat tiles', 'V': 'dark NAVY flat tiles'}
-ORDER = '#BWCXV=~S'
+NAMES = {'#': 'GREY tall blocks', 'B': 'GREEN tall blocks', 'C': 'TAN low blocks', 'W': 'YELLOW tall blocks', 'X': 'the CYAN block(s)',
+         '=': 'AMBER flat tiles', 'N': 'PINK flat tiles', '~': 'BLUE flat tiles', 'S': 'bright GREEN flat tiles', 'V': 'dark NAVY flat tiles'}
+ORDER = '#BWCXV=~NS'
 
 HEAD = u'''# SILENT SIX — %(title)s
 
@@ -42,7 +42,7 @@ You are painting final game-map backgrounds for a real-time stealth tactics game
 - `style/style_ref_1.jpg`, `style/style_ref_2.jpg` — two finished maps from the same game. Match their rendering style, level of detail, camera and lighting quality. Do not copy their content.
 
 ### Hard rules (most important first)
-1. **Use the guide as an image reference and repaint over it.** Output must be exactly **1536x1024**, landscape, with the map diamond in the same place, same size, same camera angle (2:1 isometric, 72x36 px floor cells) as the guide. Do not rotate, zoom, crop, re-centre or change perspective.
+1. **Use the guide as an image reference and repaint over it.** Output must be exactly **1536x1024**, landscape, with the map diamond in the same place, same size, same camera angle (2:1 isometric; the floor-cell size is given per map) as the guide. Do not rotate, zoom, crop, re-centre or change perspective.
 2. **Every block stays where it is.** Each coloured block in the guide becomes one solid object with the same footprint, the same position and about the same height. Do not add, remove, merge, shift or resize blocks. Do not add any new solid object on plain floor. Small flat decoration (stains, cables, rugs, leaves, floor markings) is welcome on floor tiles as long as it clearly reads as walkable ground.
 3. **Gaps stay open.** Every opening between blocks (doorways, alleys, gates) must stay clearly open and walkable, at the same width.
 4. **Readable gameplay.** Walkable floor must be clearly distinguishable from solid objects. Tall blocks must look tall, low blocks must look waist-high. Keep floors a little brighter and calmer than the objects standing on them.
@@ -56,7 +56,8 @@ You are painting final game-map backgrounds for a real-time stealth tactics game
 - **GREEN tall blocks** — tall solid objects (meaning is given per map).
 - **TAN low blocks** — low cover, about waist height (meaning per map).
 - **YELLOW tall blocks** — breakable wall sections (only on some maps).
-- **CYAN block** — the mission objective. One per map. Make it the most eye-catching object, but keep its footprint.
+- **CYAN block** — the mission objective. Make it the most eye-catching object, but keep its footprint. Most maps have one. Where a map has three cyan blocks, paint all three as **exactly the same object**, indistinguishable from each other.
+- **PINK flat tiles** — conversation spots (only on some maps). Walkable floor. Paint a small inviting lit spot there (a rug, a pool of warm light), no person.
 - Dark checker tiles — ordinary walkable floor.
 - **AMBER flat tiles** — special walkable floor (meaning per map).
 - **BLUE flat tiles** — wet or frozen walkable floor (meaning per map).
@@ -79,12 +80,13 @@ def block(m, n):
     g = G.rows_of(m)
     used = [c for c in ORDER if any(c in r for r in g)]
     t = u'### %d. `%s` — %s\n\n' % (n, m['file'], m['ko'])
-    t += u'- Guide: `guides/guide_%s.png`\n- Output file name: `%s`\n- Grid: %d columns x %d rows\n\n' % (m['id'], m['file'], m['size'][0], m['size'][1])
+    t += u'- Guide: `guides/guide_%s.png`\n- Output file name: `%s`\n- Grid: %d columns x %d rows, floor cell %dx%d px\n\n' % (m['id'], m['file'], m['size'][0], m['size'][1], m.get('tw', 72), m.get('tw', 72) // 2)
     t += u'**Scene.** %s\n\n**What the blocks are on this map**\n' % m['scene']
     for c in used:
         if c in m['leg']:
             t += u'- %s → %s\n' % (NAMES[c], m['leg'][c])
-    t += u'\n**Layout as text** (`.` floor, other characters as in the legend; x runs down-right, y runs down-left, first character of the first line is the top corner)\n\n```\n' + '\n'.join(g) + '\n```\n\n'
+    t = t.replace('`D`', '')
+    t += u'\n**Layout as text** (`.` floor, `D` = same object as `X`, other characters as in the legend; x runs down-right, y runs down-left, first character of the first line is the top corner)\n\n```\n' + '\n'.join(g) + '\n```\n\n'
     return t
 
 

@@ -86,7 +86,7 @@ create or replace function public.s6_mission_ok(m text) returns boolean language
 $$;
 
 create or replace function public.s6_gcost(k integer) returns integer language sql immutable set search_path = public as $$
-  select case when k in (1) then 5 when k in (2,3) then 3 when k between 4 and 7 then 2 else null end
+  select case when k in (1) then 25 when k in (2,3) then 15 when k between 4 and 7 then 10 else null end
 $$;
 
 create or replace function public.s6_ensure(u uuid) returns void language sql security definer set search_path = public as $$
@@ -145,7 +145,7 @@ begin
     for k in 1..7 loop
       if not exists (select 1 from unlocks where user_id = u and item = 'g:' || p_agent || ':' || k) then cost := cost + s6_gcost(k); end if;
     end loop;
-    cost := least(cost, 15);
+    cost := least(cost, 75);
   else
     if exists (select 1 from unlocks where user_id = u and item = 'g:' || p_agent || ':' || p_k) then return s6_state(); end if;
     cost := s6_gcost(p_k);
@@ -160,6 +160,43 @@ begin
     insert into unlocks(user_id, item) select u, 'g:' || p_agent || ':' || g from generate_series(1, 7) g on conflict do nothing;
   else
     insert into unlocks(user_id, item) values (u, 'g:' || p_agent || ':' || p_k) on conflict do nothing;
+  end if;
+  return s6_state();
+end $$;
+
+-- 리워드 컷 소장(포인트 구매). kind 'n' = 로맨틱 "그날 밤" 2~6번 컷(1번은 기본 제공), kind 'c' = 코스튬 1~3번 컷(0번은 기본 제공).
+-- p_k = 0 이면 남은 컷 전부(상한가 적용). 권한: n 은 TAKE 1·2·3 모두 HARD 이상, c 는 해당 코스튬 미션 클리어.
+create or replace function public.s6_buy_cut(p_kind text, p_agent text, p_k integer) returns jsonb language plpgsql security definer set search_path = public as $$
+declare u uuid := s6_uid(); unit integer; cap integer; lo integer; hi integer; cost integer := 0; k integer; bal integer; ok boolean;
+begin
+  perform s6_ensure(u);
+  if p_agent !~ '^(raven|viper|glitch|brick|mirage|doc)$' then raise exception 'bad item'; end if;
+  if p_kind = 'n' then unit := 30; cap := 120; lo := 2; hi := 6;
+    select count(distinct mission) = 3 into ok from clears where user_id = u and diff >= 2 and mission in ('P-' || p_agent || '-1', 'P-' || p_agent || '-2', 'P-' || p_agent || '-3');
+  elsif p_kind = 'c' then unit := 50; cap := 120; lo := 1; hi := 3;
+    select exists (select 1 from clears where user_id = u and mission = 'C-' || p_agent) into ok;
+  else raise exception 'bad item'; end if;
+  if not coalesce(ok, false) then raise exception 'not eligible'; end if;
+  if p_k <> 0 and p_k not between lo and hi then raise exception 'bad item'; end if;
+  if p_k = 0 then
+    for k in lo..hi loop
+      if not exists (select 1 from unlocks where user_id = u and item = p_kind || ':' || p_agent || ':' || k) then cost := cost + unit; end if;
+    end loop;
+    cost := least(cost, cap);
+  else
+    if exists (select 1 from unlocks where user_id = u and item = p_kind || ':' || p_agent || ':' || p_k) then return s6_state(); end if;
+    cost := unit;
+  end if;
+  select pt into bal from profiles where id = u for update;
+  if bal < cost then raise exception 'not enough points'; end if;
+  if cost > 0 then
+    update profiles set pt = pt - cost, updated_at = now() where id = u;
+    insert into ledger(user_id, delta, reason, ref) values (u, -cost, 'cut', p_kind || ':' || p_agent || ':' || p_k);
+  end if;
+  if p_k = 0 then
+    insert into unlocks(user_id, item) select u, p_kind || ':' || p_agent || ':' || g from generate_series(lo, hi) g on conflict do nothing;
+  else
+    insert into unlocks(user_id, item) values (u, p_kind || ':' || p_agent || ':' || p_k) on conflict do nothing;
   end if;
   return s6_state();
 end $$;
@@ -211,6 +248,7 @@ begin
   end loop;
   for it in select jsonb_array_elements_text(coalesce(p->'unlocks', '[]'::jsonb)) limit 100 loop
     if it ~ '^g:(raven|viper|glitch|brick|mirage|doc):[1-7]$'
+       or (it ~ '^n:(raven|viper|glitch|brick|mirage|doc):[2-6]$' and (select count(distinct mission) = 3 from clears where user_id = u and diff >= 2 and mission like 'P-' || split_part(it, ':', 2) || '-%'))
        or (it ~ '^end:(raven|viper|glitch|brick|mirage|doc)$' and exists (select 1 from clears where user_id = u and mission = 'P-' || split_part(it, ':', 2) || '-3')) then
       insert into unlocks(user_id, item) values (u, it) on conflict do nothing;
     end if;
@@ -264,10 +302,10 @@ begin
 end $$;
 
 revoke all on function public.s6_uid(), public.s6_mission_ok(text), public.s6_gcost(integer), public.s6_ensure(uuid), public.s6_state(),
-  public.s6_clear(text,integer,integer,integer,integer,text), public.s6_buy(text,integer), public.s6_end(text), public.s6_name(text),
+  public.s6_clear(text,integer,integer,integer,integer,text), public.s6_buy(text,integer), public.s6_buy_cut(text,text,integer), public.s6_end(text), public.s6_name(text),
   public.s6_import(jsonb), public.s6_reset(), public.s6_rank(text,integer,integer), public.s6_cfg_set(jsonb) from public, anon, authenticated;
 grant execute on function public.s6_state(),
-  public.s6_clear(text,integer,integer,integer,integer,text), public.s6_buy(text,integer), public.s6_end(text), public.s6_name(text),
+  public.s6_clear(text,integer,integer,integer,integer,text), public.s6_buy(text,integer), public.s6_buy_cut(text,text,integer), public.s6_end(text), public.s6_name(text),
   public.s6_import(jsonb), public.s6_reset(), public.s6_cfg_set(jsonb) to authenticated;
 grant execute on function public.s6_rank(text,integer,integer) to anon, authenticated;
 

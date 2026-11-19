@@ -356,6 +356,8 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #pg .ph h2{margin:1px 0 0;font:800 25px/1.1 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:-.02em}
 #pg .ph span{font-size:11px;letter-spacing:.1em;font-weight:700;color:#aeb7c2;white-space:nowrap}
 #pg .ph span b{color:var(--c)}
+body>.tst{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:99;max-width:86vw;padding:10px 14px;border-radius:10px;background:rgba(10,14,18,.94);border:1px solid rgba(255,255,255,.14);color:#e8edf2;font:600 13px/1.4 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;text-align:center}
+#pg .cap .nba{margin-left:auto;padding:6px 10px;border:1px solid var(--c);background:rgba(255,255,255,.04);color:var(--c);font:700 11px/1 inherit;border-radius:8px}
 #pg .ph.lite{padding-bottom:8px}
 #pg .ph.lite button{flex:0 0 34px;height:34px;font-size:21px}
 #pg .ph.lite i{font-size:9px;letter-spacing:.3em;color:#7d8794}
@@ -754,8 +756,8 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.22.3';
-var PROG={c:{},s:{},b:{},end:{},g:{},pt:0,name:'',vol:1,all:false};
+var VERSION='0.23.0';
+var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
 var SB={url:'https://bfbupxsjvdjhjecorpwf.supabase.co',key:'sb_publishable_kEUUk0p9bgnTpoykFKa89w_Lq1KuL4m'},sb=null,USER=null,SBQ=[],SBBUSY=false,SBMSG='';
@@ -772,14 +774,15 @@ function localExport(){
   for(i in PROG.b){if(!MIS[i])continue;var g=PROG.b[i],bits=(g[0]?1:0)|(g[1]?2:0)|(g[2]?4:0);if(bits)o.badges[MIS[i].key]=bits;}
   for(i in PROG.g)for(k=1;k<8;k++)if(PROG.g[i][k])o.unlocks.push('g:'+i+':'+k);
   for(i in PROG.end)if(PROG.end[i])o.unlocks.push('end:'+i);
+  for(i in PROG.n||{})for(k=2;k<=6;k++)if(PROG.n[i][k])o.unlocks.push('n:'+i+':'+k);
   return o;
 }
 function applyState(st){
-  if(!st||!st.profile)return;var K=kIdx();PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.g={};PROG.end={};
+  if(!st||!st.profile)return;var K=kIdx();PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.g={};PROG.end={};PROG.n={};
   (st.clears||[]).forEach(function(r){var i=K[r.m];if(i===undefined)return;(PROG.c[i]||(PROG.c[i]={}))[r.d]=r.t;(PROG.s[i]||(PROG.s[i]={}))[r.d]=r.s;});
   var m;for(m in st.badges||{}){var i=K[m],b=st.badges[m];if(i!==undefined)PROG.b[i]=[!!(b&1),!!(b&2),!!(b&4)];}
   for(m in st.hbest||{}){var i2=K[m];if(i2!==undefined&&st.hbest[m]>0)PROG.hb[i2]=+st.hbest[m];}
-  (st.unlocks||[]).forEach(function(it){var a=it.split(':');if(a[0]==='g')(PROG.g[a[1]]||(PROG.g[a[1]]=[]))[+a[2]]=true;else if(a[0]==='end')PROG.end[a[1]]=true;});
+  (st.unlocks||[]).forEach(function(it){var a=it.split(':');if(a[0]==='g')(PROG.g[a[1]]||(PROG.g[a[1]]=[]))[+a[2]]=true;else if(a[0]==='end')PROG.end[a[1]]=true;else if(a[0]==='n')(PROG.n[a[1]]||(PROG.n[a[1]]=[]))[+a[2]]=true;});
   PROG.pt=st.profile.pt||0;if(st.profile.name)PROG.name=st.profile.name;ADM=!!st.profile.admin;PROG.uid=USER?USER.id:null;saveProg();
 }
 function sbRefresh(){try{if($('hm').className!=='hide')home();}catch(e){}}
@@ -812,7 +815,7 @@ function sbLogin(){
   sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}});return true;
 }
 function sbLogout(){
-  if(!sb)return;sb.auth.signOut().then(function(){USER=null;ADM=false;PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.end={};PROG.g={};PROG.pt=0;PROG.name='';PROG.uid=null;PROG.all=false;SBQ=[];qSave();saveProg();home();});
+  if(!sb)return;sb.auth.signOut().then(function(){USER=null;ADM=false;PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.end={};PROG.g={};PROG.n={};PROG.pt=0;PROG.name='';PROG.uid=null;PROG.all=false;SBQ=[];qSave();saveProg();home();});
 }
 function sbInit(){
   if(!sbOn()||typeof document==='undefined'||!document.createElement)return;
@@ -835,7 +838,19 @@ var NCUT=6,NPI={},NPP={},NPT=0;
 function nProbe(id,cb){if(typeof Image==='undefined'||NPP[id])return;NPP[id]=1;for(var k=1;k<=NCUT;k++)(function(f){var im=new Image();im.onload=function(){NPI[f]=true;if(cb){clearTimeout(NPT);NPT=setTimeout(cb,250);}};im.src=f;})('n_'+id+'_'+k+'.jpg');}
 function nTakes(id){var n=0;SIDX[id].forEach(function(mi){if(PROG.c[mi])n++;});return n;}
 function nHard(id){var n=0;SIDX[id].forEach(function(mi){var c=PROG.c[mi]||{};if(c[2]!=null||c[3]!=null)n++;});return n;}
-function nOpen(id){return nHard(id)>=3?NCUT:0;}
+var NCOST=30,NALL=120; /* 그날 밤: TAKE 1·2·3 HARD↑ 이면 1번 컷 + 나머지 구매 권한 */
+function nRight(id){return nHard(id)>=3;}
+function nHas(id,k){return nRight(id)&&(k===1||!!((PROG.n&&PROG.n[id]||[])[k]));}
+function nOpen(id){var n=0,k;for(k=1;k<=NCUT;k++)if(nHas(id,k))n++;return n;}
+function nLeft(id){return Math.min(NALL,(NCUT-nOpen(id))*NCOST);}
+function toast(t){var d=document.createElement('div');d.className='tst';d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove();},2400);}
+function nBuy(id,k,re){
+  var all=k==='all',cost=all?nLeft(id):NCOST,g,i;k=all?0:+k;if(!nRight(id)||(!all&&nHas(id,k)))return;if(!PROG.n)PROG.n={};g=PROG.n[id]||(PROG.n[id]=[]);
+  if((PROG.pt||0)<cost){toast('포인트가 모자란다. '+cost+'P가 필요하고 지금 '+(PROG.pt||0)+'P다.');return;}
+  if(sb&&USER){if(SBBUSY||SBQ.length){toast('방금 작전 기록을 올리는 중이다. 잠시 뒤에 다시.');qFlush();return;}
+    rpc('s6_buy_cut',{p_kind:'n',p_agent:id,p_k:k}).then(function(st){applyState(st);snd('ok');toast('리워드 컷을 소장했다.');re();}).catch(function(e){toast(/not enough/.test(''+(e&&e.message))?'포인트가 모자란다.':'서버와 닿지 않는다. 잠시 뒤에 다시.');});return;}
+  PROG.pt-=cost;if(all)for(i=2;i<=NCUT;i++)g[i]=true;else g[k]=true;saveProg();snd('ok');toast('리워드 컷을 소장했다.');re();
+}
 function nImg(id,k){var f='n_'+id+'_'+k+'.jpg';return NPI[f]?f:(k===NCUT?'e_'+id+'.jpg':null);}
 var RWP={},RWT=0;
 function rwProbeM(i,cb){if(typeof Image==='undefined'||RWP[i]||!MIS[i])return;RWP[i]=1;for(var n=0;n<4;n++)(function(f){var im=new Image();im.onload=function(){RWI[f]=true;if(cb){clearTimeout(RWT);RWT=setTimeout(cb,250);}};im.src=f;})('r_'+MIS[i].key+'_'+n+'.jpg');}
@@ -1009,20 +1024,20 @@ function mOpen(i){return i===0||!!PROG.c[i-1]||!!PROG.all;}
 function rwdBox(where){return '<div class="rwd"><i>REWARD CUT</i><p>스테이지를 클리어하면 <em class="k">리워드 컷</em>을 얻습니다. 얻은 컷은 블랙박스 &gt; '+where+'에 담깁니다.</p><ol><li>클리어<small>클리어만 하면</small></li><li>전투<small>HARD↑ 배지 1</small></li><li>도발<small>HARD↑ 배지 2</small></li><li>고자극<small>HARD↑ 배지 3</small></li></ol><p style="margin-top:8px;color:var(--dim);font-size:12px">* 배지 수는 한 판 기준입니다. 여러 판의 배지는 합산되지 않습니다.</p></div>';}
 function menu(){
   var L=[],A=[],i;for(i=0;i<NBASE;i++)if(vis(i)){(function(i){var ok=mOpen(i);L.push(cd(A.length,mimg(i),MIS[i].title,ok?MIS[i].code.split(' // ')[1]:'앞 스테이지를 먼저 클리어하세요',{kv:1,no:'0'+(i+1),x:bm(i,'span'),lock:!ok,tag:PROG.c[i]?'CLEAR':ok?'':'LOCKED',on:1}));A.push(function(){if(ok)brief(i);});})(i);}
-  page('여섯이 모이기까지','S1 · EPISODE 1 // '+DF.n,intro('Season 1 · Episode 1','여섯이 모이기까지','6과의 각 요원에게 주어진 베일에 싸인 임무.<br>미션을 클리어하며 탐욕의 진실을 파헤쳐 보세요.','* 스테이지는 이야기 순서대로 오픈되며, 모두 클리어한 경우에는 자유롭게 재도전이 가능합니다.')+rwdBox('클리어 갤러리')+'<div class="cg one">'+L.join('')+'</div>',season1,A);
+  page('여섯이 모이기까지','S1 · EPISODE 1 // '+DF.n,intro('Season 1 · Episode 1','여섯이 모이기까지','6과의 각 요원에게 주어진 베일에 싸인 임무.<br>미션을 클리어하며 탐욕의 진실을 파헤쳐 보세요.','* 스테이지는 이야기 순서대로 오픈되며, 모두 클리어한 경우에는 자유롭게 재도전이 가능합니다.')+rwdBox('리워드 갤러리')+'<div class="cg one">'+L.join('')+'</div>',season1,A);
 }
 function season3(){
   page('이름이 있던 시절','SEASON 3 // PREQUEL',intro('Season 3 · Prequel','이름이 있던 시절','6과에 들어오기 전, 여섯 요원에게 이름이 있던 시절의 이야기입니다.<br>요원마다 한 편씩, 성인 등급으로 준비 중입니다.')+'<div class="cg">'+SPECIAL.map(function(x,k){return cd(k,'a_'+x[0]+'_3.jpg',x[1],OPD[x[0]].n+' · '+x[2],{w:1,eye:'EPISODE '+(k+1),tag:'SOON',lock:1});}).join('')+'</div>',seasons,SPECIAL.map(function(x,k){return function(){info(x[1],'S3 · EPISODE '+(k+1)+' // '+OPD[x[0]].n,'a_'+x[0]+'_3.jpg','<p>'+x[3]+'</p><p style="color:var(--dim)">준비 중입니다. 전용 이미지와 함께 공개됩니다.</p>',season3);};}));
 }
 function storyMenu(){
   var ids=Object.keys(STORY);
-  page('로맨틱 미션','ROMANTIC MISSION',intro('Silent Six Romantic','Romantic Mission','임무가 끝난 뒤, 요원 한 사람과 마주하는 이야기입니다.<br>요원마다 TAKE 1 · 2 · 3으로 이어집니다.','* 한 요원의 TAKE 1 · 2 · 3을 모두 HARD 이상으로 클리어하면 그날 밤의 이야기(6컷)가 열리고, 블랙박스 &gt; 로맨틱 갤러리에 담깁니다.')+'<div class="cg">'+ids.map(function(id,k){var n=nTakes(id);return cd(k,'a_'+id+'_0.jpg',OPD[id].n,'TAKE '+n+' / 3 · HARD↑ '+nHard(id)+' / 3'+(nOpen(id)?' · 그날 밤 ♥':''),{w:1,eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
+  page('로맨틱 미션','ROMANTIC MISSION',intro('Silent Six Romantic','Romantic Mission','임무가 끝난 뒤, 요원 한 사람과 마주하는 이야기입니다.<br>요원마다 TAKE 1 · 2 · 3으로 이어집니다.','* 한 요원의 TAKE 1 · 2 · 3을 모두 HARD 이상으로 클리어하면 그날 밤 리워드 컷 1장을 받습니다. 나머지 5장은 블랙박스 &gt; 로맨틱 갤러리에서 포인트로 소장합니다(컷당 '+NCOST+'P).')+'<div class="cg">'+ids.map(function(id,k){var n=nTakes(id);return cd(k,'a_'+id+'_0.jpg',OPD[id].n,'TAKE '+n+' / 3 · HARD↑ '+nHard(id)+' / 3'+(nOpen(id)?' · 그날 밤 ♥':''),{w:1,eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
 }
 function storyAgent(id){
   var L=[],A=[];nProbe(id);
   STORY[id].ch.forEach(function(c,ci){var mi=SIDX[id][ci];if(!vis(mi))return;var hc=PROG.c[mi]||{},hd=hc[2]!=null||hc[3]!=null;L.push(cd(A.length,mimg(mi),c.t,hd?'HARD 이상 클리어 ✓':PROG.c[mi]?'HARD 이상으로 다시 도전':'',{kv:1,w:1,eye:'TAKE '+(ci+1),x:bm(mi,'span'),tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
-  var nop=nOpen(id);L.push(cd(A.length,nop?(nImg(id,1)||'e_'+id+'.jpg'):'e_'+id+'.jpg','그날 밤',nop?'여섯 컷의 이야기 보기':'TAKE 1 · 2 · 3을 HARD 이상으로 끝내면 열립니다 · '+nHard(id)+' / 3',{kv:1,w:1,eye:'THAT NIGHT',lock:!nop,tag:nop?'OPEN':'LOCKED'}));A.push(function(){if(nop)ending(id);});
-  page(OPD[id].n,'ROMANTIC // '+OPD[id].role,intro('Romantic · '+OPD[id].n,OPD[id].tag.replace('<br>',' '),OPD[id].n+'의 지난 일을 따라가는 세 번의 TAKE입니다.<br>세 TAKE를 모두 <em class="k">HARD 이상</em>으로 마치면 그날 밤의 이야기가 열립니다.')+'<div class="cg">'+L.join('')+'</div>',storyMenu,A);
+  var nop=nOpen(id);L.push(cd(A.length,nop?(nImg(id,1)||'e_'+id+'.jpg'):'e_'+id+'.jpg','그날 밤',nop?'소장한 컷 '+nop+' / '+NCUT+' · 이야기 보기':'TAKE 1 · 2 · 3을 HARD 이상으로 끝내면 1컷을 받습니다 · '+nHard(id)+' / 3',{kv:1,w:1,eye:'THAT NIGHT',lock:!nop,tag:nop?'OPEN':'LOCKED'}));A.push(function(){if(nop)ending(id);});
+  page(OPD[id].n,'ROMANTIC // '+OPD[id].role,intro('Romantic · '+OPD[id].n,OPD[id].tag.replace('<br>',' '),OPD[id].n+'의 지난 일을 따라가는 세 번의 TAKE입니다.<br>세 TAKE를 모두 <em class="k">HARD 이상</em>으로 마치면 그날 밤 리워드 컷 1장을 받고, 나머지는 포인트로 소장합니다.')+'<div class="cg">'+L.join('')+'</div>',storyMenu,A);
 }
 var SFO=false;
 function seasonal(){
@@ -1092,7 +1107,7 @@ function blackbox(){
   var top=function(L){for(var q=L.length-1;q>=0;q--){for(var r=rwTier(L[q]);r>=0;r--){var f=rwImg(L[q],r);if(f)return f;}}return null;};
   page('블랙박스','BLACK BOX','<div class="fill r4">'+
    cd(0,mimg(4),'사일런트 식스 소설','시즌 · 에피소드별 · '+nd+' / '+NBASE+'장',{kv:1,w:1,eye:'NOVEL',on:1})+
-   cd(1,top(sl)||mimg(0),'클리어 갤러리','스토리 리워드 컷 · '+rwCount(sl)+' / '+(NBASE*4)+'장',{kv:1,w:1,eye:'CLEAR GALLERY',lock:!rwCount(sl),tag:rwCount(sl)?'':'EMPTY'})+
+   cd(1,top(sl)||mimg(0),'리워드 갤러리','스토리 리워드 컷 · '+rwCount(sl)+' / '+(NBASE*4)+'장',{kv:1,w:1,eye:'REWARD GALLERY',lock:!rwCount(sl),tag:rwCount(sl)?'':'EMPTY'})+
    cd(2,'a_mirage_0.jpg','로맨틱 갤러리','요원별 그날 밤 · '+nn+' / '+(ids.length*NCUT)+'컷',{w:1,eye:'ROMANTIC GALLERY',lock:!nn,tag:nn?'':'EMPTY'})+
    cd(3,KVI.seasonal?'kv_seasonal.jpg':'a_raven_5.jpg','시즈널 · 스페셜 갤러리','블러디 크리스마스 · 코스튬 · '+rwCount(WIDX)+' / '+(WIDX.length*4)+'장',{kv:1,w:1,eye:'SEASONAL · SPECIAL'})+
    '</div>',home,[bbNovel,bbClear,bbRomantic,bbSeasonal]);fit();
@@ -1113,16 +1128,16 @@ function bbClear(){
   if(c.E&&c.E.mis){var L=c.E.mis,m=Math.min(SCP.m,L.length-1),mi=L[m],tr=rwTier(mi);
     h+='<div class="chips sm">'+L.map(function(x,i){return '<button data-sm="'+i+'" class="'+(i===m?'sel':'')+(PROG.c[x]?'':' off')+'">'+('0'+(i+1))+'</button>';}).join('')+'</div><div class="cap"><i>'+('0'+(m+1))+'</i>'+MIS[mi].title+'<u>'+(tr<0?0:tr+1)+' / 4 · 에피소드 '+rwCount(L)+' / '+(L.length*4)+'</u></div>'+rwGrid(mi,bbKeep(bbClear));
   }else h+=scEmpty(c.E?'EP '+(SCP.e+1)+' · '+c.E.n+'<br>에피소드가 공개되면 리워드 컷이 이곳에 쌓입니다.':c.S.k+' · '+c.S.n+'<br>시즌이 공개되면 리워드 컷이 이곳에 쌓입니다.');
-  page('클리어 갤러리','BLACK BOX // CLEAR',h,blackbox,[],function(e){scTap(e,bbClear);});fit();
+  page('리워드 갤러리','BLACK BOX // REWARD',h,blackbox,[],function(e){scTap(e,bbClear);});fit();
 }
 function bbRomantic(){
-  var ids=Object.keys(STORY),a=Math.min(SCP.a,ids.length-1),id=ids[a],re=bbKeep(bbRomantic),no=nOpen(id);nProbe(id,re);
+  var ids=Object.keys(STORY),a=Math.min(SCP.a,ids.length-1),id=ids[a],re=bbKeep(bbRomantic),no=nOpen(id),nr=nRight(id);nProbe(id,re);
   var h='<div class="chips">'+SEASONS.map(function(x,i){return '<button data-ss="'+i+'" class="'+(i===SCP.s?'sel':'')+(i?' off':'')+'"><i>'+x.k+'</i>'+x.n+'</button>';}).join('')+'</div>';
-  if(SCP.s===0){h+='<div class="chips sm">'+ids.map(function(x,i){return '<button data-sa="'+i+'" class="'+(i===a?'sel':'')+(nOpen(x)?'':' off')+'">'+OPD[x].n+'</button>';}).join('')+'</div><div class="cap"><i style="color:'+OPD[id].col+'">'+OPD[id].n+'</i>그날 밤<u>'+no+' / '+NCUT+'컷 · HARD↑ TAKE '+nHard(id)+' / 3</u></div><div class="fill g23">';
-    for(var k=1;k<=NCUT;k++){var op=k<=no,im=nImg(id,k);h+=cd(99,op?im:(im||'a_'+id+'_0.jpg'),'CUT '+k,op?(im?'':'이미지 준비 중'):'HARD↑ TAKE 3',{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':'LOCKED'});}
+  if(SCP.s===0){h+='<div class="chips sm">'+ids.map(function(x,i){return '<button data-sa="'+i+'" class="'+(i===a?'sel':'')+(nOpen(x)?'':' off')+'">'+OPD[x].n+'</button>';}).join('')+'</div><div class="cap"><i style="color:'+OPD[id].col+'">'+OPD[id].n+'</i>그날 밤<u>'+no+' / '+NCUT+'컷 · '+(nr?(no<NCUT?'보유 P '+(PROG.pt||0).toLocaleString():'모두 소장'):'HARD↑ TAKE '+nHard(id)+' / 3')+'</u>'+(nr&&no<NCUT?'<button class="nba" data-nb="all">남은 컷 전부 '+nLeft(id)+'P</button>':'')+'</div><div class="fill g23">';
+    for(var k=1;k<=NCUT;k++){var op=nHas(id,k),im=nImg(id,k),c=cd(99,op?im:(im||'a_'+id+'_0.jpg'),'CUT '+k,op?(im?'':'이미지 준비 중'):nr?NCOST+'P로 소장':'HARD↑ TAKE 3',{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':nr?'P '+NCOST:'LOCKED'});h+=nr&&!op?c.replace('data-k="99"','data-k="99" data-nb="'+k+'"'):c;}
     h+='</div>';
   }else h+=scEmpty(SEASONS[SCP.s].k+' · '+SEASONS[SCP.s].n+'<br>시즌이 공개되면 로맨틱 컷이 이곳에 쌓입니다.');
-  page('로맨틱 갤러리','BLACK BOX // ROMANTIC',h,blackbox,[],function(e){scTap(e,bbRomantic);});fit();
+  page('로맨틱 갤러리','BLACK BOX // ROMANTIC',h,blackbox,[],function(e){var nb=e.target.closest&&e.target.closest('[data-nb]');if(nb){nBuy(id,nb.dataset.nb,bbRomantic);return;}scTap(e,bbRomantic);});fit();
 }
 function bbSeasonal(){
   var G=[['WINTER','블러디 크리스마스',WIDX],['SPECIAL','코스튬 미션',null]],g=Math.min(SCP.g,G.length-1),X=G[g];
@@ -1168,7 +1183,7 @@ function settings(){
     else if(t.id==='sgo'){keep();if(!sbLogin())settings();}
     else if(t.id==='sap'){SBMSG='Apple 로그인은 준비 중이다. 지금은 Google로.';settings();}
     else if(t.id==='sout'){sbLogout();}
-    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.end={};PROG.g={};PROG.pt=0;SBQ=[];qSave();saveProg();if(sb&&USER)rpc('s6_reset').catch(function(){});say('없던 일이 됐다.');settings();}});
+    else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.end={};PROG.g={};PROG.n={};PROG.pt=0;SBQ=[];qSave();saveProg();if(sb&&USER)rpc('s6_reset').catch(function(){});say('없던 일이 됐다.');settings();}});
   $('pg').oninput=function(e){if(e.target.id==='svol'){PROG.vol=e.target.value/100;saveProg();}};
   $('pg').onchange=function(e){if(e.target.id==='svol')snd('ok');};
 }
@@ -1205,7 +1220,7 @@ function admin(){
 }
 function ending(id){
   hideOv();setPre(true);PROG.end[id]=true;saveProg();if(sb&&USER)setTimeout(function(){rpc('s6_end',{p_agent:id}).catch(function(){});},SBQ.length||SBBUSY?10000:0);
-  var fr=[];STORY[id].end.forEach(function(e,i){var a=nImg(id,i*2+1),b=nImg(id,i*2+2);
+  var fr=[],NI=function(k){return nHas(id,k)?nImg(id,k):null;};STORY[id].end.forEach(function(e,i){var a=NI(i*2+1),b=NI(i*2+2);
     if(a&&b)fr.push({k:'THAT NIGHT // '+OPD[id].n+' · CUT '+(i*2+1),h:'',p:'',img:a,c:OPD[id].col});
     fr.push({k:'THAT NIGHT // '+OPD[id].n+' · '+(i+1)+' / 3',h:e[0],p:e[1],img:b||a||(i===2?'e_'+id+'.jpg':'a_'+id+'_'+(i?1:0)+'.jpg'),c:OPD[id].col});});
   scene(fr,storyMenu);
@@ -1837,7 +1852,7 @@ try{if(typeof MutationObserver!=='undefined'){var NVO=new MutationObserver(funct
 $('pg').addEventListener('click',function(e){
   var t=e.target;if(t.dataset&&t.dataset.b){var b=PGB;pgHide();(b||home)();return;}
   if(t.dataset&&t.dataset.view){viewer(t.dataset.view,true);return;}
-  if(t.dataset&&t.dataset.k!==undefined){var f=PGA[+t.dataset.k];if(f)f();return;}
+  if(t.dataset&&t.dataset.k!==undefined&&t.dataset.nb===undefined){var f=PGA[+t.dataset.k];if(f)f();return;}
   if(PGH)PGH(e);
 });
 $('ms').addEventListener('click',function(e){
@@ -1850,7 +1865,7 @@ $('tip').addEventListener('click',function(e){e.stopPropagation();if(!started||S
 $('op').addEventListener('click',function(e){var id=e.target&&e.target.id,oo=e.target&&e.target.dataset&&e.target.dataset.o;if(oo){if(oo!=='x'){PROG.op=oo;saveProg();opening(oo);}return;}if(id==='opsk'||id==='opgo')opEnd();else if(!OPCIN&&!OPS[opi].title)opNext();});
 var ROI='raven',ROK=0,FIT=['OFF-DUTY · 사복','TRAINING · 도발','AGENT UNIFORM · 액션','SPECIAL MISSION · 전투'];
 function roster(){hideOv();$('ro').className='';roShow(ROI);}
-var GCOST=[5,5,3,3,2,2,2,2],GALL=15,ROMSG='';
+var GCOST=[25,25,15,15,10,10,10,10],GALL=75,ROMSG='';
 function gOpen(id,k){return k===0||!!((PROG.g[id]||[])[k]);}
 function gLeft(id){var n=0,k;for(k=1;k<8;k++)if(!gOpen(id,k))n+=GCOST[k];return n;}
 function gCount(id){var n=0,k;for(k=0;k<8;k++)if(gOpen(id,k))n++;return n;}
@@ -1920,10 +1935,10 @@ function result(){
   var rw0=fresh?-1:rwTier(MI),rw1=rw0,rwi=null,rwt='',rwl='리워드 컷';
   if(M.story){var nid=M.story.id,no=nOpen(nid),nh=nHard(nid);rwl='그날 밤';
     if(no)rwi=nImg(nid,1);
-    rwt=no?'<em class="k">그날 밤의 이야기가 열려 있다</em>':'<span style="color:var(--dim)">TAKE 1 · 2 · 3을 모두 HARD 이상으로 끝내면 열린다 · '+nh+' / 3</span>';
+    rwt=no?'<em class="k">그날 밤 리워드 컷 '+no+' / '+NCUT+'장 소장 · 나머지는 포인트로</em>':'<span style="color:var(--dim)">TAKE 1 · 2 · 3을 모두 HARD 이상으로 끝내면 열린다 · '+nh+' / 3</span>';
   }else{if(DIFF>=2){var hn=0;bl.forEach(function(b){if(b[2]())hn++;});if(!PROG.hb)PROG.hb={};if(!(PROG.hb[MI]>=hn))PROG.hb[MI]=hn;}rw1=rwTier(MI);
     for(var rn=rw1;rn>=0&&!rwi;rn--)rwi=rwImg(MI,rn);
-    rwt=rw1>rw0&&rw1>0?'<em class="k">'+RWN[rw1]+' 컷이 블랙박스에 담겼다</em>':fresh?'<em class="k">클리어 컷이 블랙박스에 담겼다</em>':DIFF<2?'<span style="color:var(--dim)">HARD 이상, 한 판에서 딴 배지 수만큼 더 열린다</span>':rw1<3?'<span style="color:var(--dim)">한 판에 배지 '+(rw1+1)+'개를 따면 다음 컷이 열린다</span>':'<span style="color:var(--dim)">네 장 모두 열었다</span>';}
+    rwt=rw1>rw0&&rw1>0?'<em class="k">'+RWN[rw1]+' 컷이 블랙박스에 담겼다</em>':fresh?'<em class="k">리워드 컷이 블랙박스에 담겼다</em>':DIFF<2?'<span style="color:var(--dim)">HARD 이상, 한 판에서 딴 배지 수만큼 더 열린다</span>':rw1<3?'<span style="color:var(--dim)">한 판에 배지 '+(rw1+1)+'개를 따면 다음 컷이 열린다</span>':'<span style="color:var(--dim)">네 장 모두 열었다</span>';}
   var gain=Math.round(sc.score/100);PROG.pt=(PROG.pt||0)+gain;
   var kvm=/^a_([a-z]+)_(\d)\.jpg/.exec(MIS[MI].img||''),kvn=false;if(kvm&&+kvm[2]>0&&!gOpen(kvm[1],+kvm[2])){(PROG.g[kvm[1]]||(PROG.g[kvm[1]]=[]))[+kvm[2]]=true;kvn=true;}
   saveProg();sbClear(M.key,DIFF,s,sc.score,bl.reduce(function(a,x,i){return a|(x[2]()?1<<i:0);},0),kvn?'g:'+kvm[1]+':'+kvm[2]:null);

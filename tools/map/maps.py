@@ -7,7 +7,7 @@
   V  지나갈 수 없는 평면(물·낭떠러지·선로 구덩이)
   #  높은 벽                   B  높은 덩어리(차량·서가·바위·나무 등)
   C  낮은 엄폐                 W  부술 수 있는 벽
-  X  목표
+  X  목표      D  가짜 목표(코스튬 맵, X 와 같은 모양)      N  대화 지점(걸을 수 있음)
 크기는 P=16x22, L=22x16, Q=19x19 (가로+세로 = 38 로 같아 화면에 같은 크기로 들어간다).
 """
 P, L, Q = (16, 22), (22, 16), (19, 19)
@@ -55,11 +55,15 @@ def build(m):
                 put(op[1], x, y)
     for (x, y) in m['S']:
         put('S', x, y)
+    for (x, y) in m.get('N', []):
+        put('N', x, y)
+    for (x, y) in m.get('D', []):
+        put('D', x, y)
     put('X', *m['X'])
     return [''.join(r) for r in g]
 
 
-WALK = '.=~S'
+WALK = '.=~SN'
 WALKW = WALK + 'W'  # 부술 수 있는 벽은 도달 검사에서 길로 본다
 
 
@@ -73,6 +77,9 @@ def check(m, rows_):
         seen.add((x, y))
         st += [(x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)]
     X = m['X']
+    for T in [X] + list(m.get('D', [])) + list(m.get('N', [])):
+        if not any((T[0] + dx, T[1] + dy) in seen for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1), (0, 0))):
+            return False, len(seen), -1
     near = any((X[0] + dx, X[1] + dy) in seen for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
     total = sum(r.count(c) for r in rows_ for c in WALKW)
     return near, len(seen), total
@@ -312,55 +319,63 @@ add(id='w5', pack='winter', file='bgw5.jpg', ko='STAGE 5 · 산타의 썰매 —
     scene="A private airfield in heavy snow before dawn. A lit runway along the top with rows of edge lights, a taxiway, a large open hangar with a private jet inside, a control tower, fuel trucks and a snowplow on the apron, snowbanks, a perimeter fence. Blue-white light, drifting snow.",
     leg={'B': 'the perimeter fence and snow berm, the control tower, two fuel trucks, a snowplow, and the private jet inside the hangar', '#': 'the hangar walls (the wide front opening stays open)', 'C': 'ploughed snowbanks, tool carts, cargo cases', '=': 'the cleared runway and taxiway tarmac with edge lights', 'X': 'the jet\'s open cargo door with a ribbon-tied box', 'S': 'the cut in the fence'})
 
-# ───────────────────────── 코스튬 6
-add(id='c_raven', pack='costume', file='bgc_raven.jpg', ko='RAVEN · 붉은 막 — 원형 공연장', size=Q,
-    ops=[F('=', 6, 6, 12, 12), O('C', 5, 5, 13, 13), Pt('.', (9, 5), (9, 13), (5, 9), (13, 9)),
-         F('B', 1, 1, 6, 2), F('B', 12, 1, 17, 2), F('B', 1, 16, 6, 17), F('B', 12, 16, 17, 17), F('B', 1, 6, 2, 12), F('B', 16, 6, 17, 12),
-         Pt('C', (3, 4), (15, 4), (3, 14), (15, 14), (8, 2), (10, 2))],
-    S=[(8, 17), (9, 17), (10, 17)], X=(9, 1),
-    scene="A circular show arena dressed for a red-and-black matador-themed gala night, roof removed. A sand ring in the centre under spotlights, a low wooden barrier around it with four gates, banked seating blocks on all sides, the owner's box at the top. Red drapes, gold trim, drifting stage smoke.",
-    leg={'#': 'the arena outer wall', 'B': 'banked seating blocks', 'C': 'the low red wooden ring barrier (four gate gaps stay open), flower stands, drinks tables', '=': 'the sand ring under spotlights', 'X': 'the owner\'s private box with a lockbox', 'S': 'the performers\' tunnel'})
+# ───────────────────────── 코스튬 6  (큰 맵: 칸 60x30, 가로+세로 = 46)
+# N = 대화 지점(걸을 수 있음) 2곳, D = 가짜 목표(X 와 똑같이 그린다) 2곳, X = 진짜 목표
+P2, L2, Q2 = (20, 26), (26, 20), (23, 23)
 
-add(id='c_viper', pack='costume', file='bgc_viper.jpg', ko='VIPER · 은반 — 아이스링크 갈라쇼', size=L,
-    ops=[F('~', 4, 3, 17, 9), O('C', 3, 2, 18, 10), Pt('.', (3, 6), (18, 7), (10, 10), (11, 2)),
-         F('B', 3, 1, 8, 1), F('B', 13, 1, 18, 1), F('#', 1, 12, 20, 12), Pt('.', (4, 12), (10, 12), (17, 12)),
-         F('#', 7, 13, 7, 14), F('#', 14, 13, 14, 14), Pt('B', (1, 9), (2, 9)),
-         Pt('C', (20, 9), (20, 10), (5, 14), (12, 13), (16, 14), (1, 3), (20, 5))],
-    S=[(1, 13), (2, 13)], X=(20, 3),
-    scene="An indoor ice rink set up for a gala figure-skating show, roof removed. A large oval of ice under violet and silver spotlights, rink boards all around with gates, a block of seats, a judges' and VIP corner, locker rooms along one side, an ice resurfacer parked by the boards. Frost haze, glitter on the ice.",
-    leg={'#': 'the rink hall walls and locker-room partitions (door gaps stay open)', 'B': 'seating blocks and the ice-resurfacing machine', 'C': 'the rink boards (four gate gaps stay open), benches, flower-and-plush bins, a kiss-and-cry sofa', '~': 'the ice surface under violet spotlights (walkable)', 'X': 'the VIP table with a jewel case', 'S': 'the skaters\' entrance'})
+add(id='c_raven', pack='costume', file='bgc_raven.jpg', ko='RAVEN · 붉은 막 — 원형 공연장', size=Q2, tw=60,
+    ops=[F('=', 8, 8, 14, 14), O('C', 7, 7, 15, 15), Pt('.', (11, 7), (11, 15), (7, 11), (15, 11)),
+         F('B', 5, 1, 17, 3), F('.', 10, 2, 12, 3), F('B', 1, 6, 3, 16), F('B', 19, 6, 21, 16), F('B', 5, 19, 9, 21), F('B', 13, 19, 17, 21),
+         O('#', 0, 0, 4, 4), Pt('.', (2, 4)), O('#', 18, 0, 22, 4), Pt('.', (20, 4)),
+         O('#', 0, 18, 3, 22), Pt('.', (3, 20)), O('#', 19, 18, 22, 22), Pt('.', (19, 20)),
+         Pt('C', (5, 5), (17, 5), (5, 17), (17, 17), (9, 5), (13, 5), (4, 9), (4, 13), (18, 9), (18, 13), (9, 17), (13, 17), (21, 3), (3, 1))],
+    S=[(10, 21), (11, 21), (12, 21)], X=(1, 20), D=[(11, 2), (20, 2)], N=[(2, 2), (20, 20)],
+    scene="A circular show arena dressed for a red-and-black matador-themed gala night, roof removed. A sand ring in the centre under spotlights, a low wooden barrier around it with four gates, banked seating blocks on all four sides with the owner's box cut into the top block, and four corner rooms: a wardrobe room, the owner's office, a prop store, a bookmaker's room. Red drapes, gold trim, drifting stage smoke.",
+    leg={'#': 'the arena outer wall and the walls of the four corner rooms (door gaps stay open)', 'B': 'banked seating blocks', 'C': 'the low red wooden ring barrier (four gate gaps stay open), flower stands, drinks tables, costume trunks', '=': 'the sand ring under spotlights', 'X': 'three identical black lockboxes with gold trim, one in the owner\'s box, one in the office, one in the prop store', 'N': 'two conversation spots: a mirror-lit corner of the wardrobe room, and the bookmaker\'s desk front', 'S': 'the performers\' tunnel'})
 
-add(id='c_glitch', pack='costume', file='bgc_glitch.jpg', ko='GLITCH · 앙코르 — 콘서트 돔 백스테이지', size=L,
-    ops=[F('=', 5, 1, 16, 4), Pt('V', (10, 2), (11, 2)), F('B', 5, 5, 16, 5), Pt('.', (8, 5), (13, 5)),
-         Pt('B', (2, 2), (19, 2), (2, 4), (19, 4), (8, 12), (12, 13)),
-         Pt('C', (3, 7), (4, 7), (9, 8), (10, 8), (15, 7), (18, 8), (6, 10), (13, 10)),
-         O('#', 17, 10, 20, 14), Pt('.', (17, 12)), O('#', 1, 10, 5, 14), Pt('.', (5, 12)), Pt('C', (3, 11))],
-    S=[(10, 14), (11, 14)], X=(19, 11),
-    scene="Backstage of a huge concert dome during an idol show, roof removed. The stage at the top washed in teal laser light with an open stage-lift pit, a giant LED wall seen from behind, speaker towers, a floor crowded with flight cases and cable runs, a production control booth and a dressing room. Teal and magenta glow leaking round the LED wall.",
-    leg={'#': 'the venue walls and the walls of the control booth and dressing room (door gaps stay open)', 'B': 'the back of the giant LED wall (two gaps stay open), speaker towers, truss legs', 'C': 'flight cases, cable drums, costume racks, monitor desks', 'V': 'the open stage-lift pit', '=': 'the stage floor under teal lasers', 'X': 'the production console with the show server', 'S': 'the loading dock door'})
+add(id='c_viper', pack='costume', file='bgc_viper.jpg', ko='VIPER · 은반 — 아이스링크 갈라쇼', size=L2, tw=60,
+    ops=[F('~', 6, 4, 19, 11), O('C', 5, 3, 20, 12), Pt('.', (5, 7), (20, 8), (12, 12), (13, 3)),
+         F('B', 5, 1, 11, 1), F('B', 15, 1, 20, 1), O('#', 22, 0, 25, 7), Pt('.', (22, 4)), O('#', 0, 0, 3, 6), Pt('.', (3, 4)), Pt('B', (1, 2), (24, 11)),
+         F('#', 1, 13, 24, 13), Pt('.', (4, 13), (12, 13), (21, 13)), F('#', 8, 14, 8, 18), F('#', 16, 14, 16, 18),
+         Pt('C', (3, 15), (5, 17), (10, 15), (14, 17), (19, 15), (20, 17), (22, 10), (23, 10), (2, 9), (2, 10), (24, 2))],
+    S=[(1, 17), (1, 18)], X=(22, 16), D=[(2, 5), (24, 5)], N=[(23, 2), (12, 16)],
+    scene="An indoor ice rink set up for a gala figure-skating show, roof removed. A large oval of ice under violet and silver spotlights, rink boards all around with four gates, seating blocks, a glass VIP lounge in one corner, an ice-resurfacer garage in another, and along the near side three rooms: a locker room, a coaches' room, a judges' room. Frost haze, glitter on the ice.",
+    leg={'#': 'the rink hall walls and the walls of the VIP lounge, the garage and the three rooms (door gaps stay open)', 'B': 'seating blocks, the ice-resurfacing machine, a scoreboard tower', 'C': 'the rink boards (four gate gaps stay open), benches, flower-and-plush bins, a kiss-and-cry sofa', '~': 'the ice surface under violet spotlights (walkable)', 'X': 'three identical silver jewel cases on small stands, one in the garage, one in the VIP lounge, one in the judges\' room', 'N': 'two conversation spots: a champagne table in the VIP lounge, and the coach\'s chair in the middle room', 'S': 'the skaters\' entrance'})
 
-add(id='c_brick', pack='costume', file='bgc_brick.jpg', ko='BRICK · 타이틀 매치 — 호텔 특설 링', size=Q,
-    ops=[F('=', 9, 10, 9, 16), F('B', 8, 7, 10, 9),
-         Pt('C', (4, 4), (7, 4), (11, 4), (14, 4), (4, 8), (14, 8), (4, 12), (7, 12), (11, 12), (14, 12), (6, 6), (12, 6)),
-         F('C', 2, 1, 6, 1), F('B', 12, 1, 16, 1),
-         O('#', 1, 14, 5, 17), Pt('.', (5, 15)), O('#', 13, 14, 17, 17), Pt('.', (13, 15)), Pt('C', (3, 16))],
-    S=[(9, 17)], X=(16, 16),
-    scene="A luxury hotel ballroom converted for a championship title fight, roof removed. A boxing ring on a riser in the centre, round dinner tables with white cloths all around, a walk-in ramp, a long bar, a camera platform, a kitchen and a cash office in the corners. Orange and black bunting, chandeliers, a hard white ring light.",
-    leg={'#': 'ballroom walls and the walls of the kitchen and cash office (door gaps stay open)', 'B': 'the boxing ring on its riser and the TV camera platform', 'C': 'round dinner tables with chairs, the long bar, a prep counter', '=': 'the fighters\' walk-in ramp with an orange carpet', 'X': 'the cash-office safe', 'S': 'the ramp entrance'})
+add(id='c_glitch', pack='costume', file='bgc_glitch.jpg', ko='GLITCH · 앙코르 — 콘서트 돔 백스테이지', size=L2, tw=60,
+    ops=[F('=', 6, 1, 19, 4), Pt('V', (12, 2), (13, 2)), F('B', 6, 5, 19, 5), Pt('.', (9, 5), (16, 5)), Pt('B', (3, 2), (3, 4), (22, 2), (22, 4), (6, 12), (19, 12)),
+         Pt('C', (4, 7), (5, 7), (10, 8), (11, 8), (14, 8), (15, 8), (20, 7), (21, 7), (7, 10), (8, 10), (17, 10), (18, 10), (12, 11), (2, 11), (23, 10)),
+         F('#', 1, 13, 24, 13), Pt('.', (3, 13), (9, 13), (16, 13), (22, 13)), F('#', 6, 14, 6, 18), F('#', 12, 14, 12, 18), F('#', 19, 14, 19, 18),
+         Pt('C', (4, 15), (8, 17), (10, 15), (21, 15)), Pt('B', (17, 15), (17, 17))],
+    S=[(1, 8), (1, 9)], X=(15, 16), D=[(9, 16), (23, 15)], N=[(2, 16), (21, 17)],
+    scene="Backstage of a huge concert dome during an idol show, roof removed. The stage at the top washed in teal laser light with an open stage-lift pit, a giant LED wall seen from behind, speaker towers, a wide floor crowded with flight cases and cable runs, and along the near side four rooms: a dressing room, a green room, the production control room, an equipment store. Teal and magenta glow leaking round the LED wall.",
+    leg={'#': 'the venue walls and the walls of the four rooms (door gaps stay open)', 'B': 'the back of the giant LED wall (two gaps stay open), speaker towers, truss legs, equipment racks', 'C': 'flight cases, cable drums, costume racks, monitor desks', 'V': 'the open stage-lift pit', '=': 'the stage floor under teal lasers', 'X': 'three identical black rack-mount show servers with teal status lights, one in the green room, one in the control room, one in the equipment store', 'N': 'two conversation spots: the make-up mirror in the dressing room, and a mixing desk in the equipment store', 'S': 'the loading dock door'})
 
-add(id='c_mirage', pack='costume', file='bgc_mirage.jpg', ko='MIRAGE · 하우스 엣지 — 펜트하우스 카지노', size=P,
-    ops=[Pt('C', (3, 3), (4, 3), (8, 3), (12, 4), (3, 7), (4, 7), (11, 7), (12, 7), (7, 6), (8, 6), (2, 16), (13, 16), (3, 19), (12, 19)),
-         F('B', 2, 10, 2, 13), F('B', 13, 10, 13, 13), F('C', 6, 10, 9, 10), Pt('B', (5, 5), (10, 5), (4, 11), (11, 11)),
-         O('#', 5, 13, 10, 16), Pt('.', (7, 13)), F('#', 1, 18, 5, 18), F('#', 10, 18, 14, 18)],
-    S=[(7, 20), (8, 20)], X=(8, 15),
-    scene="A private penthouse casino at night, roof removed. Green baize card tables and a roulette wheel, rows of slot machines, a gold-lit bar, a barred cashier's cage in the middle of the floor, an elevator lobby. Black marble, gold trim, low amber light, city lights through the windows.",
-    leg={'#': 'penthouse walls, the cashier\'s cage (barred, door gap stays open) and the lobby screen', 'B': 'rows of slot machines and gilded pillars', 'C': 'blackjack, baccarat and roulette tables, the bar counter, lounge sofas', 'X': 'the cage strongbox', 'S': 'the private elevator'})
+add(id='c_brick', pack='costume', file='bgc_brick.jpg', ko='BRICK · 타이틀 매치 — 호텔 특설 링', size=Q2, tw=60,
+    ops=[F('=', 11, 12, 11, 20), F('B', 10, 9, 12, 11)] +
+        [Pt('C', (x, y)) for x in (5, 8, 14, 17) for y in (4, 7, 14, 16) if not (y == 14 and x in (5, 17))] +
+        [F('C', 2, 1, 7, 1), F('B', 15, 1, 19, 1),
+         O('#', 0, 18, 5, 22), Pt('.', (5, 20)), O('#', 17, 18, 22, 22), Pt('.', (17, 20)),
+         O('#', 0, 8, 3, 13), Pt('.', (3, 10)), O('#', 19, 8, 22, 13), Pt('.', (19, 11)), Pt('C', (3, 19), (20, 19), (1, 12), (6, 11), (16, 10))],
+    S=[(10, 21), (11, 21), (12, 21)], X=(21, 12), D=[(1, 10), (20, 21)], N=[(2, 20), (20, 9)],
+    scene="A luxury hotel ballroom converted for a championship title fight, roof removed. A boxing ring on a riser in the centre, round dinner tables with white cloths all around, a long walk-in ramp, a long bar, a camera platform, and four side rooms: a kitchen, a cash office, a cloakroom, the fighters' locker room. Orange and black bunting, chandeliers, a hard white ring light.",
+    leg={'#': 'ballroom walls and the walls of the four side rooms (door gaps stay open)', 'B': 'the boxing ring on its riser and the TV camera platform', 'C': 'round dinner tables with chairs, the long bar, prep counters, benches', '=': 'the fighters\' walk-in ramp with an orange carpet', 'X': 'three identical orange-and-black sports duffel bags on low benches, one in the cloakroom, one in the cash office, one in the locker room', 'N': 'two conversation spots: the pass of the kitchen, and the cutman\'s stool in the locker room', 'S': 'the ramp entrance'})
 
-add(id='c_doc', pack='costume', file='bgc_doc.jpg', ko='DOC · 왕진 — 프라이빗 클리닉 & 스파', size=L,
-    ops=[F('V', 13, 2, 18, 5), F('#', 1, 6, 10, 6), Pt('.', (3, 6), (8, 6)), F('#', 5, 1, 5, 5), F('#', 10, 1, 10, 6), Pt('.', (10, 3)),
-         F('#', 12, 10, 20, 10), Pt('.', (16, 10)), F('#', 12, 11, 12, 14), Pt('.', (12, 13)),
-         Pt('B', (14, 12), (15, 12), (18, 13), (18, 12), (11, 8), (1, 8)), F('C', 3, 10, 6, 10),
-         Pt('C', (2, 2), (3, 4), (7, 4), (12, 7), (15, 7), (18, 7), (2, 13), (8, 12), (9, 12), (20, 1))],
-    S=[(1, 14), (2, 14)], X=(8, 2),
-    scene="A private cosmetic clinic and spa for the very rich at night, roof removed. A marble reception, two treatment rooms, a turquoise spa pool with loungers, a locked pharmacy. White stone, lime-green accent lighting, orchids, soft steam.",
-    leg={'#': 'clinic walls and glass partitions (door gaps stay open)', 'V': 'the spa pool (glowing turquoise water)', 'B': 'pharmacy shelving and large potted palms', 'C': 'the reception desk, treatment beds, loungers, sofas, instrument trolleys', 'X': 'the records cabinet in the consultation room', 'S': 'the street door'})
+add(id='c_mirage', pack='costume', file='bgc_mirage.jpg', ko='MIRAGE · 하우스 엣지 — 펜트하우스 카지노', size=P2, tw=60,
+    ops=[Pt('C', (3, 3), (4, 3), (8, 3), (9, 3), (11, 5), (3, 7), (4, 7), (14, 8), (15, 8), (9, 7), (10, 7), (7, 21), (12, 22), (2, 17), (17, 17)),
+         F('B', 2, 11, 2, 15), F('B', 17, 11, 17, 15), F('C', 8, 11, 12, 11), Pt('B', (6, 5), (13, 9), (6, 9), (5, 13), (14, 13)),
+         O('#', 7, 14, 12, 18), Pt('.', (9, 14)), O('#', 14, 0, 19, 6), Pt('.', (14, 3)), Pt('C', (17, 4)),
+         O('#', 0, 19, 5, 25), Pt('.', (5, 21)), O('#', 14, 19, 19, 25), Pt('.', (14, 21)), Pt('B', (16, 20))],
+    S=[(9, 24), (10, 24)], X=(2, 22), D=[(10, 16), (17, 22)], N=[(16, 2), (13, 11)],
+    scene="A private penthouse casino at night, roof removed. Green baize card tables and a roulette wheel, rows of slot machines, a gold-lit bar, a barred cashier's cage in the middle of the floor, a VIP salon in one corner, and by the elevator lobby a count room and a surveillance room. Black marble, gold trim, low amber light, city lights through the windows.",
+    leg={'#': 'penthouse walls, the barred cashier\'s cage, and the walls of the VIP salon, count room and surveillance room (door gaps stay open)', 'B': 'rows of slot machines, gilded pillars, a bank of monitors', 'C': 'blackjack, baccarat and roulette tables, the bar counter, lounge sofas', 'X': 'three identical steel strongboxes with a gold crest, one in the cage, one in the surveillance room, one in the count room', 'N': 'two conversation spots: a private card table in the VIP salon, and the end of the bar', 'S': 'the private elevator'})
+
+add(id='c_doc', pack='costume', file='bgc_doc.jpg', ko='DOC · 왕진 — 프라이빗 클리닉 & 스파', size=L2, tw=60,
+    ops=[F('#', 1, 7, 12, 7), Pt('.', (3, 7), (9, 7)), F('#', 6, 1, 6, 6), F('#', 12, 1, 12, 7), Pt('.', (12, 4)),
+         F('V', 15, 2, 21, 6), O('#', 22, 7, 25, 11), Pt('.', (22, 9)),
+         F('#', 8, 12, 24, 12), Pt('.', (12, 12), (20, 12)), F('#', 16, 13, 16, 18), F('#', 8, 13, 8, 18), Pt('.', (8, 16)),
+         Pt('B', (10, 14), (11, 14), (13, 17), (14, 17), (1, 9), (13, 10)), F('C', 3, 11, 5, 11),
+         Pt('C', (2, 2), (4, 4), (8, 4), (14, 8), (17, 8), (20, 8), (23, 3), (23, 5), (2, 15), (5, 16), (3, 17), (19, 16), (20, 14), (10, 10))],
+    S=[(1, 17), (1, 18)], X=(14, 14), D=[(10, 2), (22, 15)], N=[(3, 5), (23, 9)],
+    scene="A private cosmetic clinic and spa for the very rich at night, roof removed. A marble reception, a treatment room and a records room, a turquoise spa pool with loungers, a small sauna cabin, a locked pharmacy and the director's office. White stone, lime-green accent lighting, orchids, soft steam.",
+    leg={'#': 'clinic walls and glass partitions, the sauna cabin (door gaps stay open)', 'V': 'the spa pool (glowing turquoise water)', 'B': 'pharmacy shelving and large potted palms', 'C': 'the reception desk, treatment beds, loungers, sofas, instrument trolleys', 'X': 'three identical white medical cooler cases with a lime stripe, one in the records room, one in the director\'s office, one in the pharmacy', 'N': 'two conversation spots: beside the treatment bed, and the bench inside the sauna', 'S': 'the street door'})
