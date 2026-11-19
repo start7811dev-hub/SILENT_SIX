@@ -642,7 +642,7 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 var PI=Math.PI,HP=PI/2,fl=Math.floor,hyp=Math.hypot;
 var FOV=PI*80/180,CAMFOV=PI/3,RANGE=6.5,CRANGE=3.6,CAMR=6,NOISE=5,SNIPE=10,AIM=1.5;
 var DIFFS=[{n:'EASY',k:'이지',r:0.7,m:0.55,w:2,d:'그들의 눈은 짧고 반응은 느리다. 숨 돌릴 틈이 있다.'},{n:'POWER',k:'파워',r:0.85,m:0.78,w:1.4,d:'조금 덜 본다. 실수 한 번은 넘어간다.'},{n:'HARD',k:'하드',r:1,m:1,w:1,d:'본래의 밤. 실수는 기록된다.'},{n:'HELL',k:'헬',r:1.12,m:1.6,w:0.6,d:'더 멀리 보고, 더 빨리 알아챈다. 돌아올 생각은 접어라.'}],DIFF=2,DF=DIFFS[2];
-function setDiff(i){DIFF=i;DF=DIFFS[i];RANGE=6.5*DF.r;CRANGE=3.6*DF.r;CAMR=6*DF.r;if(typeof M!=='undefined'&&M)WAKE=M.wake*DF.w;try{localStorage.setItem('s6diff',''+i);}catch(e){}}
+function setDiff(i){DIFF=i;DF=DIFFS[i];if(typeof ENV!=='undefined')ENV.k=1;RANGE=6.5*DF.r;CRANGE=3.6*DF.r;CAMR=6*DF.r;if(typeof M!=='undefined'&&M)WAKE=M.wake*DF.w;try{localStorage.setItem('s6diff',''+i);}catch(e){}}
 function iso(cx,oy,tw,th){return [tw/2,-tw/2,cx,th/2,th/2,oy,0,0,1];}
 var OPD={
  raven:{n:'RAVEN',role:'LEADER',col:'#ff3b52',acts:['move','run','ko','knife','pistol','carry'],tag:'앞장은 내가 선다.<br>토 달지 마.',d:'근접 담당. 뒤에서 잡고, 치우는 것까지 한다.'},
@@ -756,7 +756,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.24.0';
+var VERSION='0.24.1';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -869,31 +869,31 @@ function vis(i){return !CFG.hide[MIS[i].key];}
 function mimg(i){return CFG.img[MIS[i].key]||MIS[i].img;}
 (function(){var i;for(i=0;i<NBASE;i++)MIS[i].key='S1-0'+(i+1);Object.keys(SIDX).forEach(function(id){SIDX[id].forEach(function(mi,ci){MIS[mi].key='P-'+id+'-'+(ci+1);});});})();
 var WINTER=[
- {t:'첫 번째 상자',copy:'선물은<br>명단이었다.',pre:'18:40, 시청 앞 크리스마스 마켓. 헬리오스의 배달 책임자, 통칭 산타가 오늘 밤 다섯 곳을 돈다. 첫 명단은 대형 트리 아래 선물 더미에 있다. 민간인이 많다. 아무도 죽이지 않는다.',post:['명단을 들고 광장을 빠져나왔다.', '다음 배달지는 화물 조차장, 화차 44호다.'],bc:'nokill',img:'a_raven_5.jpg',par:150,
+ {t:'첫 번째 상자',copy:'선물은<br>명단이었다.',pre:'18:40, 시청 앞 크리스마스 마켓. 헬리오스의 배달 책임자, 통칭 산타가 오늘 밤 다섯 곳을 돈다. 첫 명단은 대형 트리 아래 선물 더미에 있다. 민간인이 많다. 아무도 죽이지 않는다.',post:['명단을 들고 광장을 빠져나왔다.', '다음 배달지는 화물 조차장, 화차 44호다.'],bc:'nokill',img:'a_raven_5.jpg',par:150,tips:["민간인이 많은 광장이다. <b>아무도 죽이지 않는다.</b>", "가판대 뒤 어두운 바깥 줄로 돌면 시선이 덜 닿는다."],
   m:{bg:'bgw1.jpg',sk:0.44,wake:90,opaque:'#BT',hts:{'#': 50, 'B': 80, 'T': 120, 'C': 28, 'X': 24, 'V': 0},proj:[36.0, -36.0, 768.0, 18.0, 18.0, 200.0, 0.0, -0.0, 1.0],MAP:["############BB#####", "#VVVVCCCC...BBB.C##", "#VVVVCCCCCCBBBB.C##", "#VVV..CC.C..BBB..##", "#VVV.....C...C..C##", "#..C....C...CC.CC##", "#.CC....C...C....##", "#.C....TTTT...C..##", "#..C.CCTTTT...C..##", "#.CC...TTTT..CC..##", "#CC....TTTT..C...##", "#.C.CC........C..##", "#...CC..X....CC..##", "#C.CC......C.....##", "#CC.....CC.C.....##", "#C...C.CC.CC.....##", "#...CC...........##", "###################", "###################"],
   ops:[{id:'raven',x:14,y:15}],exit:[[14, 15], [15, 14], [14, 14], [15, 15]],objective:{x:8,y:12,use:[9,12],label:'배달 명단',verb:'회수',time:3},
   guards:[{wps:[[11,4],[11,7]]},{wps:[[4,4],[4,9]]},{wps:[[13,6],[16,6]]},{wps:[[1,16],[6,16]]},{wps:[[10,4]],faces:[1.57,3.14],ft:5}]}},
- {t:'화차 44호',copy:'노크는<br>한 번만 한다.',pre:'20:10, 화물 조차장. 화차 수십 량 가운데 한 량에만 산타의 상자가 실려 있다. 화차 사이 틈으로만 건널 수 있다.',post:['화차 44호가 통째로 날아갔다.', '남은 상자는 얼어붙은 호수의 보트하우스로 갔다.'],bc:'noload',img:'a_brick_5.jpg',par:240,
+ {t:'화차 44호',copy:'노크는<br>한 번만 한다.',pre:'20:10, 화물 조차장. 화차 수십 량 가운데 한 량에만 산타의 상자가 실려 있다. 화차 사이 틈으로만 건널 수 있다.',post:['화차 44호가 통째로 날아갔다.', '남은 상자는 얼어붙은 호수의 보트하우스로 갔다.'],bc:'noload',img:'a_brick_5.jpg',par:240,tips:["화차 줄은 <b>화차 사이 틈</b>으로만 건널 수 있다.", "<b>조명탑</b>은 글리치가 해킹하면 25초 동안 꺼진다."],
   m:{bg:'bgw2.jpg',sk:0.42,wake:90,opaque:'#B',hts:{'#': 60, 'B': 46, 'C': 18, 'X': 46},proj:[35.574618746, -35.872892679, 599.89148668, 12.742952471, 13.104308189, 122.419621299, 0.001329182, -0.014388236, 1.0],MAP:["BBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBXBBBBBBBBBBBB", "..............C...CC......", ".....CC............CC.....", "..........................", "BBBBBBBBB.BBBBBBB.BBBBBBBB", "BBBBBBBBB.####BBB.BBBBBBBB", "..........####........CC..", "...CC....B####........CC..", "..........####C.BBBBBBBBBB", "BBBB.BBBBB####..BBBBBBBBBB", "BBBB.BBBBBB.....C.........", "...CC..C........C.........", "..........................", "BBBBBBBBBBBBBBBBBB.BBBBBBB", "BBBBBBBBBBBBBBBBBB.BBBBBBB"],
   ops:[{id:'brick',x:18,y:17},{id:'glitch',x:18,y:16}],exit:[[18, 17], [18, 16], [18, 15]],objective:{x:13,y:3,use:[13,4],label:'화차 44호',verb:'폭약 설치',time:4},
-  guards:[{wps:[[1,6],[24,6]]},{wps:[[0,9],[8,9]]},{wps:[[15,10],[21,10]]},{wps:[[1,15],[16,15]]},{wps:[[24,5]],tower:true,faces:[3.14,2.7],ft:6}]}},
- {t:'얼음 위의 선물',copy:'숨을 곳이<br>없는 밤.',pre:'22:30, 얼어붙은 호수. 상자를 본 증인이 건너편 보트하우스에 갇혀 있다. 얼음 위에는 오두막 몇 채뿐이다.',post:['증인은 제 발로 걸어 나왔다.', '그가 본 상자는 자정 미사가 열리는 대성당으로 갔다.'],bc:'onesnipe',img:'a_viper_5.jpg',par:240,
+  guards:[{wps:[[1,6],[24,6]]},{wps:[[0,9],[8,9]]},{wps:[[15,10],[21,10]]},{wps:[[1,15],[16,15]]},{wps:[[24,5]],tower:true,lamp:true,faces:[3.14,2.7],ft:6},{wps:[[0,14]],tower:true,lamp:true,faces:[0,0.5],ft:6}]}},
+ {t:'얼음 위의 선물',copy:'숨을 곳이<br>없는 밤.',pre:'22:30, 얼어붙은 호수. 상자를 본 증인이 건너편 보트하우스에 갇혀 있다. 얼음 위에는 오두막 몇 채뿐이다.',post:['증인은 제 발로 걸어 나왔다.', '그가 본 상자는 자정 미사가 열리는 대성당으로 갔다.'],bc:'onesnipe',img:'a_viper_5.jpg',par:240,env:{blizzard:[26,9]},tips:["<b>눈보라</b>: 26초마다 9초 동안 모두의 시야가 절반 아래로 줄어든다. 얼음 위는 그때 건넌다.", "응급 처치는 닥만 할 수 있다."],
   m:{bg:'bgw3.jpg',sk:0.44,wake:90,opaque:'#B',hts:{'#': 46, 'B': 40, 'T': 60, 'C': 16, 'X': 16, 'R': 20},proj:[29.834972886, -36.000512789, 770.0, 15.971777748, 17.681319737, 95.0, -0.004011415, -0.003208789, 1.0],MAP:["RRRRRRRRRRR#...#....R", "R..........#..X#.CT.R", "R...B......#...#....R", "R...B......#.###....R", "R...................R", "R...................R", "R.CC................R", "R.................T.R", "R........T.........TR", "R............C....C.R", "R.BBC........C...CC.R", "R.......BB.......C..R", "R.......BB......C...R", "R................C..R", "R..............C....R", "RC........T..CC.....R", "R..#######..CC......R", "R..#................R", "R..#CC...#..........R", "RRR#CC.C.#C...RRRR.RR", "RRR#######RRRRRRRRRRR"],
   ops:[{id:'viper',x:18,y:17},{id:'doc',x:18,y:16}],exit:[[18, 17], [18, 16], [17, 17], [17, 16]],objective:{x:14,y:1,use:[13,1],label:'증인',verb:'응급 처치',time:4,by:'doc'},
   guards:[{wps:[[6,4],[6,13]]},{wps:[[10,6],[16,6]]},{wps:[[12,5]],faces:[1.57,2.4],ft:5},{wps:[[6,14],[10,14]]}]}},
- {t:'자정 미사',copy:'헌금은<br>우리가 걷는다.',pre:'00:00, 대성당. 제단 옆 헌금함에 산타의 돈가방이 들어 있다. 추적기가 든 가방으로 바꿔 놓고 나온다.',post:['가방을 바꿔 놓았다.', '추적기는 사설 비행장에서 멈췄다.'],bc:'ghost',img:'a_mirage_5.jpg',par:200,
+ {t:'자정 미사',copy:'헌금은<br>우리가 걷는다.',pre:'00:00, 대성당. 제단 옆 헌금함에 산타의 돈가방이 들어 있다. 추적기가 든 가방으로 바꿔 놓고 나온다.',post:['가방을 바꿔 놓았다.', '추적기는 사설 비행장에서 멈췄다.'],bc:'ghost',img:'a_mirage_5.jpg',par:200,env:{bell:[30,9]},tips:["<b>자정의 종</b>: 30초마다 9초 동안 종이 울린다. 그동안은 발소리도 총소리도 묻힌다.", "미라주는 성가대 복장으로 변장하면 걸어서 지나갈 수 있다."],
   m:{bg:'bgw4.jpg',sk:0.42,wake:90,opaque:'#B',hts:{'#': 40, 'B': 70, 'C': 16, 'X': 20},proj:[23.933742568, -34.503012953, 870.0, 11.289363576, 10.812195952, 240.0, -0.006565184, -0.006666533, 1.0],MAP:["....XCC.C.BB.###", ".......C...B...#", "..CC..C........#", "CC...C.........#", "C.......C.B....#", ".CC....CC.....B#", "C......C.......#", "....C....C.....#", "B..CC...CC...B.#", "B..C....C..C.B.#", ".....C....CC...#", "..B.CC....C....#", "....C.......C..#", "......C....CC.B#", ".....CC....C...#", "B....C..C....CC#", "B..B.B.CC...CC##", ".......C.....###", ".........C...###", "......B.CC##....", "#.......C####...", "############...."],
   ops:[{id:'mirage',x:13,y:20},{id:'raven',x:14,y:20}],exit:[[13, 20], [14, 20], [13, 21], [14, 21]],objective:{x:4,y:0,use:[4,1],label:'헌금함',verb:'바꿔치기',time:3},
   guards:[{wps:[[6,6],[9,13]]},{wps:[[1,8],[2,19]]},{wps:[[13,2],[13,12]]},{wps:[[1,4]],faces:[1.57,2.6],ft:6}]}},
- {t:'산타의 썰매',copy:'이륙은<br>없다.',pre:'03:30, 사설 비행장. 격납고의 전용기가 산타의 썰매다. 뜨기 전에 화물을 확보한다.',post:['화물칸에는 리본 묶인 빈 상자와 카드 한 장뿐이었다.', '받는 사람 칸에 6과의 과 번호가 적혀 있다. 메리 크리스마스.'],bc:'nogun',img:'a_raven_6.jpg',par:260,
+ {t:'산타의 썰매',copy:'이륙은<br>없다.',pre:'03:30, 사설 비행장. 격납고의 전용기가 산타의 썰매다. 뜨기 전에 화물을 확보한다.',post:['화물칸에는 리본 묶인 빈 상자와 카드 한 장뿐이었다.', '받는 사람 칸에 6과의 과 번호가 적혀 있다. 메리 크리스마스.'],bc:'nogun',img:'a_raven_6.jpg',par:260,env:{limit:300},tips:["<b>이륙 시각</b>: 5분 안에 화물을 확보하지 못하면 실패다.", "관제탑 <b>탐조등</b>은 글리치가 해킹하면 25초 동안 꺼진다."],
   m:{bg:'bgw5.jpg',sk:0.44,wake:90,opaque:'#BJ',hts:{'#': 90, 'B': 38, 'J': 34, 'C': 20, 'X': 22, 'H': 0},proj:[31.401033293, -35.905018616, 665.0, 16.242231499, 14.93833385, 185.0, -0.002952265, -0.002947564, 1.0],MAP:["..........HHHHHHHHHHHH", "..........HHHHHHHHHHHH", "..........HH##########", "..........HH#CCJJ..HH#", "..........HH#..JJJJHH#", "..........HH#JJJJ.JHH#", "..........HH#..J.X.HH#", ".......C..HH#..J...HH#", ".BB.BBCC..HH#......H##", ".B..B..C..HH#.......C.", "...........C#.........", "####...............CC.", "####C...BBC...........", "####....BBC...........", "####............CC....", "####.CC.........B....."],
-  ops:[{id:'raven',x:10,y:14},{id:'viper',x:11,y:14}],exit:[[10, 14], [11, 14], [10, 15], [11, 15]],objective:{x:17,y:6,use:[17,7],label:'산타의 화물',verb:'확보',time:3},
-  guards:[{wps:[[4,5],[9,5]]},{wps:[[1,1],[8,1]]},{wps:[[13,4],[13,9]]},{wps:[[18,10],[21,12]]},{wps:[[4,10]],tower:true,faces:[-1.3,-0.4],ft:6}]}}];
+  ops:[{id:'raven',x:10,y:14},{id:'viper',x:11,y:14},{id:'glitch',x:10,y:15}],exit:[[10, 14], [11, 14], [10, 15], [11, 15]],objective:{x:17,y:6,use:[17,7],label:'산타의 화물',verb:'확보',time:3},
+  guards:[{wps:[[4,5],[9,5]]},{wps:[[1,1],[8,1]]},{wps:[[13,4],[13,9]]},{wps:[[18,10],[21,12]]},{wps:[[4,10]],tower:true,lamp:true,faces:[-1.3,-0.4],ft:6}]}}];
 var WIDX=[];
 WINTER.forEach(function(c,ci){
   var m={},k;for(k in c.m)m[k]=c.m[k];
   m.title=c.t;m.code='BLOODY CHRISTMAS // '+(ci+1)+' / 5';m.copy=c.copy;m.pre=c.pre;m.post=c.post;m.img=c.img;m.winter=true;m.season='w';m.key='W-'+(ci+1);m.bc=c.bc;m.par=c.par;
-  m.goal0=m.objective.label+' — '+m.objective.verb;m.goal1=m.ops.length>1?'두 명 모두 진입 지점으로 복귀':'진입 지점으로 복귀';m.brief='<ul>'+RULES+'</ul>';
+  m.goal0=m.objective.label+' — '+m.objective.verb;m.goal1=m.ops.length>2?'세 명 모두 진입 지점으로 복귀':m.ops.length>1?'두 명 모두 진입 지점으로 복귀':'진입 지점으로 복귀';m.env=c.env||null;m.brief='<ul>'+RULES+(c.tips||[]).map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
   WIDX.push(MIS.length);MIS.push(m);
 });
 var SPECIAL=[
@@ -1280,13 +1280,13 @@ function senseRange(g,o){
 
 var saved=null,plan=false,started=false,loads=0,ghosts=[];
 function loadMission(i){
-  MI=i;M=MIS[i];MAP=M.MAP;COLS=MAP[0].length;ROWS=MAP.length;HF=M.proj;HFI=inv3(HF);WAKE=M.wake*DF.w;wallCv=null;saved=null;loads=0;plan=false;S=null;
+  MI=i;M=MIS[i];ENV.k=1;ENV.quiet=false;ENV.txt='';RANGE=6.5*DF.r;CRANGE=3.6*DF.r;MAP=M.MAP;COLS=MAP[0].length;ROWS=MAP.length;HF=M.proj;HFI=inv3(HF);WAKE=M.wake*DF.w;wallCv=null;saved=null;loads=0;plan=false;S=null;
   loadImg(M.bg);
 }
 function newState(){
   return {t:0,act:0,objDone:false,over:null,kos:0,kills:0,noise:[],shots:[],pops:[],msg:null,trail:[],open:{},
     ops:M.ops.map(function(o){return {id:o.id,x:o.x+0.5,y:o.y+0.5,crouch:false,run:false,path:[],carry:-1,ang:-HP,nt:0,st:0,mv:false,aim:0,ammo:o.id==='viper'?3:0,dart:o.id==='doc'?3:0,pistol:6,mode:'move',disg:false,fx:null,fxt:0,queue:[],cur:null};}),
-    guards:M.guards.map(function(d,i){var w=d.wps||[d.pos];return {id:i,x:d.pos?d.pos[0]:w[0][0]+0.5,y:d.pos?d.pos[1]:w[0][1]+0.5,ang:d.faces?d.faces[0]:0,wps:w,faces:d.faces||null,tower:!!d.tower,cam:!!d.cam,boss:!!d.boss,fixed:!!(d.tower||d.cam),fi:0,ft:d.ft||3.5,fd:d.ft||3.5,wi:0,wait:0,path:[],state:'patrol',meter:0,down:false,dead:false,look:0,seen:null,bt:0,kt:0,off:0,sh:0};}),
+    guards:M.guards.map(function(d,i){var w=d.wps||[d.pos];return {id:i,x:d.pos?d.pos[0]:w[0][0]+0.5,y:d.pos?d.pos[1]:w[0][1]+0.5,ang:d.faces?d.faces[0]:0,wps:w,faces:d.faces||null,tower:!!d.tower,lamp:!!d.lamp,cam:!!d.cam,boss:!!d.boss,fixed:!!(d.tower||d.cam),fi:0,ft:d.ft||3.5,fd:d.ft||3.5,wi:0,wait:0,path:[],state:'patrol',meter:0,down:false,dead:false,look:0,seen:null,bt:0,kt:0,off:0,sh:0};}),
     hostage:M.hostage?{x:M.hostage.x+0.5,y:M.hostage.y+0.5,free:false}:null};
 }
 function followPath(o,speed,dt,turn){
@@ -1328,7 +1328,7 @@ function investigate(g,x,y){
   if(g.state!=='investigate')S.inv=(S.inv||0)+1;
   g.state='investigate';g.path=p;g.look=2.5;
 }
-function alertNear(x,y,r,tx,ty,skip){S.guards.forEach(function(g){if(!g.down&&g!==skip&&hyp(g.x-x,g.y-y)<r)investigate(g,tx,ty);});}
+function alertNear(x,y,r,tx,ty,skip){if(ENV.quiet)return;S.guards.forEach(function(g){if(!g.down&&g!==skip&&hyp(g.x-x,g.y-y)<r)investigate(g,tx,ty);});}
 function fail(why){if(!S.over){S.over={win:false,why:why};snd('alert');}}
 function carried(id){for(var i=0;i<S.ops.length;i++)if(S.ops[i].carry===id)return true;return false;}
 function stepGuardSense(g,dt){
@@ -1433,7 +1433,7 @@ function stepOp(o,dt){
     if(g.down){o.cur=null;}
     else if(hyp(g.x-o.x,g.y-o.y)>6)approach(o,a,g.x,g.y,5.4,false,false,dt);
     else{o.path=[];o.ang=Math.atan2(g.y-o.y,g.x-o.x);o.fx='hack';o.fxt=0.2;a.t-=dt;
-      if(a.t<=0){g.off=25;g.meter=0;o.cur=null;pop(g.x,g.y,'카메라 OFF 25초','#3fe0e0');snd('ok');}}
+      if(a.t<=0){g.off=25;g.meter=0;o.cur=null;pop(g.x,g.y,g.lamp?'조명 OFF 25초':'카메라 OFF 25초','#3fe0e0');snd('ok');}}
   }else if(a&&a.type==='lure'){
     tx=a.x+0.5;ty=a.y+0.5;
     if(hyp(tx-o.x,ty-o.y)>8)approach(o,a,tx,ty,7.4,false,false,dt);
@@ -1458,8 +1458,22 @@ function stepOp(o,dt){
   }
 }
 function inExit(o){for(var i=0;i<M.exit.length;i++)if(fl(o.x)===M.exit[i][0]&&fl(o.y)===M.exit[i][1])return true;return false;}
+/* 환경 변화: M.env = {blizzard:[주기,길이], bell:[주기,길이], limit:초} */
+var ENV={k:1,quiet:false,txt:'',hot:false};
+function envPhase(a){if(!a)return -1;var p=S.t%a[0];return p>=a[0]-a[1]?p-(a[0]-a[1]):-1;}
+function envNext(a){var p=S.t%a[0];return a[0]-a[1]-p;}
+function envStep(){
+  var e=M.env,b,k=1,q=false,t='',hot=false;
+  if(e){
+    if(e.blizzard){b=envPhase(e.blizzard);if(b>=0){k=0.45;hot=true;t='눈보라 · 시야가 짧다 '+Math.ceil(e.blizzard[1]-b);}else t='다음 눈보라까지 '+Math.ceil(envNext(e.blizzard));}
+    if(e.bell){b=envPhase(e.bell);if(b>=0){q=true;hot=true;t='자정의 종 · 소리가 묻힌다 '+Math.ceil(e.bell[1]-b);}else t='다음 종까지 '+Math.ceil(envNext(e.bell));}
+    if(e.limit){var left=e.limit-S.t;if(!S.objDone){t='이륙까지 '+mmss(Math.max(0,Math.ceil(left)));hot=left<60;if(left<=0)fail('전용기가 떴다. 화물은 하늘에 있다.');}else t='';}
+  }
+  if(k!==ENV.k){RANGE=6.5*DF.r*k;CRANGE=3.6*DF.r*k;}
+  ENV.k=k;ENV.quiet=q;ENV.txt=t;ENV.hot=hot;
+}
 function update(dt){
-  S.t+=dt;
+  S.t+=dt;envStep();
   var i,r=S.ops[0];
   for(i=0;i<S.ops.length;i++)stepOp(S.ops[i],dt);
   var h=S.hostage;
@@ -1584,7 +1598,7 @@ var RNG={pistol:5,snipe:SNIPE,hack:6,lure:8,dart:5};
 function canTarget(A,g,md){
   if(g.down)return false;
   if(md==='ko'||md==='knife')return !g.fixed&&!g.boss;
-  if(md==='hack')return g.cam;
+  if(md==='hack')return g.cam||g.lamp;
   if(md==='dart')return !g.cam;
   return md==='pistol'||md==='snipe';
 }
@@ -1688,6 +1702,8 @@ function draw(){
   }
   ctx.setTransform(DPR,0,0,DPR,0,0);ctx.font='800 13px system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
   if(plan){ctx.fillStyle='rgba(236,232,225,.94)';ctx.fillRect(0,H-26,W,26);ctx.fillStyle='#0a0d11';ctx.fillText('PLAN — 시간 정지 · 요원별로 행동을 예약하고 EXECUTE',W/2,H-13);}
+  if(ENV.k<1){ctx.fillStyle='rgba(205,225,255,.20)';ctx.fillRect(0,0,W,H);}
+  if(ENV.txt&&!plan){var ew=ctx.measureText(ENV.txt).width+26;ctx.fillStyle=ENV.hot?'rgba(120,200,255,.92)':'rgba(6,8,11,.72)';ctx.fillRect(W/2-ew/2,46,ew,24);ctx.fillStyle=ENV.hot?'#06080b':'#cfd6de';ctx.fillText(ENV.txt,W/2,58);}
   if(S.msg){var mw=Math.min(W-24,ctx.measureText(S.msg.text).width+28);ctx.fillStyle='rgba(6,8,11,.88)';ctx.fillRect(W/2-mw/2,H/2-92,mw,30);ctx.fillStyle='#ece8e1';ctx.fillText(S.msg.text,W/2,H/2-77);}
 }
 /* ---------- UI ---------- */
@@ -1977,7 +1993,7 @@ function onTap(px,py){
   var acts=OPD[A.id].acts,mv=function(){return blocked(cx,cy)?null:{type:'move',x:cx,y:cy,run:A.mode==='run'};};
   if(md==='move'||md==='run'){
     if(gh){
-      var pm=gh.cam?(acts.indexOf('hack')>=0?'hack':null):acts.indexOf('ko')>=0&&!gh.tower&&!gh.boss?'ko':acts.indexOf('dart')>=0&&!gh.boss?'dart':acts.indexOf('snipe')>=0?'snipe':null;
+      var pm=(gh.cam||(gh.lamp&&acts.indexOf('hack')>=0))?(acts.indexOf('hack')>=0?'hack':null):acts.indexOf('ko')>=0&&!gh.tower&&!gh.boss?'ko':acts.indexOf('dart')>=0&&!gh.boss?'dart':acts.indexOf('snipe')>=0?'snipe':null;
       if(!pm){say(gh.cam?'카메라는 해킹하거나 쏴야 한다 — 아래에서 행동을 고르세요':'아래에서 공격 행동을 고르세요');return;}
       md=pm;
     }else if(bh&&acts.indexOf('carry')>=0){md='carry';}
@@ -2004,7 +2020,7 @@ function onTap(px,py){
     else if(A[md==='pistol'?'pistol':'ammo']<=0){say('탄창이 비었다.');return;}
     else act={type:'shoot',id:gh.id,w:md==='pistol'?'pistol':'sniper'};
   }else if(md==='hack'){
-    if(gh&&gh.cam)act={type:'hack',id:gh.id};
+    if(gh&&(gh.cam||gh.lamp))act={type:'hack',id:gh.id};
     else if(gh){say('사람은 해킹되지 않는다.');return;}
     else{act=mv();if(!act)return;}
   }else if(md==='lure'){
