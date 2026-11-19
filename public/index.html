@@ -756,7 +756,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.23.0';
+var VERSION='0.23.1';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1939,12 +1939,12 @@ function result(){
   }else{if(DIFF>=2){var hn=0;bl.forEach(function(b){if(b[2]())hn++;});if(!PROG.hb)PROG.hb={};if(!(PROG.hb[MI]>=hn))PROG.hb[MI]=hn;}rw1=rwTier(MI);
     for(var rn=rw1;rn>=0&&!rwi;rn--)rwi=rwImg(MI,rn);
     rwt=rw1>rw0&&rw1>0?'<em class="k">'+RWN[rw1]+' 컷이 블랙박스에 담겼다</em>':fresh?'<em class="k">리워드 컷이 블랙박스에 담겼다</em>':DIFF<2?'<span style="color:var(--dim)">HARD 이상, 한 판에서 딴 배지 수만큼 더 열린다</span>':rw1<3?'<span style="color:var(--dim)">한 판에 배지 '+(rw1+1)+'개를 따면 다음 컷이 열린다</span>':'<span style="color:var(--dim)">네 장 모두 열었다</span>';}
-  var gain=Math.round(sc.score/100);PROG.pt=(PROG.pt||0)+gain;
+  var gain=Math.round(sc.score/100),gfull=best;if(!gfull)gain=Math.round(gain*0.3);PROG.pt=(PROG.pt||0)+gain; /* 재클리어는 30%, 그 난이도 최고 점수를 넘기면 전액 */
   var kvm=/^a_([a-z]+)_(\d)\.jpg/.exec(MIS[MI].img||''),kvn=false;if(kvm&&+kvm[2]>0&&!gOpen(kvm[1],+kvm[2])){(PROG.g[kvm[1]]||(PROG.g[kvm[1]]=[]))[+kvm[2]]=true;kvn=true;}
   saveProg();sbClear(M.key,DIFF,s,sc.score,bl.reduce(function(a,x,i){return a|(x[2]()?1<<i:0);},0),kvn?'g:'+kvm[1]+':'+kvm[2]:null);
   var b=[['다시 도전',restart,true],['미션 선택',M.story?storyMenu:M.winter?winter:menu]];if(M.story){var sid=M.story.id;if(M.story.ci<2)b.unshift(['다음 이야기',function(){brief(MI+1);},true]);else if(nOpen(sid))b.unshift(['그날 밤',function(){ending(sid);},true]);}else if(M.winter){if(MI<MIS.length-1&&MIS[MI+1].winter)b.unshift(['다음 판',function(){brief(MI+1);},true]);}else if(MI<NBASE-1)b.unshift(['다음 미션',function(){brief(MI+1);},true]);
   overlay(sc.score.toLocaleString()+' 점','MISSION CLEAR // '+sc.grade+' RANK'+(best?' // BEST':''),
-   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P</td></tr>'+(rwt?'<tr><td>'+rwl+'</td><td>'+rwt+'</td></tr>':'')+(kvn?'<tr><td>갤러리</td><td><em class="k">이 작전의 그림이 열렸다</em></td></tr>':'')+(sbOn()&&!USER?'<tr><td>기록</td><td style="color:var(--dim)">이 기기에만 남는다 · 로그인하면 계정에 남는다</td></tr>':'')+'</table>'+
+   '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P'+(gfull?'':' <span style="color:var(--dim);font-size:11px">재클리어 30%</span>')+'</td></tr>'+(rwt?'<tr><td>'+rwl+'</td><td>'+rwt+'</td></tr>':'')+(kvn?'<tr><td>갤러리</td><td><em class="k">이 작전의 그림이 열렸다</em></td></tr>':'')+(sbOn()&&!USER?'<tr><td>기록</td><td style="color:var(--dim)">이 기기에만 남는다 · 로그인하면 계정에 남는다</td></tr>':'')+'</table>'+
    '<label style="margin-top:14px">특임 배지'+(nw?' — '+nw+'개 획득':'')+' (보유 '+badgeTotal()+')</label><table>'+bh+'</table>',b,rwi,true);
 }
 function showEnd(){

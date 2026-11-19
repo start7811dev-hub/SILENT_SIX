@@ -110,7 +110,7 @@ end $$;
 -- 미션 클리어 기록. 점수 한도와 간격을 서버에서 확인하고 포인트를 적립한다.
 create or replace function public.s6_clear(p_mission text, p_diff integer, p_time integer, p_score integer, p_bits integer, p_kv text default null)
 returns jsonb language plpgsql security definer set search_path = public as $$
-declare u uuid := s6_uid(); gain integer; last_at timestamptz; cap integer;
+declare u uuid := s6_uid(); gain integer; last_at timestamptz; cap integer; prev integer;
 begin
   perform s6_ensure(u);
   if not s6_mission_ok(p_mission) or p_diff not between 0 and 3 then raise exception 'bad mission'; end if;
@@ -119,6 +119,7 @@ begin
   select max(created_at) into last_at from ledger where user_id = u and reason = 'clear';
   if last_at is not null and now() - last_at < interval '8 seconds' then raise exception 'too fast'; end if;
 
+  select best_score into prev from clears where user_id = u and mission = p_mission and diff = p_diff;
   insert into clears(user_id, mission, diff, best_time, best_score) values (u, p_mission, p_diff, p_time, p_score)
   on conflict (user_id, mission, diff) do update
     set best_time = least(clears.best_time, excluded.best_time),
@@ -129,7 +130,9 @@ begin
   if p_kv is not null and p_kv ~ '^g:(raven|viper|glitch|brick|mirage|doc):[1-7]$' then
     insert into unlocks(user_id, item) values (u, p_kv) on conflict do nothing;
   end if;
+  -- 같은 미션 · 난이도 재클리어는 30%. 그 난이도 최고 점수를 넘기면 전액.
   gain := round(p_score / 100.0);
+  if prev is not null and p_score <= prev then gain := round(gain * 0.3); end if;
   update profiles set pt = pt + gain, updated_at = now() where id = u;
   insert into ledger(user_id, delta, reason, ref) values (u, gain, 'clear', p_mission || ':' || p_diff);
   return s6_state();

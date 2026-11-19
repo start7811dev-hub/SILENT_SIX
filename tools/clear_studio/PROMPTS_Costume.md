@@ -1,7 +1,7 @@
-# SILENT SIX — 코스튬 미션 클리어 이미지 프롬프트 (ChatGPT용)
+# SILENT SIX — 코스튬 미션 리워드 컷 프롬프트 (ChatGPT용)
 
 요원 6명 × 4장. 새 채팅에 **공통 지시**를 먼저 붙여 넣고, 요원 블록 하나와 참조 이미지(`a_요원_0.jpg`)를 함께 보낸다.
-파일명 `r_C-요원_번호` (0 클리어 · 1 전투 · 2 도발 · 3 고자극). 미션 설계는 `docs/COSTUME.md`. 요원마다 장소가 다르다.
+파일명 `r_C-요원_번호` (0 기본 제공 · 1 잠입 · 2 도발 · 3 고자극. 1~3번은 포인트 구매). 미션 설계는 `docs/COSTUME.md`. 요원마다 장소가 다르다.
 
 ## 공통 지시
 
@@ -32,7 +32,7 @@ What this mission is about: Costume mission. She infiltrates in costume: a gloss
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
 Image #0 — file name r_C-doc_0 — Mission accomplished in costume. A proud showpiece pose that shows the whole outfit clearly.
-Image #1 — file name r_C-doc_1 — Fighting in the costume: a dynamic action moment that shows how the outfit moves.
+Image #1 — file name r_C-doc_1 — The tensest moment of the infiltration. No weapons: she walks in plain sight through the venue with a cool smile while a guard's blurred silhouette passes in the foreground. Shows how the outfit moves.
 Image #2 — file name r_C-doc_2 — Backstage after the mission. A teasing pose at the viewer, costume loosened, one piece half undone.
 Image #3 — file name r_C-doc_3 — The most daring version of the same costume, lingerie-level, in a dressing room or boudoir, sensual and confident, implied only.
 ```
@@ -49,7 +49,7 @@ What this mission is about: Costume mission. She infiltrates in costume: a red-a
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
 Image #0 — file name r_C-raven_0 — Mission accomplished in costume. A proud showpiece pose that shows the whole outfit clearly.
-Image #1 — file name r_C-raven_1 — Fighting in the costume: a dynamic action moment that shows how the outfit moves.
+Image #1 — file name r_C-raven_1 — The tensest moment of the infiltration. No weapons: she walks in plain sight through the venue with a cool smile while a guard's blurred silhouette passes in the foreground. Shows how the outfit moves.
 Image #2 — file name r_C-raven_2 — Backstage after the mission. A teasing pose at the viewer, costume loosened, one piece half undone.
 Image #3 — file name r_C-raven_3 — The most daring version of the same costume, lingerie-level, in a dressing room or boudoir, sensual and confident, implied only.
 ```
@@ -66,7 +66,7 @@ What this mission is about: Costume mission. She infiltrates in costume: a viole
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
 Image #0 — file name r_C-viper_0 — Mission accomplished in costume. A proud showpiece pose that shows the whole outfit clearly.
-Image #1 — file name r_C-viper_1 — Fighting in the costume: a dynamic action moment that shows how the outfit moves.
+Image #1 — file name r_C-viper_1 — The tensest moment of the infiltration. No weapons: she walks in plain sight through the venue with a cool smile while a guard's blurred silhouette passes in the foreground. Shows how the outfit moves.
 Image #2 — file name r_C-viper_2 — Backstage after the mission. A teasing pose at the viewer, costume loosened, one piece half undone.
 Image #3 — file name r_C-viper_3 — The most daring version of the same costume, lingerie-level, in a dressing room or boudoir, sensual and confident, implied only.
 ```
@@ -83,7 +83,7 @@ What this mission is about: Costume mission. She infiltrates in costume: a teal 
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
 Image #0 — file name r_C-glitch_0 — Mission accomplished in costume. A proud showpiece pose that shows the whole outfit clearly.
-Image #1 — file name r_C-glitch_1 — Fighting in the costume: a dynamic action moment that shows how the outfit moves.
+Image #1 — file name r_C-glitch_1 — The tensest moment of the infiltration. No weapons: she walks in plain sight through the venue with a cool smile while a guard's blurred silhouette passes in the foreground. Shows how the outfit moves.
 Image #2 — file name r_C-glitch_2 — Backstage after the mission. A teasing pose at the viewer, costume loosened, one piece half undone.
 Image #3 — file name r_C-glitch_3 — The most daring version of the same costume, lingerie-level, in a dressing room or boudoir, sensual and confident, implied only.
 ```
@@ -100,7 +100,7 @@ What this mission is about: Costume mission. She infiltrates in costume: an oran
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
 Image #0 — file name r_C-brick_0 — Mission accomplished in costume. A proud showpiece pose that shows the whole outfit clearly.
-Image #1 — file name r_C-brick_1 — Fighting in the costume: a dynamic action moment that shows how the outfit moves.
+Image #1 — file name r_C-brick_1 — The tensest moment of the infiltration. No weapons: she walks in plain sight through the venue with a cool smile while a guard's blurred silhouette passes in the foreground. Shows how the outfit moves.
 Image #2 — file name r_C-brick_2 — Backstage after the mission. A teasing pose at the viewer, costume loosened, one piece half undone.
 Image #3 — file name r_C-brick_3 — The most daring version of the same costume, lingerie-level, in a dressing room or boudoir, sensual and confident, implied only.
 ```
@@ -117,7 +117,7 @@ What this mission is about: Costume mission. She infiltrates in costume: a gold-
 Tone: the costume is the star. Glossy, stylish, stage-like lighting, strong color accent in the agent's own color, glamorous and playful.
 
 Image #0 — file name r_C-mirage_0 — Mission accomplished in costume. A proud showpiece pose that shows the whole outfit clearly.
-Image #1 — file name r_C-mirage_1 — Fighting in the costume: a dynamic action moment that shows how the outfit moves.
+Image #1 — file name r_C-mirage_1 — The tensest moment of the infiltration. No weapons: she walks in plain sight through the venue with a cool smile while a guard's blurred silhouette passes in the foreground. Shows how the outfit moves.
 Image #2 — file name r_C-mirage_2 — Backstage after the mission. A teasing pose at the viewer, costume loosened, one piece half undone.
 Image #3 — file name r_C-mirage_3 — The most daring version of the same costume, lingerie-level, in a dressing room or boudoir, sensual and confident, implied only.
 ```
