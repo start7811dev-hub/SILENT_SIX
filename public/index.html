@@ -775,7 +775,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.27.1';
+var VERSION='0.27.2';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -896,10 +896,10 @@ var WINTER=[
   evac:{gates:[{n:'왼쪽 아래 문',cells:[[13,30],[14,30]],shut:[[13,30],[14,30],[13,29],[14,29]],post:[13,28],face:-1.57,bar:['p_w1_bar_x.png',13,29,2,1]},{n:'왼쪽 위 문',cells:[[0,15],[0,16]],shut:[[0,15],[0,16]],post:[2,15],face:0,bar:['p_w1_bar_y.png',0,15,1,2]},{n:'오른쪽 위 문',cells:[[15,0],[16,0]],shut:[[15,0],[16,0]],post:[15,2],face:1.57,bar:['p_w1_bar_x.png',15,0,2,1]},{n:'오른쪽 아래 문',cells:[[30,14],[30,15]],shut:[[30,14],[30,15]],post:[28,14],face:3.14,bar:['p_w1_bar_y.png',30,14,1,2]}]},
   santa:{img:'p_w_santa.png',x:4.5,y:4.5,up:34,t:20},
   dlg:{cast:{santa:'d_w_santa_1.webp',mirage:'d_w1_mirage.webp'},
-   start:[['hq','18시 40분, 구시가 성탄 마켓이다. 헬리오스 배달 책임자, 호출명은 "산타". 오늘 밤 상자 다섯 개를 돌릴 거고, 첫 번째가 저 트리 밑에 있다.'],['raven','트리 둘레에 울타리가 쳐져 있네. 저건 어떻게 열지?'],['mirage','그게 좀 골치 아파. 조명이 저렇게 환하면 넘다가 바로 걸릴 거고, 사복 경비 셋 중에 누군가는 무전기를 쥐고 있거든.'],['raven','그럼 발전기부터 꺼서 불을 죽이고, 무전 쥔 놈을 찾아서 재워야겠군. 어느 쪽이 먼저든 상관없어.'],['mirage','난 점원인 척 들어갈게. 앞치마가 생각보다 잘 어울리더라고, 나.'],['raven','장난은 거기까지. 민간인이 너무 많아. 총은 절대 꺼내지 마.']],
-   mid:[['santa','어머, 이 주파수… 아직도 그대로 쓰고 있네?'],['raven','…누구야, 너.'],['santa','선물 나눠 주는 사람이지. 물론 착한 아이들한테만.'],['mirage','잠깐, 지휘관. 이거 우리 비밀 회선인데… 외부에서 어떻게 들어온 거지?'],['santa','글쎄. 꼭 밖에서 들어왔다는 법은 없잖아?']],
-   obj:[['santa','집었구나? 그럼 이제 뛰어야지. 리본 풀 시간까지는 안 줄 거야.'],['raven','젠장, 출구가 막히고 있어! 미라주, 열린 곳부터 찾아!']],
-   end:[['mirage','어…? 돈이 아니야. 종이 딱 한 장인데, 숫자만 세 줄 적혀 있어.'],['raven','숫자? …받는 사람은 누구로 돼 있어?'],['mirage','시청 도시안전국장. 공무원한테 돈도 아니고 종이 쪼가리를 보낸다고? 이상하잖아.'],['mirage','잠깐만, 바닥에 카드가 한 장 더 있어. "다음 선물은 20시 10분, 화차 44호"…'],['raven','…이건 국장한테 쓴 게 아니야. 우리 보라고 남긴 거지.']]},
+   start:[['hq','18시 40분, 구시가 성탄 마켓이다. 헬리오스 배달 책임자, 호출명은 "산타". 오늘 밤 상자 다섯 개를 돌릴 거고, 첫 번째가 저 트리 밑에 있다.'],['raven','트리 둘레에 울타리가 쳐져 있네. 저건 어떻게 열지?',0],['mirage','그게 좀 골치 아파. 조명이 저렇게 환하면 넘다가 바로 걸릴 거고, 사복 경비 셋 중에 누군가는 무전기를 쥐고 있거든.'],['raven','그럼 발전기부터 꺼서 불을 죽이고, 무전 쥔 놈을 찾아서 재워야겠군. 어느 쪽이 먼저든 상관없어.',2],['mirage','난 점원인 척 들어갈게. 앞치마가 생각보다 잘 어울리더라고, 나.'],['raven','장난은 거기까지. 민간인이 너무 많아. 총은 절대 꺼내지 마.',0]],
+   mid:[['santa','어머, 이 주파수… 아직도 그대로 쓰고 있네?'],['raven','…누구야, 너.',1],['santa','선물 나눠 주는 사람이지. 물론 착한 아이들한테만.'],['mirage','잠깐, 지휘관. 이거 우리 비밀 회선인데… 외부에서 어떻게 들어온 거지?'],['santa','글쎄. 꼭 밖에서 들어왔다는 법은 없잖아?']],
+   obj:[['santa','집었구나? 그럼 이제 뛰어야지. 리본 풀 시간까지는 안 줄 거야.'],['raven','젠장, 출구가 막히고 있어! 미라주, 열린 곳부터 찾아!',1]],
+   end:[['mirage','어…? 돈이 아니야. 종이 딱 한 장인데, 숫자만 세 줄 적혀 있어.'],['raven','숫자? …받는 사람은 누구로 돼 있어?',0],['mirage','시청 도시안전국장. 공무원한테 돈도 아니고 종이 쪼가리를 보낸다고? 이상하잖아.'],['mirage','잠깐만, 바닥에 카드가 한 장 더 있어. "다음 선물은 20시 10분, 화차 44호"…'],['raven','…이건 국장한테 쓴 게 아니야. 우리 보라고 남긴 거지.',1]]},
   guards:[{wps:[[14,11]],faces:[0,-1.57],ft:9},{wps:[[18,11]],faces:[3.14,1.57],ft:9},{wps:[[23,8],[23,13]]},{wps:[[23,13],[23,8]]},{wps:[[1,2],[1,21]]},{wps:[[9,1],[22,1]]},{wps:[[7,9],[7,21]],plain:true,keen:true},{wps:[[8,7],[15,7]],plain:true,keen:true},{wps:[[9,23],[11,23],[11,19]],plain:true,keen:true},{wps:[[29,9]],faces:[1.57,3.14],ft:5},{wps:[[29,13]],faces:[-1.57,3.14],ft:5},{wps:[[22,7],[28,7]]}]}},
  {t:'화차 44호',copy:'노크는<br>한 번만 한다.',pre:'20:10, 화물 조차장. 화차 수십 량 가운데 한 량에만 산타의 상자가 실려 있다. 화차 사이 틈으로만 건널 수 있다.',post:['화차 44호가 통째로 날아갔다.', '남은 상자는 얼어붙은 호수의 보트하우스로 갔다.'],bc:'noload',img:'a_brick_5.jpg',par:240,tips:["화차 줄은 <b>화차 사이 틈</b>으로만 건널 수 있다.", "<b>조명탑</b>은 글리치가 해킹하면 25초 동안 꺼진다."],
   m:{bg:'bgw2.jpg',sk:0.42,wake:90,opaque:'#B',hts:{'#': 60, 'B': 46, 'C': 18, 'X': 46},proj:[35.574618746, -35.872892679, 599.89148668, 12.742952471, 13.104308189, 122.419621299, 0.001329182, -0.014388236, 1.0],MAP:["BBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBBBBBBBBBBBBBB", "BBBBBBBBBBBBBXBBBBBBBBBBBB", "..............C...CC......", ".....CC............CC.....", "..........................", "BBBBBBBBB.BBBBBBB.BBBBBBBB", "BBBBBBBBB.####BBB.BBBBBBBB", "..........####........CC..", "...CC....B####........CC..", "..........####C.BBBBBBBBBB", "BBBB.BBBBB####..BBBBBBBBBB", "BBBB.BBBBBB.....C.........", "...CC..C........C.........", "..........................", "BBBBBBBBBBBBBBBBBB.BBBBBBB", "BBBBBBBBBBBBBBBBBB.BBBBBBB"],
@@ -1868,20 +1868,20 @@ function nextScene(){
   if(SCQ.length)mk(b,'건너뛰기',function(){SCQ=[];nextScene();});
 }
 /* 대화 화면: 왼쪽 상대, 오른쪽 요원. lines=[[누구,대사],...] */
-var DPORT={}; /* 대화용 누끼가 있는 요원: d_<요원>_0.webp */
+var DPORT={raven:1,viper:1,glitch:1,brick:1,mirage:1,doc:1}; /* 대화용 그림 d_<요원>_<0 기본|1 긴장|2 여유>.webp. 대사 셋째 칸이 표정 */
 var DLGON=false,DLQ=[],DLD=null,DLGM=-1,DCAST={hq:{n:'지휘관',c:'#c9d2dc'},santa:{n:'산타',c:'#e0364f',side:'l'}};
-function dlgWho(k){var d=DCAST[k]||{},o=OPD[k],cast=(M.dlg&&M.dlg.cast)||{};return {n:d.n||(o?o.n:k),c:d.c||(o?o.col:'#fff'),side:d.side||(o?'r':''),img:cast[k]||(DPORT[k]?'d_'+k+'_0.webp':''),card:false};}
+function dlgWho(k,e){var d=DCAST[k]||{},o=OPD[k],cast=(M.dlg&&M.dlg.cast)||{};return {n:d.n||(o?o.n:k),c:d.c||(o?o.col:'#fff'),side:d.side||(o?'r':''),img:cast[k]||(DPORT[k]?'d_'+k+'_'+(e||0)+'.webp':''),card:false};}
 function dlg(lines,done){
   DLQ=lines.slice();DLD=done||null;DLGON=true;var L=$('dgl'),R=$('dgr'),seen={l:'',r:''};
-  lines.forEach(function(x){var w=dlgWho(x[0]);if(w.side&&!seen[w.side])seen[w.side]=x[0];});
-  [['l',L],['r',R]].forEach(function(a){var w=seen[a[0]]?dlgWho(seen[a[0]]):null;a[1].className=w&&w.img?'':'off';if(w){a[1].src=w.img;if(w.card&&a[1].style)a[1].style.objectPosition=fp(w.img);}a[1].setAttribute&&a[1].setAttribute('data-w',seen[a[0]]||'');});
+  lines.forEach(function(x){var w=dlgWho(x[0],x[2]);if(w.img)loadImg(w.img);if(w.side&&!seen[w.side])seen[w.side]=x[0];});
+  [['l',L],['r',R]].forEach(function(a){var w=seen[a[0]]?dlgWho(seen[a[0]]):null;a[1].className=w&&w.img?'':'off';if(w){a[1].src=w.img;if(w.card&&a[1].style)a[1].style.objectPosition=fp(w.img);}a[1].setAttribute&&a[1].setAttribute('data-w',w?w.img:'');});
   $('dlg').className='';dlgNext();
 }
 function dlgNext(){
   var x=DLQ.shift();if(!x){$('dlg').className='hide';DLGON=false;var d=DLD;DLD=null;if(d)d();return;}
-  var w=dlgWho(x[0]),el=$('dlg'),L=$('dgl'),R=$('dgr'),t=w.side==='l'?L:w.side==='r'?R:null;
+  var w=dlgWho(x[0],x[2]),el=$('dlg'),L=$('dgl'),R=$('dgr'),t=w.side==='l'?L:w.side==='r'?R:null;if(t&&!w.img)t=null;
   if(el.style&&el.style.setProperty)el.style.setProperty('--c',w.c);
-  if(t&&t.getAttribute&&t.getAttribute('data-w')!==x[0]){t.src=w.img;t.setAttribute('data-w',x[0]);if(t.style)t.style.objectPosition=w.card?fp(w.img):'bottom';}
+  if(t&&t.getAttribute&&t.getAttribute('data-w')!==w.img){t.src=w.img;t.setAttribute('data-w',w.img);}
   [L,R].forEach(function(e){var c=(e.className||'').replace(/ ?on/,'');if(c==='off')return;if(e===t)c='on';e.className=c;});
   $('dgn').textContent=w.n;$('dgt').textContent=x[1];
 }
