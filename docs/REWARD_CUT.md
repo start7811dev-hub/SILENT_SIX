@@ -117,4 +117,20 @@
 
 1번은 TAKE 1 · 2 · 3을 HARD 이상으로 깨면 무료, 2~6번은 컷당 30P.
 
-생성 묶음: `tools/clear_studio/winter_packs_v4.py`(블러디), `tools/clear_studio/costume_packs_v4.py`(코스튬), `tools/clear_studio/romantic_night_packs_v4.py`(로맨틱).
+## 9. 메뉴 · 미션 카드 이미지 (38장)
+
+카드 한 장은 서비스 컷 한 장이다. 표현 기준과 넘지 않는 선은 위와 같다. 가로 카드는 3:2(1536×1024)로 만들고 게임이 16:9로 잘라 쓴다. 왼쪽 아래에 제목이 올라가므로 그 자리는 비운다. 세로 타일은 2:3(1024×1536)이다.
+
+| 위치 | 파일 | 내용 | 형식 | 수량 |
+|---|---|---|---|---|
+| 홈 · 로맨틱 타일 | `kv_romantic` | 바이퍼, 속옷 차림 뒷모습 | 세로 | 1 |
+| 로맨틱 진입 · 요원 카드 | `kr_<요원>_0` | 요원의 속옷 서비스 컷(그날 밤의 장소) | 가로 | 6 |
+| 로맨틱 · TAKE 카드 | `kr_<요원>_1~3` | 요원 카드의 포즈 · 구도 변주 | 가로 | 18 |
+| 홈 · 시즈널 타일 | `kv_seasonal` | 유지 | | 0 |
+| 시즈널 진입 · 블러디 소개 | `kv_winter` | 산타 뒷모습, 코트를 벗는 순간, 얼굴은 보이지 않음 | 세로 | 1 |
+| 블러디 · 스테이지 카드 | `kw_1~5` | 참여 요원의 크리스마스 룩 서비스 컷 | 가로 | 5 |
+| 홈 · 스페셜 타일 | `kv_special_menu` | 미라주, 속옷 차림으로 탈의실에 가는 뒷모습 | 세로 | 1 |
+| 스페셜 · 코스튬 미션 카드 | `kv_special` | 닥, 유지 | | 0 |
+| 코스튬 · 요원 카드 | `kc_<요원>` | 속옷 차림으로 탈의실에 들어가는 순간, 입을 코스튬이 걸려 있음 | 가로 | 6 |
+
+생성 묶음: `tools/clear_studio/menu_card_packs.py`(카드), `tools/clear_studio/winter_packs_v4.py`(블러디), `tools/clear_studio/costume_packs_v4.py`(코스튬), `tools/clear_studio/romantic_night_packs_v4.py`(로맨틱).
