@@ -775,7 +775,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.29.0';
+var VERSION='0.30.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -927,10 +927,19 @@ var WINTER=[
    obj:[['witness','그 여자… 헬리오스 사람이 아니야. 걷는 거, 숨는 거, 전부 당신들이랑 똑같았어.',0],['doc','천천히 말해요. 우리랑 똑같다는 게 무슨 뜻이에요?',1],['witness','6과. 그 여자가 자기 입으로 그랬어. "난 거기서 나왔다"고.',1],['santa','입이 가벼운 사람은 오래 못 사는데. 조심히 데려가, 닥.']],
    end:[['viper','6과 출신이라… 그럼 우리 선배네. 인사라도 할 걸 그랬나.',2],['doc','웃을 일이 아니야. 선배가 왜 헬리오스 물건을 나르고 있는 건데.',1],['viper','글쎄. 배신했거나, 배신한 척하거나. 둘 중 하나겠지.',0],['doc','증인이 그러는데, 세 번째 상자는 벌써 떠났대. 자정 미사가 열리는 대성당으로.',0]]},
   guards:[{wps:[[22,4]],tower:true,lamp:true,faces:[1.9,2.5,3.0],ft:5},{wps:[[26,7]],faces:[1.57,2.6],ft:6},{wps:[[6,9],[6,21]]},{wps:[[8,6],[20,6]]},{wps:[[8,8]],faces:[0.78,1.9,-0.3],ft:5},{wps:[[12,21],[20,12]]},{wps:[[1,8],[1,20]]},{wps:[[23,10],[23,20]]}]}},
- {t:'자정 미사',copy:'헌금은<br>우리가 걷는다.',pre:'00:00, 대성당. 제단 옆 헌금함에 산타의 돈가방이 들어 있다. 추적기가 든 가방으로 바꿔 놓고 나온다.',post:['가방을 바꿔 놓았다.', '추적기는 사설 비행장에서 멈췄다.'],bc:'ghost',img:'a_mirage_5.jpg',par:200,env:{bell:[30,9]},tips:["<b>자정의 종</b>: 30초마다 9초 동안 종이 울린다. 그동안은 발소리도 총소리도 묻힌다.", "미라주는 성가대 복장으로 변장하면 걸어서 지나갈 수 있다."],
-  m:{bg:'bgw4.jpg',sk:0.42,wake:90,opaque:'#B',hts:{'#': 40, 'B': 70, 'C': 16, 'X': 20},proj:[23.933742568, -34.503012953, 870.0, 11.289363576, 10.812195952, 240.0, -0.006565184, -0.006666533, 1.0],MAP:["....XCC.C.BB.###", ".......C...B...#", "..CC..C........#", "CC...C.........#", "C.......C.B....#", ".CC....CC.....B#", "C......C.......#", "....C....C.....#", "B..CC...CC...B.#", "B..C....C..C.B.#", ".....C....CC...#", "..B.CC....C....#", "....C.......C..#", "......C....CC.B#", ".....CC....C...#", "B....C..C....CC#", "B..B.B.CC...CC##", ".......C.....###", ".........C...###", "......B.CC##....", "#.......C####...", "############...."],
-  ops:[{id:'mirage',x:13,y:20},{id:'raven',x:14,y:20}],exit:[[13, 20], [14, 20], [13, 21], [14, 21]],objective:{x:4,y:0,use:[4,1],label:'헌금함',verb:'바꿔치기',time:3},
-  guards:[{wps:[[6,6],[9,13]]},{wps:[[1,8],[2,19]]},{wps:[[13,2],[13,12]]},{wps:[[1,4]],faces:[1.57,2.6],ft:6}]}},
+ {t:'자정 미사',copy:'헌금은<br>우리가 걷는다.',pre:'자정, 대성당. 세 번째는 상자가 아니라 돈가방이다. 제단 옆 헌금함에 들어 있다. 열쇠는 고해소 앞의 부제가 갖고 있다. 미사 중이라 소리를 낼 수 없다. 종지기 방의 줄을 당기면 종이 울리는 동안은 소리가 묻힌다.',post:['가방을 바꿔 놓았다.', '산타는 헬리오스의 돈도 빼돌리고 있다. 추적기는 사설 비행장에서 멈췄다.'],bc:'ghost2',img:'a_mirage_5.jpg',par:480,tips:["<b>신도석</b>은 넘을 수 없다. 줄 사이로 앉아서 지나가면 멀리서는 안 보인다.", "<b>종 줄</b>을 당기면 15초 동안 종이 울린다. 그동안은 발소리도 제압 소리도 묻힌다. 언제 당길지는 직접 정한다.", "<b>부제</b>는 종이 울리지 않을 때 쓰러뜨리면 주변 경비가 소리를 듣는다.", "가방을 바꾸면 미사가 끝난다. 신도들이 일어나 <b>가운데 통로</b>를 막고, 경비가 정문 셋을 지킨다. <b>납골당 통로</b>로 나간다."],
+  m:{bgs:['bgw4_0.jpg','bgw4_1.jpg'],bg:'bgw4_0.jpg',sk:0.3,zm:1.5,wake:120,opaque:'#BJ',hts:{'#': 40, 'B': 34, 'J': 34, 'P': 12, 'C': 12, 'X': 16, 'R': 0},proj:[23.591315177, -26.585156595, 767.873972507, 14.664290824, 14.876072786, 12.289018559, -0.001765442, -0.002296887, 1.0],MAP:["##############################", "#.......#............#.R..#..#", "#.C.....#..JC....C.B.#....#..#", "#...J...#.B..CCCX..B.#.####..#", "#.......#.B..CCC...B.........#", "#.........B.............JJ#..#", "######.##.B.JJJ...C.......#..#", "#.......................J.#..#", "#.J..................#..J.#..#", "#..C..C..#......PPPPP.....#..#", "#...C....PPPPP............#..#", "#................PPPP.#..#...#", "######..#................#...#", "#........PPPPP...PPPPP...#...#", "#.J...................#..#...#", "#..C..JJ#.PPPP...PPPPP...#..C#", "#.....JJ...............#.#...#", "#.........PPPPP..........#...#", "######..#.........PPPP...#...#", "#.........PPPPP........#.#...#", "#....C............PPPP...#.C.#", "#.J......#.PPPP........#.#...#", "#..C...............PPPP..#...#", "#..........PPPP.........C#...#", "#.....BBB#...............#...#", "#.............C..........##.##", "######............###.###....#", "#..C.........###.............#", "#.........##.................#", "##############################"],
+  ops:[{id:'mirage',x:16,y:28},{id:'raven',x:17,y:28}],exit:[[16, 28], [17, 28]],objective:{x:16,y:3,use:[16,4],label:'헌금함',verb:'바꿔치기',time:3},
+  lock:'헌금함이 잠겨 있다. 종을 울리고 부제의 열쇠부터.',
+  subs:[{k:'bell',x:23,y:1,use:[24,1],label:'종 줄',verb:'종 울리기',btn:'종',time:2,quiet:15,done:'자정의 종이 울린다. 15초 동안 소리가 묻힌다.'},{k:'mark',label:'부제',verb:'부제 재우기',done:'열쇠를 챙겼다.'}],
+  evac:{note:'미사가 끝났다. 신도들이 일어선다.',sw:{bit:1,clr:[],shut:[[14, 11], [15, 11], [16, 11], [14, 12], [15, 12], [16, 12], [14, 15], [15, 15], [16, 15], [14, 16], [15, 16], [16, 16], [15, 19], [16, 19], [14, 20], [15, 20], [16, 20], [14, 22], [15, 22], [16, 22], [15, 23], [16, 23]]},posts:[{post:[12,26],face:-1.57},{post:[16,26],face:-1.57},{post:[21,25],face:-1.57}],gates:[{n:'납골당 통로',cells:[[27,28],[28,28]],post:[27,26],face:-1.57,bar:['p_w1_bar_x.png',27,28,2,1]}]},
+  santa:{img:'p_w_santa.png',x:14.5,y:1.5,up:34,t:20},
+  dlg:{cast:{santa:'d_w_santa_4.webp',mirage:'d_w4_mirage.webp'},
+   start:[['hq','자정, 대성당이다. 세 번째는 상자가 아니라 돈가방이다. 제단 옆 헌금함에 들어 있다. 추적기가 든 가방으로 바꿔 놓고 나온다.'],['mirage','성가대 옷은 구해 놨어. 흰색이 나한테 이렇게 잘 받는 줄은 몰랐네.'],['raven','헌금함은 잠겨 있을 텐데. 열쇠는 누가 갖고 있지?',0],['mirage','부제. 고해소 앞을 떠나질 않더라. 재우려면 소리가 좀 날 텐데, 미사 중이라 곤란해.'],['raven','종이 울릴 때 하면 되겠군. 종지기 방에 가서 내가 당긴다.',2],['mirage','자정 종을 네 마음대로 치겠다고? 벌받을 거야, 레이븐.']],
+   mid:[['santa','미사 중엔 조용히 해야지. 레이븐, 넌 예전에도 발소리가 컸어.'],['raven','…예전? 너, 나를 언제 봤는데.',1],['santa','네가 스카프를 처음 감던 해부터.'],['mirage','레이븐, 얼굴 굳었어. 저 사람 누군지 알겠어?'],['raven','몰라. 근데 저쪽은 날 너무 잘 알아.',1]],
+   obj:[['mirage','잠깐, 가방 안에 송금 전표가 있어. 받는 쪽이… 헬리오스가 아니야. 개인 계좌야.'],['santa','쉿. 그건 못 본 걸로 해 줘. 나도 먹고살아야 하잖아?'],['raven','미사가 끝났어! 사람들이 일어난다. 정문은 막혔어. 납골당 쪽으로 돌아!',1]],
+   end:[['raven','헬리오스 돈까지 빼돌렸어. 우릴 팔고, 헬리오스도 속이고 있는 거야.',1],['mirage','양쪽을 다 속이는 사람이라… 솔직히 좀 내 취향인데.'],['raven','농담할 기분 아니야.',0],['mirage','알아. 그래서 하는 거야. …추적기가 멈췄어. 사설 비행장이야. 03시 30분에 뜨는 전용기가 한 대 있어.']]},
+  guards:[{"wps": [[7, 22]], "faces": [0, 1.57], "ft": 6, "mark": true, "tag": "부제", "loud": true}, {"wps": [[12, 5]], "faces": [0, 1.57], "ft": 8}, {"wps": [[18, 5]], "faces": [3.14, 1.57], "ft": 8}, {"wps": [[6, 8], [6, 13]]}, {"wps": [[24, 10], [24, 15]]}, {"wps": [[15, 8], [15, 21]]}, {"wps": [[10, 24], [15, 24]]}, {"wps": [[28, 6], [28, 22]]}, {"wps": [[11, 7], [20, 7]]}, {"wps": [[5, 23], [5, 13]]}]}},
  {t:'산타의 썰매',copy:'이륙은<br>없다.',pre:'03:30, 사설 비행장. 격납고의 전용기가 산타의 썰매다. 뜨기 전에 화물을 확보한다.',post:['화물칸에는 리본 묶인 빈 상자와 카드 한 장뿐이었다.', '받는 사람 칸에 6과의 과 번호가 적혀 있다. 메리 크리스마스.'],bc:'nogun',img:'a_raven_6.jpg',par:260,env:{limit:300},tips:["<b>이륙 시각</b>: 5분 안에 화물을 확보하지 못하면 실패다.", "관제탑 <b>탐조등</b>은 글리치가 해킹하면 25초 동안 꺼진다."],
   m:{bg:'bgw5.jpg',sk:0.44,wake:90,opaque:'#BJ',hts:{'#': 90, 'B': 38, 'J': 34, 'C': 20, 'X': 22, 'H': 0},proj:[31.401033293, -35.905018616, 665.0, 16.242231499, 14.93833385, 185.0, -0.002952265, -0.002947564, 1.0],MAP:["..........HHHHHHHHHHHH", "..........HHHHHHHHHHHH", "..........HH##########", "..........HH#CCJJ..HH#", "..........HH#..JJJJHH#", "..........HH#JJJJ.JHH#", "..........HH#..J.X.HH#", ".......C..HH#..J...HH#", ".BB.BBCC..HH#......H##", ".B..B..C..HH#.......C.", "...........C#.........", "####...............CC.", "####C...BBC...........", "####....BBC...........", "####............CC....", "####.CC.........B....."],
   ops:[{id:'raven',x:10,y:14},{id:'viper',x:11,y:14},{id:'glitch',x:10,y:15}],exit:[[10, 14], [11, 14], [10, 15], [11, 15]],objective:{x:17,y:6,use:[17,7],label:'산타의 화물',verb:'확보',time:3},
@@ -1330,11 +1339,12 @@ function loadMission(i){
   loadImg(M.bg);if(M.bgs)M.bgs.forEach(loadImg);userZoom=false;
 }
 function newState(){
-  var st={t:0,subs:[],shut:{},clr:{},bgk:0,evT:0,exitI:-1,radio:-1,ev:false,dark:0,dq:null,dseen:{},act:0,objDone:false,over:null,kos:0,kills:0,noise:[],shots:[],pops:[],msg:null,trail:[],open:{},
+  var st={t:0,subs:[],shut:{},clr:{},bgk:0,evT:0,bellT:0,exitI:-1,radio:-1,ev:false,dark:0,dq:null,dseen:{},act:0,objDone:false,over:null,kos:0,kills:0,noise:[],shots:[],pops:[],msg:null,trail:[],open:{},
     ops:M.ops.map(function(o){return {id:o.id,x:o.x+0.5,y:o.y+0.5,crouch:false,run:false,path:[],carry:-1,ang:-HP,nt:0,st:0,mv:false,aim:0,ammo:o.id==='viper'?3:0,dart:o.id==='doc'?3:0,pistol:6,mode:'move',disg:false,fx:null,fxt:0,queue:[],cur:null};}),
-    guards:M.guards.map(function(d,i){var w=d.wps||[d.pos];return {id:i,x:d.pos?d.pos[0]:w[0][0]+0.5,y:d.pos?d.pos[1]:w[0][1]+0.5,ang:d.faces?d.faces[0]:0,wps:w,faces:d.faces||null,tower:!!d.tower,lamp:!!d.lamp,cam:!!d.cam,boss:!!d.boss,keen:!!d.keen,plain:!!d.plain,rev:false,rush:false,fixed:!!(d.tower||d.cam),fi:0,ft:d.ft||3.5,fd:d.ft||3.5,wi:0,wait:0,path:[],state:'patrol',meter:0,down:false,dead:false,look:0,seen:null,bt:0,kt:0,off:0,sh:0};}),
+    guards:M.guards.map(function(d,i){var w=d.wps||[d.pos];return {id:i,x:d.pos?d.pos[0]:w[0][0]+0.5,y:d.pos?d.pos[1]:w[0][1]+0.5,ang:d.faces?d.faces[0]:0,wps:w,faces:d.faces||null,tower:!!d.tower,lamp:!!d.lamp,cam:!!d.cam,boss:!!d.boss,tag:d.tag||'',loud:!!d.loud,keen:!!d.keen,plain:!!d.plain,rev:false,rush:false,fixed:!!(d.tower||d.cam),fi:0,ft:d.ft||3.5,fd:d.ft||3.5,wi:0,wait:0,path:[],state:'patrol',meter:0,down:false,dead:false,look:0,seen:null,bt:0,kt:0,off:0,sh:0};}),
     hostage:M.hostage?{x:M.hostage.x+0.5,y:M.hostage.y+0.5,free:false}:null};
-  if(M.subs){var pl=[];st.guards.forEach(function(g){if(g.plain)pl.push(g.id);});if(pl.length)st.radio=pl[M.rfix!=null?M.rfix:fl(Math.random()*pl.length)];}
+  M.guards.forEach(function(d,i){if(d.mark)st.radio=i;});
+  if(M.subs&&st.radio<0){var pl=[];st.guards.forEach(function(g){if(g.plain)pl.push(g.id);});if(pl.length)st.radio=pl[M.rfix!=null?M.rfix:fl(Math.random()*pl.length)];}
   return st;
 }
 /* 중간 목표 · 판 바꾸기 */
@@ -1342,7 +1352,7 @@ function applySw(w){if(!w)return;S.bgk|=w.bit;(w.clr||[]).forEach(function(c){S.
 function subsDone(){if(!M.subs)return true;for(var i=0;i<M.subs.length;i++)if(!S.subs[i])return false;return true;}
 function subDone(i){
   if(S.subs[i])return;S.subs[i]=true;var sb=M.subs[i],n=0,j;for(j=0;j<M.subs.length;j++)if(S.subs[j])n++;
-  if(sb.dark)S.dark=sb.dark;applySw(sb.sw);if(sb.freeze!=null){var fg=S.guards[sb.freeze];fg.faces=[fg.faces[fg.faces.length-1]];fg.fi=0;}snd('ok');say(sb.done||sb.label+' 완료');
+  if(sb.dark)S.dark=sb.dark;applySw(sb.sw);if(sb.quiet)S.bellT=S.t+sb.quiet;if(sb.freeze!=null){var fg=S.guards[sb.freeze];fg.faces=[fg.faces[fg.faces.length-1]];fg.fi=0;}snd('ok');say(sb.done||sb.label+' 완료');
   if(n===1&&M.dlg&&M.dlg.mid&&!S.dseen.mid){S.dseen.mid=1;S.dq='mid';}
 }
 function exits(){return M.evac?(S.ev?M.evac.gates[S.exitI].cells:[]):M.exit;}
@@ -1356,7 +1366,7 @@ function evacStart(){
   (M.evac.posts||[]).forEach(function(pt){var best=null,bd=1e9;S.guards.forEach(function(g){if(g.down||g.fixed||g.boss||used[g.id])return;var d=hyp(g.x-pt.post[0],g.y-pt.post[1]);if(d<bd){bd=d;best=g;}});
     if(best){used[best.id]=1;best.wps=[pt.post];best.faces=[pt.face,pt.face+0.8,pt.face-0.8];best.fi=0;best.ft=best.fd=2.5;best.state='patrol';best.rush=true;best.off=3;best.meter=0;best.path=findPath(fl(best.x),fl(best.y),pt.post[0],pt.post[1])||[];}});
   if(M.evac.escort){S.hostage={x:M.evac.escort.x+0.5,y:M.evac.escort.y+0.5,free:true};S.trail=[];}
-  wallCv=null;say((M.evac.note||'대피 방송.')+(G.length>1?' 열린 곳은 '+G[S.exitI].n+'.':' '+G[S.exitI].n+'로 데리고 나간다.'));
+  wallCv=null;say((M.evac.note||'대피 방송.')+(G.length>1?' 열린 곳은 '+G[S.exitI].n+'.':' '+G[S.exitI].n+(M.evac.escort?'로 데리고 나간다.':'로 나간다.')));
   if(M.dlg&&M.dlg.obj&&!S.dseen.obj){S.dseen.obj=1;S.dq='obj';}
 }
 function followPath(o,speed,dt,turn){
@@ -1470,7 +1480,7 @@ function stepOp(o,dt){
       if(hyp(g.x-o.x,g.y-o.y)<0.75){
         if(a.type==='ko'){
           if(canSee(g,o.x,o.y,RANGE)&&!(o.disg&&!g.boss&&!g.keen))fail('정면에서 덤볐다가 제압에 실패했다.');
-          else{dropBody(o);o.st=0.35;g.down=true;g.dead=!!a.kill;g.kt=WAKE;g.meter=0;g.path=[];g.seen=null;if(a.kill)S.kills++;else S.kos++;pop(g.x,g.y,a.kill?'사살':'제압',OPD[o.id].col);snd('hit');}
+          else{dropBody(o);o.st=0.35;g.down=true;g.dead=!!a.kill;g.kt=WAKE;g.meter=0;g.path=[];g.seen=null;if(a.kill)S.kills++;else S.kos++;pop(g.x,g.y,a.kill?'사살':'제압',OPD[o.id].col);snd('hit');if(g.loud&&!ENV.quiet){S.noise.push({x:g.x,y:g.y,t:0.6,r:9});alertNear(g.x,g.y,9,g.x,g.y,g);say('소리가 성당에 울렸다.');}}
         }else o.carry=g.id;
         o.cur=null;o.path=[];
       }
@@ -1553,6 +1563,7 @@ function envStep(){
     if(e.bell){b=envPhase(e.bell);if(b>=0){q=true;hot=true;t='자정의 종 · 소리가 묻힌다 '+Math.ceil(e.bell[1]-b);}else t='다음 종까지 '+Math.ceil(envNext(e.bell));}
     if(e.limit){var left=e.limit-S.t;if(!S.objDone){t='이륙까지 '+mmss(Math.max(0,Math.ceil(left)));hot=left<60;if(left<=0)fail('전용기가 떴다. 화물은 하늘에 있다.');}else t='';}
   }
+  if(S.bellT>S.t){q=true;hot=true;t='자정의 종 · 소리가 묻힌다 '+Math.ceil(S.bellT-S.t);}
   if(S.dark)k*=S.dark;if(S.ev){if(M.evac.gates.length>1||M.evac.limit){t=(M.evac.limit?'남은 시간 '+mmss(Math.max(0,Math.ceil(M.evac.limit-(S.t-S.evT))))+' · ':'대피 방송 · ')+'열린 곳은 '+M.evac.gates[S.exitI].n;hot=true;}if(M.evac.limit&&S.t-S.evT>=M.evac.limit)fail(M.evac.late||'너무 늦었다.');}else if(S.dark&&!t)t='조명 OFF · 경비 시야 감소';
   if(k!==ENV.k){RANGE=6.5*DF.r*k;CRANGE=3.6*DF.r*k;}
   ENV.k=k;ENV.quiet=q;ENV.txt=t;ENV.hot=hot;
@@ -1576,7 +1587,7 @@ function update(dt){
   }else if(S.objDone&&M.evac&&!S.ev){evacStart();
   }else if(S.objDone){var all=true;for(i=0;i<S.ops.length;i++)if(!inExit(S.ops[i]))all=false;if(all)S.over={win:true};}
   if(M.subs){
-    if(S.radio>=0&&S.guards[S.radio].down)for(i=0;i<M.subs.length;i++)if(M.subs[i].k==='radio')subDone(i);
+    if(S.radio>=0&&S.guards[S.radio].down)for(i=0;i<M.subs.length;i++)if(M.subs[i].k==='radio'||M.subs[i].k==='mark')subDone(i);
     S.guards.forEach(function(g){if(!g.plain||g.rev)return;for(var j=0;j<S.ops.length;j++){var o=S.ops[j];if(hyp(o.x-g.x,o.y-g.y)<3.2&&los(o.x,o.y,g.x,g.y,false)){g.rev=true;pop(g.x,g.y,g.id===S.radio?'무전병이다':'무전기가 없다',g.id===S.radio?'#ffd27a':'#c9d2dc');}}});
   }
   for(i=0;i<S.guards.length;i++){var gg=S.guards[i];if(gg.down&&!gg.dead){gg.kt-=dt;if(gg.kt<=0)fail('기절했던 경비병이 깨어나 경보를 울렸다.');}stepGuardMove(gg,dt);stepGuardSense(gg,dt);}
@@ -1780,6 +1791,7 @@ function draw(){
     if(g.cam){if(g.down)label('파괴됨',o[0],o[1]-up,12,'#8a96a3');else if(g.off>0)label('OFF '+Math.ceil(g.off),o[0],o[1]-up,14,'#3fe0e0');else if(g.meter>0.02)label('!',o[0],o[1]-up,22,'#ff3b52');return;}
     if(g.down){if(!g.dead)label(String(Math.ceil(g.kt)),o[0],o[1]-(carried(g.id)?96:30),15,g.kt<15?'#ff3b52':'#c9d2dc');return;}
     if(g.boss&&g.meter<=0.02&&g.state!=='investigate')label('WARDEN',o[0],o[1]-up,12,'#ffd27a');
+    if(g.tag&&g.meter<=0.02&&g.state!=='investigate')label(g.tag,o[0],o[1]-up,12,'#ffd27a');
     if(g.plain&&g.meter<=0.02&&g.state!=='investigate')label(!g.rev?'사복 ?':g.id===S.radio?'무전병':'사복',o[0],o[1]-up,12,!g.rev?'#c9d2dc':g.id===S.radio?'#ffd27a':'#8a96a3');
     if(g.meter>0.02){ctx.beginPath();ctx.arc(o[0],o[1]-up,13,-1.5708,-1.5708+6.2832*g.meter);ctx.strokeStyle='#ff3b52';ctx.lineWidth=5;ctx.stroke();label(g.meter>0.6?'!':'?',o[0],o[1]-up,20,'#ff3b52');}
     else if(g.state==='investigate')label('?',o[0],o[1]-up,24,'#ffa040');
@@ -2066,6 +2078,7 @@ var BCOND={
  onesnipe:['한 발','한 발이면 충분하다',function(){var ok=true;S.ops.forEach(function(o){if(o.id==='viper'&&o.ammo<2)ok=false;});return ok;}],
  noinv:['무의심','아무도 고개를 돌리지 않는다',function(){return !(S.inv>0);}],
  noload:['원테이크','되돌리지 않고 끝까지',function(){return loads===0;}],
+ ghost2:['조용한 미사','부제 말고는 누구의 몸에도 손대지 않는다',function(){return S.kos<=1&&S.kills===0;}],
  ghost:['유령','누구의 몸에도 손대지 않는다',function(){return S.kos+S.kills===0;}],
  nogun:['무발포','총성 없는 밤',function(){var ok=true;S.ops.forEach(function(o){if(o.pistol<6||(o.id==='viper'&&o.ammo<3))ok=false;});return ok;}]
 };

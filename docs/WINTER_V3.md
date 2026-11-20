@@ -1,6 +1,6 @@
 # 블러디 크리스마스 재설계안 v3 — 잠입의 재미 기준
 
-상태: **1판(v0.27.0) · 2판(v0.28.0) · 3판(v0.29.0) 적용**. 4 · 5판은 아직 v2 그대로다. 1판 제작 묶음은 `tools/packs/winter_v3_s1/`, 맵 분석과 엄폐물 배치는 `tools/map/trace_winter_v3/`, 점검은 `tools/check_w1.js`.
+상태: **1~4판 적용(v0.27.0 ~ v0.30.0)**. 5판은 아직 v2 그대로다. 1판 제작 묶음은 `tools/packs/winter_v3_s1/`, 맵 분석과 엄폐물 배치는 `tools/map/trace_winter_v3/`, 점검은 `tools/check_w1.js`.
 
 ## 1. 결론
 
