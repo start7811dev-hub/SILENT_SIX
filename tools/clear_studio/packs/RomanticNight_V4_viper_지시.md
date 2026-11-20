@@ -89,29 +89,31 @@ In cut 6 the shirt or sheet is the story of the morning, not a cover-up: let it 
 
 **The place.** A timber mountain lodge in deep snow at night: a stone fireplace, a fur rug, a leather armchair, a decanter, her rifle case propped by the door, a window of blue snow and pines, and an outdoor hot-spring bath steaming on the deck.
 
+**Her visual language (this agent only).** Horizontal and low. She sprawls, lounges and lies; the camera sits at floor level or looks straight down; long diagonals of limbs across a wide-feeling frame; firelight from the side. Every agent in this series has a different one; the camera and pose given in each cut below are part of the brief, so follow them and do not fall back on a standard pin-up framing.
+
 ## THE SIX CUTS
 
 ### CUT 1 — `n_viper_1` — RETURN
 
-Medium shot from the fireside as she comes in from the snow with the rifle case on her shoulder: white winter smock unzipped, snow in her silver hair, cheeks red from the cold, the lazy smirk arriving a second late as she sees the viewer. Colour key: blue snow behind her, fire orange in front.
+Wide, low shot from the armchair by the fire: she leans one shoulder on the door frame with the rifle case hanging from her hand, kicking snow off one boot against the other, white smock unzipped, snow in her silver hair, cheeks red from the cold. The lazy smirk arrives a second late as she sees the viewer. Colour key: blue snow behind her, fire orange in front.
 
 ### CUT 2 — `n_viper_2` — UNWINDING
 
-Close, at eye level, kneeling by the fire rubbing her hair with a towel: smock off, a thin grey thermal top pushed up at the sleeves, dog tags swinging. She looks sideways at the viewer through wet hair with a tired half-smile, shoulders loose for the first time. Colour key: fire gold, plum shadow.
+Floor-level close-up: smock off, a thin grey thermal top, she is sprawled on her stomach on the fur rug in front of the fire, chin on her folded forearms, a towel draped over her wet head like a hood, dog tags pooled on the fur. One eye looks sideways at the viewer with a tired half-smile. Colour key: fire gold, plum shadow.
 
 ### CUT 3 — `n_viper_3` — CLOSER
 
-Close, low in the armchair: plum silk robe loosely tied, legs folded under her, a glass in one hand. With the other she holds out a single rifle round between two fingers toward the viewer's open palm at the bottom edge, the one she always keeps; eyes on the viewer, no smirk at all. Colour key: brass glint, fire amber.
+High angle, looking down from standing height: she lies sideways across the leather armchair in the plum silk robe, legs hooked over one arm of the chair, head tipped back over the other, a glass resting on her stomach. With her free hand she holds a single rifle round up toward the lens between two fingers, the one she always keeps; no smirk at all. Colour key: brass glint, fire amber.
 
 ### CUT 4 — `n_viper_4` — INVITATION
 
-Very close, from just above, on the fur rug: the robe open and slipping off one shoulder over **the violet lace**, she leans toward the lens on one straight arm and with the other hand tugs the viewer forward by a fistful of blanket in the foreground. One eye through the silver hair, lips parted, certain. Colour key: violet and firelight on skin.
+Very close, floor level, the lens almost on the rug: the robe open and slipping off one shoulder over **the violet lace**, she lies stretched out on her side along the bottom of the frame, propped on one elbow, and with the other hand tugs the viewer toward her by a fistful of blanket in the foreground. Lips parted, eyes steady, certain. Colour key: violet and firelight on skin.
 
 ### CUT 5 — `n_viper_5` — THE NIGHT
 
-Very close, low angle from the rug beside her: **lingerie only**, dog tags on her collarbone. She lies on her back in front of the fire, one arm above her head, one knee raised toward the lens, face turned to the viewer, eyes half closed, flushed, lips parted in a slow breath. Firelight along shoulder, waist and hip; strong foreshortening. Colour key: deep fire orange, plum shadow.
+Straight down from above, her head toward the bottom of the frame so her face is nearest the lens: **lingerie only**, dog tags on her collarbone. She lies on her back on the fur with both arms stretched up past her head toward the viewer, fingers open, back gently arched, looking up into the lens with half-closed eyes and parted lips, flushed. Firelight rakes across from one side along ribs, waist and hip. Colour key: deep fire orange, plum shadow.
 
 ### CUT 6 — `n_viper_6` — MORNING
 
-Medium close in blue dawn, fire down to embers, snow light at the window. She is asleep on her side under a heavy knitted blanket pushed down to her waist, bare shoulder and back to the light, one hand curled by her face, the single round standing on the floor beside the dog tags. Completely still, completely unguarded. Colour key: dawn blue with one ember of orange.
+Medium shot from the foot of the rug in blue dawn, fire down to embers: she is asleep on her side under a heavy knitted blanket pushed down to her waist, bare shoulder and back to the snow light, one hand curled by her face, the single round standing upright on the floorboards beside the dog tags in the foreground. Completely still, completely unguarded. Colour key: dawn blue with one ember of orange.
 

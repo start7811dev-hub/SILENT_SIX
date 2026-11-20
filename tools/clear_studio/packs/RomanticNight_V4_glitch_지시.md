@@ -89,29 +89,31 @@ In cut 6 the shirt or sheet is the story of the morning, not a cover-up: let it 
 
 **The place.** Her apartment-workshop at night in a neon city: a desk of six monitors, a small drone on a shelf, hanging plants, energy-drink cans, an unmade bed under a window of magenta and teal signs, then sunrise.
 
+**Her visual language (this agent only).** Small in a big frame, or extremely close. High angles looking down at her curled up, or the lens a hand's width from her face; screens, cables and plants as frames inside the frame. Every agent in this series has a different one; the camera and pose given in each cut below are part of the brief, so follow them and do not fall back on a standard pin-up framing.
+
 ## THE SIX CUTS
 
 ### CUT 1 — `n_glitch_1` — RETURN
 
-Medium shot of her framed in her own monitor light at the desk, just back from the mission: black tech jacket, headphones on, a cut on her cheek, waving both hands at the viewer in the doorway with a huge relieved grin and wet eyes. Colour key: teal screen glow, magenta window.
+Medium shot from the doorway, slightly high: she spins round in her desk chair, feet off the floor, black tech jacket, headphones on, a cut on her cheek, both arms thrown up in a wave at the viewer with a huge relieved grin and wet eyes, six monitors glowing behind her. Colour key: teal screen glow, magenta window.
 
 ### CUT 2 — `n_glitch_2` — UNWINDING
 
-Close, at eye level, sitting cross-legged on the desk among the keyboards: jacket off, a black tank top, bare arms, headphones round her neck. She holds still and scrunches her face while the viewer's hand at the bottom edge presses a small plaster to her cheek, glasses pushed up into her hair. Colour key: soft teal, warm desk lamp.
+Extreme close-up of her face, the lens a hand's width away: jacket off, black tank top strap and bare shoulder at the frame edge, glasses pushed up into her hair. She scrunches one eye shut and holds very still while the viewer's fingers press a small plaster to her cheek; the other eye peeks at the viewer. Colour key: soft teal, warm desk lamp.
 
 ### CUT 3 — `n_glitch_3` — CLOSER
 
-Close two-thirds shot on the bed with her knees up: the oversized hoodie and bare legs, a mug in both hands, glasses back on. She is talking fast and then not, looking at the viewer over the rim of the mug, cheeks pink, saying the name she deleted. Colour key: magenta sign light, teal shadow.
+High, wide shot from the ceiling corner: she is a small figure in the middle of the big unmade bed, knees pulled up inside the oversized hoodie, bare legs, a mug in both hands, glasses on, face tipped up toward the viewer, cheeks pink, saying the name she deleted. Neon stripes from the window fall across the sheets. Colour key: magenta sign light, teal shadow.
 
 ### CUT 4 — `n_glitch_4` — INVITATION
 
-Very close, from just above: she kneels up on the bed and with both hands pushes the laptop shut in the foreground, the hoodie unzipped and falling off both shoulders over **the pale teal lace with white bows**. She looks up at the viewer over her glasses, biting her lip, flushed, the last screen light dying on her skin. Colour key: teal fading to warm lamp.
+Very close, low angle from the mattress with the laptop lid large in the foreground: she kneels up over it and pushes it shut with both hands, the hoodie unzipped and falling off both shoulders over **the pale teal lace with white bows**. Seen from below, she looks down at the viewer over her glasses, biting her lip, flushed, the last screen light dying on her skin. Colour key: teal fading to warm lamp.
 
 ### CUT 5 — `n_glitch_5` — THE NIGHT
 
-Very close, from above, on the dark sheets with all the screens off for the first time: **lingerie only**, glasses on the pillow, headphones round her neck. She lies on her back with her arms thrown up beside her head, one knee bent, her bun undone and teal-tipped hair spread out, eyes half closed, lips parted, flushed; the frame crops at mid-thigh, city neon moving across her waist and hips. Colour key: magenta and teal neon on skin.
+Very close, pillow level, face to face, as if the viewer is lying beside her: **lingerie only**, all the screens off for the first time, glasses folded on the sheet. She lies curled on her side hugging a pillow to her chest with one arm, the other hand reaching across the sheet toward the lens, bun undone and teal-tipped hair across her cheek, eyes half closed, lips parted, flushed; shoulder, waist and the curve of her hip rise behind her in soft focus. Colour key: magenta and teal neon on skin.
 
 ### CUT 6 — `n_glitch_6` — MORNING
 
-Medium close at sunrise, gold light through the plants. She sits sideways on the desk chair in the big hoodie slipped off one shoulder, bare legs tucked up, a steaming mug in one hand, hair messy, looking back over her shoulder at the viewer with a small shy smile; every monitor behind her is dark. Colour key: sunrise gold with a teal accent.
+Wide shot at sunrise, gold light through the hanging plants: she sits sideways in the desk chair with her bare legs tucked up, the big hoodie slipped off one shoulder, a steaming mug in one hand, hair messy, looking back over her shoulder at the viewer with a small shy smile; every monitor behind her is dark. Colour key: sunrise gold with a teal accent.
 

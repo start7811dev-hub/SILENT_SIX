@@ -89,29 +89,31 @@ In cut 6 the shirt or sheet is the story of the morning, not a cover-up: let it 
 
 **The place.** A top-floor hotel suite at night: a marble dressing table with a lit mirror, a wide bed with champagne satin, a balcony over the city, lilies in a vase, then sunrise.
 
+**Her visual language (this agent only).** Curves and reflections. S-curve poses, mirrors and glass giving a second view of her, over-the-shoulder looks; gold light on dark. Every agent in this series has a different one; the camera and pose given in each cut below are part of the brief, so follow them and do not fall back on a standard pin-up framing.
+
 ## THE SIX CUTS
 
 ### CUT 1 — `n_mirage_1` — RETURN
 
-Medium shot from the bed as she closes the suite door behind her and leans on it: an evening gown from the job, heels in one hand, the perfect party smile still on her face, and behind it, in the eyes, exhaustion. Colour key: corridor gold, cool blue city window.
+Waist-up, eye level, from just inside the suite: she has closed the door and leans back on it with her head against the wood, an evening gown from the job, heels dangling from one hand, the perfect party smile still on her face and exhaustion behind it in the eyes. Colour key: corridor gold, cool blue city window.
 
 ### CUT 2 — `n_mirage_2` — UNWINDING
 
-Close, at eye level, at the dressing table: gown unzipped at the back, shoulders bare, pulling off one earring. In the mirror she wipes away half her lipstick with a cotton pad and meets the viewer's eyes in the glass, the practised smile gone, a small tired real one in its place. Colour key: mirror bulb warmth, wine shadow.
+Over her bare shoulder into the lit dressing-table mirror: gown unzipped down the back, one earring off in her hand, she wipes away half her lipstick with a cotton pad. Her face appears only in the reflection, meeting the viewer's eyes in the glass; the practised smile is gone and a small tired real one is in its place. Colour key: mirror bulb warmth, wine shadow.
 
 ### CUT 3 — `n_mirage_3` — CLOSER
 
-Close two-thirds shot on the balcony doorway: the wine silk robe loosely tied, a champagne coupe in her hand, hair down, face bare of make-up for the first time. She stands close and tells the viewer her real name, eyes direct, a faint flush. Colour key: city lights bokeh, warm room lamp.
+Eye-level medium shot: she reclines along the chaise on her side in the wine silk robe, propped on one elbow in a long S-curve, a champagne coupe in her free hand, hair down, face bare of make-up for the first time. She tells the viewer her real name, eyes direct, a faint flush; the city lights lie behind her in the balcony glass. Colour key: city bokeh, warm room lamp.
 
 ### CUT 4 — `n_mirage_4` — INVITATION
 
-Very close, from just above, as she steps toward the lens with one hand reaching for the viewer's collar at the bottom edge: the robe open and sliding off her shoulders over **the black lace with gold details and stockings**. Chin lifted, lips parted, eyes locked, not acting. Colour key: gold lamp on skin, deep wine.
+Low angle from the edge of the bed, three-quarter length: she stands over the viewer, weight on one hip, the robe open and sliding off both shoulders over **the black lace with gold details and stockings**, one hand reaching down toward the lens to take the viewer's collar. Chin lifted, lips parted, eyes locked, not acting; the dressing-table mirror behind her shows her bare back. Colour key: gold lamp on skin, deep wine.
 
 ### CUT 5 — `n_mirage_5` — THE NIGHT
 
-Very close, from above, on the champagne satin: **lingerie only**, hoops catching the light. She lies on her stomach propped on her elbows facing the viewer, chin on her laced fingers, ankles crossed in the air behind her, laughing softly with flushed cheeks and half-closed eyes; the frame takes in shoulders, the curve of her back and hips. Colour key: satin gold, midnight blue.
+Very close, from above and in front, on the champagne satin: **lingerie only**, hoops catching the light. She lies on her stomach propped on her elbows facing the viewer, chin on her laced fingers, ankles crossed in the air behind her, laughing softly with flushed cheeks and half-closed eyes; the frame takes in her shoulders, the curve of her back and her hips. Colour key: satin gold, midnight blue.
 
 ### CUT 6 — `n_mirage_6` — MORNING
 
-Medium close on the balcony at sunrise. She leans on the rail in a white shirt slipping off one shoulder, bare legs, a cup of coffee in both hands, hair loose and face bare, looking at the viewer with a quiet, unguarded smile as the city turns gold behind her. Colour key: sunrise gold and soft white.
+Wide profile shot on the balcony at sunrise: she leans on the rail on her forearms in a white shirt slipping off one shoulder, bare legs, one foot hooked behind the other ankle, a cup of coffee in both hands, hair loose and face bare. Her head is turned to the viewer with a quiet, unguarded smile as the city turns gold behind her. Colour key: sunrise gold and soft white.
 

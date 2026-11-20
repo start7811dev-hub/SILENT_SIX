@@ -89,29 +89,31 @@ In cut 6 the shirt or sheet is the story of the morning, not a cover-up: let it 
 
 **The place.** A safe house above the harbour on a night of heavy rain: one room, a bed with grey linen, a desk lamp, a bottle of whisky that has not gone down in months, rain streaming on a tall window with the harbour cranes and lights beyond.
 
+**Her visual language (this agent only).** Upright and vertical. She stands, kneels or sits tall; tall window, door frame and rain streaks as vertical lines; profile and back views; cold blue against one warm lamp. Every agent in this series has a different one; the camera and pose given in each cut below are part of the brief, so follow them and do not fall back on a standard pin-up framing.
+
 ## THE SIX CUTS
 
 ### CUT 1 — `n_raven_1` — RETURN
 
-Medium shot from inside the room as she steps in from the rain and pushes the door shut with her shoulder: black tactical jacket soaked, hair dripping, red scarf dark with water, eyes finding the viewer and the hard line of her mouth easing. Colour key: cold blue rain light, one amber lamp.
+Full-length vertical shot from the far side of the room: she stands in the doorway with the door swinging shut behind her, black tactical jacket soaked, hair dripping, red scarf dark with water, one hand still on the frame. Small in the tall dark room; her eyes have found the viewer and the hard line of her mouth is easing. Colour key: cold blue rain light, one amber lamp.
 
 ### CUT 2 — `n_raven_2` — UNWINDING
 
-Close, at eye level, sitting on the edge of the desk with the jacket dropped behind her: black tank top, bare wet shoulders, the scarf still on. She holds out one grazed forearm for the viewer to bandage and looks away at the window, jaw tight, letting it happen; the viewer's hand with a roll of gauze at the bottom edge. Colour key: amber lamp, blue window.
+Waist-up from the side, in profile: she sits on the edge of the desk with the jacket dropped behind her, black tank top, bare wet shoulders, scarf still on. One grazed forearm is held out to the viewer, whose hand with a roll of gauze enters from the frame edge; she looks away at the window, jaw tight, letting it happen. Colour key: amber lamp on one side of her face, blue window on the other.
 
 ### CUT 3 — `n_raven_3` — CLOSER
 
-Close two-thirds shot across the desk: she sits back in the chair in the black silk slip with a grey shirt hanging open over it, one bare foot on the seat, a glass of whisky held against her knee, looking straight at the viewer as she says something she has never said aloud. Faint flush, eyes steady. Colour key: whisky gold and deep shadow.
+Back three-quarter view, knee-up: she stands at the rain window in the black silk slip with a grey shirt hanging open off one shoulder, a glass of whisky held low at her side, head turned to look back at the viewer over her shoulder as she says something she has never said aloud. Her reflection in the wet glass shows the front of her face. Colour key: whisky gold and deep shadow.
 
 ### CUT 4 — `n_raven_4` — INVITATION
 
-Very close, from just above, as she sits on the edge of the bed and reaches her hand out to the viewer, palm up, strongly foreshortened toward the lens. The shirt is gone and one strap of the slip has fallen off her shoulder, **the black lace with crimson ties showing under it**; lips parted, eyes locked on the viewer, certain. Colour key: lamp amber on skin, crimson accent.
+Very close, steep high angle (the viewer standing over her): she sits on the edge of the bed and reaches one hand up toward the lens, palm up, strongly foreshortened. The shirt is gone and one strap of the slip has fallen, **the black lace with crimson ties showing under it**; face tilted up, lips parted, eyes locked on the viewer, certain. Colour key: lamp amber on skin, crimson accent.
 
 ### CUT 5 — `n_raven_5` — THE NIGHT
 
-Very close, from above, on the grey linen: **lingerie only**. She lies on her side facing the viewer, one arm under her head, and with the other hand she is pulling the red scarf loose from her throat for the first time, the silk sliding across her collarbone. Heavy-lidded, flushed, lips parted, hair across the pillow; the frame crops at mid-thigh. Colour key: warm lamp, rain-blue shadow, the red of the scarf.
+Close, low angle from the pillow: **lingerie only**. She kneels upright on the grey linen facing the viewer, back straight, both hands at her throat drawing the red scarf loose for the first time, the silk sliding down over her collarbone and one hip. Chin slightly lowered, eyes heavy-lidded and fixed on the viewer, lips parted, flushed; the frame runs from her knees to the top of her head. Colour key: warm lamp from below, rain-blue behind, the red of the scarf.
 
 ### CUT 6 — `n_raven_6` — MORNING
 
-Medium close in grey morning light, rain stopped, the harbour pale beyond the glass. She sits up in the bed with the sheet loose around her and one bare shoulder and leg out, the grey shirt half on, cheek resting on her hand, the scarf folded on the pillow beside her; a small, real, sleepy smile at the viewer, the first of the set. Colour key: pearl grey dawn, a thread of red.
+Wide shot in grey morning light, rain stopped: she sits sideways in the deep window recess with one knee drawn up, the grey shirt half on and open over bare legs, a cup in her hands, the harbour pale beyond the glass, the scarf folded on the sill beside her. Her head is turned to the viewer with a small, real, sleepy smile, the first of the set. Colour key: pearl grey dawn, a thread of red.
 

@@ -89,29 +89,31 @@ In cut 6 the shirt or sheet is the story of the morning, not a cover-up: let it 
 
 **The place.** Her small night clinic after closing: an examination room with a green-shaded lamp, steel trays, a medicine cabinet, forty potted plants along the window, her bedroom behind a curtain with white linen, then morning sun.
 
+**Her visual language (this agent only).** Hands and faces. Tight framing on what her hands are doing and her eyes above them, plant leaves blurred in the foreground, one pool of lamp light. Every agent in this series has a different one; the camera and pose given in each cut below are part of the brief, so follow them and do not fall back on a standard pin-up framing.
+
 ## THE SIX CUTS
 
 ### CUT 1 — `n_doc_1` — RETURN
 
-Medium shot from the examination couch as she comes in and drops her field bag: tactical medic vest, hair coming loose, peeling off one bloodied nitrile glove with her teeth, eyes going straight to the viewer to check them over before she lets herself breathe. Colour key: green lamp, cold night window.
+Tight close-up, face and one raised hand: she has just come in, tactical medic vest at the frame edge, hair coming loose, peeling a bloodied nitrile glove off with her teeth, eyes going straight to the viewer to check them over before she lets herself breathe. Leaves blurred in the foreground. Colour key: green lamp, cold night window.
 
 ### CUT 2 — `n_doc_2` — UNWINDING
 
-Close, at eye level, sitting on the rolling stool: vest off, a white tank top, her tattooed arms bare. She winds a bandage around the viewer's hand at the bottom edge with quick sure fingers, then looks up with a teasing, tired half-smile. Colour key: warm lamp pool, green shadow of leaves.
+High angle, over the viewer's bandaged hand in the foreground: she sits low on the rolling stool, vest off, white tank top, tattooed arms bare, winding the bandage with quick sure fingers. Her face is tipped up toward the lens with a teasing, tired half-smile. Colour key: warm lamp pool, green shadow of leaves.
 
 ### CUT 3 — `n_doc_3` — CLOSER
 
-Close two-thirds shot leaning on the counter: an open white coat over the lime silk slip, stethoscope round her neck, a cup of tea in one hand. She has stopped joking; she looks at the viewer and says what she never tells her patients, a flush across her cheekbones. Colour key: lamp gold, lime accent.
+Close, shoulder level, from the side, as if the viewer sits beside her: she sits on the examination couch with her feet off the floor, an open white coat over the lime silk slip, stethoscope round her neck, a cup of tea held in her lap, body turned toward the viewer. She has stopped joking; she says what she never tells her patients, a flush across her cheekbones. Colour key: lamp gold, lime accent.
 
 ### CUT 4 — `n_doc_4` — INVITATION
 
-Very close, from just above, in the bedroom doorway: she lets the white coat fall from her shoulders in the foreground and holds the curtain aside with one tattooed arm, one strap of the slip down over **the white lace with lime ribbon**, the other hand held out to the viewer. A slow certain smile, eyes warm. Colour key: lime silk glow, warm dark.
+Low angle, three-quarter length, from inside the bedroom: she stands in the doorway holding the curtain aside with one raised tattooed arm, the white coat falling from her shoulders to the floor, one strap of the slip down over **the white lace with lime ribbon**. Her other hand is held out and down to the viewer, large in the foreground; a slow certain smile, eyes warm. Colour key: lime silk glow, warm dark.
 
 ### CUT 5 — `n_doc_5` — THE NIGHT
 
-Very close, from above, on the white linen: **lingerie only**, hoops and stethoscope gone, curls coming down. She reclines against the pillows with one tattooed arm behind her head and the other hand resting at her waist, one knee raised toward the lens, eyes half closed, lips parted, skin warm and flushed; the frame crops at mid-thigh. Colour key: lamp amber, soft lime in the shadows.
+Close, eye level, from beside her on the bed: **lingerie only**, stethoscope gone, curls coming down. She half-sits against the headboard among the pillows, one leg folded and one stretched out, one tattooed arm reaching sideways to the lamp chain to turn the light down, face turned to the viewer with half-closed eyes, parted lips and warm flushed skin. Clinic hours are over. Colour key: lamp amber, soft lime in the shadows.
 
 ### CUT 6 — `n_doc_6` — MORNING
 
-Medium close in bright morning sun among the plants. She sits at her desk in a loose white shirt slipping off one shoulder, bare legs crossed, chin on her hand, pen in the other, a clipboard in front of her with one handwritten word suggested on it (not readable), smiling at the viewer, soft and rested. Colour key: sunlit white and leaf green.
+Medium-wide shot through the plants in bright morning sun: she sits at her desk in a loose white shirt slipping off one shoulder, bare legs crossed, chin on her hand, pen in the other, a clipboard in front of her with one handwritten word suggested on it (not readable), smiling at the viewer, soft and rested. Colour key: sunlit white and leaf green.
 

@@ -89,29 +89,31 @@ In cut 6 the shirt or sheet is the story of the morning, not a cover-up: let it 
 
 **The place.** A boxing gym after closing: a ring under one hanging lamp, heavy bags, a wooden bench, steel lockers, steam from the shower room, a rooftop with the city at dawn.
 
+**Her visual language (this agent only).** Big and low. She fills the frame, seen from below; ring ropes, lockers and door frames as strong diagonals; one hard lamp from above. Every agent in this series has a different one; the camera and pose given in each cut below are part of the brief, so follow them and do not fall back on a standard pin-up framing.
+
 ## THE SIX CUTS
 
 ### CUT 1 — `n_brick_1` — RETURN
 
-Medium shot from inside the dark gym as she fills the open doorway, knuckles still raised from knocking: scuffed breaching vest, goggles up, rain on her shoulders, the big grin not quite covering how tired she is. Colour key: street-lamp orange behind her, cold gym blue inside.
+Low-angle full figure from inside the dark gym: she fills the open doorway, knuckles still raised from knocking, scuffed breaching vest, goggles up, rain on her shoulders, the big grin not quite covering how tired she is. Colour key: street-lamp orange behind her, cold gym blue inside.
 
 ### CUT 2 — `n_brick_2` — UNWINDING
 
-Close, at eye level, sitting on the ring apron with the vest off: a black sports top, shoulders and arms shining with sweat. She holds out both fists and looks down, quiet for once, while the viewer's hands at the bottom edge unwind the tape from her bruised knuckles. Colour key: one warm hanging lamp, deep shadow.
+Close, from slightly below, as if the viewer kneels in front of her: she sits on the ring apron with the vest off, black sports top, shoulders shining with sweat, both fists held out toward the lens while the viewer's hands unwind the tape from her bruised knuckles. Her face is above the fists, eyes down, quiet for once. Colour key: one warm hanging lamp, deep shadow.
 
 ### CUT 3 — `n_brick_3` — CLOSER
 
-Close two-thirds shot on the bench by the lockers: the charcoal hoodie open over the sports top, a water bottle hanging from two fingers, forearms on her knees. She looks up at the viewer from under her brows and tells the one thing she never tells, eyes bright, jaw working. Colour key: amber lamp, steel grey.
+Low-angle three-quarter shot from the gym floor outside the ring: she stands inside leaning forward on the ropes, forearms draped over the top rope, the charcoal hoodie open over the sports top, a water bottle hanging from two fingers. She looks down at the viewer and tells the one thing she never tells, eyes bright, jaw working. Colour key: amber lamp, steel grey, ropes as diagonals.
 
 ### CUT 4 — `n_brick_4` — INVITATION
 
-Very close, from just above, as she leans back against the lockers and pulls the viewer in by one outstretched hand, foreshortened toward the lens. The hoodie hangs off her elbows over **the black lace with orange edging**, steam drifting behind her; a slow, sure grin, cheeks flushed. Colour key: orange rim on dark skin, warm steam.
+Close, eye level, face to face: she sits on the corner stool like a fighter between rounds, leaning far forward with one elbow on her knee, the hoodie hanging off her elbows over **the black lace with orange edging**. Her other arm is stretched toward the lens, a fist opening into an open hand for the viewer to take; a slow, sure grin, cheeks flushed, steam drifting from the shower room behind. Colour key: orange rim on dark skin, warm steam.
 
 ### CUT 5 — `n_brick_5` — THE NIGHT
 
-Very close, low angle from the canvas: **lingerie only**, dog tags on her chest, goggles on the corner post. She lies on her back in the middle of the ring on the spread hoodie, one arm behind her head, one knee up toward the lens, powerful shoulders and stomach catching the single lamp, eyes half closed, lips parted, a lazy flushed smile at the viewer. Colour key: lamp gold on skin, black beyond the ropes.
+Close, low angle from the canvas: **lingerie only**, dog tags on her chest, goggles hung on the corner post. She sits on the canvas leaning back against the corner pad with both arms spread wide along the ropes, one leg stretched toward the lens and the other bent, head tipped back against the pad, looking down her cheekbones at the viewer with half-closed eyes and a lazy flushed smile. The single lamp picks out shoulders, stomach and thighs. Colour key: lamp gold on skin, black beyond the ropes.
 
 ### CUT 6 — `n_brick_6` — MORNING
 
-Medium close on the gym roof at dawn, the city turning pink. She sits wrapped in the hoodie and a plaid blanket with bare legs out, head tipped on her fist, eyes soft and sleepy, smiling at the viewer without the armour of the grin. Colour key: rose and orange sunrise.
+Wide shot on the gym roof at dawn, the city turning pink: she sits on the parapet edge wrapped in the hoodie and a plaid blanket with her bare legs swinging, head tipped onto her fist, eyes soft and sleepy, smiling at the viewer without the armour of the grin. Colour key: rose and orange sunrise.
 
