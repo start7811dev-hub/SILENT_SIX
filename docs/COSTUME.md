@@ -116,6 +116,8 @@
 
 ## 9. 만들 것
 
+**맵 제작 방식 변경(2026-11-21).** 가이드 블록 방식은 쓰지 않는다. 맵은 `tools/packs/costume_v3/build.py`로 만든 요원별 묶음(`SILENT6_Map_Costume_V3_<요원>.zip`)으로 뽑는다. 한 묶음은 맵 1장(`bgc_<요원>.jpg`, 가로세로 32 m, 구조만) + 소품 시트 3장(`p_c_<요원>_cover.png` · `_show.png` · `_special.png`, 낱개 18개). 합계 맵 6장, 시트 18장. 질문 2의 정답(문 4개, 리프트 열림, 선베드 3개 등)은 맵 검수 항목에 넣었다. 아래 0번 원샷 세트에서는 대화 일러스트 54장 지시만 쓰고, 리워드 컷은 `tools/clear_studio/costume_packs_v4.py`를 쓴다.
+
 0. 아래 1~3은 `SILENT6_Costume_TotalSet.zip` 하나로 한꺼번에 만든다(84장). 만드는 스크립트는 `tools/map/costume_set.py`.
 1. 맵 그림 6장: `bgc_<요원>.jpg`.
 2. 대화 일러스트 54장: 상대 `d_C-<요원>_n1_<0..2>.png` · `_n2_`, 요원 `d_C-<요원>_me_<0..2>.png`. 배경 투명.
