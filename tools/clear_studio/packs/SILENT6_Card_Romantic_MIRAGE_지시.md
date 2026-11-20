@@ -63,7 +63,7 @@ One image per reply. Write the file name on its own line before each image. Neve
 
 ## THIS AGENT
 
-- **MIRAGE** (`agents/sheet_mirage.jpg`, signature colour #E8C46A). Long wavy black hair, golden-brown eyes, warm tan skin, gold hoop earrings, a beauty mark, elegant curvy build, slow knowing smile. Personal details: Long wavy black hair, gold hoop earrings, a small beauty mark, warm tan skin in every cut.
+- **MIRAGE** (`agents/sheet_mirage.jpg`, signature colour #E8C46A). Long wavy black hair, golden-brown eyes, warm tan skin, gold hoop earrings, a beauty mark, elegant curvy build, slow knowing smile. Personal details: Long wavy black hair, gold hoop earrings, a small beauty mark, warm tan skin in every card.
   - Lingerie: black lace with fine gold details, thin straps, sheer mesh, stockings with lace tops; over it, a dark wine silk robe.
   - Place: A top-floor hotel suite at night: a marble dressing table with a lit mirror, a wide bed with champagne satin, a balcony over the city, lilies in a vase, then sunrise.
 

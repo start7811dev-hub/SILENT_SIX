@@ -118,7 +118,7 @@ SP_HOME = u"Three-quarter length from behind and to one side, eye level. MIRAGE 
 
 
 def agent_block(a, lin=None, place=None):
-    v = CS.A[a]; t = u'- **%s** (`agents/sheet_%s.jpg`, signature colour %s). %s. Personal details: %s\n' % (v[0], a, v[2], v[5][0].upper() + v[5][1:], RN.D[a]['det'])
+    v = CS.A[a]; t = u'- **%s** (`agents/sheet_%s.jpg`, signature colour %s). %s. Personal details: %s\n' % (v[0], a, v[2], v[5][0].upper() + v[5][1:], u'Her long red scarf is on in every card.' if a == 'raven' else RN.D[a]['det'].replace(u'every cut', u'every card'))
     if lin: t += u'  - Lingerie: %s\n' % lin
     if place: t += u'  - Place: %s\n' % place
     return t

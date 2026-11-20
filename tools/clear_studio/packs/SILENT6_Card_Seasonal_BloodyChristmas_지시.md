@@ -77,9 +77,9 @@ A Christmas service shot of the agents who run that stage. Nobody wears tactical
 
 ### `kw_1` — WIDE — STAGE 1 · RAVEN + MIRAGE
 
-- **RAVEN** (`agents/sheet_raven.jpg`, signature colour #FF3B52). Short messy black hair with long side bangs, sharp red-brown eyes, pale skin, lean athletic build, cool and unreadable expression, small silver pendant. Personal details: Her long red scarf is in every cut until she takes it off herself in cut 5.
+- **RAVEN** (`agents/sheet_raven.jpg`, signature colour #FF3B52). Short messy black hair with long side bangs, sharp red-brown eyes, pale skin, lean athletic build, cool and unreadable expression, small silver pendant. Personal details: Her long red scarf is on in every card.
   - Christmas outfit: a cropped crimson velvet jacket with white fur trim over a black corset bodysuit, a short crimson skirt with a white fur hem, black thigh-high boots, and her long red scarf.
-- **MIRAGE** (`agents/sheet_mirage.jpg`, signature colour #E8C46A). Long wavy black hair, golden-brown eyes, warm tan skin, gold hoop earrings, a beauty mark, elegant curvy build, slow knowing smile. Personal details: Long wavy black hair, gold hoop earrings, a small beauty mark, warm tan skin in every cut.
+- **MIRAGE** (`agents/sheet_mirage.jpg`, signature colour #E8C46A). Long wavy black hair, golden-brown eyes, warm tan skin, gold hoop earrings, a beauty mark, elegant curvy build, slow knowing smile. Personal details: Long wavy black hair, gold hoop earrings, a small beauty mark, warm tan skin in every card.
   - Christmas outfit: a champagne-gold sequin mini dress with a white fur stole, long black satin gloves, gold hoop earrings and a gold body chain, black stilettos.
 
 **Place.** 18:40, Christmas Eve. A walled old-town Christmas market: a great decorated tree inside an iron fence at the centre of a lit plaza, blocks of red-and-white striped stalls with dark alleys between them, a carousel, a small wooden stage with red curtains, a frozen stone fountain, stone houses with lit windows, arched gates, garlands and string lights everywhere, crates, barrels, a sleigh and potted firs along the lanes.
@@ -90,9 +90,9 @@ A Christmas service shot of the agents who run that stage. Nobody wears tactical
 
 ### `kw_2` — WIDE — STAGE 2 · BRICK + GLITCH
 
-- **BRICK** (`agents/sheet_brick.jpg`, signature colour #FF8A2A). Very short bleached-blonde buzz cut, deep brown skin, amber eyes, powerful muscular build, orange goggles pushed up on her head, confident wide grin, dog tags. Personal details: Very short bleached-blonde buzz cut, orange goggles pushed up, dog tags, deep brown skin, a powerful athletic build in every cut.
+- **BRICK** (`agents/sheet_brick.jpg`, signature colour #FF8A2A). Very short bleached-blonde buzz cut, deep brown skin, amber eyes, powerful muscular build, orange goggles pushed up on her head, confident wide grin, dog tags. Personal details: Very short bleached-blonde buzz cut, orange goggles pushed up, dog tags, deep brown skin, a powerful athletic build in every card.
   - Christmas outfit: a burnt-orange cropped bomber with a white fur collar over a black sports top, black hot pants with orange braces, orange-and-white striped thigh socks, heavy boots, her goggles pushed up with a sprig of holly tucked in.
-- **GLITCH** (`agents/sheet_glitch.jpg`, signature colour #3FE0E0). Black hair in a messy top bun with teal-dyed tips and a shaved side, large round glasses, teal eyes, fair skin, playful grin, headphones around the neck. Personal details: Black hair in a messy top bun with teal tips and one shaved side, on the same side as in her sheet in every cut; round glasses; headphones.
+- **GLITCH** (`agents/sheet_glitch.jpg`, signature colour #3FE0E0). Black hair in a messy top bun with teal-dyed tips and a shaved side, large round glasses, teal eyes, fair skin, playful grin, headphones around the neck. Personal details: Black hair in a messy top bun with teal tips and one shaved side, on the same side as in her sheet in every card; round glasses; headphones.
   - Christmas outfit: an oversized teal Santa-cut hooded mini parka dress with white fur trim, zip half down, teal-and-white striped stockings, short boots, her round glasses, and headphones with tiny reindeer antlers.
 
 **Place.** 20:10. A freight marshalling yard in falling snow: five parallel tracks, lines of rust-red, dark green and grey box cars with gaps between them, a dark blue box car with a yellow diagonal band, a yellow shunting locomotive, a brick signal box full of levers, two lattice lighting towers, a low loading platform with warehouse doors, sodium lamps, steam, sleepers, cable reels and oil drums.
@@ -103,9 +103,9 @@ A Christmas service shot of the agents who run that stage. Nobody wears tactical
 
 ### `kw_3` — WIDE — STAGE 3 · VIPER + DOC
 
-- **VIPER** (`agents/sheet_viper.jpg`, signature colour #B98CFF). Short silver-white hair swept to one side with an undercut, violet eyes, pale skin, tall slim build, cold half-lidded gaze, dog tags. Personal details: Short silver-white hair swept to one side, as in her sheet; two dog tags on one chain in every cut.
+- **VIPER** (`agents/sheet_viper.jpg`, signature colour #B98CFF). Short silver-white hair swept to one side with an undercut, violet eyes, pale skin, tall slim build, cold half-lidded gaze, dog tags. Personal details: Short silver-white hair swept to one side, as in her sheet; two dog tags on one chain in every card.
   - Christmas outfit: an off-shoulder violet velvet mini dress with silver-grey fur trim, a slim black belt, black thigh-high boots, her dog tags, a violet ribbon choker.
-- **DOC** (`agents/sheet_doc.jpg`, signature colour #9BE23A). Dark curly hair tied up high with loose strands, green-hazel eyes, tan skin, full-sleeve tattoos on both arms, hoop earrings, dog tags, teasing confident smile. Personal details: Dark curls tied up high with loose strands, hoop earrings, and her tattoo sleeves exactly as drawn in her sheet, on the same arms and with the same pattern in every cut.
+- **DOC** (`agents/sheet_doc.jpg`, signature colour #9BE23A). Dark curly hair tied up high with loose strands, green-hazel eyes, tan skin, full-sleeve tattoos on both arms, hoop earrings, dog tags, teasing confident smile. Personal details: Dark curls tied up high with loose strands, hoop earrings, and her tattoo sleeves exactly as drawn in her sheet, on the same arms and with the same pattern in every card.
   - Christmas outfit: a lime-green velvet wrap mini dress cut like an elf tunic with white fur trim and a wide black belt, the sleeve pushed up to show her tattooed forearm, gold hoop earrings, white fur-topped ankle boots.
 
 **Place.** 22:30. A small frozen lake in the woods under a full moon: a wide sheet of cracked blue ice dotted with little ice-fishing huts with lit windows, a timber jetty with lanterns and a searchlight, a radio shack with a tall antenna, a boathouse, a log ranger's cabin with a woodshed, pine clumps, boulders, snow drifts, sleds and a snowmobile.

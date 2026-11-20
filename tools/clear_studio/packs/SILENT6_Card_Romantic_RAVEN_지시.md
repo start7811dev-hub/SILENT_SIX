@@ -63,7 +63,7 @@ One image per reply. Write the file name on its own line before each image. Neve
 
 ## THIS AGENT
 
-- **RAVEN** (`agents/sheet_raven.jpg`, signature colour #FF3B52). Short messy black hair with long side bangs, sharp red-brown eyes, pale skin, lean athletic build, cool and unreadable expression, small silver pendant. Personal details: Her long red scarf is in every cut until she takes it off herself in cut 5.
+- **RAVEN** (`agents/sheet_raven.jpg`, signature colour #FF3B52). Short messy black hair with long side bangs, sharp red-brown eyes, pale skin, lean athletic build, cool and unreadable expression, small silver pendant. Personal details: Her long red scarf is on in every card.
   - Lingerie: fine black lace with thin crimson ribbon ties and sheer mesh panels; over it, a black silk slip.
   - Place: A safe house above the harbour on a night of heavy rain: one room, a bed with grey linen, a desk lamp, a bottle of whisky that has not gone down in months, rain streaming on a tall window with the harbour cranes and lights beyond.
 

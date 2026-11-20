@@ -63,7 +63,7 @@ One image per reply. Write the file name on its own line before each image. Neve
 
 ## THIS AGENT
 
-- **GLITCH** (`agents/sheet_glitch.jpg`, signature colour #3FE0E0). Black hair in a messy top bun with teal-dyed tips and a shaved side, large round glasses, teal eyes, fair skin, playful grin, headphones around the neck. Personal details: Black hair in a messy top bun with teal tips and one shaved side, on the same side as in her sheet in every cut; round glasses; headphones.
+- **GLITCH** (`agents/sheet_glitch.jpg`, signature colour #3FE0E0). Black hair in a messy top bun with teal-dyed tips and a shaved side, large round glasses, teal eyes, fair skin, playful grin, headphones around the neck. Personal details: Black hair in a messy top bun with teal tips and one shaved side, on the same side as in her sheet in every card; round glasses; headphones.
   - Lingerie: pale teal lace with thin straps, small white bows and sheer mesh; over it, an oversized black hoodie with teal cuffs.
   - Place: Her apartment-workshop at night in a neon city: a desk of six monitors, a small drone on a shelf, hanging plants, energy-drink cans, an unmade bed under a window of magenta and teal signs, then sunrise.
 

@@ -63,7 +63,7 @@ One image per reply. Write the file name on its own line before each image. Neve
 
 ## THIS AGENT
 
-- **BRICK** (`agents/sheet_brick.jpg`, signature colour #FF8A2A). Very short bleached-blonde buzz cut, deep brown skin, amber eyes, powerful muscular build, orange goggles pushed up on her head, confident wide grin, dog tags. Personal details: Very short bleached-blonde buzz cut, orange goggles pushed up, dog tags, deep brown skin, a powerful athletic build in every cut.
+- **BRICK** (`agents/sheet_brick.jpg`, signature colour #FF8A2A). Very short bleached-blonde buzz cut, deep brown skin, amber eyes, powerful muscular build, orange goggles pushed up on her head, confident wide grin, dog tags. Personal details: Very short bleached-blonde buzz cut, orange goggles pushed up, dog tags, deep brown skin, a powerful athletic build in every card.
   - Lingerie: black lace with orange satin edging, a clean sporty cut with thin straps and sheer mesh; over it, a charcoal zip hoodie with orange stripes.
   - Place: A boxing gym after closing: a ring under one hanging lamp, heavy bags, a wooden bench, steel lockers, steam from the shower room, a rooftop with the city at dawn.
 

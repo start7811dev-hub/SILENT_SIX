@@ -70,14 +70,14 @@ The costume mission starts in the dressing room. Each card catches an agent **in
 
 ### `kv_special_menu` — TALL — MIRAGE, home tile
 
-- **MIRAGE** (`agents/sheet_mirage.jpg`, signature colour #E8C46A). Long wavy black hair, golden-brown eyes, warm tan skin, gold hoop earrings, a beauty mark, elegant curvy build, slow knowing smile. Personal details: Long wavy black hair, gold hoop earrings, a small beauty mark, warm tan skin in every cut.
+- **MIRAGE** (`agents/sheet_mirage.jpg`, signature colour #E8C46A). Long wavy black hair, golden-brown eyes, warm tan skin, gold hoop earrings, a beauty mark, elegant curvy build, slow knowing smile. Personal details: Long wavy black hair, gold hoop earrings, a small beauty mark, warm tan skin in every card.
   - Lingerie: black lace with fine gold chain details and gold clasps, thin straps, sheer mesh, high-cut brief with a narrow gold chain at the hip.
 
 Three-quarter length from behind and to one side, eye level. MIRAGE walks away down a backstage corridor toward an open dressing-room door ringed with warm bulbs, in the black lace set with fine gold chains, seamed stockings and stilettos, one hand trailing along the wall, the other carrying a costume on a hanger hooked over her shoulder by one finger. She glances back in profile with a slow knowing smile, gold hoop catching the light. Colour key: dark corridor, gold doorway light wrapping her back, waist and hips.
 
 ### `kc_raven` — WIDE — RAVEN
 
-- **RAVEN** (`agents/sheet_raven.jpg`, signature colour #FF3B52). Short messy black hair with long side bangs, sharp red-brown eyes, pale skin, lean athletic build, cool and unreadable expression, small silver pendant. Personal details: Her long red scarf is in every cut until she takes it off herself in cut 5.
+- **RAVEN** (`agents/sheet_raven.jpg`, signature colour #FF3B52). Short messy black hair with long side bangs, sharp red-brown eyes, pale skin, lean athletic build, cool and unreadable expression, small silver pendant. Personal details: Her long red scarf is on in every card.
   - Lingerie: fine black lace with thin crimson ribbon ties and a few gold-thread roses, sheer mesh side panels, high-cut brief.
   - Her costume (hanging up, not worn): a matador-inspired stage outfit: a cropped black bolero with crimson and gold embroidery, a black high-waisted corset bodysuit, a short crimson cape-skirt open at the front, sheer black tights, heeled ankle boots, and her long red scarf.
   - Venue: A circular show arena on a matador-themed gala night: a sand ring under hard spotlights, crimson drapes, gold trim, banked seats, stage smoke. Behind it, a wardrobe room with bulb-ringed mirrors, costume trunks and red roses.
@@ -86,7 +86,7 @@ Three-quarter length from behind and to one side, eye level. MIRAGE walks away d
 
 ### `kc_viper` — WIDE — VIPER
 
-- **VIPER** (`agents/sheet_viper.jpg`, signature colour #B98CFF). Short silver-white hair swept to one side with an undercut, violet eyes, pale skin, tall slim build, cold half-lidded gaze, dog tags. Personal details: Short silver-white hair swept to one side, as in her sheet; two dog tags on one chain in every cut.
+- **VIPER** (`agents/sheet_viper.jpg`, signature colour #B98CFF). Short silver-white hair swept to one side with an undercut, violet eyes, pale skin, tall slim build, cold half-lidded gaze, dog tags. Personal details: Short silver-white hair swept to one side, as in her sheet; two dog tags on one chain in every card.
   - Lingerie: deep violet sheer mesh and lace with tiny silver crystals along thin straps, high-cut brief with delicate silver rings.
   - Her costume (hanging up, not worn): an ice-queen figure-skating costume: a violet long-sleeved leotard dress with a sheer mesh back and silver crystal trim, a very short asymmetric skirt, skin-tone tights, white skates, a silver hair comb, and her dog tags.
   - Venue: An indoor ice rink during a gala figure-skating show: violet and silver spotlights, frost haze, rink boards, glitter in the air. Behind it, a locker room with frosted windows, skate bags, a bench and a rack of sequinned costumes.
@@ -95,7 +95,7 @@ Three-quarter length from behind and to one side, eye level. MIRAGE walks away d
 
 ### `kc_glitch` — WIDE — GLITCH
 
-- **GLITCH** (`agents/sheet_glitch.jpg`, signature colour #3FE0E0). Black hair in a messy top bun with teal-dyed tips and a shaved side, large round glasses, teal eyes, fair skin, playful grin, headphones around the neck. Personal details: Black hair in a messy top bun with teal tips and one shaved side, on the same side as in her sheet in every cut; round glasses; headphones.
+- **GLITCH** (`agents/sheet_glitch.jpg`, signature colour #3FE0E0). Black hair in a messy top bun with teal-dyed tips and a shaved side, large round glasses, teal eyes, fair skin, playful grin, headphones around the neck. Personal details: Black hair in a messy top bun with teal tips and one shaved side, on the same side as in her sheet in every card; round glasses; headphones.
   - Lingerie: pale teal lace with holographic trim, thin straps with tiny white bows, sheer mesh cups, high-cut brief.
   - Her costume (hanging up, not worn): a cyber-idol stage outfit: a cropped teal holographic jacket, a black bustier top with glowing teal piping, a pleated micro skirt, fishnet tights, platform boots, a holographic visor pushed up on her head, her round glasses and headphones.
   - Venue: Backstage of a huge concert dome during an idol show: the back of a giant LED wall, teal lasers, flight cases, cables, magenta light leaking through. Behind it, a small dressing room with a make-up mirror, fairy lights, energy-drink cans and a costume rail.
@@ -104,7 +104,7 @@ Three-quarter length from behind and to one side, eye level. MIRAGE walks away d
 
 ### `kc_brick` — WIDE — BRICK
 
-- **BRICK** (`agents/sheet_brick.jpg`, signature colour #FF8A2A). Very short bleached-blonde buzz cut, deep brown skin, amber eyes, powerful muscular build, orange goggles pushed up on her head, confident wide grin, dog tags. Personal details: Very short bleached-blonde buzz cut, orange goggles pushed up, dog tags, deep brown skin, a powerful athletic build in every cut.
+- **BRICK** (`agents/sheet_brick.jpg`, signature colour #FF8A2A). Very short bleached-blonde buzz cut, deep brown skin, amber eyes, powerful muscular build, orange goggles pushed up on her head, confident wide grin, dog tags. Personal details: Very short bleached-blonde buzz cut, orange goggles pushed up, dog tags, deep brown skin, a powerful athletic build in every card.
   - Lingerie: black lace with orange satin edging, a thin sporty racer-back strap line, sheer mesh panels, high-cut brief with a narrow orange waistband.
   - Her costume (hanging up, not worn): a champion-boxer show outfit: an open black satin robe with orange trim and hood, a black sports bralette top with orange piping, high-waisted orange satin boxing shorts with a wide black waistband, taped hands, boxing boots, her goggles pushed up, dog tags.
   - Venue: A luxury hotel ballroom set up for a title fight: a boxing ring under one hard white light, dinner tables, orange and black bunting, chandeliers. Behind it, a fighters' locker room with a massage table, hanging robes, a title belt on a bench and steam from the showers.
@@ -113,7 +113,7 @@ Three-quarter length from behind and to one side, eye level. MIRAGE walks away d
 
 ### `kc_mirage` — WIDE — MIRAGE
 
-- **MIRAGE** (`agents/sheet_mirage.jpg`, signature colour #E8C46A). Long wavy black hair, golden-brown eyes, warm tan skin, gold hoop earrings, a beauty mark, elegant curvy build, slow knowing smile. Personal details: Long wavy black hair, gold hoop earrings, a small beauty mark, warm tan skin in every cut.
+- **MIRAGE** (`agents/sheet_mirage.jpg`, signature colour #E8C46A). Long wavy black hair, golden-brown eyes, warm tan skin, gold hoop earrings, a beauty mark, elegant curvy build, slow knowing smile. Personal details: Long wavy black hair, gold hoop earrings, a small beauty mark, warm tan skin in every card.
   - Lingerie: black lace with fine gold chain details and gold clasps, thin straps, sheer mesh, high-cut brief with a narrow gold chain at the hip.
   - Her costume (hanging up, not worn): a casino-dealer costume: a fitted black waistcoat with gold buttons worn with nothing under it but a gold bow-tie collar and white cuffs, black satin shorts, sheer black stockings with a back seam, stilettos, gold hoop earrings, one long black glove.
   - Venue: A private penthouse casino at night: green baize tables, a roulette wheel, a gold-lit bar, black marble, city lights through tall windows. Behind it, a VIP salon with a velvet chaise, a silk screen, scattered chips and a champagne bucket.
@@ -122,7 +122,7 @@ Three-quarter length from behind and to one side, eye level. MIRAGE walks away d
 
 ### `kc_doc` — WIDE — DOC
 
-- **DOC** (`agents/sheet_doc.jpg`, signature colour #9BE23A). Dark curly hair tied up high with loose strands, green-hazel eyes, tan skin, full-sleeve tattoos on both arms, hoop earrings, dog tags, teasing confident smile. Personal details: Dark curls tied up high with loose strands, hoop earrings, and her tattoo sleeves exactly as drawn in her sheet, on the same arms and with the same pattern in every cut.
+- **DOC** (`agents/sheet_doc.jpg`, signature colour #9BE23A). Dark curly hair tied up high with loose strands, green-hazel eyes, tan skin, full-sleeve tattoos on both arms, hoop earrings, dog tags, teasing confident smile. Personal details: Dark curls tied up high with loose strands, hoop earrings, and her tattoo sleeves exactly as drawn in her sheet, on the same arms and with the same pattern in every card.
   - Lingerie: white lace with thin lime-green ribbon and tiny gold clasps, sheer mesh cups, high-cut brief tied with lime ribbon at the hips.
   - Her costume (hanging up, not worn): a nurse-inspired costume: a glossy white corset dress with lime-green lacing and a very short skirt, a cropped white jacket, long white gloves, white thigh-high stockings with lime bands, a medic-cross choker, gold hoop earrings, her tattooed left arm bare.
   - Venue: A private cosmetic clinic and spa at night: white marble, lime-green accent light, a turquoise spa pool, orchids, soft steam. Behind it, a sauna-side relaxation room with warm wood, folded white towels, an orchid and drifting steam.

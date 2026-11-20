@@ -64,7 +64,7 @@ One image per reply. Write the file name on its own line before each image. Neve
 
 ## THIS AGENT
 
-- **VIPER** (`agents/sheet_viper.jpg`, signature colour #B98CFF). Short silver-white hair swept to one side with an undercut, violet eyes, pale skin, tall slim build, cold half-lidded gaze, dog tags. Personal details: Short silver-white hair swept to one side, as in her sheet; two dog tags on one chain in every cut.
+- **VIPER** (`agents/sheet_viper.jpg`, signature colour #B98CFF). Short silver-white hair swept to one side with an undercut, violet eyes, pale skin, tall slim build, cold half-lidded gaze, dog tags. Personal details: Short silver-white hair swept to one side, as in her sheet; two dog tags on one chain in every card.
   - Lingerie: deep violet lace with thin silver hardware and sheer mesh; over it, a dark plum silk robe.
   - Place: A timber mountain lodge in deep snow at night: a stone fireplace, a fur rug, a leather armchair, a decanter, her rifle case propped by the door, a window of blue snow and pines, and an outdoor hot-spring bath steaming on the deck.
 

@@ -63,7 +63,7 @@ One image per reply. Write the file name on its own line before each image. Neve
 
 ## THIS AGENT
 
-- **DOC** (`agents/sheet_doc.jpg`, signature colour #9BE23A). Dark curly hair tied up high with loose strands, green-hazel eyes, tan skin, full-sleeve tattoos on both arms, hoop earrings, dog tags, teasing confident smile. Personal details: Dark curls tied up high with loose strands, hoop earrings, and her tattoo sleeves exactly as drawn in her sheet, on the same arms and with the same pattern in every cut.
+- **DOC** (`agents/sheet_doc.jpg`, signature colour #9BE23A). Dark curly hair tied up high with loose strands, green-hazel eyes, tan skin, full-sleeve tattoos on both arms, hoop earrings, dog tags, teasing confident smile. Personal details: Dark curls tied up high with loose strands, hoop earrings, and her tattoo sleeves exactly as drawn in her sheet, on the same arms and with the same pattern in every card.
   - Lingerie: white lace with thin lime-green ribbon and sheer mesh; over it, a lime silk slip.
   - Place: Her small night clinic after closing: an examination room with a green-shaded lamp, steel trays, a medicine cabinet, forty potted plants along the window, her bedroom behind a curtain with white linen, then morning sun.
 
