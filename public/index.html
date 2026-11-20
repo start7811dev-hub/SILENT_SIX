@@ -536,6 +536,26 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #vw u{position:absolute;left:0;right:0;bottom:calc(30px + env(safe-area-inset-bottom));text-align:center;text-decoration:none;font-size:12px;letter-spacing:.08em;color:#dfe6ee;pointer-events:none}
 #roc img{cursor:zoom-in}
 #hm .hud button.lg{background:rgba(255,255,255,.1);color:var(--ink)}
+#hm .hud b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hm .hc{position:absolute;right:12px;top:100%;display:flex;gap:6px}
+#hm .hud .hc button{display:flex;align-items:center;gap:6px;height:28px;padding:0 9px 0 10px;background:rgba(21,28,36,.92);color:var(--ink);font-size:12px;letter-spacing:.12em}
+#hm .hud .hc button small{font:700 10.5px/1 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:.04em;color:var(--dim)}
+#hm .hud .hc button u{text-decoration:none}
+#hm .hud .hc button i{font-style:normal;font-size:9px;color:var(--c);transition:transform .15s}
+#hm .hud .hc button.df.on{background:#232c37}#hm .hud .hc button.df.on i{transform:rotate(180deg)}
+#hm .hud .hc button svg{width:13px;height:13px;fill:var(--c);pointer-events:none}
+#hm .hud .hc button.bg u{color:var(--c);min-width:25px}
+#hm .hud .hc button.bg.off svg{fill:var(--dim)}#hm .hud .hc button.bg.off u{color:var(--dim)}
+#hm .dfp{position:absolute;left:12px;right:12px;top:calc(100% + 34px);z-index:4;background:#10161d;border-top:2px solid var(--c);box-shadow:0 18px 40px rgba(0,0,0,.7);padding:10px 10px 8px;letter-spacing:0}
+#hm .dfp.hide{display:none}
+#hm .dfp>i{display:block;font-style:normal;font-size:10px;letter-spacing:.3em;color:var(--dim);margin:0 2px 8px}
+#hm .hud .dfp button{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:10px;width:100%;height:auto;min-height:50px;padding:8px 12px 8px 12px;margin-bottom:5px;background:rgba(255,255,255,.05);color:var(--ink);text-align:left;letter-spacing:0;font-size:12px}
+#hm .hud .dfp button b{margin:0;font-size:15px;letter-spacing:.1em;overflow:visible}
+#hm .hud .dfp button b small{display:block;font:700 11px/1.2 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:0;color:var(--dim);margin-top:2px}
+#hm .hud .dfp button u{text-decoration:none;font:500 12px/1.4 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:#b9c2cb;white-space:normal}
+#hm .hud .dfp button em{font-style:normal;font-size:13px;letter-spacing:.06em;color:var(--dim);white-space:nowrap}
+#hm .hud .dfp button.sel{background:var(--c);color:#06080b}
+#hm .hud .dfp button.sel small,#hm .hud .dfp button.sel u,#hm .hud .dfp button.sel em{color:#06080b}
 #pg .row button.gg{background:#fff;color:#111}#pg .row button.ap{background:#000;color:#fff;border:1px solid rgba(255,255,255,.25)}
 #pg tr.me td{color:var(--c);font-weight:700}
 #nv.hide{display:none}
@@ -775,8 +795,8 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.32.0';
-var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false};
+var VERSION='0.33.0';
+var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
 var SB={url:'https://bfbupxsjvdjhjecorpwf.supabase.co',key:'sb_publishable_kEUUk0p9bgnTpoykFKa89w_Lq1KuL4m'},sb=null,USER=null,SBQ=[],SBBUSY=false,SBMSG='';
@@ -1044,7 +1064,7 @@ function bm(i,t){var g=PROG.b[i]||[];return '<'+(t||'i')+' class="bm">'+[0,1,2].
 var PGB=null,PGA=[],PGH=null,RORET=null;
 function page(t,sub,html,back,acts,h){
   try{$('pg').style.removeProperty('--c');}catch(e){}
-  hmHide();hideOv();msHide();started=false;setPre(true);PGB=back||home;PGA=acts||[];PGH=h||null;
+  hmHide();hideOv();msHide();started=false;BGS.mm=false;setPre(true);PGB=back||home;PGA=acts||[];PGH=h||null;
   var el=$('pg');el.className='';
   el.innerHTML='<div class="ph'+(html.indexOf('class="intro"')>=0?' lite':'')+'"><button data-b="1">‹</button><div><i>'+sub+'</i><h2>'+t+'</h2></div><span><b>◆</b> '+badgeTotal()+' · <b>P</b> '+(PROG.pt||0).toLocaleString()+'</span></div><div class="pb">'+html+'</div>';el.scrollTop=0;
 }
@@ -1063,12 +1083,16 @@ function vwSave(){
 }
 function info(t,sub,img,body,back){page(t,sub,(img?'<div class="hero'+(lk(img)?' lk':'')+'"><span class="bg" style="'+bgs(img)+'"></span></div>':'')+body,back);}
 var NAVI={home:'<path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/>',agents:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>',box:'<rect x="4" y="7" width="16" height="12"/><path d="M4 11h16M9 7V4h6v3M10 14.5h4"/>',shop:'<path d="M4 8h16l-1.5 12h-13zM8.5 8V6.5a3.5 3.5 0 017 0V8"/>',rank:'<path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4c0 3 1.5 4 3 4M17 6h3c0 3-1.5 4-3 4M12 14v4M8 20h8"/>',set:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>'};
+/* 홈 HUD: 난이도 바로 고르기 · BGM 켜고 끄기 */
+function dfpHtml(){return '<i>DIFFICULTY — 지금 고르면 다음 작전부터</i>'+DIFFS.map(function(d,k){return '<button data-hd="'+k+'"'+(k===DIFF?' class="sel"':'')+'><b>'+d.n+'<small>'+d.k+'</small></b><u>'+d.d+'</u><em>× '+[0.6,0.8,1,1.5][k]+'</em></button>';}).join('');}
+function dfpShow(b){var p=$('dfp'),c=$('hdf');if(!p||!c)return;if(b)p.innerHTML=dfpHtml();p.className=b?'dfp':'dfp hide';c.className=b?'df on':'df';}
+function dfpOpen(){var p=$('dfp');return !!p&&(''+p.className).indexOf('hide')<0;}
 function home(){
-  started=false;setPre(true);hideOv();pgHide();msHide();
+  started=false;BGS.mm=false;setPre(true);hideOv();pgHide();msHide();
   var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen(),rnd=function(){return 'a_'+ids[fl(Math.random()*6)]+'_'+(2+fl(Math.random()*6))+'.jpg';},hi='a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg',pi='kv_romantic.jpg',ri=KVI.seasonal?'kv_seasonal.jpg':null,ri2='kv_special_menu.jpg',nx=0;for(var q=0;q<NBASE;q++)if(!PROG.c[q]){nx=q;break;}var kv=mimg(nx);
   var nav=[['agents','요원'],['box','블랙박스'],['shop','SHOP'],['rank','랭킹'],['set','설정']];
   $('hm').className='';
-  $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><span>'+DF.n+'</span>'+(sbOn()&&!USER?'<button class="lg" data-h="set">LOGIN</button>':'')+'<button data-h="tip">TIP</button></div>'+
+  $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span>'+(sbOn()&&!USER?'<button class="lg" data-h="set">LOGIN</button>':'')+'<button data-h="tip">TIP</button><div class="hc"><button class="df" id="hdf" data-h="diff" aria-label="난이도"><u>'+DF.n+'</u><i>▼</i></button><button class="bg'+(bgmOn()?'':' off')+'" id="hbg" data-h="bgm"><svg viewBox="0 0 24 24"><path d="M9 3v11.2A3.6 3.6 0 1 0 11 17.5V8h7V3z"/></svg><small>BGM</small><u>'+(bgmOn()?'ON':'OFF')+'</u></button></div><div class="dfp hide" id="dfp"></div></div>'+
    '<div class="hh fxh"><div class="fx"><i></i><i></i><i></i><b></b></div><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
    '<button class="ht main" data-h="main"><span class="bg" style="'+bgs(kv)+'"></span><i>STORY MISSION · S1 · EPISODE 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' · 여섯이 모이기까지</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
    '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="'+bgs(pi)+'"></span><i>ROMANTIC</i><b>로맨틱 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
@@ -1249,7 +1273,11 @@ function ranking(tab){
 function settings(){
   var h='<label>계정</label>'+(USER?'<div class="row"><span>로그인됨<small>'+((USER.email||'').replace(/[<>&"]/g,''))+' · 기록이 계정에 남는다</small></span><button id="sout">로그아웃</button></div>':'<div class="row"><span>Google로 로그인<small>기록 · 포인트 · 랭킹을 계정에 남긴다</small></span><button id="sgo" class="gg">Google</button></div><div class="row"><span>Apple로 로그인<small>준비 중</small></span><button id="sap" class="ap"> Apple</button></div>')+(SBMSG?'<p style="color:var(--c)">'+SBMSG+'</p>':'')+
    '<label>난이도</label><div class="seg">'+DIFFS.map(function(d,k){return '<button data-d="'+k+'"'+(k===DIFF?' class="sel"':'')+'><i>'+d.n+'</i>'+d.k+'</button>';}).join('')+'</div><p style="margin-top:10px">'+DF.d+' · 점수 배수 × '+[0.6,0.8,1,1.5][DIFF]+'</p>'+
-   '<label>사운드</label><div class="row"><span>음량</span><input type="range" id="svol" min="0" max="100" value="'+Math.round(PROG.vol*100)+'"></div>'+
+   '<label>사운드</label><div class="row"><span>BGM<small id="sbn">'+bgmNow()+'</small></span><button id="sbgm"'+(bgmOn()?' class="sel"':'')+'>'+(bgmOn()?'ON':'OFF')+'</button></div>'+
+   '<div class="row"><span>BGM 음량</span><input type="range" id="sbv" min="0" max="100" value="'+Math.round((PROG.bvol==null?0.6:PROG.bvol)*100)+'"></div>'+
+   '<div class="row"><span>미션 전용 BGM<small>로맨틱 · 코스튬 · 블러디 크리스마스는 그 밤의 곡으로</small></span><button id="sbth"'+(PROG.bth!==false?' class="sel"':'')+'>'+(PROG.bth!==false?'ON':'OFF')+'</button></div>'+
+   '<div class="row"><span>다음 곡<small>지금 곡이 귀에 안 붙으면</small></span><button id="sbnx">넘기기</button></div>'+
+   '<div class="row"><span>효과음 음량</span><input type="range" id="svol" min="0" max="100" value="'+Math.round(PROG.vol*100)+'"></div>'+
    '<label>프로필</label><div class="row"><span>호출명<small>랭킹과 홈에 표시</small></span><input type="text" id="snm" maxlength="12" placeholder="HANDLER" value="'+(PROG.name||'').replace(/"/g,'')+'"></div>'+
    '<label>화면</label><div class="row"><span>오프닝 선택<small>'+(PROG.op==='b'?'MISSION VERSION':PROG.op==='a'?'DAY-OFF VERSION':'고르지 않음')+' · 시작할 때 자동 재생</small></span><button id="sop">바꾸기</button></div><div class="row"><span>플레이 TIP</span><button id="stip">열기</button></div>'+
    '<label>기록</label>'+(!sbOn()||ADM?'<div class="row"><span>로맨틱 미션 전체 열기<small>테스트용</small></span><button id="sall"'+(PROG.all?' class="sel"':'')+'>'+(PROG.all?'ON':'OFF')+'</button></div>':'')+'<div class="row"><span>기록 지우기<small>점수 · 배지 · 포인트</small></span><button id="srst">지우기</button></div>'+
@@ -1257,6 +1285,9 @@ function settings(){
   var keep=function(){var n=$('snm');if(!n)return;var v=(''+n.value).trim();if(v!==PROG.name&&sb&&USER)rpc('s6_name',{p_name:v}).catch(function(){});PROG.name=v;saveProg();};SBMSG='';
   page('설정','SETTINGS',h,function(){keep();home();},[],function(e){var t=e.target,d=t.dataset.d;
     if(d!==undefined){keep();setDiff(+d);settings();}
+    else if(t.id==='sbgm'){keep();bgmSet(!bgmOn());settings();}
+    else if(t.id==='sbth'){keep();PROG.bth=PROG.bth===false;saveProg();settings();}
+    else if(t.id==='sbnx'){bgmSkip();setTimeout(function(){var n=$('sbn');if(n)n.textContent=bgmNow();},400);}
     else if(t.id==='sall'){keep();PROG.all=!PROG.all;saveProg();settings();}
     else if(t.id==='sop'){keep();pgHide();opSelect();}
     else if(t.id==='stip'){keep();tipsPage(settings);}
@@ -1265,7 +1296,7 @@ function settings(){
     else if(t.id==='sap'){SBMSG='Apple 로그인은 준비 중이다. 지금은 Google로.';settings();}
     else if(t.id==='sout'){sbLogout();}
     else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.end={};PROG.g={};PROG.n={};PROG.pt=0;SBQ=[];qSave();saveProg();if(sb&&USER)rpc('s6_reset').catch(function(){});say('없던 일이 됐다.');settings();}});
-  $('pg').oninput=function(e){if(e.target.id==='svol'){PROG.vol=e.target.value/100;saveProg();}};
+  $('pg').oninput=function(e){if(e.target.id==='svol'){PROG.vol=e.target.value/100;saveProg();}else if(e.target.id==='sbv'){PROG.bvol=e.target.value/100;saveProg();BGD.forEach(function(d){if(d.id)bgmVol(d);});}};
   $('pg').onchange=function(e){if(e.target.id==='svol')snd('ok');};
 }
 function tipsPage(back){
@@ -1616,9 +1647,80 @@ function makeGhosts(){
 }
 /* ---------- 소리 ---------- */
 var AC=null;
-function unlock(){try{var A=window.AudioContext||window.webkitAudioContext;if(!AC&&A)AC=new A();if(AC&&AC.state==='suspended')AC.resume();}catch(e){}}
+function unlock(){try{var A=window.AudioContext||window.webkitAudioContext;if(!AC&&A)AC=new A();if(AC&&AC.state==='suspended')AC.resume();}catch(e){}try{bgmBless();}catch(e){}}
 function snd(t){try{if(!AC)return;var f={shot:[150,0.2,'square',0.22],sup:[340,0.09,'triangle',0.14],hit:[95,0.16,'sine',0.3],alert:[620,0.45,'sawtooth',0.14],ok:[540,0.12,'sine',0.12],boom:[70,0.5,'sawtooth',0.3]}[t],o=AC.createOscillator(),g=AC.createGain(),n=AC.currentTime;
   o.connect(g);g.connect(AC.destination);o.type=f[2];o.frequency.setValueAtTime(f[0],n);o.frequency.exponentialRampToValueAtTime(Math.max(30,f[0]/3),n+f[1]);g.gain.setValueAtTime((f[3]*PROG.vol),n);g.gain.exponentialRampToValueAtTime(0.001,n+f[1]);o.start(n);o.stop(n+f[1]);}catch(e){}}
+
+/* ---------- BGM ----------
+   풀(pool)별 랜덤 재생. 음원은 public/bgm/<id>.mp3. 한 풀을 다 돌 때까지 같은 곡이 다시 나오지 않는다.
+   base: 홈 · 메뉴 · 스토리 미션 / rom: 로맨틱 / cos: 코스튬 / xmas: 블러디 크리스마스.
+   없는 파일은 건너뛴다. 전용 풀이 통째로 없으면 base로, base도 없으면 조용히 쉰다.
+   덱 2개를 번갈아 쓰며 곡 끝 2.5초를 겹쳐 넘긴다. 덱은 첫 터치 안에서 한 번 깨워 둔다(iOS). */
+var BGM={base:[['base_1','NO RECORD'],['base_2','NIGHT WATCH'],['base_3','SIX SHADOWS'],['base_4','GHOST SIGNAL'],['base_5','EXFIL']],
+ rom:[['rom_1','AFTER HOURS'],['rom_2','OFF THE RECORD'],['rom_3','THAT NIGHT']],
+ cos:[['cos_1','DRESS CODE'],['cos_2','SHOWTIME'],['cos_3','HOUSE EDGE']],
+ xmas:[['xmas_1','BLOODY CHRISTMAS'],['xmas_2','RED COAT'],['xmas_3','LAST DELIVERY']]};
+var BGN={base:'SILENT SIX',rom:'ROMANTIC',cos:'COSTUME',xmas:'BLOODY CHRISTMAS'},BGXF=2.5,BGD=[],BGSIL='data:audio/wav;base64,UklGRrQBAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YZABAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA';
+var BGS={cur:null,want:'',wt:0,dead:{},bag:{},last:{},mm:false,hid:false};
+function bgmOn(){return PROG.bgm!==false;}
+function bgmAlive(k){var p=BGM[k]||[],i;for(i=0;i<p.length;i++)if(!BGS.dead[p[i][0]])return true;return false;}
+function bgmWant(){var k='base';if(PROG.bth!==false&&(started||BGS.mm)&&M)k=M.winter?'xmas':M.costume?'cos':M.story?'rom':'base';return bgmAlive(k)?k:'base';}
+function bgmPick(k){
+  var b=(BGS.bag[k]||[]).filter(function(n){return !BGS.dead[BGM[k][n][0]];}),i,j,t;
+  if(!b.length){BGM[k].forEach(function(x,n){if(!BGS.dead[x[0]])b.push(n);});for(i=b.length-1;i>0;i--){j=fl(Math.random()*(i+1));t=b[i];b[i]=b[j];b[j]=t;}
+    if(b.length>1&&b[b.length-1]===BGS.last[k]){t=b[0];b[0]=b[b.length-1];b[b.length-1]=t;}}
+  BGS.bag[k]=b;if(!b.length)return -1;i=b.pop();BGS.last[k]=i;return i;
+}
+function bgmVol(d){var v=Math.max(0,Math.min(1,d.v))*(PROG.bvol==null?0.6:+PROG.bvol);try{if(d.g)d.g.gain.value=v;else d.el.volume=v;}catch(e){}}
+function bgmHalt(d){try{d.el.pause();}catch(e){}d.id='';d.v=0;bgmVol(d);}
+function bgmBless(){
+  if(typeof Audio==='undefined')return;
+  if(!BGD.length)[0,1].forEach(function(){
+    var el=new Audio(),d={el:el,g:null,v:0,fo:BGXF,ok:false,busy:false,id:'',n:'',k:''};el.preload='auto';
+    try{if(AC){var s=AC.createMediaElementSource(el);d.g=AC.createGain();d.g.gain.value=0;s.connect(d.g);d.g.connect(AC.destination);}}catch(e){d.g=null;}
+    el.onended=function(){if(d.id){bgmHalt(d);if(BGS.cur===d)BGS.cur=null;}};
+    el.onerror=function(){if(d.id){BGS.dead[d.id]=1;bgmHalt(d);if(BGS.cur===d)BGS.cur=null;}};
+    BGD.push(d);
+  });
+  BGD.forEach(function(d){
+    if(d.ok||d.busy||d.id)return;d.busy=true;var p;
+    try{d.el.src=BGSIL;p=d.el.play();}catch(e){d.busy=false;return;}
+    if(p&&p.then)p.then(function(){d.ok=true;d.busy=false;},function(){d.busy=false;});else{d.ok=true;d.busy=false;}
+  });
+}
+function bgmStart(k){
+  var d=null,c=BGS.cur,i;for(i=0;i<BGD.length;i++)if(BGD[i].ok&&!BGD[i].busy&&BGD[i]!==c){d=BGD[i];break;}
+  if(!d)return;i=bgmPick(k);if(i<0)return;
+  var x=BGM[k][i];if(c)c.fo=BGXF;bgmHalt(d);
+  d.id=x[0];d.n=x[1];d.k=k;d.v=0;bgmVol(d);BGS.cur=d;
+  var p;try{d.el.src='bgm/'+x[0]+'.mp3';p=d.el.play();}catch(e){}
+  if(p&&p.then)p.then(null,function(e){
+    if(d.id!==x[0])return;var nm=e&&e.name;if(nm==='AbortError')return;
+    if(nm==='NotAllowedError'){d.ok=false;BGS.bag[k].push(i);}else BGS.dead[x[0]]=1;
+    bgmHalt(d);if(BGS.cur===d)BGS.cur=null;
+  });
+}
+function bgmTick(dt){
+  if(!BGD.length||BGS.hid)return;
+  var c=BGS.cur,on=bgmOn(),i,d;
+  for(i=0;i<BGD.length;i++){d=BGD[i];if(!d.id)continue;
+    if(d===c&&on){if(d.v<1){d.v=Math.min(1,d.v+dt/1.8);bgmVol(d);}}
+    else{d.v-=dt/(d.fo||BGXF);if(d.v<=0){if(d===c)BGS.cur=c=null;bgmHalt(d);}else bgmVol(d);}}
+  if(!on)return;
+  var w=bgmWant();if(w!==BGS.want){BGS.want=w;BGS.wt=0;}else BGS.wt+=dt;
+  if(!bgmAlive(w))return;
+  if(!c){bgmStart(w);return;}
+  if(c.k!==w){if(BGS.wt>0.7)bgmStart(w);return;}
+  var du=c.el.duration;if(du&&isFinite(du)&&du>BGXF*4&&c.el.currentTime>du-BGXF)bgmStart(w);
+}
+function bgmSet(on){PROG.bgm=!!on;saveProg();if(!on&&BGS.cur)BGS.cur.fo=0.5;}
+function bgmSkip(){if(BGS.cur&&bgmOn())bgmStart(BGS.cur.k);}
+function bgmNow(){var c=BGS.cur;return !bgmOn()?'꺼져 있다':c&&c.id?BGN[c.k]+' · '+c.n:bgmAlive('base')?'첫 터치를 기다린다':'음원이 아직 없다';}
+if(typeof document!=='undefined'&&document.addEventListener)document.addEventListener('visibilitychange',function(){
+  BGS.hid=!!document.hidden;
+  BGD.forEach(function(d){if(!d.id)return;try{if(BGS.hid)d.el.pause();else{var p=d.el.play();if(p&&p.then)p.then(null,function(){});}}catch(e){}});
+  if(!BGS.hid)try{if(AC&&AC.state==='suspended')AC.resume();}catch(e){}
+});
 
 /* ---------- 화면 (쿼터뷰) ---------- */
 var cv=document.getElementById('cv'),ctx=cv.getContext('2d'),W=0,H=0,DPR=1,IW=1536,IH=1024;
@@ -2017,7 +2119,13 @@ function opShow(){
 function opNext(){if(opi<OPS.length-1){opi++;opShow();}}
 function opEnd(){if(opt)clearTimeout(opt);if(opT)clearTimeout(opT);OPCIN=false;$('op').className='hide';$('op').innerHTML='';home();}
 $('hm').addEventListener('click',function(e){
-  var t=e.target;while(t&&t!==this&&!(t.dataset&&t.dataset.h))t=t.parentNode;if(!t||t===this)return;var h=t.dataset.h;
+  var x=e.target;while(x&&x!==this&&!(x.dataset&&x.dataset.hd!==undefined))x=x.parentNode;
+  if(x&&x!==this){setDiff(+x.dataset.hd);var hu=$('hdf');if(hu&&hu.firstChild)hu.firstChild.textContent=DF.n;dfpShow(false);snd('ok');return;}
+  var t=e.target,op=dfpOpen();while(t&&t!==this&&!(t.dataset&&t.dataset.h))t=t.parentNode;
+  if(t&&t!==this&&t.dataset.h==='diff'){dfpShow(!op);return;}
+  if(op){var q=e.target,ins=false;while(q&&q!==this){if(q.id==='dfp')ins=true;q=q.parentNode;}dfpShow(false);if(ins)return;}
+  if(!t||t===this)return;var h=t.dataset.h;
+  if(h==='bgm'){bgmSet(!bgmOn());t.className='bg'+(bgmOn()?'':' off');if(t.lastChild)t.lastChild.textContent=bgmOn()?'ON':'OFF';return;}
   if(h==='main')seasons();
   else if(h==='story'){if(storyOpen())storyMenu();else info('로맨틱 미션','ROMANTIC // LOCKED',null,'<p>아직은 못 들어와. <em class="k">여섯이 다 모인 뒤에야</em> 이 문이 열려. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 테이크는 세 번. 끝까지 가면 그날 밤이 남아.</p>',home);}
   else if(h==='season')seasonal();
@@ -2067,13 +2175,13 @@ $('roc').addEventListener('scroll',function(){var c=$('roc'),k=Math.round(c.scro
 $('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t.getAttribute('data-id'),u=t.getAttribute&&t.getAttribute('data-u');if(t.tagName==='IMG'&&t.parentNode&&t.parentNode.className!=='lk'){viewer(t.getAttribute('src'));return;}if(u!==null&&u!==undefined){gBuy(ROI,+u);return;}if(t.getAttribute&&t.getAttribute('data-ua')){gBuy(ROI,'all');return;}if(id){ROMSG='';roShow(id);}else if(t.id==='rop')roGo(ROK-1);else if(t.id==='ron2')roGo(ROK+1);else if(t.id==='rox'){$('ro').className='hide';if(RORET){var rr=RORET;RORET=null;rr();}else home();}});
 function brief(i){
   if(MIS[i]&&MIS[i].story)nProbe(MIS[i].story.id);else rwProbeM(i);
-  setPre(true);hideOv();hmHide();pgHide();DLGM=-1;loadMission(i);if(CFG.img[M.key])M.img=CFG.img[M.key];S=newState();UIK='';
+  setPre(true);hideOv();hmHide();pgHide();DLGM=-1;loadMission(i);BGS.mm=true;if(CFG.img[M.key])M.img=CFG.img[M.key];S=newState();UIK='';
   var c=OPD[M.ops[M.ops.length-1].id].col;
   if(MI<NBASE){var ch=NOVEL.ch[MI];reader({t:ch.t,sub:'S1 · EPISODE 1 // '+(MI+1)+'장',img:M.img,p:ch.pre,btn:'작전 브리핑',next:missionCard,back:menu});}
   else scene([{k:M.code,h:M.copy,p:M.pre,img:M.img,c:c,end:'브리핑'}],missionCard);
 }
 function missionCard(){
-  hideOv();pgHide();setPre(true);started=false;
+  hideOv();pgHide();setPre(true);started=false;BGS.mm=true;
   var got=PROG.b[MI]||[],el=$('ms'),st=!!M.story;
   el.style.setProperty('--c',OPD[M.ops[M.ops.length-1].id].col);
   el.className='';
@@ -2211,7 +2319,7 @@ function doAct(a,v){
   else if(a==='load')load();
 }
 $('panel').addEventListener('click',function(e){var b=e.target.closest?e.target.closest('[data-a]'):null;if(b)doAct(b.getAttribute('data-a'),b.getAttribute('data-v'));});
-if(document.addEventListener)document.addEventListener('pointerdown',unlock);
+if(document.addEventListener)['pointerdown','pointerup','touchend','click','keydown'].forEach(function(ev){document.addEventListener(ev,unlock,true);});
 var ptrs={},dragged=false,pinch=0;
 cv.addEventListener('pointerdown',function(e){ptrs[e.pointerId]={x:e.clientX,y:e.clientY};if(Object.keys(ptrs).length===1)dragged=false;else{dragged=true;pinch=0;}});
 cv.addEventListener('pointermove',function(e){
@@ -2238,6 +2346,7 @@ function frame(t){
   var dt=Math.min(0.05,(t-prev)/1000||0);prev=t;
   if(S&&S.dq&&!DLGON){var dk=S.dq;S.dq=null;if(M.dlg&&M.dlg[dk])dlg(M.dlg[dk]);}
   if(started&&!plan&&!S.over&&!TIPON&&!DLGON){update(dt);if(S.over)showEnd();}
+  try{bgmTick(dt);}catch(e){}
   hud();draw();requestAnimationFrame(frame);
 }
 try{var sd=+localStorage.getItem('s6diff');if(localStorage.getItem('s6diff')!==null&&sd>=0&&sd<4)setDiff(sd);}catch(e){}

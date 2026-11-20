@@ -9,6 +9,8 @@
 |---|---|
 | `public/` | 게임 본체. 이 폴더를 그대로 배포한다 |
 | `public/index.html` | 게임 코드 전체(스타일, 미션 데이터, 로직) |
+| `public/bgm/` | BGM 음원(`base_1.mp3` …). 이름과 프롬프트는 `docs/BGM.md` |
+| `tools/bgm/prep.sh` | 받은 BGM의 무음 제거 · 음량 통일 후 `public/bgm/`에 넣기 |
 | `tools/verify.sh` | 미션 24판이 클리어 가능한지 자동 확인 |
 | `tools/solve.js` | 위 확인에 쓰는 탐색기 |
 | `tools/studio/` | 요원 풀세트 이미지 생성기(맥용, OpenAI 키 필요) |
