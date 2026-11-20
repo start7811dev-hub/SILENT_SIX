@@ -4,14 +4,14 @@ const noop=new Proxy(function(){},{get:(t,k)=>k==='length'?0:noop,apply:()=>noop
 const el=()=>({textContent:'',className:'',innerHTML:'',src:'',style:{setProperty(){}},appendChild(){},addEventListener(){},setAttribute(){},getAttribute(){return ''},getContext:()=>noop,getBoundingClientRect:()=>({width:390,height:640,left:0,top:0})});
 const els={};global.document={getElementById:id=>els[id]||(els[id]=el()),createElement:el};global.window={devicePixelRatio:1,addEventListener(){}};global.requestAnimationFrame=()=>{};
 (0,eval)(js);if(process.env.DIFF)setDiff(+process.env.DIFF);
-const MI_=WIDX[0],DT=1/32,KS=0.125;let PAD=+(process.env.PAD||0.3);
+const MI_=WIDX[(+process.env.STAGE||1)-1],DT=1/32,KS=0.125;let PAD=+(process.env.PAD||0.3);
 function init(){loadMission(MI_);restart();S.ops.forEach(o=>o.crouch=true);}
 function snaps(sec){const real=JSON.stringify(S),R0=RANGE,C0=CRANGE,E0=JSON.stringify(ENV);S.ops.forEach(o=>{o.x=-50;o.y=-50;o.path=[];o.queue=[];o.cur=null;});const out=[];const n=Math.round(sec/KS);
   for(let k=0;k<n;k++){out.push({R:RANGE,C:CRANGE,g:S.guards.filter(g=>!g.down).map(g=>({x:g.x,y:g.y,ang:g.ang,tower:g.tower,cam:g.cam,boss:g.boss}))});for(let i=0;i<4;i++)update(DT);}
   S=JSON.parse(real);RANGE=R0;CRANGE=C0;Object.assign(ENV,JSON.parse(E0));return out;}
 function search(snap,sc,goals,dwell,minT){minT=minT||0; // sc: 시작 칸 index, goals:Set, dwell: 머무는 초
   const N=COLS*ROWS,NK=snap.length,NL=Math.floor(NK/2),memo=new Int8Array(N*NK).fill(-1),F0=FOV;
-  const see=(x,y,k)=>{const s=snap[k];FOV=F0*1.15;let r=false;for(const g of s.g)if(canSee(g,x,y,s.C+PAD)){r=true;break;}FOV=F0;return r;};
+  const see=(x,y,k)=>{const s=snap[k];FOV=F0*1.15;let r=false;for(const g of s.g)if(canSee(g,x,y,(g.cam?CAMR:s.C*(g.tower?1.4:1))+PAD)){r=true;break;}FOV=F0;return r;};
   const safe1=(c,k)=>{if(k>=NK)return false;let v=memo[c*NK+k];if(v<0){v=see(c%COLS+.5,Math.floor(c/COLS)+.5,k)?0:1;memo[c*NK+k]=v;}return v===1;};
   const safe=(c,k0,k1)=>{for(let k=k0;k<=k1;k++)if(!safe1(c,k))return false;return true;};
   const mid=(x,y,k0,k1)=>{for(let k=k0;k<=k1;k++){if(k>=NK||see(x,y,k))return false;}return true;};
@@ -38,16 +38,16 @@ function go(op,goals,dwell,horizon,act){ // 실제 엔진에서 이동
 const cellSet=(a)=>new Set(a.map(c=>c[1]*COLS+c[0]));
 const mode=process.argv[2]||'all';let okAll=true;const say_=(n,ok,x)=>{console.log((ok?'OK   ':'FAIL ')+n+(x?'  '+x:''));if(!ok)okAll=false;};
 if(mode==='idle'||mode==='all'){init();let t=0;while(S.t<60&&!S.over)update(DT);say_('idle 60s',!S.over,S.over?S.over.why:'');}
-if(mode==='gen'||mode==='all'){for(const op of [0,1]){init();const ok=go(op,cellSet([M.subs[0].use]),3.6,150,{type:'sub',i:0});say_('발전기 op'+op,ok&&S.subs[0],'t='+S.t.toFixed(1)+(S.over?' '+S.over.why:''));}}
-if(mode==='tree'||mode==='all'){for(let gate=0;gate<4;gate++){let won=false,t1=0;for(const pd of [0.5,0.3,0.7,0.15]){if(won)break;PAD=pd;init();M.evac.fix=gate;S.subs=M.subs.map(()=>true);S.dark=0.75;
-  let ok=go(0,cellSet([M.objective.use]),3.6,200,{type:'sab'});t1=S.t;
+if(mode==='gen'||mode==='all'){init();M.subs.forEach((sb,si)=>{if(!sb.use)return;for(const op of [0,1]){let ok=false;for(const pd of [0.5,0.3,0.15]){if(ok)break;PAD=pd;init();ok=go(op,cellSet([sb.use]),sb.time+0.6,200,{type:'sub',i:si})&&S.subs[si];}say_(sb.label+' op'+op,ok,'t='+S.t.toFixed(1)+(S.over?' '+S.over.why:''));}});}
+if(mode==='tree'||mode==='all'){init();const NG=M.evac.gates.length;for(let gate=0;gate<NG;gate++){let won=false,t1=0;for(const pd of [0.5,0.3,0.7,0.15]){if(won)break;PAD=pd;init();M.evac.fix=gate;M.subs.forEach((sb,si)=>subDone(si));S.dq=null;S.msg=null;
+  let ok=go(0,cellSet([M.objective.use]),M.objective.time+0.6,200,{type:'sab'});t1=S.t;
   if(ok&&S.objDone){for(let n=0;n<4;n++)update(DT);const E=cellSet(M.evac.gates[gate].cells);const snap=snaps(150);let r0=search(snap,ci(S.ops[0]),E,1),r1=search(snap,ci(S.ops[1]),E,1);if(r0&&r1){if(r0.t<r1.t-0.5)r0=search(snap,ci(S.ops[0]),E,1,r1.t-0.25);else if(r1.t<r0.t-0.5)r1=search(snap,ci(S.ops[1]),E,1,r0.t-0.25);}
     if(r0&&r1){const st=r0.steps.map(x=>({...x,op:0})).concat(r1.steps.map(x=>({...x,op:1}))).sort((a,b)=>a.t-b.t);const t0=S.t;let i=0;const end=t0+Math.max(r0.t,r1.t)+3;
       while(S.t<end&&!S.over){while(i<st.length&&t0+st[i].t<=S.t+1e-6){const q=st[i++];S.ops[q.op].queue=[{type:'move',x:q.x,y:q.y}];S.ops[q.op].cur=null;}update(DT);}}
     else console.log('   경로 없음',!!r0,!!r1);}
   won=!!(S.over&&S.over.win);}
   say_('상자 → '+M.evac.gates[gate].n,won,'상자 t='+t1.toFixed(1)+' 끝 t='+S.t.toFixed(1));}M.evac.fix=null;}
-if(mode==='ko'||mode==='all'){init();for(let r=0;r<3;r++){M.rfix=r;init();const gid=S.radio,base=JSON.stringify(S);let found=null;
+if((mode==='ko'||mode==='all')&&(init(),M.subs.some(x=>x.k==='radio'))){init();for(let r=0;r<3;r++){M.rfix=r;init();const gid=S.radio,base=JSON.stringify(S);let found=null;
   for(let T=4;T<180&&!found;T+=1){S=JSON.parse(base);
     // T초 시점 경비 위치 뒤쪽 2~4칸의 안전한 칸으로 가서 덮친다
     const sn=snaps(T+1),gs=sn[sn.length-8];const real=JSON.stringify(S);
