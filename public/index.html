@@ -775,7 +775,7 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.31.0';
+var VERSION='0.31.1';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -969,7 +969,7 @@ var SPECIAL=[
  ['doc','야간 당직','야전병원','군의관 시절의 밤 근무. 살린 사람과 못 살린 사람, 그리고 규정으로는 안 되는 사이였던 한 사람.']];
 var FACE2={raven:[[42,12],[45,13],[42,13],[55,15],[70,25],[36,12],[30,37],[52,8],[45,13]],viper:[[40,12],[47,15],[33,18],[52,13],[55,35],[50,22],[55,15],[42,12],[50,15]],glitch:[[45,17],[45,22],[33,20],[45,20],[48,17],[45,17],[22,20],[48,12],[45,18]],brick:[[40,12],[45,12],[38,13],[60,10],[50,10],[30,13],[50,8],[55,15],[50,12]],mirage:[[57,10],[64,17],[36,20],[50,35],[45,10],[40,26],[40,13],[45,12],[45,13]],doc:[[50,15],[35,12],[50,15],[45,12],[45,17],[55,15],[50,15],[45,13],[45,10]]};
 var KVF={'kv_seasonal.jpg':[48,15],'kv_special.jpg':[52,15]};
-var RWY={'S1-02_1':24,'S1-02_2':18,'S1-02_3':22,'S1-03_1':26,'S1-03_3':20,'S1-04_1':20,'S1-04_3':24,'S1-06_1':20,'S1-06_2':18};
+var RWY={'S1-02_1':24,'S1-02_2':18,'S1-02_3':22,'S1-03_1':26,'S1-03_3':20,'S1-04_1':20,'S1-04_3':24,'S1-06_1':20,'S1-06_2':18,'W-1_0':20,'W-1_1':28,'W-1_2':16,'W-1_3':22,'W-2_0':14,'W-2_1':30,'W-2_2':22,'W-2_3':18,'W-3_0':20,'W-3_1':22,'W-3_2':22,'W-3_3':24,'W-4_0':34,'W-4_1':20,'W-4_2':16,'W-4_3':28,'W-5_0':22,'W-5_1':30,'W-5_2':30,'W-5_3':24};
 var NFP={brick_6:[80,28],doc_3:[50,20],doc_4:[47,18],doc_5:[55,22],doc_6:[55,18],glitch_5:[20,62],glitch_6:[62,22],mirage_5:[45,25],raven_5:[50,22],raven_6:[50,24],viper_2:[50,15],viper_5:[50,22],viper_6:[30,38]};
 function fxy(f){if(KVF[f])return KVF[f];var nf=/^n_(.+)\.jpg$/.exec(f||'');if(nf)return NFP[nf[1]]||[50,14];var rw=/^r_(.+)\.jpg$/.exec(f||'');if(rw)return [50,RWY[rw[1]]||14];var m=/^([ae])_([a-z]+)(?:_(\d))?\.jpg/.exec(f||''),a;if(!m||!FACE2[m[2]])return [50,14];a=FACE2[m[2]][m[1]==='e'?8:+m[3]];return a||[50,14];}
 function fp(f){var a=fxy(f);return a[0]+'% '+Math.max(0,a[1]-10)+'%';}
