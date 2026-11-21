@@ -105,6 +105,8 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #scn button{flex:1;min-height:50px;font-size:15px;font-weight:700;letter-spacing:.06em}
 #scn button.go{background:var(--ink);color:#0a0d11}
 #scn button+button{flex:0 0 110px;color:#9aa3ad}
+#scn button.bk{flex:0 0 76px;color:var(--ink)}
+#scn button.bk+button.go{flex:1;color:#0a0d11}
 #card ul b{color:var(--c)}
 @media (orientation:landscape) and (max-height:520px){#sci{height:100%;width:55%;left:auto;right:0}#sc::after{background:linear-gradient(90deg,rgba(6,8,11,.98) 48%,rgba(6,8,11,.2))}#sch{font-size:30px}#scb{margin:0;max-width:52%}}
 
@@ -274,11 +276,8 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #ovx td.best{color:var(--c);font-weight:700}
 #ovb button .bm{margin-left:auto;font-style:normal;font-size:13px;letter-spacing:.12em;color:var(--c);font-weight:400;opacity:1}
 #ovb button .lk{margin-left:auto;font-style:normal;font-size:10px;letter-spacing:.28em;color:var(--dim);font-weight:700}
-#hm .hud{position:sticky;top:0;z-index:3;display:flex;gap:6px;align-items:center;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;background:linear-gradient(#06080b 60%,rgba(6,8,11,0));font-size:12px;letter-spacing:.12em;font-weight:700}
-#hm .hud b{margin-right:auto;font-size:13px;letter-spacing:.2em}
-#hm .hud span{background:rgba(255,255,255,.08);padding:5px 9px 5px 10px;white-space:nowrap}
-#hm .hud span i{font-style:normal;color:var(--c);margin-right:5px}
-#hm .hh{flex:0 0 27vh;min-height:170px;margin-top:-44px}
+#hm .hud{position:sticky;top:0;z-index:3;display:flex;gap:5px;align-items:center;padding:calc(8px + env(safe-area-inset-top)) 12px 8px;background:linear-gradient(#06080b 60%,rgba(6,8,11,0));font-size:12px;letter-spacing:.1em;font-weight:700}
+#hm .hh{flex:0 0 27vh;min-height:170px;margin-top:-46px}
 #hm .h4{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 #hm .h4 .ht.pic{height:156px;padding:10px}
 #hm .h4 .ht.pic b{font-size:16px}#hm .h4 .ht.pic i{font-size:9px;letter-spacing:.22em}#hm .h4 .ht.pic u{font-size:11px;line-height:1.3}
@@ -336,6 +335,11 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #hm .ht.pic .bg{position:absolute;inset:0;background:center 12%/cover}
 #hm .h4 .ht.pic .bg:after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(6,8,11,0) 38%,rgba(6,8,11,.94) 86%)}
 #hm .ht.pic.lock .bg{filter:blur(9px) brightness(.8);transform:scale(1.15)}
+/* 홈 미션 카드 3장: 카드를 세로로 키우고(인물 머리~엉덩이가 글자 위로 올라오게) 어둠은 한 겹만 깐다. 확대 · 크롭 값은 HTC. */
+#hm .h4 .ht.pic{height:clamp(176px,27vh,232px)}
+#hm .h4 .ht.pic:before{display:none}
+#hm .h4 .ht.pic .bg{background-repeat:no-repeat}
+#hm .h4 .ht.pic .bg:after{background:linear-gradient(rgba(6,8,11,0) 56%,rgba(6,8,11,.94) 86%)}
 #ms{position:fixed;inset:0;z-index:9;background:#06080b;display:flex;flex-direction:column}
 #ms.hide{display:none}
 #ms .mv{position:relative;flex:1;min-height:0;display:flex;overflow:hidden}
@@ -432,7 +436,6 @@ body>.tst{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom)
 #pg table{width:100%;border-collapse:collapse;font:500 13px/1.3 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
 #pg th,#pg td{padding:8px 4px;text-align:right;border-bottom:1px solid rgba(255,255,255,.08);font-variant-numeric:tabular-nums}
 #pg th:first-child,#pg td:first-child{text-align:left}#pg th{font-size:10.5px;letter-spacing:.14em;color:var(--dim)}#pg td.best{color:var(--c);font-weight:700}
-#hm .hud button{height:28px;padding:0 10px 0 11px;font-size:11px;letter-spacing:.22em;font-weight:700;background:var(--c);color:#06080b}
 #nv{grid-template-columns:repeat(6,1fr);padding:6px 4px calc(6px + env(safe-area-inset-bottom));gap:2px;background:rgba(10,13,17,.96);backdrop-filter:blur(10px)}
 #nv button{height:66px;gap:5px;border-radius:0}
 #nv button svg{width:25px;height:25px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
@@ -543,18 +546,22 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #vwd{bottom:calc(18px + env(safe-area-inset-bottom));background:var(--c)!important;color:#06080b!important}
 #vw u{position:absolute;left:0;right:0;bottom:calc(30px + env(safe-area-inset-bottom));text-align:center;text-decoration:none;font-size:12px;letter-spacing:.08em;color:#dfe6ee;pointer-events:none}
 #roc img{cursor:zoom-in}
-#hm .hud button.lg{background:rgba(255,255,255,.1);color:var(--ink)}
-#hm .hud b{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-#hm .hc{position:absolute;right:12px;top:100%;display:flex;gap:6px}
-#hm .hud .hc button{display:flex;align-items:center;gap:6px;height:28px;padding:0 9px 0 10px;background:rgba(21,28,36,.92);color:var(--ink);font-size:12px;letter-spacing:.12em}
-#hm .hud .hc button small{font:700 10.5px/1 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:.04em;color:var(--dim)}
-#hm .hud .hc button u{text-decoration:none}
-#hm .hud .hc button i{font-style:normal;font-size:9px;color:var(--c);transition:transform .15s}
-#hm .hud .hc button.df.on{background:#232c37}#hm .hud .hc button.df.on i{transform:rotate(180deg)}
-#hm .hud .hc button svg{width:13px;height:13px;fill:var(--c);pointer-events:none}
-#hm .hud .hc button.bg u{color:var(--c);min-width:25px}
-#hm .hud .hc button.bg.off svg{fill:var(--dim)}#hm .hud .hc button.bg.off u{color:var(--dim)}
-#hm .dfp{position:absolute;left:12px;right:12px;top:calc(100% + 34px);z-index:4;background:#10161d;border-top:2px solid var(--c);box-shadow:0 18px 40px rgba(0,0,0,.7);padding:10px 10px 8px;letter-spacing:0}
+/* 홈 HUD: 한 줄. 왼쪽은 호출명(또는 LOGIN), 오른쪽은 같은 칩(.hk) — 배지 · 포인트 · 난이도 · BGM · TIP. 높이 30px, 글자 12px, 오른쪽 아래 6px 컷.
+   컷은 배경으로 그린다(clip-path를 쓰면 :after로 넓힌 터치 영역까지 잘린다). */
+#hm .hud>b{flex:1 1 0;min-width:0;margin-right:3px;font-size:13px;letter-spacing:.2em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#hm .hud .hk{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:5px;height:30px;padding:0 9px;box-sizing:border-box;background:linear-gradient(-45deg,transparent 4px,rgba(255,255,255,.09) 4.5px);color:var(--ink);font-size:12px;line-height:1;letter-spacing:.1em;font-weight:700;white-space:nowrap;clip-path:none}
+#hm .hud .hk i{font-style:normal;color:var(--c)}
+#hm .hud .hk u{text-decoration:none}
+#hm .hud .hk svg{width:13px;height:13px;fill:var(--c);pointer-events:none}
+#hm .hud button.hk:after{content:"";position:absolute;inset:-8px -2px}
+#hm .hud .hk.df i{font-size:8px;transition:transform .15s}
+#hm .hud .hk.df.on{background:linear-gradient(-45deg,transparent 4px,rgba(255,255,255,.2) 4.5px)}#hm .hud .hk.df.on i{transform:rotate(180deg)}
+#hm .hud .hk.bg u{color:var(--c);min-width:23px;text-align:left}
+#hm .hud .hk.bg.off svg{fill:var(--dim)}#hm .hud .hk.bg.off u{color:var(--dim)}
+#hm .hud .hk.tip,#hm .hud .hk.lg{color:var(--c);letter-spacing:.16em}
+#hm .hud .hk.lg{margin-right:auto}
+@media (max-width:359px){#hm .hud{gap:4px}#hm .hud .hk{padding:0 7px;letter-spacing:.06em}#hm .hud .hk.bg u{display:none}}
+#hm .dfp{position:absolute;left:12px;right:12px;top:calc(100% - 2px);z-index:4;background:#10161d;border-top:2px solid var(--c);box-shadow:0 18px 40px rgba(0,0,0,.7);padding:10px 10px 8px;letter-spacing:0}
 #hm .dfp.hide{display:none}
 #hm .dfp>i{display:block;font-style:normal;font-size:10px;letter-spacing:.3em;color:var(--dim);margin:0 2px 8px}
 #hm .hud .dfp button{display:grid;grid-template-columns:62px 1fr auto;align-items:center;gap:10px;width:100%;height:auto;min-height:50px;padding:8px 12px 8px 12px;margin-bottom:5px;background:rgba(255,255,255,.05);color:var(--ink);text-align:left;letter-spacing:0;font-size:12px}
@@ -815,7 +822,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.36.0';
+var VERSION='0.37.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1018,6 +1025,9 @@ function lk(f){var m=/^a_([a-z]+)_(\d)\.jpg/.exec(f||'');return !!m&&!gOpen(m[1]
 function gBest(id){for(var k=7;k>0;k--)if(gOpen(id,k))return 'a_'+id+'_'+k+'.jpg';return 'a_'+id+'_0.jpg';}
 function gFree(){var ids=Object.keys(OPD),L=[],i,k;for(i=0;i<ids.length;i++)for(k=2;k<8;k++)if(gOpen(ids[i],k))L.push('a_'+ids[i]+'_'+k+'.jpg');return L.length?L[fl(Math.random()*L.length)]:'';}
 function bgs(f){return 'background-image:url('+f+');background-position:'+fp(f);}
+/* 홈 미션 카드 크롭: [세로 확대 %, 가로 중심 %, 세로 시작 %]. 전신 컷을 머리~엉덩이로 당겨 시즈널 카드와 인물 크기를 맞춘다. 숫자를 키우면 더 당겨진다. */
+var HTC={'kv_romantic.jpg':[168,53,1],'kv_special_menu.jpg':[176,49,0]};
+function bgt(f){var c=HTC[f];return c?'background-image:url('+f+');background-size:auto '+c[0]+'%;background-position:'+c[1]+'% '+c[2]+'%':bgs(f);}
 var NOVEL={pro:{t:'지워진 여섯',sub:'PROLOGUE',img:'a_raven_7.jpg',p:[
  '제6과에는 간판이 없다. 예산서에는 "기타 운영비"라고 적히고, 조직도에는 5과 다음이 바로 7과다. 그 빈칸에 여섯 명이 있다.',
  '여섯은 서로를 고른 적이 없다. 한 사람이 골랐다. 사람들은 그를 설계자라고 불렀다. 그는 여섯에게 같은 말을 했다. "너는 이미 죽은 사람이다. 그러니 죽을 걱정 없이 일할 수 있다."',
@@ -1105,19 +1115,19 @@ function info(t,sub,img,body,back){page(t,sub,(img?'<div class="hero'+(lk(img)?'
 var NAVI={home:'<path d="M4 11l8-7 8 7v8a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/>',agents:'<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.6 3.1-6 7-6s7 2.4 7 6"/>',box:'<rect x="4" y="7" width="16" height="12"/><path d="M4 11h16M9 7V4h6v3M10 14.5h4"/>',shop:'<path d="M4 8h16l-1.5 12h-13zM8.5 8V6.5a3.5 3.5 0 017 0V8"/>',rank:'<path d="M7 4h10v5a5 5 0 01-10 0zM7 6H4c0 3 1.5 4 3 4M17 6h3c0 3-1.5 4-3 4M12 14v4M8 20h8"/>',set:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>'};
 /* 홈 HUD: 난이도 바로 고르기 · BGM 켜고 끄기 */
 function dfpHtml(){return '<i>DIFFICULTY — 지금 고르면 다음 작전부터</i>'+DIFFS.map(function(d,k){return '<button data-hd="'+k+'"'+(k===DIFF?' class="sel"':'')+'><b>'+d.n+'<small>'+d.k+'</small></b><u>'+d.d+'</u><em>× '+[0.6,0.8,1,1.5][k]+'</em></button>';}).join('');}
-function dfpShow(b){var p=$('dfp'),c=$('hdf');if(!p||!c)return;if(b)p.innerHTML=dfpHtml();p.className=b?'dfp':'dfp hide';c.className=b?'df on':'df';}
+function dfpShow(b){var p=$('dfp'),c=$('hdf');if(!p||!c)return;if(b)p.innerHTML=dfpHtml();p.className=b?'dfp':'dfp hide';c.className=b?'hk df on':'hk df';}
 function dfpOpen(){var p=$('dfp');return !!p&&(''+p.className).indexOf('hide')<0;}
 function home(){
   started=false;BGS.mm=false;setPre(true);hideOv();pgHide();msHide();
   var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen(),rnd=function(){return 'a_'+ids[fl(Math.random()*6)]+'_'+(2+fl(Math.random()*6))+'.jpg';},hi='a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg',pi='kv_romantic.jpg',ri=KVI.seasonal?'kv_seasonal.jpg':null,ri2='kv_special_menu.jpg',nx=0;for(var q=0;q<NBASE;q++)if(!PROG.c[q]){nx=q;break;}var kv=mimg(nx);
   var nav=[['agents','요원'],['box','블랙박스'],['shop','SHOP'],['rank','랭킹'],['set','설정']];
   $('hm').className='';
-  $('hm').innerHTML='<div class="hud"><b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b><span><i>◆</i>'+badgeTotal()+'</span><span><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span>'+(sbOn()&&!USER?'<button class="lg" data-h="set">LOGIN</button>':'')+'<button data-h="tip">TIP</button><div class="hc"><button class="df" id="hdf" data-h="diff" aria-label="난이도"><u>'+DF.n+'</u><i>▼</i></button><button class="bg'+(bgmOn()?'':' off')+'" id="hbg" data-h="bgm"><svg viewBox="0 0 24 24"><path d="M9 3v11.2A3.6 3.6 0 1 0 11 17.5V8h7V3z"/></svg><small>BGM</small><u>'+(bgmOn()?'ON':'OFF')+'</u></button></div><div class="dfp hide" id="dfp"></div></div>'+
+  $('hm').innerHTML='<div class="hud">'+(sbOn()&&!USER?'<button class="hk lg" data-h="set">LOGIN</button>':'<b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b>')+'<span class="hk"><i>◆</i>'+badgeTotal()+'</span><span class="hk"><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><button class="hk df" id="hdf" data-h="diff" aria-label="난이도"><u>'+DF.n+'</u><i>▼</i></button><button class="hk bg'+(bgmOn()?'':' off')+'" id="hbg" data-h="bgm" aria-label="BGM"><svg viewBox="0 0 24 24"><path d="M9 3v11.2A3.6 3.6 0 1 0 11 17.5V8h7V3z"/></svg><u>'+(bgmOn()?'ON':'OFF')+'</u></button><button class="hk tip" data-h="tip">TIP</button><div class="dfp hide" id="dfp"></div></div>'+
    '<div class="hh fxh"><div class="fx"><i></i><i></i><i></i><b></b></div><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
    '<button class="ht main" data-h="main"><span class="bg" style="'+bgs(kv)+'"></span><i>STORY MISSION · S1 · EPISODE 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' · 여섯이 모이기까지</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
-   '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="'+bgs(pi)+'"></span><i>ROMANTIC</i><b>로맨틱 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
+   '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="'+bgt(pi)+'"></span><i>ROMANTIC</i><b>로맨틱 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
    (flag('seasonal')?'<button class="ht pic" data-h="season"><span class="bg'+(ri?'':' none')+'" style="'+(ri?bgs(ri):'')+'"></span><i>SEASONAL</i><b>시즈널 미션</b><u>블러디 크리스마스</u></button>':'')+
-   (flag('special')?'<button class="ht pic soon" data-h="special"><span class="bg'+(ri2?'':' none')+'" style="'+(ri2?bgs(ri2):'')+'"></span><i>SPECIAL</i><b>스페셜 미션</b><u>코스튬 · 룰브레이크</u></button>':'')+'</div>'+
+   (flag('special')?'<button class="ht pic soon" data-h="special"><span class="bg'+(ri2?'':' none')+'" style="'+(ri2?bgt(ri2):'')+'"></span><i>SPECIAL</i><b>스페셜 미션</b><u>코스튬 · 룰브레이크</u></button>':'')+'</div>'+
    '<div class="hf">SILENT SIX v'+VERSION+'</div></div>';
   NAVK='home';navSync();
 }
@@ -2080,8 +2090,8 @@ function overlay(t,s,html,btns,img,col){
   $('ov').className='';
 }
 function hideOv(){$('ov').className='hide';}
-var SCQ=[],SCD=null;
-function scene(list,done){SCQ=list.slice();SCD=done;nextScene();}
+var SCQ=[],SCD=null,SCB=null;
+function scene(list,done,back){SCQ=list.slice();SCD=done;SCB=back||null;nextScene();}
 function nextScene(){
   var s=SCQ.shift(),el=$('sc');
   if(!s){el.className='hide';var d=SCD;SCD=null;if(d)d();return;}
@@ -2089,6 +2099,7 @@ function nextScene(){
   var im=$('sci');im.className='';im.src=s.img||'';if(im.style)im.style.objectPosition=fp(s.img);if(typeof setTimeout!=='undefined')setTimeout(function(){im.className='on';},40);
   $('sck').textContent=s.k;$('sch').innerHTML=s.h;$('scp').innerHTML=s.p||'';
   var b=$('scn');b.innerHTML='';
+  if(SCB){mk(b,'뒤로',function(){var f=SCB;SCQ=[];SCD=null;SCB=null;el.className='hide';f();});b.lastChild.className='bk';}
   mk(b,SCQ.length?'다음':(s.end||'확인'),nextScene,true);
   if(SCQ.length)mk(b,'건너뛰기',function(){SCQ=[];nextScene();});
 }
@@ -2204,7 +2215,7 @@ $('hm').addEventListener('click',function(e){
   if(t&&t!==this&&t.dataset.h==='diff'){dfpShow(!op);return;}
   if(op){var q=e.target,ins=false;while(q&&q!==this){if(q.id==='dfp')ins=true;q=q.parentNode;}dfpShow(false);if(ins)return;}
   if(!t||t===this)return;var h=t.dataset.h;
-  if(h==='bgm'){bgmSet(!bgmOn());t.className='bg'+(bgmOn()?'':' off');if(t.lastChild)t.lastChild.textContent=bgmOn()?'ON':'OFF';return;}
+  if(h==='bgm'){bgmSet(!bgmOn());t.className='hk bg'+(bgmOn()?'':' off');if(t.lastChild)t.lastChild.textContent=bgmOn()?'ON':'OFF';return;}
   if(h==='main')seasons();
   else if(h==='story'){if(storyOpen())storyMenu();else info('로맨틱 미션','ROMANTIC // LOCKED',null,'<p>아직은 못 들어와. <em class="k">여섯이 다 모인 뒤에야</em> 이 문이 열려. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 테이크는 세 번. 끝까지 가면 그날 밤이 남아.</p>',home);}
   else if(h==='season')seasonal();
@@ -2224,7 +2235,7 @@ $('ms').addEventListener('click',function(e){
   var m=e.target.dataset&&e.target.dataset.m;if(!m)return;
   if(m==='go'){msHide();restart();}
   else if(m==='tip'){msHide();tips(missionCard);}
-  else{msHide();if(M.story)storyAgent(M.story.id);else if(M.winter)winter();else menu();}
+  else mBack();
 });
 $('tip').addEventListener('click',function(e){e.stopPropagation();if(!started||S.over)return;TIPON=true;setPre(true);tips();});
 $('op').addEventListener('click',function(e){var id=e.target&&e.target.id,oo=e.target&&e.target.dataset&&e.target.dataset.o;if(oo){if(oo!=='x'){PROG.op=oo;saveProg();opening(oo);}return;}if(id==='opgt'){unlock();opening(OPG);}else if(id==='opsk'||id==='opgo')opEnd();else if(!OPCIN&&!OPS[opi].title)opNext();});
@@ -2257,7 +2268,7 @@ function brief(i){
   setPre(true);hideOv();hmHide();pgHide();DLGM=-1;loadMission(i);BGS.mm=true;if(CFG.img[M.key])M.img=CFG.img[M.key];S=newState();UIK='';
   var c=OPD[M.ops[M.ops.length-1].id].col;
   if(MI<NBASE){var ch=NOVEL.ch[MI];reader({t:ch.t,sub:'S1 · EPISODE 1 // '+(MI+1)+'장',img:M.img,p:ch.pre,btn:'작전 브리핑',next:missionCard,back:menu});}
-  else scene([{k:M.code,h:M.copy,p:M.pre,img:M.img,c:c,end:'브리핑'}],missionCard);
+  else scene([{k:M.code,h:M.copy,p:M.pre,img:M.img,c:c,end:'브리핑'}],missionCard,mBack);
 }
 function missionCard(){
   hideOv();pgHide();setPre(true);started=false;BGS.mm=true;
@@ -2271,6 +2282,8 @@ function missionCard(){
    '<div class="mbt"><button data-m="back">뒤로</button><button data-m="tip">TIP</button><button class="go" data-m="go">미션 시작</button></div></div>';
 }
 function msHide(){$('ms').className='hide';$('ms').innerHTML='';}
+/* 브리핑 · 미션 카드에서 뒤로: 들어온 목록으로 돌아간다 */
+function mBack(){msHide();if(M.story)storyAgent(M.story.id);else if(M.winter)winter();else menu();}
 var BCOND={
  nokill:['무살상','아무도 죽지 않는 밤',function(){return S.kills===0;}],
  onesnipe:['한 발','한 발이면 충분하다',function(){var ok=true;S.ops.forEach(function(o){if(o.id==='viper'&&o.ammo<2)ok=false;});return ok;}],
