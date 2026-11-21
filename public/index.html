@@ -788,6 +788,9 @@ doc:{ch:[
  {b:0,drop:[3],t:'퇴원',copy:'이번엔<br>걸어서 나간다.',pre:'10년을 갇혀 있던 선임. 닥이 직접 데리고 나온다.',post:['선임은 제 발로 나왔다.','닥은 차트 맨 아래 칸에 "퇴원"이라고 썼다.']}],
  end:[['왕진<br>왔습니다.','닥이 가방을 내려놓는다. "어디가 아픈지는 내가 찾아."'],['맥박이<br>빠르네.','손목에 손가락 두 개. 그녀가 웃는다. "이건 처방이 따로 없어."'],['오늘은<br>안 재운다.','마취 다트는 가방에 그대로 있었다. 아침까지.']]}
 };
+/*ROM-BEGIN*/
+var ROM={"raven":[{"t":"빈자리","copy":"셋이 들어가서<br>둘이 나왔다.","pre":"3년 전에 닫힌 폐광촌. 본부에는 자는 걸로 해 뒀다. 관리소 금고에 그날 밤의 철수 기록이 남아 있다. 비가 쏟아진다.","post":["철수 기록을 꺼냈다. 서명란이 비어 있다.","명령은 내려왔는데 누가 내렸는지만 지워져 있다. 원본은 기록원에 있다."],"tips":["<b>폭우</b>: 달려도 발소리가 나지 않는다.","<b>번개</b>가 치면 4초 동안 경비의 눈이 1.3배 멀리 간다. 그 사이엔 엄폐 뒤에서 기다린다.","사택 골목은 좁다. 순찰이 지나간 뒤에 건넌다."],"bc":"nokill","par":300,"m":{"bg":"bgp_raven_1.jpg","sk":0.36,"zm":1.25,"wake":68,"rk":1.1,"opaque":"#HB","hts":{"#":44,"H":40,"B":46,"C":14,"X":22,"F":12},"proj":[24.168800192,-29.256599688,768.0,13.930458017,13.972205918,92.0,-0.003312807,-0.003228807,1.0],"MAP":["#########################F","#..........HHHHHHHHHHHH..F","#..........HCCCCCCCCCCH..F","#..HHHH....H..........H..F","#..HX.H....H..........H..F","#..H..H....H..........H..F","#..H..H....HHH.HHHH.HHH..F","#..HH.H..................F","#.......C.C...BB..C..BB..F","#B..............C.C..BB..F","#.....CCC...........C....F","#..........BB..BBBBB...B.F","#..CC......BB..BBBBB.....F","#.......C..........HHH...F","#............C.HH..HH..C.F","#..........HH..HH........F","#......HHH.HHH.......CCC.F","#......HHH..........HHH..F","#.BB....H.......HHH.HH...F","#...........HH..HHH.......","#........H..HHH...........","#.......HHH..........HHH.F","#...B...HH.......HHH.HH..F","#............HH..HHH.....F","#........HH..HHH.........F","FFFFFFFFFFFFFFFFFFFFFFFFFF"],"ops":[{"id":"raven","x":24,"y":19}],"exit":[[25,19],[25,20]],"objective":{"x":4,"y":4,"use":[5,4],"label":"철수 기록","verb":"회수","time":4},"guards":[{"wps":[[2,9],[20,9]]},{"wps":[[10,10],[10,13],[13,13],[13,10]]},{"wps":[[7,8]],"faces":[3.14,1.57],"ft":6},{"wps":[[13,7],[20,7]]},{"wps":[[5,14],[5,24]]},{"wps":[[11,18],[14,21]]},{"wps":[[2,14]],"faces":[0,1.57],"ft":7},{"wps":[[24,3],[24,9]]}],"dlg":{"start":[["raven","좌표는 너한테만 보냈어. 본부엔 내가 자고 있는 걸로 해 둬.",0],["hq","폐광촌은 3년 전에 닫힌 곳이야. 왜 거기에 아직 경비가 있지?"],["raven","그러니까 가 보는 거지. 지킬 게 없으면 사람을 세워 둘 리가 없잖아.",0]],"obj":[["raven","…철수 기록이야. 그날 밤 거. 서명란이 비어 있어.",1],["hq","비어 있다고? 명령은 분명히 내려왔잖아."],["raven","그래. 누가 내렸는지만 지워 놨어.",1]],"end":[["raven","나왔어. 아무도 안 건드렸으니까 걱정 마.",0],["raven","원본은 기록원에 있을 거야. 다음엔 거기야.",2]]},"env":{"hush":true,"vis":[14,4,1.3,"번개 · 사방이 밝다","다음 번개까지"]}}},{"t":"서명","copy":"명령서엔<br>이름이 있다.","pre":"심야의 기록원 분관. 야간 경비는 둘뿐이지만 천장의 감지등이 움직임을 잡는다. 보존 처리실에 철수 명령서 원본이 있다.","post":["서명을 확인했다. 본부 직인이 아니라 사람 이름이다.","설계자. 그날 철수시킨 건 레이븐이 아니었다. 녹음은 항구 끝 등대에 있다."],"tips":["파란 빛은 <b>감지등</b>이다. 앉아도 소용없다. 고개를 돌릴 때 지나간다.","서가는 키보다 높다. 서가 뒤에 서면 보이지 않는다.","이 TAKE는 <b>되돌리기 3번</b>까지다."],"bc":"noinv","par":300,"m":{"bg":"bgp_raven_2.jpg","sk":0.38,"zm":1.15,"wake":68,"rk":1.1,"opaque":"#B","hts":{"#":40,"B":44,"C":14,"X":22,"F":12},"proj":[27.596716683,-31.760975031,766.0,16.598702493,16.379844245,45.0,-0.002692611,-0.002743758,1.0],"MAP":["#######################F","#BBBBB..#.........#....F","#BBBB...#.........#....F","#BBB....#.B....C..#.CC.F","#BBX...#..........#....F","#B................#....F","#.....######..#######..F","#...#.#..BBB..BBB...#..F","####..#.............##.F","#.....#.B...B...B...#..F","#.C...#.B...B...B...#..F","#.....#.B...B...B.B.#..F","#..C....B...B...B.B.#..F","#.......B...B...B.B....F","#.....#...B...B...B.#..F","#..B..#...B...B...B.#.CF","#.....#...B...B.....#..F","#.....#...B...B....#..#F","#####.#..CB...B...#.C..F","#.....#..........#.C...F","#.....#######.###.C....F","#.......#..........C...F","#.........C....C.#.C....","FFFFFFFFFFFFFFFFFFFFFF.F"],"ops":[{"id":"raven","x":22,"y":22}],"exit":[[22,23],[23,22]],"objective":{"x":3,"y":4,"use":[4,4],"label":"명령서 원본","verb":"확인","time":4},"guards":[{"wps":[[7,8],[19,8],[17,12],[7,16]]},{"wps":[[2,9],[2,17]]},{"wps":[[17,3]],"cam":true,"faces":[3.14,1.57],"ft":7},{"wps":[[22,9]],"cam":true,"faces":[1.57,3.14],"ft":7},{"wps":[[1,7]],"cam":true,"faces":[-1.57,-0.9],"ft":12},{"wps":[[13,8]],"cam":true,"faces":[1.1,2.0],"ft":8},{"wps":[[9,21]],"cam":true,"faces":[0.0,-1.3],"ft":7}],"dlg":{"start":[["hq","야간 경비는 둘뿐이야. 대신 천장 등이 움직임을 잡아."],["raven","알아. 그래서 천천히 갈 거야. 종이 한 장 보러 가는데 뛸 일은 없지.",0]],"obj":[["raven","…서명 있어. 본부 직인이 아니야. 사람 이름이야.",1],["hq","누군데?"],["raven","설계자. 그날 철수시킨 게 그 사람이었어. 내가 아니라.",1]],"end":[["raven","3년 동안 내가 버리고 온 줄 알았는데.",0],["raven","녹음이 남아 있대. 항구 끝 등대에. 그건 내 귀로 들어야겠어.",2]]},"maxLoads":3}},null],"viper":[{"t":"빗나간 한 발","copy":"그날은<br>안 쐈다.","pre":"휴가를 냈다. 옛 관측수가 이 산의 리조트에 묵는다. 야간 슬로프 맨 위 전망 데크에서 조준경으로 그의 방만 확인한다. 한 발도 쏘지 않는다.","post":["3층 끝 방. 불을 켜 놓고 책을 읽고 있었다. 옛 관측수가 맞다.","한 발도 쏘지 않았다. 내일은 말이 들리는 거리까지 간다."],"tips":["<b>슬로프 위</b>는 조명 때문에 경비의 눈이 1.4배 멀리 간다.","<b>숲 가장자리</b>와 그늘에서는 0.7배다. 느리지만 숲을 따라 올라가는 길이 있다.","전망 데크에서 확인하는 데 5초가 걸린다. 그동안 움직이지 못한다."],"bc":"nogun","par":320,"m":{"bg":"bgp_viper_1.jpg","sk":0.33,"zm":1.33,"wake":68,"rk":1.1,"opaque":"#HBT","hts":{"#":44,"H":56,"B":44,"T":64,"P":90,"C":14,"X":18,"F":12},"proj":[23.601658623,-27.160853226,770.0,14.232592158,14.778489388,80.0,-0.002205001,-0.001799608,1.0],"MAP":["###########################F","#X...C.....................F","#....C.....................F","#TT..C............HHHHHHHH.F","#TT..C....C.......H......H.F","#TT...........P...H......H.F","#TT.C.............H........F","#TT.C.CCC.........H........F","#TT.C.............H......H.F","#TT.C....C........H......H.F","#TT...............HHHHHHHH.F","#TTC.........P.............F","#TTC..B....................F","#TTC............HHHHHHH....F","#TTC........C.........H....F","#TTC.............BBB..H....F","#TT.......B......BBB.......F","#TT..C...........BBB..H....F","#TT.........BB........H....F","#TT......C.P....HHHHHHH....F","#TT......C.....C...........F","#TT....B.C.....C...........F","#TT...........HHHHHH.BBBBB.F","#TT...........H....H.BBBBB.F","#TT...C......BH....H.BBBBB.F","#.........P...H............F","#...CC........HHHHHH.......F","FFFFFFFFFFFFFFFFFFFF.FFFFFFF"],"ops":[{"id":"viper","x":20,"y":26}],"exit":[[20,27]],"objective":{"x":1,"y":1,"use":[1,2],"label":"옛 관측수의 방","verb":"확인","time":5},"guards":[{"wps":[[8,4],[8,22]]},{"wps":[[11,22],[11,6]]},{"wps":[[15,12]],"faces":[3.14,2.4],"ft":6},{"wps":[[21,20],[26,20]]},{"wps":[[20,11],[26,11]]},{"wps":[[6,2]],"faces":[3.14,1.57],"ft":7},{"wps":[[15,1]],"faces":[1.57,3.14],"ft":6}],"dlg":{"start":[["viper","휴가계 냈어. 사유는 \"스키\". 거짓말은 아니잖아?",0],["hq","스키장에 조준경을 들고 가는 사람은 없어, 바이퍼."],["viper","보기만 할 거야. 진짜로. 손가락은 주머니에 넣고 갈게.",0]],"obj":[["viper","…있네. 3층 끝 방. 불 켜 놓고 책 읽고 있어.",1],["hq","네 관측수가 맞아?"],["viper","맞아. 내 대신 보고서 쓰고 옷 벗은 사람. 늙었네, 저 인간.",1]],"end":[["viper","한 발도 안 쐈어. 칭찬해 줘.",0],["viper","내일은 좀 더 가까이 가 볼래. 저 거리에선 말이 안 들리거든.",2]]},"zones":[[4,1,13,26,1.4],[1,1,3,26,0.7]]}},null,null],"brick":[{"t":"닫힌 문","copy":"한 번<br>못 연 문이 있다.","pre":"폐쇄된 지하 벙커. 옛 분대가 갇혔던 방이 맨 안쪽에 있다. 문은 잠겼고 길은 벽 너머에 있다. 금 간 벽은 부수면 열리지만 소리가 크다.","post":["인식표 넷이 못에 걸려 있었다. 벽에는 하루에 한 줄씩, 사백 줄이 넘는다.","시신은 없다. 끌려 나갔다. 발자국은 넷이 아니라 다섯이다. 다음은 격투장."],"tips":["노란 벽은 <b>금 간 벽</b>이다. 브릭의 돌파로 부순다. 소리는 7칸까지 간다.","<b>환기 팬</b>이 도는 6초 동안은 부숴도 들리지 않는다. 그때 부순다.","금 간 벽은 다섯 곳이다. 어느 방으로 돌아 들어갈지는 고르면 된다."],"bc":"nokill","par":320,"m":{"bg":"bgp_brick_1.jpg","sk":0.38,"zm":1.15,"wake":68,"rk":1.1,"opaque":"#BWK","hts":{"#":40,"B":30,"W":40,"K":24,"C":14,"X":22,"F":12},"proj":[31.529899855,-31.668264924,768.0,19.176574427,18.858442245,45.0,1.9619e-05,-0.000199782,1.0],"MAP":["#######################F","#.BBB.X.#..BBBB#.......F","#.BBB...#......#.....C.F","#.......#..............F","#B.............#....C..F","#B..CC..#..CC..#..CC...F","#B......#......#.......F","#.......#......#.......F","###.###############WW##F","#.....C.W......#.......F","#.......W.KKKC.........F","#...CC..#.KKK..#.......F","#.......#.KKK.C#..CC...F","#.......#......#.......F","#.......#......#.......F","##WW##############.####F","#.......#......#......CF","#.....C.#......#.......F","#.......W......W.......F","#.......W..CC..W..CC...F","#.......#......#.......F","#.CCCC..#......#.......F","#.CCCC..#......#........","FFFFFFFFFFFFFFFFFFFFFF.F"],"ops":[{"id":"brick","x":22,"y":22}],"exit":[[22,23],[23,22]],"objective":{"x":6,"y":1,"use":[6,2],"label":"인식표 넷","verb":"회수","time":4},"guards":[{"wps":[[21,13]],"faces":[3.14,-1.57],"ft":6},{"wps":[[9,9],[13,9],[13,13],[9,13]]},{"wps":[[20,2]],"faces":[3.14,1.57],"ft":6},{"wps":[[9,6],[14,6]]},{"wps":[[2,11],[6,13]]},{"wps":[[2,6],[5,6]]},{"wps":[[10,17],[13,21]]},{"wps":[[1,14]],"cam":true,"faces":[-0.3,-1.2],"ft":7}],"dlg":{"start":[["brick","야, 지휘관! 나 오늘 어디 가는지 알지? 그 벙커야. 문 못 열고 서 있기만 했던 데.",0],["hq","허가는 안 났어. 지원도 없고."],["brick","그때도 허가가 안 나서 못 열었잖아. 오늘은 허가 안 받고 연다. 그게 다야!",0]],"obj":[["brick","…넷 다 있어. 못에 걸어 놨네. 누가 일부러 걸어 둔 거야.",1],["hq","벽에 뭐가 적혀 있어?"],["brick","날짜. 하루에 한 줄씩. 사백 줄이 넘어. 얘들, 문 닫히고도 일 년을 넘게 살아 있었어.",1]],"end":[["brick","시신은 없어. 끌려 나간 거야. 발자국이 넷이 아니라 다섯이거든.",0],["brick","괜찮아, 안 울어. …좀 울었어. 다음은 격투장이다.",2]]},"env":{"mask":[18,6,"환기 팬 · 소리가 묻힌다","다음 환기까지"]},"vopen":[[8,9],[8,10],[19,8],[20,8]]}},null,null],"mirage":[{"t":"초대장","copy":"이번 가면은<br>내 얼굴이다.","pre":"본명으로 초대장이 왔다. 6과에는 휴가라고 했다. 야간 유람선의 맨 앞 선주 객실에 초대장을 쓴 사람의 책상이 있다. 오늘은 승무원으로 탄다.","post":["부치지 않은 봉투가 하나 더 있었다. \"네가 누군지 3년 전에 알았다. 말하지 않았다.\"","객실은 비어 있었다. 대신 표가 한 장 있다. 내일 밤 오페라, 무대 뒤 출입증."],"tips":["미라주의 <b>변장</b>: 승무원 옷이다. 1.5칸 안까지 붙지 않으면 알아보지 못한다. 달리면 풀린다.","<b>선실 복도</b>와 계단 로비의 승무원은 서로 얼굴을 안다. 변장해도 멀리서 알아본다.","복도는 한 칸 폭이다. 마주치면 피할 곳이 없다. 갑판으로 돌아가는 길이 있다."],"bc":"ghost","par":300,"m":{"bg":"bgp_mirage_1.jpg","sk":0.3,"zm":1.5,"wake":68,"rk":1.1,"opaque":"#B","hts":{"#":40,"B":30,"L":14,"C":14,"X":20},"proj":[22.542595225,-25.620523634,400.729826251,20.121017038,12.41482913,-43.586515983,-0.007224056,-0.000479698,1.0],"MAP":["VVVVVVVVVVVV......C....C......","VVVVVVVV......................","VVVVV.......#.###########.##C.","VV....######..#..#..#.#.CC.#..","V...C.#.CX.#..#..#..#.#CCCC#..","V.....#....#..#..#..#.#C...#..",".C....#....#..#.##.##.#.CC....","...B..#CC.....................","......#CC..#..##.##.#.#...C#..","....C.#....#.C#..#..#.#CCCC#..","V.....#....#..#..#..#.#C.CC#..","VV....LLLLLLL.LLL#LL#LLL.LLLC.","VVVVVV........................","VVVVVVVVVVVVVVVVVVVVVVVVVVVV.."],"ops":[{"id":"mirage","x":29,"y":7}],"exit":[[29,7],[29,6]],"objective":{"x":9,"y":4,"use":[9,5],"label":"초대장","verb":"확인","time":4},"guards":[{"wps":[[23,3]],"faces":[1.57,2.0],"ft":6},{"wps":[[23,7]],"faces":[3.14,1.57],"ft":6},{"wps":[[15,7],[19,7]],"keen":true},{"wps":[[14,1],[26,1]]},{"wps":[[8,12],[26,12]]},{"wps":[[12,5]],"faces":[1.57,0],"ft":6,"keen":true},{"wps":[[2,3],[2,10]]}],"dlg":{"start":[["mirage","초대장에 내 본명이 적혀 있었어. 그 이름 아는 사람, 이제 셋도 안 남았는데.",0],["hq","덫일 수 있어."],["mirage","그럴지도. 근데 덫을 놓는 사람은 보통 이름에 꽃무늬 봉투를 쓰진 않거든. 가서 볼게.",0]],"obj":[["mirage","봉투가 하나 더 있네. 이번엔 안 부쳤어. \"네가 누군지 3년 전에 알았다. 말하지 않았다.\"",1],["hq","누구 글씨인지 알아?"],["mirage","알지. 내가 속여야 했던 사람이야. 유일하게 미안했던 사람이고.",1]],"end":[["mirage","객실은 비어 있었어. 대신 표가 한 장 있더라. 내일 밤 오페라, 무대 뒤 출입증.",0],["mirage","초대가 계속되네. 이쯤 되면 예의상 가 줘야지.",2]]}}},null,null],"doc":[{"t":"차트","copy":"못 살린 사람은<br>다 기억한다.","pre":"10년 전에 닫힌 병원의 지하. 반은 물에 잠겼다. 차트 서고에 \"수술 중 사망\"으로 닫힌 선임 군의관의 차트가 있다. 근무는 끝났고, 가운은 벗지 않았다.","post":["차트를 찾았다. \"수술 중 사망\". 서명란의 이름은 닥인데 글씨가 다르다.","뒷장에 이송 기록이 붙어 있다. 죽은 사람은 헬기로 옮기지 않는다. 운항 일지는 옥상 헬기장에 있다."],"tips":["<b>물에 잠긴 칸</b>에서는 앉아서 걸어도 물소리가 3칸까지 간다.","<b>보일러</b>가 우는 6초 동안은 물소리가 묻힌다. 그때 건넌다.","판자가 놓인 칸과 마른 길로 돌아가면 소리가 나지 않는다. 대신 멀고, 카메라가 본다."],"bc":"noinv","par":320,"m":{"bg":"bgp_doc_1.jpg","sk":0.38,"zm":1.15,"wake":68,"rk":1.1,"opaque":"#B","hts":{"#":44,"B":40,"C":14,"X":20,"F":12},"proj":[30.289964405,-31.797107362,768.0,18.15318434,17.966811814,46.0,-0.000874287,-0.001088139,1.0],"MAP":["#######################F","#................#..BB.F","#.C.B..B.B..B.B..#.....F","#.X.B..B.B..B.B.C#.....F","#.C.B..B.B..B.B..##.###F","#...B..B.B..B.B........F","#.........##########...F","###.#####.....CC.......F","#....CC...........C....F","#...........##########.F","#..########.#B..C....#.F","#..#B...C...#....BBB...F","#C.#B.......#....BBB.#.F","#C.#B.CC..#.#....BBB.#.F","#..#B.....#.#.......B#.F","#..#B.C..#...........#.F","#..###...#.............F","#................##..##F","#............C.........F","#...................C..F","########..########.....F","#.C.............C#.....F","#...BB#..........#......","FFFFFFFFFFFFFFFFFFFFFF.F"],"ops":[{"id":"doc","x":22,"y":22}],"exit":[[22,23],[23,22]],"objective":{"x":2,"y":3,"use":[3,3],"label":"선임의 차트","verb":"회수","time":4},"guards":[{"wps":[[3,1],[16,1]]},{"wps":[[5,3],[5,6],[8,6]]},{"wps":[[11,8],[20,8]]},{"wps":[[6,11],[8,14]]},{"wps":[[2,18],[15,18]]},{"wps":[[3,21]],"faces":[0,-1.57],"ft":7},{"wps":[[15,14]],"faces":[1.57,0.5],"ft":7},{"wps":[[22,5]],"cam":true,"faces":[1.57,2.6],"ft":6}],"dlg":{"start":[["doc","가운은 안 벗었어. 근무 끝나고 바로 온 거라. 뭐, 진료 보러 가는 거니까 맞는 옷이지.",0],["hq","10년 전에 닫힌 차트야. 남아 있을까?"],["doc","병원은 사람은 잃어버려도 서류는 안 버려. 내가 장담해. 발만 좀 젖겠네.",0]],"obj":[["doc","찾았어. …\"수술 중 사망\". 서명란에 내 이름이 있는데, 내 글씨가 아니야.",1],["hq","누가 고쳐 쓴 거야?"],["doc","몰라. 근데 뒷장에 이송 기록이 붙어 있어. 죽은 사람을 왜 헬기로 옮겨?",1]],"end":[["doc","선임은 그날 밤 안 죽었어. 난 10년 동안 그렇게 말했고 아무도 안 믿었지. 이제 종이가 내 편이야.",0],["doc","옥상 헬기장에 운항 일지가 있을 거야. 어디로 데려갔는지 봐야겠어.",2]]},"env":{"mask":[20,6,"보일러 · 소리가 묻힌다","다음 보일러까지"]},"wet":[[1,17],[2,17],[3,17],[4,17],[5,17],[6,17],[7,17],[8,17],[9,17],[10,17],[11,17],[12,17],[13,17],[14,17],[15,17],[16,17],[1,18],[2,18],[3,18],[4,18],[5,18],[6,18],[7,18],[8,18],[9,18],[10,18],[11,18],[12,18],[13,18],[14,18],[15,18],[16,18],[1,19],[2,19],[3,19],[4,19],[5,19],[6,19],[7,19],[8,19],[9,19],[10,19],[11,19],[12,19],[13,19],[14,19],[15,19],[16,19],[11,10],[11,11],[11,15],[11,16],[12,16],[13,16],[14,16],[15,16],[16,16],[17,16],[18,16],[7,21],[8,21],[9,21],[10,21],[11,21],[12,21],[13,21],[14,21],[15,21],[16,21],[7,22],[8,22],[9,22],[10,22],[11,22],[12,22],[13,22],[14,22],[15,22],[16,22],[19,17],[20,17]]}},null,null]};
+/*ROM-END*/
 var SIDX={};
 Object.keys(STORY).forEach(function(id){
   SIDX[id]=[];
@@ -800,10 +803,19 @@ Object.keys(STORY).forEach(function(id){
     else m.goal0='붙잡힌 사람을 데리고 나와라';
     m.goal1='진입 지점으로 복귀';
     m.brief='<ul>'+RULES+'<li>혼자 들어간다. 지원은 없다.</li></ul>';
-    m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
+    m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};
+    var R=(ROM[id]||[])[ci];
+    if(R){ /* 전용 맵이 들어온 판: 맵 · 배치 · 대사를 통째로 바꾼다 */
+      m={};for(k in R.m)m[k]=R.m[k];
+      m.title=R.t;m.code='ROMANTIC // '+OPD[id].n+' TAKE '+(ci+1);m.copy=R.copy;m.pre=R.pre;m.post=R.post;m.img='a_'+id+'_'+(ci%2)+'.jpg';
+      m.goal0=m.hostage?R.goal:m.objective.label+' — '+m.objective.verb;m.goal1=m.hostage?'함께 들어온 곳으로':'들어온 곳으로 복귀';
+      m.brief='<ul>'+RULES+'<li>혼자 들어간다. 지원은 없다.</li>'+(R.tips||[]).map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+      m.bc=R.bc;m.par=R.par;m.story={id:id,ci:ci};m.rom=true;
+    }
+    SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.33.1';
+var VERSION='0.34.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1378,11 +1390,15 @@ function canSee(g,px,py,range){
   if(d>0.5&&Math.abs(norm(Math.atan2(dy,dx)-g.ang))>(g.cam?CAMFOV:FOV)/2)return false;
   return los(g.x,g.y,px,py,g.tower);
 }
+var WETR=3.2;
+function wetAt(x,y){var w=M.wet;if(!w)return false;if(!M.wetS){M.wetS={};w.forEach(function(c){M.wetS[c[1]*COLS+c[0]]=1;});}return !!M.wetS[fl(y)*COLS+fl(x)];}
+/* 구역별 시야 배율: M.zones=[[x0,y0,x1,y1,k],...] 서 있는 칸이 드는 첫 구역 */
+function zk(x,y){var z=M.zones;if(!z)return 1;x=fl(x);y=fl(y);for(var i=0;i<z.length;i++)if(x>=z[i][0]&&y>=z[i][1]&&x<=z[i][2]&&y<=z[i][3])return z[i][4];return 1;}
 function senseRange(g,o){
   var low=o.crouch&&o.carry<0;
   if(g.cam)return CAMR;
   if(o.disg&&!g.boss)return g.keen?RANGE*0.6:1.5;
-  return (low?CRANGE:RANGE)*(g.tower?1.4:1);
+  return (low?CRANGE:RANGE)*(g.tower?1.4:1)*zk(o.x,o.y);
 }
 
 var saved=null,plan=false,started=false,loads=0,ghosts=[];
@@ -1560,7 +1576,7 @@ function stepOp(o,dt){
     if(!o.path.length){
       var u=M.objective.use;
       if(fl(o.x)!==u[0]||fl(o.y)!==u[1]){o.cur=null;say('거긴 길이 없다.');}
-      else{o.ang=Math.atan2(M.objective.y+0.5-o.y,M.objective.x+0.5-o.x);o.fx='plant';o.fxt=0.2;a.t-=dt;if(a.t<=0){S.objDone=true;o.cur=null;say(M.objective.label+' '+M.objective.verb+' 완료');snd('ok');}}
+      else{o.ang=Math.atan2(M.objective.y+0.5-o.y,M.objective.x+0.5-o.x);o.fx='plant';o.fxt=0.2;a.t-=dt;if(a.t<=0){S.objDone=true;o.cur=null;say(M.objective.label+' '+M.objective.verb+' 완료');snd('ok');if(!M.evac&&M.dlg&&M.dlg.obj&&!S.dseen.obj){S.dseen.obj=1;S.dq='obj';}}}
     }
   }else if(a&&a.type==='sub'&&M.subs[a.i].shoot){
     var sh=M.subs[a.i];tx=sh.x+(sh.w||1)/2;ty=sh.y+(sh.h||1)/2;
@@ -1600,7 +1616,10 @@ function stepOp(o,dt){
   if(o.carry>=0){var b=S.guards[o.carry];b.x=o.x;b.y=o.y;}
   if(moving&&running){
     o.nt-=dt;
-    if(o.nt<=0){o.nt=0.35;S.noise.push({x:o.x,y:o.y,t:0.6,r:NOISE});alertNear(o.x,o.y,NOISE,o.x,o.y,null);}
+    if(o.nt<=0){o.nt=0.35;if(!(M.env&&M.env.hush)){S.noise.push({x:o.x,y:o.y,t:0.6,r:NOISE});alertNear(o.x,o.y,NOISE,o.x,o.y,null);}}
+  }else if(moving&&wetAt(o.x,o.y)&&!ENV.quiet){ /* 물 칸: 앉아서 걸어도 물소리가 난다 */
+    o.nt-=dt;
+    if(o.nt<=0){o.nt=0.5;S.noise.push({x:o.x,y:o.y,t:0.6,r:WETR});alertNear(o.x,o.y,WETR,o.x,o.y,null);}
   }
 }
 function inExit(o){var E=exits();for(var i=0;i<E.length;i++)if(fl(o.x)===E[i][0]&&fl(o.y)===E[i][1])return true;return false;}
@@ -1609,9 +1628,12 @@ var ENV={k:1,quiet:false,txt:'',hot:false};
 function envPhase(a){if(!a)return -1;var p=S.t%a[0];return p>=a[0]-a[1]?p-(a[0]-a[1]):-1;}
 function envNext(a){var p=S.t%a[0];return a[0]-a[1]-p;}
 function envStep(){
-  var e=M.env,b,k=1,q=false,t='',hot=false;
+  var e=M.env,b,k=M.rk||1,q=false,t='',hot=false;
   if(e){
-    if(e.blizzard){b=envPhase(e.blizzard);if(b>=0){k=0.45;hot=true;t='눈보라 · 시야가 짧다 '+Math.ceil(e.blizzard[1]-b);}else t='다음 눈보라까지 '+Math.ceil(envNext(e.blizzard));}
+    if(e.fog)k*=e.fog;
+    if(e.vis){b=envPhase(e.vis);if(b>=0){k*=e.vis[2];hot=true;t=e.vis[3]+' '+Math.ceil(e.vis[1]-b);}else t=(e.vis[4]||'다음까지')+' '+Math.ceil(envNext(e.vis));}
+    if(e.mask){b=envPhase(e.mask);if(b>=0){q=true;hot=true;t=e.mask[2]+' '+Math.ceil(e.mask[1]-b);}else if(!hot)t=(e.mask[3]||'다음까지')+' '+Math.ceil(envNext(e.mask));}
+    if(e.blizzard){b=envPhase(e.blizzard);if(b>=0){k*=0.45;hot=true;t='눈보라 · 시야가 짧다 '+Math.ceil(e.blizzard[1]-b);}else t='다음 눈보라까지 '+Math.ceil(envNext(e.blizzard));}
     if(e.bell){b=envPhase(e.bell);if(b>=0){q=true;hot=true;t='자정의 종 · 소리가 묻힌다 '+Math.ceil(e.bell[1]-b);}else t='다음 종까지 '+Math.ceil(envNext(e.bell));}
     if(e.limit){var left=e.limit+(S.lim||0)-S.t;if(!S.objDone){t='이륙까지 '+mmss(Math.max(0,Math.ceil(left)));hot=left<60;if(left<=0)fail('전용기가 떴다. 화물은 하늘에 있다.');}else t='';}
   }
@@ -1629,7 +1651,7 @@ function update(dt){
     var tr=S.trail,last=tr[tr.length-1];
     if(!last||hyp(last.x-r.x,last.y-r.y)>0.3)tr.push({x:r.x,y:r.y});
     if(tr.length>200)tr.shift();
-    if(!h.free){if(hyp(h.x-r.x,h.y-r.y)<0.9){h.free=true;S.trail=[];say('데리고 나간다. 출구까지.');snd('ok');}}
+    if(!h.free){if(hyp(h.x-r.x,h.y-r.y)<0.9){h.free=true;S.trail=[];say('데리고 나간다. 출구까지.');snd('ok');if(M.dlg&&M.dlg.obj&&!S.dseen.obj){S.dseen.obj=1;S.dq='obj';}}}
     else{
       var left=2.6*dt;
       while(left>0&&S.trail.length>1){var p=S.trail[0],dx=p.x-h.x,dy=p.y-h.y,d=hyp(dx,dy);
@@ -2048,7 +2070,7 @@ function nextScene(){
 /* 대화 화면: 왼쪽 상대, 오른쪽 요원. lines=[[누구,대사],...] */
 var DPORT={raven:1,viper:1,glitch:1,brick:1,mirage:1,doc:1}; /* 대화용 그림 d_<요원>_<0 기본|1 긴장|2 여유>.webp. 대사 셋째 칸이 표정 */
 var DLGON=false,DLQ=[],DLD=null,DLGM=-1,DCAST={hq:{n:'지휘관',c:'#c9d2dc'},santa:{n:'산타',c:'#e0364f',side:'l'},witness:{n:'증인',c:'#ff9a3c',side:'l'}};
-function dlgWho(k,e){var d=DCAST[k]||{},o=OPD[k],cast=(M.dlg&&M.dlg.cast)||{};return {n:d.n||(o?o.n:k),c:d.c||(o?o.col:'#fff'),side:d.side||(o?'r':''),img:(cast[k]&&cast[k].pop?cast[k][e||0]:cast[k])||(DPORT[k]?'d_'+k+'_'+(e||0)+'.webp':''),card:false};}
+function dlgWho(k,e){var d=DCAST[k]||(M.dlg&&M.dlg.who&&M.dlg.who[k])||{},o=OPD[k],cast=(M.dlg&&M.dlg.cast)||{};return {n:d.n||(o?o.n:k),c:d.c||(o?o.col:'#fff'),side:d.side||(o?'r':''),img:(cast[k]&&cast[k].pop?cast[k][e||0]:cast[k])||(DPORT[k]?'d_'+k+'_'+(e||0)+'.webp':''),card:false};}
 function dlg(lines,done){
   DLQ=lines.slice();DLD=done||null;DLGON=true;var L=$('dgl'),R=$('dgr'),seen={l:'',r:''};
   lines.forEach(function(x){var w=dlgWho(x[0],x[2]);if(w.img)loadImg(w.img);if(w.side&&!seen[w.side])seen[w.side]=x[0];});
@@ -2060,12 +2082,12 @@ function dlgNext(){
   var w=dlgWho(x[0],x[2]),el=$('dlg'),L=$('dgl'),R=$('dgr'),t=w.side==='l'?L:w.side==='r'?R:null;if(t&&!w.img)t=null;
   if(el.style&&el.style.setProperty)el.style.setProperty('--c',w.c);
   if(t&&t.getAttribute&&t.getAttribute('data-w')!==w.img){t.src=w.img;t.setAttribute('data-w',w.img);}
-  [L,R].forEach(function(e){var c=(e.className||'').replace(/ ?on/,'');if(c==='off')return;if(e===t)c='on';e.className=c;});
+  [L,R].forEach(function(e){var c=(e.className||'').replace(/ ?on/,'');if(c==='off')return;if(e===t||!t)c='on';e.className=c;}); /* 일러스트가 없는 화자(지휘관 등)가 말할 때는 듣는 쪽을 어둡게 하지 않는다 */
   $('dgn').textContent=w.n;$('dgt').textContent=x[1];
 }
 if($('dlg').addEventListener)$('dlg').addEventListener('click',function(e){if(e.target&&e.target.id==='dgs'){DLQ=[];}dlgNext();});
 function save(){saved=JSON.stringify(S);}
-function load(){if(!saved)return;S=JSON.parse(saved);S.over=null;plan=false;loads++;wallCv=null;UIK='';hideOv();}
+function load(){if(!saved)return;if(M.maxLoads!=null&&loads>=M.maxLoads){S.over={win:false,why:'되돌릴 기회를 다 썼다. 이 TAKE는 '+M.maxLoads+'번까지다.'};overlay('작전 실패','ALERT','<p>'+S.over.why+'</p>',[['처음부터',restart,true],['미션 선택',function(){if(M.story)storyMenu();else menu();}]]);return;}S=JSON.parse(saved);S.over=null;plan=false;loads++;wallCv=null;UIK='';hideOv();}
 function setPre(b){var a=$('app');a.className=b?'pre':'';try{$('snow').className=(!b&&M&&M.winter)?'':'hide';}catch(e){}if(typeof setTimeout!=='undefined')setTimeout(resize,30);}
 function restart(){setPre(false);S=newState();plan=false;loads=0;wallCv=null;UIK='';save();hideOv();started=true;freeCam=false;var p=PF(S.ops[0].x,S.ops[0].y);cam.x=p[0];cam.y=p[1];if(M.dlg&&M.dlg.start&&DLGM!==MI){DLGM=MI;dlg(M.dlg.start);}}
 var OPS=[
