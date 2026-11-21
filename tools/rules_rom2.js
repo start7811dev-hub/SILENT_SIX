@@ -23,4 +23,19 @@ for(const [i,n] of [[8,'녹음'],[17,'동료들']]){loadMission(i);T('M'+i+' 이
 loadMission(14);restart();let lo=1e9,hi=0;for(let i=0;i<32*20;i++){update(1/32);lo=Math.min(lo,RANGE);hi=Math.max(hi,RANGE);}T('글리치3 정전 시야 '+hi.toFixed(2)+' → '+lo.toFixed(2),lo<hi*0.4);
 loadMission(23);restart();update(1/32);T('닥3 안개 포함 시야 '+RANGE.toFixed(2)+'칸(45칸 격자)',Math.abs(RANGE-6.5*DIFFS[2].r*1.65*0.6)<0.01);
 loadMission(17);restart();lo=1e9;hi=0;let q=0;for(let i=0;i<32*31;i++){update(1/32);lo=Math.min(lo,RANGE);hi=Math.max(hi,RANGE);if(ENV.quiet)q++;}T('브릭3 발파 먼지: 시야 '+hi.toFixed(2)+' → '+lo.toFixed(2)+' · 소리 묻힘 '+(q/32).toFixed(1)+'초',lo<hi*0.45&&q>0);
+// 두 단계 목표 · 사격 제한 (v0.36.0)
+const act=(a,sec)=>{const o=S.ops[0];o.queue=[a];o.cur=null;run(sec);};
+const put=u=>{const o=S.ops[0];o.x=u[0]+.5;o.y=u[1]+.5;o.path=[];o.cur=null;o.queue=[];};
+loadMission(14);restart();S.guards.forEach(g=>{g.off=999;});
+put(M.objective.use);act({type:'sab'},3);T('글리치3 금고 전에는 드럼통이 잠김',!S.objDone);
+put(M.subs[0].use);act({type:'sub',i:0},M.subs[0].time+0.5);T('글리치3 금고에서 단말 꺼내기',S.subs[0]===true);
+put(M.objective.use);act({type:'sab'},M.objective.time+0.5);T('글리치3 드럼통에 태우기 → 목표 완료 · 목표 대화',S.objDone&&S.dseen.obj===1);
+loadMission(17);restart();S.guards.forEach(g=>{g.off=999;});
+put(M.subs[0].use);act({type:'sub',i:0},M.subs[0].time+0.3);T('브릭3 문 열기 → 문 열린 그림 · 문 앞 대화',S.subs[0]&&bgName()==='bgp_brick_3b.jpg'&&S.dseen.mid===1,bgName());
+S.dq=null;act({type:'sab'},2);T('브릭3 셋이 나오는 동안은 못 닫음',!S.objDone&&objWait()>0,'남은 '+objWait().toFixed(1)+'초');
+run(M.objective.after);act({type:'sab'},M.objective.time+0.5);T('브릭3 8초 뒤 문 닫기 → 목표 완료 · 원래 그림',S.objDone&&bgName()==='bgp_brick_3.jpg');
+loadMission(8);restart();T('레이븐3 권총 0발',S.ops[0].pistol===0&&S.ops[0].p0===0);
+loadMission(11);restart();T('바이퍼3 저격 1발 · 권총 0발',S.ops[0].ammo===1&&S.ops[0].pistol===0);
+T('바이퍼3 배지 "한 발": 안 쏘면 달성',BCOND[M.bc][0]==='한 발'&&BCOND[M.bc][2]()===true);S.ops[0].ammo=0;T('바이퍼3 배지: 쏘면 실패',BCOND[M.bc][2]()===false);
+loadMission(1);restart();T('스토리 2판 바이퍼 저격 3발 · 권총 6발 그대로',S.ops.some(o=>o.id==='viper'&&o.ammo===3&&o.pistol===6));
 console.log(ok+' ok / '+bad+' fail');

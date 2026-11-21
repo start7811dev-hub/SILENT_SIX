@@ -21,31 +21,42 @@ function solve(mi,plans){ // plans: [{op, obj:bool}]
   const NL=Math.floor(NK/2),out=[];let Lstart=0,minL=0;
   for(const pl of plans){
     const o=S0=M.ops[pl.op],start=o.y*COLS+o.x;const exits=new Set(M.exit.map(e=>e[1]*COLS+e[0]));
-    const goalC=M.hostage?M.hostage.y*COLS+M.hostage.x:M.objective.use[1]*COLS+M.objective.use[0];
-    const sabL=M.hostage?1:Math.ceil((M.objective.time+0.7)/0.25);
-    const par=[new Int32Array(NL*N).fill(-1),new Int32Array(NL*N).fill(-1)];
-    const ph0=pl.obj?0:1;par[ph0][Lstart*N+start]=-2;let goal=null,far=0;
-    for(let L=Lstart;L<NL-12&&!goal;L++)for(let ph=ph0;ph<2&&!goal;ph++)for(const c of walk){
-      if(par[ph][L*N+c]===-1)continue;const id=(ph*NL+L)*N+c,host=M.hostage&&ph===1,tab=tabC;
-      if(ph===1&&exits.has(c)&&L>=minL){goal=[ph,L,c];break;}
-      if(L>far)far=L;
-      if(safe(tab,c,2*L,2*L+2)&&par[ph][(L+1)*N+c]===-1)par[ph][(L+1)*N+c]=id;
-      if(ph===0&&c===goalC&&L+sabL<NL&&safe(tabC,c,2*L,2*(L+sabL))&&par[1][(L+sabL)*N+c]===-1)par[1][(L+sabL)*N+c]=id;
-      const cx=c%COLS,cy=Math.floor(c/COLS);
-      for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=cx+dx,ny=cy+dy;if(blocked(nx,ny))continue;const n=ny*COLS+nx;
-        if(par[ph][(L+3)*N+n]!==-1)continue;
-        if(safe(tab,c,2*L,2*L+(host?7:3))&&safe(tab,n,2*L,2*L+6)&&mid(cx+.5+dx/2,cy+.5+dy/2,2*L,2*L+5))par[ph][(L+3)*N+n]=id;}
-    }
-    if(!goal){let reach0=0,gotObj=false,objL=-1;for(let L=0;L<NL;L++){if(par[1][L*N+goalC]!==-1){gotObj=true;if(objL<0)objL=L;}}
+    // 목표 목록: (중간 목표들 →) 본 목표 또는 호위 대상. 단계 p 는 goals[p] 로 가는 중, 마지막 단계는 출구로 가는 중이다.
+    const cellOf=u=>u[1]*COLS+u[0],dwell=t=>Math.ceil((t+0.7)/0.25);
+    const goals=M.hostage?[{c:M.hostage.y*COLS+M.hostage.x,L:1}]:[...(M.subs||[]).map((sb,i)=>sb.use?{c:cellOf(sb.use),L:dwell(sb.time),sub:i}:null).filter(Boolean),{c:cellOf(M.objective.use),L:dwell(M.objective.time),after:M.objective.after?Math.ceil((M.objective.after+0.5)/0.25):0}];
+    const G=goals.length,ph0=pl.obj?0:G,goalC=goals[G-1].c,aft=goals[G-1].after||0;
+    // 본 목표에 대기 시간(after)이 있으면: 직전 중간 목표를 끝내는 시각 Lc 를 하나로 정하고 찾는다(이른 것부터 차례로).
+    const search=Lc=>{
+      const par=[];for(let i=0;i<=G;i++)par.push(new Int32Array(NL*N).fill(-1));
+      par[ph0][Lstart*N+start]=-2;let goal=null;const done=new Set();
+      for(let L=Lstart;L<NL-12&&!goal;L++)for(let ph=ph0;ph<=G&&!goal;ph++)for(const c of walk){
+        if(par[ph][L*N+c]===-1)continue;const id=(ph*NL+L)*N+c,host=M.hostage&&ph===G,tab=tabC;
+        if(ph===G&&exits.has(c)&&L>=minL){goal=[ph,L,c];break;}
+        if(safe(tab,c,2*L,2*L+2)&&par[ph][(L+1)*N+c]===-1)par[ph][(L+1)*N+c]=id;
+        if(ph<G&&c===goals[ph].c){const gl=goals[ph],L2=L+gl.L,last=ph===G-1,pre=aft&&ph===G-2;
+          if(L2<NL&&safe(tabC,c,2*L,2*L2)&&(!pre||Lc==null||L2===Lc)&&(!(last&&aft&&G>1)||(Lc!=null&&L>=Lc+aft))){if(pre)done.add(L2);if((!pre||Lc!=null)&&par[ph+1][L2*N+c]===-1)par[ph+1][L2*N+c]=id;}}
+        const cx=c%COLS,cy=Math.floor(c/COLS);
+        for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=cx+dx,ny=cy+dy;if(blocked(nx,ny))continue;const n=ny*COLS+nx;
+          if(par[ph][(L+3)*N+n]!==-1)continue;
+          if(safe(tab,c,2*L,2*L+(host?7:3))&&safe(tab,n,2*L,2*L+6)&&mid(cx+.5+dx/2,cy+.5+dy/2,2*L,2*L+5))par[ph][(L+3)*N+n]=id;}
+      }
+      return {par,goal,done};
+    };
+    let R=null;
+    if(aft&&G>1&&pl.obj){const first=search(null),cand=[...first.done].sort((x,y)=>x-y);let last=-99,tries=0;R=first;
+      for(const Lc of cand){if(Lc-last<4)continue;last=Lc;if(++tries>40)break;const r=search(Lc);R=r;if(r.goal)break;}}
+    else R=search(null);
+    const par=R.par,goal=R.goal;
+    if(!goal){let gotObj=false,objL=-1;for(let L=0;L<NL;L++){if(par[G][L*N+goalC]!==-1){gotObj=true;if(objL<0)objL=L;}}
       if(gotObj)console.log('   objective first done at t='+(objL*0.25).toFixed(1)+'s (horizon '+(NL*0.25).toFixed(0)+'s)');
-      console.log('M'+(mi+1),'op',pl.op,'NO GHOST ROUTE; objective reached:',gotObj);for(let ph=0;ph<2;ph++){const seen=new Set();for(let L=0;L<NL;L++)for(const c of walk)if(par[ph][L*N+c]!==-1)seen.add(c);console.log(' phase',ph);for(let y=0;y<ROWS;y++){let r='';for(let x=0;x<COLS;x++)r+=seen.has(y*COLS+x)?'o':MAP[y][x];console.log('  '+r);}}return false;}
+      console.log('M'+(mi+1),'op',pl.op,'NO GHOST ROUTE; objective reached:',gotObj);for(let ph=0;ph<=G;ph++){const seen=new Set();for(let L=0;L<NL;L++)for(const c of walk)if(par[ph][L*N+c]!==-1)seen.add(c);console.log(' phase',ph);for(let y=0;y<ROWS;y++){let r='';for(let x=0;x<COLS;x++)r+=seen.has(y*COLS+x)?'o':MAP[y][x];console.log('  '+r);}}return false;}
     const steps=[];let [ph,L,c]=goal;while(true){const p=par[ph][L*N+c];if(p===-2)break;const pc=p%N,pL=Math.floor(p/N)%NL,pph=Math.floor(p/N/NL);
-      if(pc!==c)steps.unshift({t:pL*0.25,op:pl.op,x:c%COLS,y:Math.floor(c/COLS)});else if(pph!==ph&&!M.hostage)steps.unshift({t:pL*0.25,op:pl.op,sab:true});ph=pph;L=pL;c=pc;}
+      if(pc!==c)steps.unshift({t:pL*0.25,op:pl.op,x:c%COLS,y:Math.floor(c/COLS)});else if(pph!==ph&&!M.hostage){const gl=goals[pph];steps.unshift(gl.sub!=null?{t:pL*0.25,op:pl.op,sub:gl.sub}:{t:pL*0.25,op:pl.op,sab:true});}ph=pph;L=pL;c=pc;}
     out.push(...steps);minL=goal[1]-2;console.log('M'+(mi+1),'op',pl.op,'ghost route found, finish t='+(goal[1]*0.25).toFixed(1)+'s, moves',steps.length);
   }
   out.sort((a,b)=>a.t-b.t);FOV=F0;CAMFOV=C0;
   restart();vopen();S.ops.forEach(o=>o.crouch=true);let i=0;
-  for(let n=0;n<T/DT&&!S.over;n++){while(i<out.length&&out[i].t<=S.t+1e-6){const s=out[i++];S.ops[s.op].queue=[s.sab?{type:'sab'}:{type:'move',x:s.x,y:s.y}];S.ops[s.op].cur=null;}update(DT);}
+  for(let n=0;n<T/DT&&!S.over;n++){while(i<out.length&&out[i].t<=S.t+1e-6){const s=out[i++];S.ops[s.op].queue=[s.sab?{type:'sab'}:s.sub!=null?{type:'sub',i:s.sub}:{type:'move',x:s.x,y:s.y}];S.ops[s.op].cur=null;}update(DT);}
   if(S.over&&!S.over.win&&S.hostage)console.log('   hostage',S.hostage.x.toFixed(2),S.hostage.y.toFixed(2),'trail',S.trail.length,'g4',S.guards[4].x.toFixed(1),S.guards[4].y.toFixed(1),S.guards[4].ang.toFixed(2),S.guards[4].state);if(S.over&&!S.over.win)console.log('   ops',S.ops.map(o=>o.x.toFixed(1)+','+o.y.toFixed(1)).join(' '),'guards',S.guards.map(g=>g.meter.toFixed(2)).join(' '));console.log('   REAL RUN:',JSON.stringify(S.over),'t='+S.t.toFixed(1),'objDone',S.objDone,S.hostage?'hostage '+S.hostage.free:'');
   return S.over&&S.over.win;
 }

@@ -44,6 +44,7 @@ def validate(k, g):
     tgt = r.get('host') or r['use']
     if not ok(tgt): ERR.append((k, 'use', g[tgt[1]][tgt[0]]))
     if not reach(g, tuple(r['start']), tuple(tgt), r.get('vopen', ())): ERR.append((k, '목표까지 길 없음'))
+    if r.get('sub') and not (ok(r['sub']['use']) and reach(g, tuple(r['start']), tuple(r['sub']['use']), r.get('vopen', ()))): ERR.append((k, '중간 목표까지 길 없음'))
     if r.get('vopen') and reach(g, tuple(r['start']), tuple(tgt)): ERR.append((k, '돌파 없이도 길이 있다'))
     SP = lib.sprites(k[:-1], int(k[-1]))
     for p in r['props']:   # 긴 소품은 그림의 방향과 발자국 방향이 같아야 한다
@@ -55,7 +56,8 @@ def validate(k, g):
             for a, b in zip(gd['wps'], gd['wps'][1:] + gd['wps'][:1]):
                 if not reach(g, tuple(a), tuple(b)): ERR.append((k, 'guard path', gi, a, b))
 TALL = '#HWKBTM'
-def bake(k):
+def bake(k, extra=(), suffix=''):
+    '''extra: 덧그릴 소품(판 도중에 바뀌는 그림용), suffix: 파일 이름 꼬리.'''
     r = missions.R[k]; m = build.M[k]; pr = build.PR(m); ag, t = k[:-1], int(k[-1]); SP = lib.sprites(ag, t)
     orig = Image.open(os.path.join(lib.SRC, 'bgp_%s_%d.jpg' % (ag, t))).convert('RGBA')
     if r.get('blackout'):   # 맵 밖 하늘(번개 · 달)을 다른 판처럼 검게
@@ -65,7 +67,7 @@ def bake(k):
     def sil(cx, cy, hh):
         q = [pr.P(cx, cy), pr.P(cx + 1, cy), pr.P(cx + 1, cy + 1), pr.P(cx, cy + 1)]
         return [(q[0][0], q[0][1] - hh), (q[1][0], q[1][1] - hh), q[1], q[2], q[3], (q[3][0], q[3][1] - hh)]
-    for p in sorted(r['props'], key=lambda p: (p[1] + p[2] + (p[3] + p[4]) / 2.0)):
+    for p in sorted(list(r['props']) + list(extra), key=lambda p: (p[1] + p[2] + (p[3] + p[4]) / 2.0)):
         sp, x, y, w, h, c = p[:6]; sc = p[6] if len(p) > 6 else 1.0
         lib.place(base, pr, SP[sp], x, y, w, h, dark=r.get('dark', 0.92), shadow=0 if c == '-' else 110, scale=sc)
         # 그림 속 벽이 소품보다 앞에 있으면 벽을 다시 덮는다(소품이 벽 위에 올라타 보이지 않게)
@@ -74,7 +76,7 @@ def bake(k):
             for cx in range(x, min(W, x + w + 5)):
                 if (cx > x + w - 1 or cy > y + h - 1) and G0[cy][cx] in TALL and hts.get(G0[cy][cx], 0) > 16: d.polygon(sil(cx, cy, hts[G0[cy][cx]]), fill=255); any_ = True
         if any_: base.paste(orig, (0, 0), mk)
-    base.convert('RGB').save(os.path.join(PUB, 'bgp_%s_%d.jpg' % (ag, t)), quality=88)
+    base.convert('RGB').save(os.path.join(PUB, 'bgp_%s_%d%s.jpg' % (ag, t, suffix)), quality=88)
     return base
 def dialog(k):
     ag, t = k[:-1], int(k[-1]); d = T[ag][t - 1]['dlg']; out = {}
@@ -94,6 +96,15 @@ def entry(k, g):
               guards=r['guards'], dlg=dialog(k))
     if r.get('host'): mm['hostage'] = dict(x=r['host'][0], y=r['host'][1])
     else: mm['objective'] = dict(x=X[0], y=X[1], use=list(r['use']), label=r['ol'], verb=r['ov'], time=r['time'])
+    if r.get('sub'):   # 두 단계 목표: 중간 목표(sub)를 끝내야 본 목표가 열린다
+        sb = r['sub']; mm['subs'] = [dict(k='use', label=sb['label'], verb=sb['verb'], btn=sb.get('btn', sb['verb']), x=sb['X'][0], y=sb['X'][1], w=1, h=1, use=list(sb['use']), time=sb['time'], done=sb['done'])]
+        mm['lock'] = r['lock']
+        for f in ('after', 'wait', 'hud', 'done'):
+            if r.get('o' + f) is not None: mm['objective'][f] = r['o' + f]
+        if r.get('alt'):   # 중간 목표 뒤 그림 b, 본 목표 뒤 다시 원래 그림
+            b0 = mm['bg']; mm['bgs'] = [b0, b0[:-4] + 'b.jpg', b0, b0]; mm['subs'][0]['sw'] = dict(bit=1); mm['objective']['sw'] = dict(bit=2)
+        if r.get('dlg_mid'): mm['dlg']['mid'] = mm['dlg'].pop('obj')
+    if r.get('arms'): mm['arms'] = r['arms']
     if r.get('who'):   # 초상 없이 이름만 있는 화자(녹음, 문 너머 목소리)
         mm['dlg']['who'] = {'npc': {'n': r['who'][0], 'c': r['who'][1], 'side': 'l'}}
     if r.get('npc'):   # 대면 인물: 일러스트 2장(표정 0 · 1)을 public 으로 옮기고 대화에 건다
@@ -115,7 +126,9 @@ if __name__ == '__main__':
     only = [a for a in only if a != '-f']
     for k in missions.R:
         g = G_[k]
-        if not only or k in only: bake(k)
+        if not only or k in only:
+            bake(k)
+            if missions.R[k].get('alt'): bake(k, missions.R[k]['alt'], 'b')
         ROM.setdefault(k[:-1], [None, None, None])[int(k[-1]) - 1] = entry(k, g)
         print('ok', k, len(g[0]), 'x', len(g))
     p = os.path.join(PUB, 'index.html'); s = io.open(p, encoding='utf8').read()
