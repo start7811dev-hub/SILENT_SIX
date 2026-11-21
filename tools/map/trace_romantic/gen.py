@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """로맨틱 미션 적용: 소품을 맵에 올려 굽고(public/bgp_*.jpg), 격자 · 배치 · 대사를 index.html 의 ROM 자리에 넣는다.
 사용: python3 gen.py [키 ...]   (키를 주면 그 판의 그림만 다시 굽는다. 데이터는 항상 전부 다시 쓴다)"""
-import sys, os, io, json, re
+import sys, os, io, json, re, shutil
 HERE = os.path.dirname(os.path.abspath(__file__)); sys.path.insert(0, HERE); sys.path.append(os.path.join(HERE, '..', '..', 'packs', 'romantic_v3'))
 import lib, build, missions, data_a, data_b
 from PIL import Image, ImageDraw, ImageFilter
@@ -24,9 +24,9 @@ def grid_of(k):
         for j in range(h):
             for i in range(w):
                 cur = g[y + j][x + i]
-                if not (cur == '.' or (c == 'X' and cur in 'XC')): ERR.append((k, 'prop', sp, x + i, y + j, cur))
+                if c != '-' and not (cur == '.' or (c == 'X' and cur in 'XC')): ERR.append((k, 'prop', sp, x + i, y + j, cur))
                 if c != '-': g[y + j][x + i] = c
-    X = r['X']; g[X[1]][X[0]] = 'X'
+    if r.get('X'): X = r['X']; g[X[1]][X[0]] = 'X'
     return g
 def reach(g, s, t, opened=()):
     W, Hh = len(g[0]), len(g); seen = {s}; st = [s]; op = set(map(tuple, opened))
@@ -41,9 +41,10 @@ ERR = []
 def validate(k, g):
     r = missions.R[k]; ok = lambda c: g[c[1]][c[0]] == '.'
     if not ok(r['start']): ERR.append((k, 'start'))
-    if not ok(r['use']): ERR.append((k, 'use', g[r['use'][1]][r['use'][0]]))
-    if not reach(g, tuple(r['start']), tuple(r['use']), r.get('vopen', ())): ERR.append((k, '목표까지 길 없음'))
-    if r.get('vopen') and reach(g, tuple(r['start']), tuple(r['use'])): ERR.append((k, '돌파 없이도 길이 있다'))
+    tgt = r.get('host') or r['use']
+    if not ok(tgt): ERR.append((k, 'use', g[tgt[1]][tgt[0]]))
+    if not reach(g, tuple(r['start']), tuple(tgt), r.get('vopen', ())): ERR.append((k, '목표까지 길 없음'))
+    if r.get('vopen') and reach(g, tuple(r['start']), tuple(tgt)): ERR.append((k, '돌파 없이도 길이 있다'))
     SP = lib.sprites(k[:-1], int(k[-1]))
     for p in r['props']:   # 긴 소품은 그림의 방향과 발자국 방향이 같아야 한다
         if p[3] != p[4] and lib.orient(SP[p[0]]) == (-1 if p[3] > p[4] else 1): ERR.append((k, '소품 방향 반대', p[0], p[3], p[4]))
@@ -86,15 +87,24 @@ def dialog(k):
         out[name] = L
     return out
 def entry(k, g):
-    r = missions.R[k]; m = build.M[k]; pr = build.PR(m); ag, t = k[:-1], int(k[-1]); X = r['X']
+    r = missions.R[k]; m = build.M[k]; pr = build.PR(m); ag, t = k[:-1], int(k[-1]); X = r.get('X')
     wet = [list(c) for c in m.get('wet', []) if tuple(c) not in set(map(tuple, r.get('dry', [])))]
-    mm = dict(bg='bgp_%s_%d.jpg' % (ag, t), sk=r['sk'], zm=r['zm'], wake=68, rk=1.1, opaque=r['opaque'], hts=r['hts'], proj=pr.flat(), MAP=[''.join(x) for x in g],
+    mm = dict(bg='bgp_%s_%d.jpg' % (ag, t), sk=r['sk'], zm=r['zm'], wake=68, rk=r.get('rk', 1.1), opaque=r['opaque'], hts=r['hts'], proj=pr.flat(), MAP=[''.join(x) for x in g],
               ops=[dict(id=ag, x=r['start'][0], y=r['start'][1])], exit=[list(e) for e in r['exit']],
-              objective=dict(x=X[0], y=X[1], use=list(r['use']), label=r['ol'], verb=r['ov'], time=r['time']), guards=r['guards'], dlg=dialog(k))
-    for f in ('env', 'zones', 'vopen', 'maxLoads'):
-        if r.get(f) is not None: mm[f] = r[f]
+              guards=r['guards'], dlg=dialog(k))
+    if r.get('host'): mm['hostage'] = dict(x=r['host'][0], y=r['host'][1])
+    else: mm['objective'] = dict(x=X[0], y=X[1], use=list(r['use']), label=r['ol'], verb=r['ov'], time=r['time'])
+    if r.get('who'):   # 초상 없이 이름만 있는 화자(녹음, 문 너머 목소리)
+        mm['dlg']['who'] = {'npc': {'n': r['who'][0], 'c': r['who'][1], 'side': 'l'}}
+    if r.get('npc'):   # 대면 인물: 일러스트 2장(표정 0 · 1)을 public 으로 옮기고 대화에 건다
+        nm, col = r['npc']; fs = ['d_R-%s_npc_%d.webp' % (k, i) for i in (0, 1)]
+        for f in fs: shutil.copy(os.path.join(HERE, 'portraits', f), os.path.join(PUB, f))
+        mm['dlg']['who'] = {'npc': {'n': nm, 'c': col, 'side': 'l'}}; mm['dlg']['cast'] = {'npc': fs}
+    for f in ('env', 'zones', 'vopen', 'maxLoads', 'hot', 'still'):
+        v = r.get(f) if r.get(f) is not None else m.get(f)
+        if v is not None: mm[f] = [list(c) for c in v] if f in ('hot', 'still') else v
     if wet: mm['wet'] = wet
-    return dict(t=r['t'], copy=r['copy'], pre=r['pre'], post=r['post'], tips=r['tips'], bc=r['bc'], par=r['par'], m=mm)
+    return dict(t=r['t'], copy=r['copy'], pre=r['pre'], post=r['post'], tips=r['tips'], bc=r['bc'], par=r['par'], goal=r.get('goal', ''), m=mm)
 if __name__ == '__main__':
     only = sys.argv[1:]; ROM = {}
     G_ = {k: grid_of(k) for k in missions.R}

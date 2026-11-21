@@ -13,6 +13,7 @@
 | `tools/bgm/prep.sh` | 받은 BGM의 무음 제거 · 음량 통일 후 `public/bgm/`에 넣기 |
 | `tools/verify.sh` | 미션 29판이 클리어 가능한지 자동 확인 |
 | `tools/check_rom.js` | 로맨틱 전용 맵 판의 시작 지점 안전 · 순찰 경로 점검 |
+| `tools/rules_rom1.js` · `rules_rom2.js` | 로맨틱 규칙 시험(환경 · 구역 · 열 통로 · 마네킹 · 드론 · 호위 이름 등). `cd public && node ../tools/rules_rom1.js` |
 | `tools/map/trace_romantic/` | 로맨틱 맵 적용 도구(격자 `build.py`, 배치 `missions.py`, 굽기 · 데이터 넣기 `gen.py`)와 정리된 원본 자산 |
 | `tools/solve.js` | 위 확인에 쓰는 탐색기 |
 | `tools/studio/` | 요원 풀세트 이미지 생성기(맥용, OpenAI 키 필요) |

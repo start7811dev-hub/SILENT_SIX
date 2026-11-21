@@ -7,16 +7,17 @@ const PAD=+(process.argv[3]||0.5),DT=1/32,T=260,KS=0.125,NK=Math.floor(T/KS);
 function solve(mi,plans){ // plans: [{op, obj:bool}]
   const vopen=()=>(M.vopen||[]).forEach(c=>{S.open[c[1]*COLS+c[0]]=1;}); // 돌파 전용 판: 지정한 금 간 벽을 미리 연 상태로 본다
   loadMission(mi);restart();vopen();S.ops.forEach(o=>o.crouch=true);
-  const snap=[];for(let k=0;k<NK;k++){const sn=S.guards.map(g=>({x:g.x,y:g.y,ang:g.ang,tower:g.tower,cam:g.cam,boss:g.boss}));sn.R=RANGE;sn.C=CRANGE;sn.q=ENV.quiet;snap.push(sn);for(let i=0;i<4;i++)update(DT);if(S.over){console.log('M'+(mi+1),'IDLE FAIL at',S.t.toFixed(1),S.over.why);return false;}}
+  const snap=[];for(let k=0;k<NK;k++){const sn=S.guards.map(g=>({x:g.x,y:g.y,ang:g.ang,tower:g.tower,cam:g.cam,cr:g.cr,boss:g.boss}));sn.R=RANGE;sn.C=CRANGE;sn.q=ENV.quiet;snap.push(sn);for(let i=0;i<4;i++)update(DT);if(S.over){console.log('M'+(mi+1),'IDLE FAIL at',S.t.toFixed(1),S.over.why);return false;}}
   const F0=FOV,C0=CAMFOV;if(PAD>0){FOV=F0*1.15;CAMFOV=C0*1.15;}const N=COLS*ROWS,walk=[];for(let c=0;c<N;c++)if(!blocked(c%COLS,Math.floor(c/COLS)))walk.push(c);
   const tabC=new Uint8Array(N*NK),tabS=new Uint8Array(N*NK);
   for(let k=0;k<NK;k++)for(const c of walk){const x=c%COLS+.5,y=Math.floor(c/COLS)+.5;let sc=0,ss=0;
     const z=zk(x,y),sn=snap[k];
-    for(const g of sn){const R=(g.cam?CAMR:(g.tower?sn.R*1.4:sn.R)*z)+PAD,CR=(g.cam?CAMR:(g.tower?sn.C*1.4:sn.C)*z)+PAD;if(!ss&&canSee(g,x,y,R))ss=1;if(!sc&&canSee(g,x,y,CR))sc=1;}
+    for(const g of sn){const R=(g.cam?(g.cr||CAMR):(g.tower?sn.R*1.4:sn.R)*z)+PAD,CR=(g.cam?(g.cr||CAMR):(g.tower?sn.C*1.4:sn.C)*z)+PAD;if(!ss&&canSee(g,x,y,R))ss=1;if(!sc&&canSee(g,x,y,CR))sc=1;}
+    if(cellIn(M,'hot',x,y)){sc=1;ss=1;} // 열 통로는 풀이에서 아예 피한다
     if(!sc&&!sn.q&&wetAt(x,y))for(const g of sn)if(!g.cam&&!g.tower&&Math.hypot(g.x-x,g.y-y)<=WETR+0.6){sc=1;ss=1;break;} // 물 칸: 경비가 물소리를 들을 거리면 못 지나간다
     tabC[c*NK+k]=sc;tabS[c*NK+k]=ss||sc;}
   const safe=(tab,c,k0,k1)=>{if(k1>=NK)return false;for(let k=k0;k<=k1;k++)if(tab[c*NK+k])return false;return true;};
-  const mid=(x,y,k0,k1)=>{const z=zk(x,y);for(let k=k0;k<=k1&&k<NK;k++)for(const g of snap[k])if(canSee(g,x,y,(g.cam?CAMR:(g.tower?snap[k].C*1.4:snap[k].C)*z)+PAD))return false;return true;};
+  const mid=(x,y,k0,k1)=>{const z=zk(x,y);for(let k=k0;k<=k1&&k<NK;k++)for(const g of snap[k])if(canSee(g,x,y,(g.cam?(g.cr||CAMR):(g.tower?snap[k].C*1.4:snap[k].C)*z)+PAD))return false;return true;};
   const NL=Math.floor(NK/2),out=[];let Lstart=0,minL=0;
   for(const pl of plans){
     const o=S0=M.ops[pl.op],start=o.y*COLS+o.x;const exits=new Set(M.exit.map(e=>e[1]*COLS+e[0]));
@@ -35,7 +36,8 @@ function solve(mi,plans){ // plans: [{op, obj:bool}]
         if(par[ph][(L+3)*N+n]!==-1)continue;
         if(safe(tab,c,2*L,2*L+(host?7:3))&&safe(tab,n,2*L,2*L+6)&&mid(cx+.5+dx/2,cy+.5+dy/2,2*L,2*L+5))par[ph][(L+3)*N+n]=id;}
     }
-    if(!goal){let reach0=0,gotObj=false;for(let L=0;L<NL;L++){if(par[1][L*N+goalC]!==-1)gotObj=true;}
+    if(!goal){let reach0=0,gotObj=false,objL=-1;for(let L=0;L<NL;L++){if(par[1][L*N+goalC]!==-1){gotObj=true;if(objL<0)objL=L;}}
+      if(gotObj)console.log('   objective first done at t='+(objL*0.25).toFixed(1)+'s (horizon '+(NL*0.25).toFixed(0)+'s)');
       console.log('M'+(mi+1),'op',pl.op,'NO GHOST ROUTE; objective reached:',gotObj);for(let ph=0;ph<2;ph++){const seen=new Set();for(let L=0;L<NL;L++)for(const c of walk)if(par[ph][L*N+c]!==-1)seen.add(c);console.log(' phase',ph);for(let y=0;y<ROWS;y++){let r='';for(let x=0;x<COLS;x++)r+=seen.has(y*COLS+x)?'o':MAP[y][x];console.log('  '+r);}}return false;}
     const steps=[];let [ph,L,c]=goal;while(true){const p=par[ph][L*N+c];if(p===-2)break;const pc=p%N,pL=Math.floor(p/N)%NL,pph=Math.floor(p/N/NL);
       if(pc!==c)steps.unshift({t:pL*0.25,op:pl.op,x:c%COLS,y:Math.floor(c/COLS)});else if(pph!==ph&&!M.hostage)steps.unshift({t:pL*0.25,op:pl.op,sab:true});ph=pph;L=pL;c=pc;}
