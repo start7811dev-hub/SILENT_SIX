@@ -294,6 +294,14 @@ button{font-family:inherit;color:var(--ink);border:0;background:var(--tile);font
 #ovx .cards div u{position:absolute;left:0;right:0;bottom:0;text-decoration:none;font-size:10.5px;padding:14px 6px 5px;background:linear-gradient(rgba(6,8,11,0),rgba(6,8,11,.9));font-family:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
 #ovx .shop{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;background:var(--tile);margin:6px 0;font-family:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;font-size:14px}
 #ovx .shop u{text-decoration:none;font-size:11px;letter-spacing:.14em;color:var(--dim);font-weight:700}
+#op .gate{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 28px calc(40px + env(safe-area-inset-bottom));background:radial-gradient(120% 70% at 0% 62%,rgba(255,59,82,.26),transparent 60%),#06080b;cursor:pointer}
+#op .gate>*{pointer-events:none}
+#op .gate i{font-style:normal;font-size:12px;letter-spacing:.42em;color:var(--c);font-weight:700}
+#op .gate h1{margin:10px 0 18px;font-size:min(92px,24vw);line-height:.86;font-weight:800;letter-spacing:.01em;border:0;padding:0}
+#op .gate h1 span{display:block}#op .gate h1 span+span{color:var(--c)}
+#op .gate p{margin:0;font:500 15px/1.5 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:#c4ccd6}
+#op .gate b{position:absolute;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom));text-align:center;font-size:14px;letter-spacing:.42em;animation:gtb 1.5s ease-in-out infinite}
+@keyframes gtb{50%{opacity:.25}}
 #op .osel{position:absolute;inset:0;display:flex;flex-direction:column;gap:8px;padding:calc(54px + env(safe-area-inset-top)) 16px 20px;background:#06080b;overflow:auto;touch-action:pan-y}
 #op .osel>i{font-style:normal;font-size:11px;letter-spacing:.42em;color:var(--c);font-weight:700}
 #op .osel h2{margin:2px 0 10px;font:800 27px/1.2 "Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;letter-spacing:-.02em}
@@ -795,8 +803,8 @@ Object.keys(STORY).forEach(function(id){
     m.bc=['nokill','noinv','noload'][ci];m.story={id:id,ci:ci};SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.33.0';
-var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true};
+var VERSION='0.33.1';
+var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
 var SB={url:'https://bfbupxsjvdjhjecorpwf.supabase.co',key:'sb_publishable_kEUUk0p9bgnTpoykFKa89w_Lq1KuL4m'},sb=null,USER=null,SBQ=[],SBBUSY=false,SBMSG='';
@@ -1278,6 +1286,7 @@ function settings(){
    '<div class="row"><span>미션 전용 BGM<small>로맨틱 · 코스튬 · 블러디 크리스마스는 그 밤의 곡으로</small></span><button id="sbth"'+(PROG.bth!==false?' class="sel"':'')+'>'+(PROG.bth!==false?'ON':'OFF')+'</button></div>'+
    '<div class="row"><span>다음 곡<small>지금 곡이 귀에 안 붙으면</small></span><button id="sbnx">넘기기</button></div>'+
    '<div class="row"><span>효과음 음량</span><input type="range" id="svol" min="0" max="100" value="'+Math.round(PROG.vol*100)+'"></div>'+
+   (typeof navigator!=='undefined'&&navigator.audioSession?'<div class="row"><span>무음 모드에서도 소리<small>무음 스위치를 켜 둔 채로도 들린다 · 켜면 다른 앱의 음악은 멈춘다</small></span><button id="ssil"'+(PROG.sil!==false?' class="sel"':'')+'>'+(PROG.sil!==false?'ON':'OFF')+'</button></div>':'')+
    '<label>프로필</label><div class="row"><span>호출명<small>랭킹과 홈에 표시</small></span><input type="text" id="snm" maxlength="12" placeholder="HANDLER" value="'+(PROG.name||'').replace(/"/g,'')+'"></div>'+
    '<label>화면</label><div class="row"><span>오프닝 선택<small>'+(PROG.op==='b'?'MISSION VERSION':PROG.op==='a'?'DAY-OFF VERSION':'고르지 않음')+' · 시작할 때 자동 재생</small></span><button id="sop">바꾸기</button></div><div class="row"><span>플레이 TIP</span><button id="stip">열기</button></div>'+
    '<label>기록</label>'+(!sbOn()||ADM?'<div class="row"><span>로맨틱 미션 전체 열기<small>테스트용</small></span><button id="sall"'+(PROG.all?' class="sel"':'')+'>'+(PROG.all?'ON':'OFF')+'</button></div>':'')+'<div class="row"><span>기록 지우기<small>점수 · 배지 · 포인트</small></span><button id="srst">지우기</button></div>'+
@@ -1287,6 +1296,7 @@ function settings(){
     if(d!==undefined){keep();setDiff(+d);settings();}
     else if(t.id==='sbgm'){keep();bgmSet(!bgmOn());settings();}
     else if(t.id==='sbth'){keep();PROG.bth=PROG.bth===false;saveProg();settings();}
+    else if(t.id==='ssil'){keep();PROG.sil=PROG.sil===false;saveProg();sesSet();unlock();settings();}
     else if(t.id==='sbnx'){bgmSkip();setTimeout(function(){var n=$('sbn');if(n)n.textContent=bgmNow();},400);}
     else if(t.id==='sall'){keep();PROG.all=!PROG.all;saveProg();settings();}
     else if(t.id==='sop'){keep();pgHide();opSelect();}
@@ -1296,7 +1306,7 @@ function settings(){
     else if(t.id==='sap'){SBMSG='Apple 로그인은 준비 중이다. 지금은 Google로.';settings();}
     else if(t.id==='sout'){sbLogout();}
     else if(t.id==='srst'){PROG.c={};PROG.s={};PROG.b={};PROG.hb={};PROG.end={};PROG.g={};PROG.n={};PROG.pt=0;SBQ=[];qSave();saveProg();if(sb&&USER)rpc('s6_reset').catch(function(){});say('없던 일이 됐다.');settings();}});
-  $('pg').oninput=function(e){if(e.target.id==='svol'){PROG.vol=e.target.value/100;saveProg();}else if(e.target.id==='sbv'){PROG.bvol=e.target.value/100;saveProg();BGD.forEach(function(d){if(d.id)bgmVol(d);});}};
+  $('pg').oninput=function(e){if(e.target.id==='svol'){PROG.vol=e.target.value/100;saveProg();}else if(e.target.id==='sbv'){PROG.bvol=e.target.value/100;saveProg();bgmVolAll();}};
   $('pg').onchange=function(e){if(e.target.id==='svol')snd('ok');};
 }
 function tipsPage(back){
@@ -1647,21 +1657,32 @@ function makeGhosts(){
 }
 /* ---------- 소리 ---------- */
 var AC=null;
-function unlock(){try{var A=window.AudioContext||window.webkitAudioContext;if(!AC&&A)AC=new A();if(AC&&AC.state==='suspended')AC.resume();}catch(e){}try{bgmBless();}catch(e){}}
+/* 아이폰은 Web Audio를 '주변음'으로 취급해 무음 스위치에 묻힌다. audioSession을 playback으로 두면 무음에서도 난다(설정에서 끌 수 있다). */
+function sesSet(){try{if(typeof navigator!=='undefined'&&navigator.audioSession)navigator.audioSession.type=PROG.sil===false?'auto':'playback';}catch(e){}}
+function acInit(){try{var A=typeof window!=='undefined'&&(window.AudioContext||window.webkitAudioContext);if(!AC&&A){sesSet();AC=new A();}}catch(e){}return AC;}
+function unlock(){
+  try{
+    acInit();if(!AC)return;
+    if(AC.state!=='running'&&AC.resume)AC.resume();
+    if(!unlock.k){var b=AC.createBuffer(1,1,22050),o=AC.createBufferSource();o.buffer=b;o.connect(AC.destination);o.start(0);unlock.k=1;}
+  }catch(e){}
+}
 function snd(t){try{if(!AC)return;var f={shot:[150,0.2,'square',0.22],sup:[340,0.09,'triangle',0.14],hit:[95,0.16,'sine',0.3],alert:[620,0.45,'sawtooth',0.14],ok:[540,0.12,'sine',0.12],boom:[70,0.5,'sawtooth',0.3]}[t],o=AC.createOscillator(),g=AC.createGain(),n=AC.currentTime;
   o.connect(g);g.connect(AC.destination);o.type=f[2];o.frequency.setValueAtTime(f[0],n);o.frequency.exponentialRampToValueAtTime(Math.max(30,f[0]/3),n+f[1]);g.gain.setValueAtTime((f[3]*PROG.vol),n);g.gain.exponentialRampToValueAtTime(0.001,n+f[1]);o.start(n);o.stop(n+f[1]);}catch(e){}}
 
 /* ---------- BGM ----------
    풀(pool)별 랜덤 재생. 음원은 public/bgm/<id>.mp3. 한 풀을 다 돌 때까지 같은 곡이 다시 나오지 않는다.
-   base: 홈 · 메뉴 · 스토리 미션 / rom: 로맨틱 / cos: 코스튬 / xmas: 블러디 크리스마스.
+   base: 홈 · 메뉴 · 오프닝 · 스토리 미션 / rom: 로맨틱 / cos: 코스튬 / xmas: 블러디 크리스마스.
    없는 파일은 건너뛴다. 전용 풀이 통째로 없으면 base로, base도 없으면 조용히 쉰다.
-   덱 2개를 번갈아 쓰며 곡 끝 2.5초를 겹쳐 넘긴다. 덱은 첫 터치 안에서 한 번 깨워 둔다(iOS). */
+   <audio> 요소를 쓰지 않는다: 파일을 받아 풀어서 Web Audio 버퍼로 튼다. 아이폰에서 <audio>는 시스템 재생기(다이내믹 아일랜드 · 잠금 화면)에
+   올라가고, Web Audio에 물리면 소리가 안 나는 버그가 있다. 곡 끝 2.5초를 다음 곡과 겹쳐 넘기고, 다음 곡은 끝나기 25초 전에 미리 받아 둔다.
+   세션의 첫 곡은 메인 테마(base_1)다. 시작할 때 미리 받아 두어 첫 터치와 함께 오프닝부터 나온다. */
 var BGM={base:[['base_1','NO RECORD'],['base_2','NIGHT WATCH'],['base_3','SIX SHADOWS'],['base_4','GHOST SIGNAL'],['base_5','EXFIL']],
  rom:[['rom_1','AFTER HOURS'],['rom_2','OFF THE RECORD'],['rom_3','THAT NIGHT']],
  cos:[['cos_1','DRESS CODE'],['cos_2','SHOWTIME'],['cos_3','HOUSE EDGE']],
  xmas:[['xmas_1','BLOODY CHRISTMAS'],['xmas_2','RED COAT'],['xmas_3','LAST DELIVERY']]};
-var BGN={base:'SILENT SIX',rom:'ROMANTIC',cos:'COSTUME',xmas:'BLOODY CHRISTMAS'},BGXF=2.5,BGD=[],BGSIL='data:audio/wav;base64,UklGRrQBAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YZABAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA';
-var BGS={cur:null,want:'',wt:0,dead:{},bag:{},last:{},mm:false,hid:false};
+var BGN={base:'SILENT SIX',rom:'ROMANTIC',cos:'COSTUME',xmas:'BLOODY CHRISTMAS'},BGXF=2.5;
+var BGS={cur:null,old:[],nx:null,want:'',wt:0,dead:{},bag:{},last:{},mm:false,hid:false,sk:false,first:false,cool:0};
 function bgmOn(){return PROG.bgm!==false;}
 function bgmAlive(k){var p=BGM[k]||[],i;for(i=0;i<p.length;i++)if(!BGS.dead[p[i][0]])return true;return false;}
 function bgmWant(){var k='base';if(PROG.bth!==false&&(started||BGS.mm)&&M)k=M.winter?'xmas':M.costume?'cos':M.story?'rom':'base';return bgmAlive(k)?k:'base';}
@@ -1669,57 +1690,60 @@ function bgmPick(k){
   var b=(BGS.bag[k]||[]).filter(function(n){return !BGS.dead[BGM[k][n][0]];}),i,j,t;
   if(!b.length){BGM[k].forEach(function(x,n){if(!BGS.dead[x[0]])b.push(n);});for(i=b.length-1;i>0;i--){j=fl(Math.random()*(i+1));t=b[i];b[i]=b[j];b[j]=t;}
     if(b.length>1&&b[b.length-1]===BGS.last[k]){t=b[0];b[0]=b[b.length-1];b[b.length-1]=t;}}
+  if(k==='base'&&!BGS.first){BGS.first=true;j=b.indexOf(0);if(j>=0){b.splice(j,1);b.push(0);}}
   BGS.bag[k]=b;if(!b.length)return -1;i=b.pop();BGS.last[k]=i;return i;
 }
-function bgmVol(d){var v=Math.max(0,Math.min(1,d.v))*(PROG.bvol==null?0.6:+PROG.bvol);try{if(d.g)d.g.gain.value=v;else d.el.volume=v;}catch(e){}}
-function bgmHalt(d){try{d.el.pause();}catch(e){}d.id='';d.v=0;bgmVol(d);}
-function bgmBless(){
-  if(typeof Audio==='undefined')return;
-  if(!BGD.length)[0,1].forEach(function(){
-    var el=new Audio(),d={el:el,g:null,v:0,fo:BGXF,ok:false,busy:false,id:'',n:'',k:''};el.preload='auto';
-    try{if(AC){var s=AC.createMediaElementSource(el);d.g=AC.createGain();d.g.gain.value=0;s.connect(d.g);d.g.connect(AC.destination);}}catch(e){d.g=null;}
-    el.onended=function(){if(d.id){bgmHalt(d);if(BGS.cur===d)BGS.cur=null;}};
-    el.onerror=function(){if(d.id){BGS.dead[d.id]=1;bgmHalt(d);if(BGS.cur===d)BGS.cur=null;}};
-    BGD.push(d);
-  });
-  BGD.forEach(function(d){
-    if(d.ok||d.busy||d.id)return;d.busy=true;var p;
-    try{d.el.src=BGSIL;p=d.el.play();}catch(e){d.busy=false;return;}
-    if(p&&p.then)p.then(function(){d.ok=true;d.busy=false;},function(){d.busy=false;});else{d.ok=true;d.busy=false;}
-  });
+function bgmVol(v){try{v.g.gain.value=Math.max(0,Math.min(1,v.v))*(PROG.bvol==null?0.6:+PROG.bvol);}catch(e){}}
+function bgmVolAll(){if(BGS.cur)bgmVol(BGS.cur);BGS.old.forEach(bgmVol);}
+function bgmKill(v){try{v.src.onended=null;v.src.stop(0);}catch(e){}try{v.src.disconnect();v.g.disconnect();}catch(e){}var i=BGS.old.indexOf(v);if(i>=0)BGS.old.splice(i,1);if(BGS.cur===v)BGS.cur=null;}
+function bgmDrop(){var n=BGS.nx;if(n){if(BGS.bag[n.k])BGS.bag[n.k].push(n.i);BGS.nx=null;}}
+/* 풀 k의 다음 곡을 골라 받아 둔다. 받는 중이면 그대로 둔다. */
+function bgmPre(k){
+  var n=BGS.nx;if(n&&n.k===k)return;if(n)bgmDrop();
+  if(!AC||typeof fetch==='undefined'||BGS.cool>0)return;
+  var i=bgmPick(k);if(i<0)return;
+  n=BGS.nx={k:k,i:i,id:BGM[k][i][0],buf:null};
+  var dead=function(){BGS.dead[n.id]=1;if(BGS.nx===n)BGS.nx=null;},later=function(){BGS.cool=5;if(BGS.nx===n)bgmDrop();};
+  try{
+    fetch('bgm/'+n.id+'.mp3').then(function(r){
+      if(!r.ok){dead();return null;}
+      return r.arrayBuffer().then(function(ab){return new Promise(function(ok,no){var p=AC.decodeAudioData(ab,ok,no);if(p&&p.then)p.then(ok,no);});})
+       .then(function(buf){if(BGS.nx===n)n.buf=buf;},dead);
+    },later);
+  }catch(e){later();}
 }
-function bgmStart(k){
-  var d=null,c=BGS.cur,i;for(i=0;i<BGD.length;i++)if(BGD[i].ok&&!BGD[i].busy&&BGD[i]!==c){d=BGD[i];break;}
-  if(!d)return;i=bgmPick(k);if(i<0)return;
-  var x=BGM[k][i];if(c)c.fo=BGXF;bgmHalt(d);
-  d.id=x[0];d.n=x[1];d.k=k;d.v=0;bgmVol(d);BGS.cur=d;
-  var p;try{d.el.src='bgm/'+x[0]+'.mp3';p=d.el.play();}catch(e){}
-  if(p&&p.then)p.then(null,function(e){
-    if(d.id!==x[0])return;var nm=e&&e.name;if(nm==='AbortError')return;
-    if(nm==='NotAllowedError'){d.ok=false;BGS.bag[k].push(i);}else BGS.dead[x[0]]=1;
-    bgmHalt(d);if(BGS.cur===d)BGS.cur=null;
-  });
+function bgmPlay(n){
+  var c=BGS.cur,s=AC.createBufferSource(),g=AC.createGain(),v={id:n.id,n:BGM[n.k][n.i][1],k:n.k,src:s,g:g,v:0,fi:c?1.8:0.7,fo:BGXF,t0:AC.currentTime,dur:n.buf.duration};
+  s.buffer=n.buf;g.gain.value=0;s.connect(g);g.connect(AC.destination);
+  s.onended=function(){bgmKill(v);};
+  if(c){c.fo=BGXF;BGS.old.push(c);}
+  BGS.cur=v;BGS.nx=null;BGS.sk=false;
+  try{s.start(0);}catch(e){bgmKill(v);}
 }
 function bgmTick(dt){
-  if(!BGD.length||BGS.hid)return;
-  var c=BGS.cur,on=bgmOn(),i,d;
-  for(i=0;i<BGD.length;i++){d=BGD[i];if(!d.id)continue;
-    if(d===c&&on){if(d.v<1){d.v=Math.min(1,d.v+dt/1.8);bgmVol(d);}}
-    else{d.v-=dt/(d.fo||BGXF);if(d.v<=0){if(d===c)BGS.cur=c=null;bgmHalt(d);}else bgmVol(d);}}
-  if(!on)return;
+  if(!AC||BGS.hid)return;
+  var c=BGS.cur,on=bgmOn(),i,o;
+  if(BGS.cool>0)BGS.cool-=dt;
+  if(c&&!on){c.fo=0.5;BGS.old.push(c);BGS.cur=c=null;}
+  if(c&&c.v<1){c.v=Math.min(1,c.v+dt/c.fi);bgmVol(c);}
+  for(i=BGS.old.length-1;i>=0;i--){o=BGS.old[i];o.v-=dt/(o.fo||BGXF);if(o.v<=0)bgmKill(o);else bgmVol(o);}
+  if(!on){if(BGS.nx)bgmDrop();return;}
   var w=bgmWant();if(w!==BGS.want){BGS.want=w;BGS.wt=0;}else BGS.wt+=dt;
   if(!bgmAlive(w))return;
-  if(!c){bgmStart(w);return;}
-  if(c.k!==w){if(BGS.wt>0.7)bgmStart(w);return;}
-  var du=c.el.duration;if(du&&isFinite(du)&&du>BGXF*4&&c.el.currentTime>du-BGXF)bgmStart(w);
+  var go=false;
+  if(!c)go=true;
+  else if(c.k!==w)go=BGS.wt>0.7;
+  else{var left=c.dur-(AC.currentTime-c.t0);if(left<25||BGS.sk)bgmPre(w);go=BGS.sk||left<BGXF;}
+  if(!go)return;
+  bgmPre(w);
+  if(BGS.nx&&BGS.nx.k===w&&BGS.nx.buf&&AC.state==='running')bgmPlay(BGS.nx);
 }
-function bgmSet(on){PROG.bgm=!!on;saveProg();if(!on&&BGS.cur)BGS.cur.fo=0.5;}
-function bgmSkip(){if(BGS.cur&&bgmOn())bgmStart(BGS.cur.k);}
-function bgmNow(){var c=BGS.cur;return !bgmOn()?'꺼져 있다':c&&c.id?BGN[c.k]+' · '+c.n:bgmAlive('base')?'첫 터치를 기다린다':'음원이 아직 없다';}
+function bgmSet(on){PROG.bgm=!!on;saveProg();}
+function bgmSkip(){if(BGS.cur&&bgmOn())BGS.sk=true;}
+function bgmNow(){var c=BGS.cur;return !bgmOn()?'꺼져 있다':c?BGN[c.k]+' · '+c.n:!bgmAlive('base')?'음원이 아직 없다':AC&&AC.state==='running'?'불러오는 중':'첫 터치를 기다린다';}
 if(typeof document!=='undefined'&&document.addEventListener)document.addEventListener('visibilitychange',function(){
   BGS.hid=!!document.hidden;
-  BGD.forEach(function(d){if(!d.id)return;try{if(BGS.hid)d.el.pause();else{var p=d.el.play();if(p&&p.then)p.then(null,function(){});}}catch(e){}});
-  if(!BGS.hid)try{if(AC&&AC.state==='suspended')AC.resume();}catch(e){}
+  try{if(AC){if(BGS.hid){if(AC.suspend)AC.suspend();}else if(AC.state!=='running'&&AC.resume)AC.resume();}}catch(e){}
 });
 
 /* ---------- 화면 (쿼터뷰) ---------- */
@@ -2098,6 +2122,14 @@ function opSelect(){
    '<button class="ot lk" data-o="x"><b>LOCKED</b><u>미션을 클리어하면 오프닝이 추가된다</u></button>'+
    '<p>고른 오프닝은 다음부터 바로 재생돼. 설정에서 언제든 바꿀 수 있어.</p></div><button class="sk" id="opsk">건너뛰기</button>';
 }
+/* 브라우저는 첫 터치 전에 소리를 못 낸다. 오프닝이 자동 재생되는 날에는 이 화면에서 한 번 누르게 해 오프닝 첫 컷부터 BGM이 나오게 한다. */
+function opGateNeed(){return typeof window!=='undefined'&&!!(window.AudioContext||window.webkitAudioContext)&&(!AC||AC.state!=='running')&&(bgmOn()||PROG.vol>0);}
+function opGate(v){
+  started=false;setPre(true);hideOv();hmHide();$('sc').className='hide';OPCIN=true;OPG=v;
+  var el=$('op');el.className='';
+  el.innerHTML='<div class="gate" id="opgt"><i>TACTICAL STEALTH</i><h1><span>SILENT</span><span>SIX</span></h1><p>소리를 켜 둬. 이 밤은 귀로도 읽어야 해.</p><b>TOUCH TO START</b></div>';
+}
+var OPG='';
 function opTitle(){OPCIN=false;opi=OPS.length-1;opShow();}
 function opening(v){
   started=false;setPre(true);hideOv();$('sc').className='hide';
@@ -2148,7 +2180,7 @@ $('ms').addEventListener('click',function(e){
   else{msHide();if(M.story)storyAgent(M.story.id);else if(M.winter)winter();else menu();}
 });
 $('tip').addEventListener('click',function(e){e.stopPropagation();if(!started||S.over)return;TIPON=true;setPre(true);tips();});
-$('op').addEventListener('click',function(e){var id=e.target&&e.target.id,oo=e.target&&e.target.dataset&&e.target.dataset.o;if(oo){if(oo!=='x'){PROG.op=oo;saveProg();opening(oo);}return;}if(id==='opsk'||id==='opgo')opEnd();else if(!OPCIN&&!OPS[opi].title)opNext();});
+$('op').addEventListener('click',function(e){var id=e.target&&e.target.id,oo=e.target&&e.target.dataset&&e.target.dataset.o;if(oo){if(oo!=='x'){PROG.op=oo;saveProg();opening(oo);}return;}if(id==='opgt'){unlock();opening(OPG);}else if(id==='opsk'||id==='opgo')opEnd();else if(!OPCIN&&!OPS[opi].title)opNext();});
 var ROI='raven',ROK=0,FIT=['OFF-DUTY · 사복','TRAINING · 도발','AGENT UNIFORM · 액션','SPECIAL MISSION · 전투'];
 function roster(){hideOv();$('ro').className='';roShow(ROI);}
 var GCOST=[25,25,15,15,10,10,10,10],GALL=75,ROMSG='';
@@ -2352,7 +2384,8 @@ function frame(t){
 try{var sd=+localStorage.getItem('s6diff');if(localStorage.getItem('s6diff')!==null&&sd>=0&&sd<4)setDiff(sd);}catch(e){}
 $('ovi').addEventListener('click',function(){var f=this.getAttribute('src');if(f)viewer(f,true);});
 $('vw').addEventListener('click',function(e){var t=e.target;if(t.id==='vwd'){vwSave();return;}if(t.id==='vwx')$('vw').className='hide';});
-loadMission(0);S=newState();resize();try{if(PROG.op==='a'||PROG.op==='b')opening(PROG.op);else opSelect();}catch(e){opening();}
+loadMission(0);S=newState();resize();try{acInit();if(AC&&bgmOn())bgmPre('base');}catch(e){}
+try{if(PROG.op==='a'||PROG.op==='b'){if(opGateNeed())opGate(PROG.op);else opening(PROG.op);}else opSelect();}catch(e){opening();}
 try{kvProbe();rwProbe();}catch(e){}
 try{sbInit();}catch(e){}
 requestAnimationFrame(frame);
