@@ -815,7 +815,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.34.0';
+var VERSION='0.34.1';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1694,25 +1694,31 @@ function snd(t){try{if(!AC)return;var f={shot:[150,0.2,'square',0.22],sup:[340,0
 
 /* ---------- BGM ----------
    풀(pool)별 랜덤 재생. 음원은 public/bgm/<id>.mp3. 한 풀을 다 돌 때까지 같은 곡이 다시 나오지 않는다.
-   base: 홈 · 메뉴 · 오프닝 · 스토리 미션 / rom: 로맨틱 / cos: 코스튬 / xmas: 블러디 크리스마스.
+   home: 홈 · 메뉴 · 오프닝 / base: 스토리 미션(미션 공용) / rom: 로맨틱 / cos: 코스튬 / xmas: 블러디 크리스마스.
+   홈의 곡과 미션의 곡은 겹치지 않는다. 미션 카드에 들어가면 미션 곡으로, 메뉴로 나오면 홈 곡으로 겹쳐 넘어간다.
    없는 파일은 건너뛴다. 전용 풀이 통째로 없으면 base로, base도 없으면 조용히 쉰다.
    <audio> 요소를 쓰지 않는다: 파일을 받아 풀어서 Web Audio 버퍼로 튼다. 아이폰에서 <audio>는 시스템 재생기(다이내믹 아일랜드 · 잠금 화면)에
    올라가고, Web Audio에 물리면 소리가 안 나는 버그가 있다. 곡 끝 2.5초를 다음 곡과 겹쳐 넘기고, 다음 곡은 끝나기 25초 전에 미리 받아 둔다.
    세션의 첫 곡은 메인 테마(base_1)다. 시작할 때 미리 받아 두어 첫 터치와 함께 오프닝부터 나온다. */
-var BGM={base:[['base_1','NO RECORD'],['base_2','NIGHT WATCH'],['base_3','SIX SHADOWS'],['base_4','GHOST SIGNAL'],['base_5','EXFIL']],
+var BGM={home:[['base_1','NO RECORD'],['base_3','SIX SHADOWS']],
+ base:[['base_2','NIGHT WATCH'],['base_4','GHOST SIGNAL'],['base_5','EXFIL']],
  rom:[['rom_1','AFTER HOURS'],['rom_2','OFF THE RECORD'],['rom_3','THAT NIGHT']],
  cos:[['cos_1','DRESS CODE'],['cos_2','SHOWTIME'],['cos_3','HOUSE EDGE']],
  xmas:[['xmas_1','BLOODY CHRISTMAS'],['xmas_2','RED COAT'],['xmas_3','LAST DELIVERY']]};
-var BGN={base:'SILENT SIX',rom:'ROMANTIC',cos:'COSTUME',xmas:'BLOODY CHRISTMAS'},BGXF=2.5;
+var BGN={home:'SILENT SIX',base:'MISSION',rom:'ROMANTIC',cos:'COSTUME',xmas:'BLOODY CHRISTMAS'},BGXF=2.5;
 var BGS={cur:null,old:[],nx:null,want:'',wt:0,dead:{},bag:{},last:{},mm:false,hid:false,sk:false,first:false,cool:0};
 function bgmOn(){return PROG.bgm!==false;}
 function bgmAlive(k){var p=BGM[k]||[],i;for(i=0;i<p.length;i++)if(!BGS.dead[p[i][0]])return true;return false;}
-function bgmWant(){var k='base';if(PROG.bth!==false&&(started||BGS.mm)&&M)k=M.winter?'xmas':M.costume?'cos':M.story?'rom':'base';return bgmAlive(k)?k:'base';}
+function bgmWant(){
+  var m=(started||BGS.mm)&&M,k=!m?'home':PROG.bth===false?'base':M.winter?'xmas':M.costume?'cos':M.story?'rom':'base';
+  if(!bgmAlive(k))k=m&&bgmAlive('base')?'base':bgmAlive('home')?'home':'base';   // 전용 곡이 없으면 미션 공용, 그것도 없으면 홈 곡
+  return k;
+}
 function bgmPick(k){
   var b=(BGS.bag[k]||[]).filter(function(n){return !BGS.dead[BGM[k][n][0]];}),i,j,t;
   if(!b.length){BGM[k].forEach(function(x,n){if(!BGS.dead[x[0]])b.push(n);});for(i=b.length-1;i>0;i--){j=fl(Math.random()*(i+1));t=b[i];b[i]=b[j];b[j]=t;}
     if(b.length>1&&b[b.length-1]===BGS.last[k]){t=b[0];b[0]=b[b.length-1];b[b.length-1]=t;}}
-  if(k==='base'&&!BGS.first){BGS.first=true;j=b.indexOf(0);if(j>=0){b.splice(j,1);b.push(0);}}
+  if(k==='home'&&!BGS.first){BGS.first=true;j=b.indexOf(0);if(j>=0){b.splice(j,1);b.push(0);}}
   BGS.bag[k]=b;if(!b.length)return -1;i=b.pop();BGS.last[k]=i;return i;
 }
 function bgmVol(v){try{v.g.gain.value=Math.max(0,Math.min(1,v.v))*(PROG.bvol==null?0.6:+PROG.bvol);}catch(e){}}
@@ -1762,7 +1768,7 @@ function bgmTick(dt){
 }
 function bgmSet(on){PROG.bgm=!!on;saveProg();}
 function bgmSkip(){if(BGS.cur&&bgmOn())BGS.sk=true;}
-function bgmNow(){var c=BGS.cur;return !bgmOn()?'꺼져 있다':c?BGN[c.k]+' · '+c.n:!bgmAlive('base')?'음원이 아직 없다':AC&&AC.state==='running'?'불러오는 중':'첫 터치를 기다린다';}
+function bgmNow(){var c=BGS.cur;return !bgmOn()?'꺼져 있다':c?BGN[c.k]+' · '+c.n:!bgmAlive('home')&&!bgmAlive('base')?'음원이 아직 없다':AC&&AC.state==='running'?'불러오는 중':'첫 터치를 기다린다';}
 if(typeof document!=='undefined'&&document.addEventListener)document.addEventListener('visibilitychange',function(){
   BGS.hid=!!document.hidden;
   try{if(AC){if(BGS.hid){if(AC.suspend)AC.suspend();}else if(AC.state!=='running'&&AC.resume)AC.resume();}}catch(e){}
@@ -2406,7 +2412,7 @@ function frame(t){
 try{var sd=+localStorage.getItem('s6diff');if(localStorage.getItem('s6diff')!==null&&sd>=0&&sd<4)setDiff(sd);}catch(e){}
 $('ovi').addEventListener('click',function(){var f=this.getAttribute('src');if(f)viewer(f,true);});
 $('vw').addEventListener('click',function(e){var t=e.target;if(t.id==='vwd'){vwSave();return;}if(t.id==='vwx')$('vw').className='hide';});
-loadMission(0);S=newState();resize();try{acInit();if(AC&&bgmOn())bgmPre('base');}catch(e){}
+loadMission(0);S=newState();resize();try{acInit();if(AC&&bgmOn())bgmPre('home');}catch(e){}
 try{if(PROG.op==='a'||PROG.op==='b'){if(opGateNeed())opGate(PROG.op);else opening(PROG.op);}else opSelect();}catch(e){opening();}
 try{kvProbe();rwProbe();}catch(e){}
 try{sbInit();}catch(e){}
