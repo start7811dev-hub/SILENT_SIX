@@ -311,7 +311,7 @@ var css=document.createElement('style');css.textContent=[
 '.ic{display:inline-block;vertical-align:-3px;flex:none}',
 '.stg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 12px}',
 '.stc{background:#11171e;border:1px solid rgba(255,255,255,.07);clip-path:var(--cut);display:flex;flex-direction:column;min-width:0}',
-'.sti{aspect-ratio:4/3;background:#0d1218 center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:var(--c);background-blend-mode:normal}',
+'.sti{aspect-ratio:4/3;background:#0b0c10 center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:var(--c);background-blend-mode:normal}',
 '.sti img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.sti span{display:none}.sti.noimg img{display:none}.sti.noimg span{display:flex}',
 '.sti span{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(255,59,82,.22),rgba(255,59,82,0) 70%);box-shadow:0 0 0 1px rgba(255,59,82,.35) inset}',
 '.stb{padding:10px 10px 12px;display:flex;flex-direction:column;gap:4px;flex:1}',
