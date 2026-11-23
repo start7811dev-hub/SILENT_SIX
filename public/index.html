@@ -545,6 +545,15 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #vwx{top:calc(14px + env(safe-area-inset-top))}
 #vwd{bottom:calc(18px + env(safe-area-inset-bottom));background:var(--c)!important;color:#06080b!important}
 #vw u{position:absolute;left:0;right:0;bottom:calc(30px + env(safe-area-inset-bottom));text-align:center;text-decoration:none;font-size:12px;letter-spacing:.08em;color:#dfe6ee;pointer-events:none}
+#vw.hasT{align-items:flex-start}
+#vw.hasT #vwi{height:calc(100% - 92px - env(safe-area-inset-bottom))}
+#vw.hasT #vwd{bottom:calc(104px + env(safe-area-inset-bottom))}
+#vw.hasT u{bottom:calc(112px + env(safe-area-inset-bottom))}
+#vwn{position:absolute;left:calc(16px + env(safe-area-inset-left));top:calc(26px + env(safe-area-inset-top));font-size:12px;letter-spacing:.14em;color:#dfe6ee;text-decoration:none;pointer-events:none;text-shadow:0 1px 4px #000}
+#vwt{position:absolute;left:0;right:0;bottom:0;display:flex;gap:6px;overflow-x:auto;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#000;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+#vwt::-webkit-scrollbar{display:none}
+#vwt img{flex:0 0 auto;width:48px;height:72px;object-fit:cover;border-radius:6px;opacity:.45;border:1.5px solid transparent;cursor:pointer;transition:opacity .2s,border-color .2s}
+#vwt img.on{opacity:1;border-color:var(--c)}
 #roc img{cursor:zoom-in}
 /* 홈 HUD: 한 줄. 왼쪽은 호출명(또는 LOGIN), 오른쪽은 같은 칩(.hk) — 배지 · 포인트 · 난이도 · BGM · TIP. 높이 30px, 글자 12px, 오른쪽 아래 6px 컷.
    컷은 배경으로 그린다(clip-path를 쓰면 :after로 넓힌 터치 영역까지 잘린다). */
@@ -683,7 +692,7 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 <div id="pg" class="hide"></div>
 <div id="nv" class="hn hide"></div>
 <div id="snow" class="hide"></div>
-<div id="vw" class="hide"><img id="vwi" alt=""><u id="vwm"></u><button id="vwx" aria-label="닫기"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button id="vwd" aria-label="앨범에 저장"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></svg></button></div>
+<div id="vw" class="hide"><img id="vwi" alt=""><u id="vwm"></u><i id="vwn"></i><div id="vwt"></div><button id="vwx" aria-label="닫기"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button><button id="vwd" aria-label="앨범에 저장"><svg viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 19h14"/></svg></button></div>
 <div id="ro" class="hide"><div id="rot"></div><div id="row"><div id="roc"></div><button id="rop">‹</button><button id="ron2">›</button></div>
  <div id="rob"><div id="rol"></div><div id="rodots"></div><div id="ron"></div><div id="rog"></div><div id="rod"></div><button id="rox">돌아가기</button></div></div>
 <script>
@@ -822,7 +831,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.38.1';
+var VERSION='0.39.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1105,7 +1114,10 @@ function page(t,sub,html,back,acts,h){
 function pgHide(){$('pg').className='hide';$('pg').innerHTML='';}
 function cd(k,img,label,sub,o){o=o||{};if(!o.kv&&!o.lock&&lk(img)){o.lock=1;if(!o.tag)o.tag='LOCKED';}return '<button class="cd'+(o.w?' w':'')+(o.s?' s':'')+(o.lock?' lock':'')+(o.cold?' cold':'')+'" data-k="'+k+'"'+(o.view&&!o.lock?' data-view="'+img+'"':'')+'><span class="bg'+(img?'':' none')+'" style="'+(img?bgs(img):'')+'"></span>'+(o.no?'<span class="no">'+o.no+'</span>':'')+(o.tag?'<em'+(o.on?' class="on"':'')+'>'+o.tag+'</em>':'')+'<i>'+(o.eye||'')+'</i><b>'+label+'</b>'+(sub?'<u>'+sub+'</u>':'')+(o.x||'')+'</button>';}
 var VWF='';
-function viewer(f,ok){if(!f||(!ok&&lk(f)))return;VWF=f;$('vwi').src=f;$('vwm').textContent='';$('vw').className='';}
+var VWL=[],VWI=0;
+function viewer(f,ok,L){if(!f||(!ok&&lk(f)))return;VWL=(L&&L.length)?L.slice():[f];VWI=VWL.indexOf(f);if(VWI<0){VWL.unshift(f);VWI=0;}var h='';VWL.forEach(function(x,i){h+='<img src="'+x+'" data-vi="'+i+'" loading="lazy" alt="">';});$('vwt').innerHTML=h;$('vw').className='hasT';vwGo(VWI);}
+function vwGo(i){if(i<0||i>=VWL.length)return;VWI=i;VWF=VWL[i];$('vwi').src=VWF;$('vwm').textContent='';$('vwn').textContent=VWL.length>1?(i+1)+' / '+VWL.length:'';var ts=$('vwt').children;for(var k=0;k<ts.length;k++)ts[k].className=k===i?'on':'';var c=ts[i];if(c)try{c.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});}catch(e){}}
+function vwSib(t){var p=t.parentNode;for(var d=0;d<3&&p&&p.querySelectorAll;d++){var q=p.querySelectorAll('[data-view]');if(q.length>1){var L=[];for(var k=0;k<q.length;k++)L.push(q[k].dataset.view);return L;}p=p.parentNode;}return null;}
 function vwSave(){
   var f=VWF,name='SILENT_SIX_'+f.replace(/^.*\//,''),done=function(t){$('vwm').textContent=t;setTimeout(function(){if($('vwm'))$('vwm').textContent='';},2600);};
   var dl=function(u){var a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();done('저장했다.');};
@@ -1169,7 +1181,10 @@ function season3(){
 }
 function storyMenu(){
   var ids=Object.keys(STORY);
-  page('로맨틱 미션','ROMANTIC MISSION',intro('Silent Six Romantic','Romantic Mission','임무가 끝난 뒤, 요원 한 사람과 마주하는 이야기입니다.<br>요원마다 TAKE 1 · 2 · 3으로 이어집니다.','* 한 요원의 TAKE 1 · 2 · 3을 모두 HARD 이상으로 클리어하면 그 요원의 그래픽 노블 「그날 밤」이 열립니다. 다시 읽기와 주요 장면은 블랙박스 &gt; 로맨틱 그래픽 노블에 담깁니다.')+'<div class="cg">'+ids.map(function(id,k){var n=nTakes(id);return cd(k,'kr_'+id+'_0.jpg',OPD[id].n,'TAKE '+n+' / 3 · HARD↑ '+nHard(id)+' / 3'+(gnHas(id)?' · 그날 밤 ♥':''),{kv:1,w:1,eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>',home,ids.map(function(id){return function(){storyAgent(id);};}));
+  var h='<div class="chips">'+SEASONS.map(function(x,i){return '<button data-ss="'+i+'" class="'+(i===SCP.s?'sel':'')+(i?' off':'')+'"><i>'+x.k+'</i>'+x.n+'</button>';}).join('')+'</div>',A=[];
+  if(SCP.s===0){h+=intro('Silent Six Romantic','Romantic Mission','임무가 끝난 뒤, 요원 한 사람과 마주하는 이야기입니다.<br>요원마다 TAKE 1 · 2 · 3으로 이어집니다.','* 한 요원의 TAKE 1 · 2 · 3을 모두 HARD 이상으로 클리어하면 그 요원의 그래픽 노블 「그날 밤」이 열립니다. 다시 읽기와 주요 장면은 블랙박스 &gt; 로맨틱 그래픽 노블에 담깁니다.')+'<div class="cg">'+ids.map(function(id,k){var n=nTakes(id);return cd(k,'kr_'+id+'_0.jpg',OPD[id].n,'TAKE '+n+' / 3 · HARD↑ '+nHard(id)+' / 3'+(gnHas(id)?' · 그날 밤 ♥':''),{kv:1,w:1,eye:OPD[id].role,tag:n===3?'CLEAR':'',on:1});}).join('')+'</div>';A=ids.map(function(id){return function(){storyAgent(id);};});}
+  else h+=scEmpty(SEASONS[SCP.s].k+' · '+SEASONS[SCP.s].n+'<br>스토리 미션 '+SEASONS[SCP.s].k+'를 클리어하면 이 시즌의 로맨틱 미션이 열립니다.');
+  page('로맨틱 미션','ROMANTIC MISSION',h,home,A,function(e){scTap(e,storyMenu);});
 }
 function storyAgent(id){
   var L=[],A=[];nProbe(id);
@@ -1210,8 +1225,8 @@ function agents(){
 }
 function agentHub(id){
   var o=OPD[id],so=storyOpen();
-  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="'+bgs(gBest(id))+'"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p>'+agentSpec(id)+'<label>FILE — 더 보기</label><div class="cg c3">'+cd(0,'a_'+id+'_0.jpg','갤러리','열림 '+gCount(id)+' / 8',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','로맨틱 미션',so?'TAKE 1 · 2 · 3':'에피소드 1 클리어 시',{eye:'ROMANTIC',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',function(){$('pg').style.removeProperty('--c');agents();},
-   [function(){$('pg').style.removeProperty('--c');RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so){$('pg').style.removeProperty('--c');storyAgent(id);}},function(){$('pg').style.removeProperty('--c');info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 단둘이 주고받는 대화. <em class="k">성인 인증과 결제</em>를 마친 사람에게만 열려. 준비 중.</p>',function(){agentHub(id);});}]);
+  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="'+bgs(gBest(id))+'"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p>'+agentSpec(id)+'<label>FILE — 더 보기</label><div class="cg c3">'+cd(0,'a_'+id+'_0.jpg','갤러리','열림 '+gCount(id)+' / 8',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','로맨틱 미션',so?'TAKE 1 · 2 · 3':'스토리 시즌 1 클리어 후 오픈',{eye:'ROMANTIC',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',function(){$('pg').style.removeProperty('--c');agents();},
+   [function(){$('pg').style.removeProperty('--c');RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so){$('pg').style.removeProperty('--c');storyAgent(id);}else toast('스토리 미션 시즌 1을 클리어하면 열립니다.');},function(){$('pg').style.removeProperty('--c');info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 단둘이 주고받는 대화. <em class="k">성인 인증과 결제</em>를 마친 사람에게만 열려. 준비 중.</p>',function(){agentHub(id);});}]);
   $('pg').style.setProperty('--c',o.col);
 }
 
@@ -2223,7 +2238,7 @@ $('hm').addEventListener('click',function(e){
   if(!t||t===this)return;var h=t.dataset.h;
   if(h==='bgm'){bgmSet(!bgmOn());t.className='hk bg'+(bgmOn()?'':' off');if(t.lastChild)t.lastChild.textContent=bgmOn()?'ON':'OFF';return;}
   if(h==='main')seasons();
-  else if(h==='story'){if(storyOpen())storyMenu();else info('로맨틱 미션','ROMANTIC // LOCKED',null,'<p>아직은 못 들어와. <em class="k">여섯이 다 모인 뒤에야</em> 이 문이 열려. 지금 '+mainDone()+' / '+NBASE+'.</p><p>요원마다 테이크는 세 번. 끝까지 가면 그날 밤이 남아.</p>',home);}
+  else if(h==='story'){if(storyOpen())storyMenu();else info('로맨틱 미션','ROMANTIC // LOCKED',null,'<p><em class="k">스토리 미션 시즌 1을 클리어하면 열립니다.</em></p><p>지금 진행 '+mainDone()+' / '+NBASE+' 스테이지. 남은 '+(NBASE-mainDone())+'개를 마치면 요원마다 TAKE 1 · 2 · 3의 로맨틱 미션이 시작됩니다.</p>',home);}
   else if(h==='season')seasonal();
   else if(h==='special')special();
   else if(h==='set')navGo('set');
@@ -2233,7 +2248,7 @@ $('nv').addEventListener('click',function(e){var t=e.target;while(t&&t!==this&&!
 try{if(typeof MutationObserver!=='undefined'){var NVO=new MutationObserver(function(){navSync();});['hm','pg','ms','op','sc','ro','ov'].forEach(function(id){var x=$(id);if(x)NVO.observe(x,{attributes:true,attributeFilter:['class']});});}}catch(e){}
 $('pg').addEventListener('click',function(e){
   var t=e.target;if(t.dataset&&t.dataset.b){var b=PGB;pgHide();(b||home)();return;}
-  if(t.dataset&&t.dataset.view){viewer(t.dataset.view,true);return;}
+  if(t.tagName==='IMG'&&t.parentNode&&t.parentNode.dataset&&t.parentNode.dataset.view)t=t.parentNode;if(t.dataset&&t.dataset.view){viewer(t.dataset.view,true,vwSib(t));return;}
   if(t.dataset&&t.dataset.k!==undefined&&t.dataset.nb===undefined){var f=PGA[+t.dataset.k];if(f)f();return;}
   if(PGH)PGH(e);
 });
@@ -2268,7 +2283,7 @@ function roShow(id,keep){
 function roLab(){var h='';for(var i=0;i<8;i++)h+='<i'+(i===ROK?' class="on"':'')+'></i>';$('rol').innerHTML='<b>'+FIT[fl(ROK/2)]+'</b><span>POSE '+(ROK%2+1)+' · '+(ROK+1)+' / 8</span>';$('rodots').innerHTML=h;}
 function roGo(k){var c=$('roc');k=Math.max(0,Math.min(7,k));if(c.scrollTo)c.scrollTo({left:k*c.clientWidth,behavior:'smooth'});}
 $('roc').addEventListener('scroll',function(){var c=$('roc'),k=Math.round(c.scrollLeft/(c.clientWidth||1));if(k!==ROK){ROK=k;roLab();}});
-$('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t.getAttribute('data-id'),u=t.getAttribute&&t.getAttribute('data-u');if(t.tagName==='IMG'&&t.parentNode&&t.parentNode.className!=='lk'){viewer(t.getAttribute('src'));return;}if(u!==null&&u!==undefined){gBuy(ROI,+u);return;}if(t.getAttribute&&t.getAttribute('data-ua')){gBuy(ROI,'all');return;}if(id){ROMSG='';roShow(id);}else if(t.id==='rop')roGo(ROK-1);else if(t.id==='ron2')roGo(ROK+1);else if(t.id==='rox'){$('ro').className='hide';if(RORET){var rr=RORET;RORET=null;rr();}else home();}});
+$('ro').addEventListener('click',function(e){var t=e.target,id=t.getAttribute&&t.getAttribute('data-id'),u=t.getAttribute&&t.getAttribute('data-u');if(t.tagName==='IMG'&&t.parentNode&&t.parentNode.className!=='lk'){var RL=[],ri=$('ro').getElementsByTagName('img');for(var k=0;k<ri.length;k++){if(ri[k].parentNode&&ri[k].parentNode.className!=='lk'&&!lk(ri[k].getAttribute('src')))RL.push(ri[k].getAttribute('src'));}viewer(t.getAttribute('src'),false,RL);return;}if(u!==null&&u!==undefined){gBuy(ROI,+u);return;}if(t.getAttribute&&t.getAttribute('data-ua')){gBuy(ROI,'all');return;}if(id){ROMSG='';roShow(id);}else if(t.id==='rop')roGo(ROK-1);else if(t.id==='ron2')roGo(ROK+1);else if(t.id==='rox'){$('ro').className='hide';if(RORET){var rr=RORET;RORET=null;rr();}else home();}});
 function brief(i){
   if(MIS[i]&&MIS[i].story)nProbe(MIS[i].story.id);else rwProbeM(i);
   setPre(true);hideOv();hmHide();pgHide();DLGM=-1;loadMission(i);BGS.mm=true;if(CFG.img[M.key])M.img=CFG.img[M.key];S=newState();UIK='';
@@ -2450,7 +2465,8 @@ function frame(t){
 }
 try{var sd=+localStorage.getItem('s6diff');if(localStorage.getItem('s6diff')!==null&&sd>=0&&sd<4)setDiff(sd);}catch(e){}
 $('ovi').addEventListener('click',function(){var f=this.getAttribute('src');if(f)viewer(f,true);});
-$('vw').addEventListener('click',function(e){var t=e.target;if(t.id==='vwd'){vwSave();return;}if(t.id==='vwx')$('vw').className='hide';});
+$('vw').addEventListener('click',function(e){var t=e.target;if(t.id==='vwd'){vwSave();return;}if(t.dataset&&t.dataset.vi!==undefined){vwGo(+t.dataset.vi);return;}if(t.id==='vwx')$('vw').className='hide';});
+(function(){var sx=0,sy=0,im=$('vwi');im.addEventListener('touchstart',function(e){var p=e.touches[0];sx=p.clientX;sy=p.clientY;},{passive:true});im.addEventListener('touchend',function(e){var p=e.changedTouches[0],dx=p.clientX-sx,dy=p.clientY-sy;if(Math.abs(dx)>40&&Math.abs(dx)>Math.abs(dy)*1.3)vwGo(VWI+(dx<0?1:-1));},{passive:true});document.addEventListener('keydown',function(e){if($('vw').className==='hide')return;if(e.key==='ArrowRight')vwGo(VWI+1);else if(e.key==='ArrowLeft')vwGo(VWI-1);else if(e.key==='Escape')$('vw').className='hide';});})();
 loadMission(0);S=newState();resize();try{acInit();if(AC&&bgmOn())bgmPre('home');}catch(e){}
 try{if(PROG.op==='a'||PROG.op==='b'){if(opGateNeed())opGate(PROG.op);else opening(PROG.op);}else opSelect();}catch(e){opening();}
 try{kvProbe();rwProbe();}catch(e){}

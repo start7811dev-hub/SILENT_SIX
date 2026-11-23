@@ -64,7 +64,7 @@ var css=`
 #pg .gnh u{display:block;text-decoration:none;color:#cfc7c1;font-size:13px;margin-top:6px}
 #pg .gng{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 #pg .gng button{padding:0;border:0;background:#111;border-radius:8px;overflow:hidden;aspect-ratio:2/3;position:relative}
-#pg .gng img{width:100%;height:100%;object-fit:cover;display:block}
+#pg .gng img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
 #pg .gng button.lk img{filter:blur(14px) brightness(.4)}
 #pg .gng button.lk::after{content:'LOCKED';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.3em;color:#fff}
 @media (min-width:900px){#gnv .gbx{padding-bottom:46px}#gnv .gln{font-size:17px}#gnv .gln.r span{font-size:19.5px}}
@@ -74,7 +74,7 @@ var lk=document.createElement('link');lk.rel='stylesheet';lk.href='https://fonts
 
 var COVER={raven:13,viper:12,glitch:6,brick:6,mirage:5,doc:3};
 /* 로맨틱 갤러리: 노블을 끝까지 읽어야 열린다. 핵심 컷 · 노출 컷만 */
-var GAL={raven:[3,7,9,11,13,15,16,17,18,21,24,26],viper:[1,3,4,6,8,12,13,16],glitch:[1,5,6,7,9,10,12],brick:[3,4,6,8,9,10,12],mirage:[1,4,5,6,8,9,10],doc:[1,3,4,5,6,8]};
+var GAL={raven:[3,7,9,11,13,15,16,17,18,21,24,26,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54],viper:[1,3,4,6,8,12,13,16,18,19,20,21,22,23,24,25],glitch:[1,5,6,7,9,10,12,13,14,15,16],brick:[3,4,6,8,9,10,12,13,14],mirage:[1,4,5,6,8,9,10,13,14],doc:[1,3,4,5,6,8,11,12,13,14,15,16,17,18,19,20,21,22,23]};
 window.gnRead=function(id){return GOD()||!!(PROG.gnr&&PROG.gnr[id]);};
 function markRead(id){if(PROG.gnr&&PROG.gnr[id])return;if(!PROG.gnr)PROG.gnr={};PROG.gnr[id]=true;try{saveProg();}catch(e){}try{toast('로맨틱 갤러리가 열렸다.');}catch(e){}}
 function pad(n){return (n<10?'0':'')+n;}
@@ -128,7 +128,7 @@ window.gnPlay=function(id,back){
   var end=el('section','gend',V);end.innerHTML='<h3>— '+g.t+' —</h3><p>'+OPD[id].n.toUpperCase()+' · THAT NIGHT · END</p><div class="gb"><button data-a="top">처음부터</button><button data-a="out">닫기</button></div><p style="margin-bottom:14px">로맨틱 갤러리가 열렸다 · '+(GAL[id]||[]).length+'컷</p><div class="ggl"></div>';
   end.querySelector('[data-a="top"]').onclick=function(){V.scrollTo({top:0,behavior:'smooth'});};
   end.querySelector('[data-a="out"]').onclick=close;
-  var gl=end.querySelector('.ggl'),i;(GAL[id]||[]).forEach(function(n){var im=el('img',null,gl),f=gimg(id,n);im.loading='lazy';im.src=f;im.onclick=function(){viewer(f,true);};});
+  var gl=end.querySelector('.ggl'),i;(GAL[id]||[]).forEach(function(n){var im=el('img',null,gl),f=gimg(id,n);im.loading='lazy';im.src=f;im.onclick=function(){viewer(f,true,(GAL[id]||[]).map(function(x){return gimg(id,x);}));};});
   S.end=end;
   try{S.io&&S.io.disconnect();S.io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on');});},{root:V,threshold:.15});[].forEach.call(gl.children,function(x){S.io.observe(x);});}catch(e){}
   for(i=1;i<=g.cnt;i++){var pre=new Image();pre.src=gimg(id,i);}
