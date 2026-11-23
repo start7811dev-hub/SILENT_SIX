@@ -606,7 +606,13 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #pg .cap u{margin-left:auto;white-space:nowrap;text-decoration:none;font:600 11.5px/1 system-ui,sans-serif;color:var(--dim)}
 #pg .fill{flex:1 1 auto;min-height:0;display:grid;gap:8px}
 #pg .fill .cd{aspect-ratio:auto;min-height:0}
-#pg .fill.r4{grid-template-rows:repeat(4,1fr)}#pg .fill.g22{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}#pg .fill.g23{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr)}
+#pg .fill.r4{grid-template-rows:repeat(4,1fr)}
+.fill.r5{grid-template-rows:repeat(5,1fr)}
+.fill.r5 .cd.w b{font-size:19px}#pg .fill.g22{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr}
+#pg .fill.g22.more,#pg .g22.svc{flex:none;grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:auto}
+#pg .fill.g22.more .cd,#pg .g22.svc .cd{aspect-ratio:2/3;height:auto;min-height:0}
+#pg .g22.svc{display:grid;gap:8px;margin-bottom:14px}
+#pg .fill.g23{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,1fr)}
 #pg .fill.r4 .cd.w b{font-size:21px}
 #pg .nl{flex:1 1 auto;min-height:0;display:grid;gap:5px}
 #pg .nl button{display:flex;align-items:center;gap:12px;text-align:left;padding:0 12px 0 0;background:var(--tile);min-height:0;overflow:hidden}
@@ -831,7 +837,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.39.1';
+var VERSION='0.40.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1253,11 +1259,15 @@ function scTap(e,re){
 function scEmpty(t){return '<div class="empty"><b>COMING</b>'+t+'</div>';}
 function fit(){$('pg').className='fit';}
 /* 고자극 추가 컷: r_<key>_3_<n>.jpg (n=1..) — 고자극이 열리면 같이 열린다 */
-var RWX={'W-1':1};
+var RWX={'S1-01':2,'S1-02':2,'S1-03':2,'S1-04':2,'S1-05':2,'S1-06':2,'W-1':2,'W-2':2,'W-3':2,'W-4':2,'W-5':2};
+/* 서비스 컷: 미션별 요원 단독 번외 컷 svc_<key>_<n>.jpg — 그 미션의 고자극이 열리면 함께 열린다 */
+var SVC={'W-1':['raven','raven'],'W-2':['brick','brick','glitch','glitch'],'W-3':['doc','doc','viper','viper'],'W-4':['mirage','raven']};
+function svcMi(k){for(var i=0;i<MIS.length;i++)if(MIS[i].key===k)return i;return -1;}
+function svcCount(){var a=0,t=0;Object.keys(SVC).forEach(function(k){var mi=svcMi(k),n=SVC[k].length;t+=n;if(mi>=0&&rwTier(mi)>=3)a+=n;});return [a,t];}
 function rwX(mi){return (MIS[mi]&&RWX[MIS[mi].key])||0;}
 function rwAll(L){var a=0;L.forEach(function(mi){a+=4+rwX(mi);});return a;}
 function rwCount(L){var a=0;L.forEach(function(mi){var t=rwTier(mi);a+=t+1+(t>=3?rwX(mi):0);});return a;}
-function rwGrid(mi,re){rwProbeM(mi,re);var tr=rwTier(mi),o='<div class="fill g22">';
+function rwGrid(mi,re){rwProbeM(mi,re);var tr=rwTier(mi),o='<div class="fill g22'+(rwX(mi)?' more':'')+'">';
   for(var rn=0;rn<4;rn++){var op=tr>=rn,im=rwImg(mi,rn);o+=cd(99,op?im:(im||mimg(mi)),RWN[rn],op?(im?'':'이미지 준비 중'):RWC[rn],{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':'LOCKED'});}
   for(var xe=1;xe<=rwX(mi);xe++){var xf='r_'+MIS[mi].key+'_3_'+xe+'.jpg',xo=tr>=3;o+=cd(99,xf,RWN[3]+' '+(xe+1),xo?'':RWC[3],{kv:1,view:xo?1:0,lock:!xo,tag:xo?'':'LOCKED'});}
   return o+'</div>';}
@@ -1266,12 +1276,13 @@ function blackbox(){
   var ids=Object.keys(STORY),nd=mainDone(),sl=[],i;for(i=0;i<NBASE;i++)sl.push(i);
   var nn=0;ids.forEach(function(id){nn+=nOpen(id);});
   var top=function(L){for(var q=L.length-1;q>=0;q--){for(var r=rwTier(L[q]);r>=0;r--){var f=rwImg(L[q],r);if(f)return f;}}return null;};
-  page('블랙박스','BLACK BOX','<div class="fill r4">'+
+  page('블랙박스','BLACK BOX','<div class="fill r5">'+
    cd(0,mimg(4),'사일런트 식스 소설','시즌 · 에피소드별 · '+nd+' / '+NBASE+'장',{kv:1,w:1,eye:'NOVEL',on:1})+
    cd(1,top(sl)||mimg(0),'스토리 갤러리','스토리 리워드 컷 · '+rwCount(sl)+' / '+rwAll(sl)+'장',{kv:1,w:1,eye:'STORY GALLERY',lock:!rwCount(sl),tag:rwCount(sl)?'':'EMPTY'})+
    cd(2,gnLibCover(),'로맨틱 그래픽 노블','시즌별 · 요원별 그날 밤 · '+gnCount()+' / '+ids.length+'편',{kv:1,w:1,eye:'ROMANTIC GRAPHIC NOVEL',lock:!gnCount(),tag:gnCount()?'':'EMPTY'})+
    cd(3,KVI.seasonal?'kv_seasonal.jpg':'a_raven_5.jpg','시즈널 · 스페셜 갤러리','블러디 크리스마스 · 코스튬 · '+rwCount(WIDX)+' / '+rwAll(WIDX)+'장',{kv:1,w:1,eye:'SEASONAL · SPECIAL'})+
-   '</div>',home,[bbNovel,bbClear,gnLib,bbSeasonal]);fit();
+   (function(){var c=svcCount();return cd(4,'svc_W-3_1.jpg','서비스 갤러리','미션 번외 · 요원 단독 컷 · '+c[0]+' / '+c[1]+'장',{kv:1,w:1,eye:'SERVICE CUT',lock:!c[0]&&!GOD(),tag:c[0]||GOD()?'':'LOCKED'});})()+
+   '</div>',home,[bbNovel,bbClear,gnLib,bbSeasonal,bbService]);fit();
 }
 function bbNovel(){
   var c=scCur(),h=scNav(),A=[];
@@ -1307,6 +1318,18 @@ function bbSeasonal(){
     h+='<div class="chips sm">'+L.map(function(x,i){return '<button data-sm="'+i+'" data-w="1" class="'+(i===m?'sel':'')+(PROG.c[x]?'':' off')+'">'+('0'+(i+1))+'</button>';}).join('')+'</div><div class="cap"><i>'+('0'+(m+1))+'</i>'+MIS[mi].title+'<u>'+(tr<0?0:tr+1+(tr>=3?rwX(mi):0))+' / '+(4+rwX(mi))+' · 전체 '+rwCount(L)+' / '+rwAll(L)+'</u></div>'+rwGrid(mi,bbKeep(bbSeasonal));
   }else h+=scEmpty(X[1]+'<br>미션이 열리면 리워드 컷이 이곳에 쌓입니다.');
   page('시즈널 · 스페셜','BLACK BOX // SEASONAL',h,blackbox,[],function(e){scTap(e,bbSeasonal);});fit();
+}
+function bbService(){
+  var G=[['WINTER','블러디 크리스마스','W-'],['SPECIAL','코스튬 미션',null]],g=Math.min(SCP.g,G.length-1),X=G[g];
+  var h='<div class="chips">'+G.map(function(x,i){return '<button data-sg="'+i+'" class="'+(i===g?'sel':'')+(x[2]?'':' off')+'"><i>'+x[0]+'</i>'+x[1]+'</button>';}).join('')+'</div>';
+  var ks=X[2]?Object.keys(SVC).filter(function(k){return k.indexOf(X[2])===0;}):[];
+  if(!ks.length)h+=scEmpty(X[1]+'<br>미션이 열리면 서비스 컷이 이곳에 쌓입니다.');
+  else{h+='<p style="color:var(--dim);font-size:12px;margin:0 0 10px">미션에서 고자극 컷을 얻으면 그 미션의 요원 단독 번외 컷이 함께 열립니다.</p>';
+    ks.forEach(function(k){var mi=svcMi(k);if(mi<0)return;var op=GOD()||rwTier(mi)>=3,L=SVC[k];
+      h+='<div class="cap"><i>'+k.split('-')[1].replace(/^/,'0')+'</i>'+MIS[mi].title+'<u>'+(op?L.length:0)+' / '+L.length+'</u></div><div class="g22 svc">';
+      L.forEach(function(id,n){var f='svc_'+k+'_'+(n+1)+'.jpg';h+=cd(99,f,OPD[id].n,op?'':'이 미션의 고자극을 얻으면 열림',{kv:1,view:op?1:0,lock:!op,tag:op?'':'LOCKED'});});
+      h+='</div>';});}
+  page('서비스 갤러리','BLACK BOX // SERVICE',h,blackbox,[],function(e){scTap(e,bbService);});
 }
 function shop(){
   page('SHOP','POINT · BADGE · STORE','<p><em class="k">사일런트 식스에 공짜는 없어.</em> 쓰고 싶다면 벌고, 벌고 싶다면 참전하라!</p><div class="cg">'+cd(0,'a_glitch_0.jpg','포인트샵','100점에 1P · 번 만큼만 쓴다',{w:1,eye:'POINT · P '+(PROG.pt||0).toLocaleString(),tag:'SOON'})+cd(1,'a_mirage_0.jpg','배지샵','증거를 내면 옷이 나온다',{eye:'BADGE · ◆ '+badgeTotal(),tag:'SOON'})+cd(2,'a_viper_0.jpg','스토어','시즌 패스 · 라이브 챗',{eye:'STORE',tag:'SOON'})+'</div>',home,[function(){},function(){},function(){}]);
