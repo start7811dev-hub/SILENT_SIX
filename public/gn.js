@@ -73,6 +73,10 @@ var st=document.createElement('style');st.textContent=css;document.head.appendCh
 var lk=document.createElement('link');lk.rel='stylesheet';lk.href='https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;800&display=swap';document.head.appendChild(lk);
 
 var COVER={raven:13,viper:12,glitch:6,brick:6,mirage:5,doc:3};
+/* 로맨틱 갤러리: 노블을 끝까지 읽어야 열린다. 핵심 컷 · 노출 컷만 */
+var GAL={raven:[3,7,9,11,13,15,16,17,18,21,24,26],viper:[1,3,4,6,8,12,13,16],glitch:[1,5,6,7,9,10,12],brick:[3,4,6,8,9,10,12],mirage:[1,4,5,6,8,9,10],doc:[1,3,4,5,6,8]};
+window.gnRead=function(id){return GOD()||!!(PROG.gnr&&PROG.gnr[id]);};
+function markRead(id){if(PROG.gnr&&PROG.gnr[id])return;if(!PROG.gnr)PROG.gnr={};PROG.gnr[id]=true;try{saveProg();}catch(e){}try{toast('로맨틱 갤러리가 열렸다.');}catch(e){}}
 function pad(n){return (n<10?'0':'')+n;}
 function gimg(id,n){return 'gn/'+id+'_'+pad(n)+'.jpg';}
 window.gnHas=function(id){return !!GN[id]&&nRight(id);};
@@ -87,7 +91,7 @@ window.gnLib=function(){
   var h='<div class="chips">'+SEASONS.map(function(x,i){return '<button data-ss="'+i+'" class="'+(i===SCP.s?'sel':'')+(i?' off':'')+'"><i>'+x.k+'</i>'+x.n+'</button>';}).join('')+'</div>';
   if(SCP.s===0){
     h+='<div class="cap"><i>S1</i>로맨틱 그래픽 노블<u>'+gnCount()+' / '+ids.length+'편 열림</u></div><div class="cg one">'+ids.map(function(id,k){var op=gnHas(id),g=GN[id];A.push(function(){gnAgent(id);});
-      return cd(k,op?gnCover(id):'e_'+id+'.jpg',g.t,op?g.sub:'로맨틱 미션 TAKE 1 · 2 · 3을 HARD 이상으로 · '+nHard(id)+' / 3',{kv:1,w:1,eye:OPD[id].n+' · THAT NIGHT',lock:!op,tag:op?'READ':'LOCKED',on:op?1:0});}).join('')+'</div>';
+      return cd(k,op?gnCover(id):'e_'+id+'.jpg',g.t,op?g.sub+(gnRead(id)?' · 갤러리 ♥':' · 끝까지 읽으면 갤러리'):'로맨틱 미션 TAKE 1 · 2 · 3을 HARD 이상으로 · '+nHard(id)+' / 3',{kv:1,w:1,eye:OPD[id].n+' · THAT NIGHT',lock:!op,tag:op?'READ':'LOCKED',on:op?1:0});}).join('')+'</div>';
   }else h+=scEmpty(SEASONS[SCP.s].k+' · '+SEASONS[SCP.s].n+'<br>시즌이 공개되면 이곳에 그래픽 노블이 쌓입니다.');
   page('로맨틱 그래픽 노블','BLACK BOX // ROMANTIC',h,blackbox,A,function(e){scTap(e,gnLib);});
 };
@@ -95,8 +99,9 @@ window.gnAgent=function(id){
   var g=GN[id],op=gnHas(id),n=g.cnt,h='';
   h+='<div class="gnh"><img src="'+(op?gnCover(id):'e_'+id+'.jpg')+'" alt=""><div><i style="color:'+g.col+'">'+OPD[id].n+' · S1 ROMANTIC</i><b>'+g.t+'</b><u>'+g.sub+'</u></div></div>';
   h+=op?'<button class="cta" data-k="0">그래픽 노블 읽기</button>':'<button class="cta off" data-k="0">로맨틱 미션 TAKE 1 · 2 · 3 HARD↑ · '+nHard(id)+' / 3</button>';
-  h+='<label>GALLERY — 주요 장면 '+(op?n:0)+' / '+n+'</label><div class="gng">';
-  for(var i=1;i<=n;i++){var f=gimg(id,i);h+='<button'+(op?' data-view="'+f+'"':' class="lk"')+'><img loading="lazy" src="'+f+'" alt=""></button>';}
+  var L=GAL[id]||[],rd=op&&gnRead(id);
+  h+='<label>ROMANTIC GALLERY — '+(rd?L.length:0)+' / '+L.length+'</label>'+(rd?'':'<p style="color:var(--dim);font-size:13px">'+(op?'그래픽 노블을 끝까지 읽으면 열립니다.':'그래픽 노블이 열린 뒤, 끝까지 읽으면 열립니다.')+'</p>')+'<div class="gng">';
+  L.forEach(function(i){var f=gimg(id,i);h+='<button'+(rd?' data-view="'+f+'"':' class="lk"')+'><img loading="lazy" src="'+f+'" alt=""></button>';});
   h+='</div>';
   page(g.t,'GRAPHIC NOVEL // '+OPD[id].n,h,gnLib,[function(){if(op)ending(id,function(){gnAgent(id);});}]);
 };
@@ -120,10 +125,10 @@ window.gnPlay=function(id,back){
   S.ht=el('div','ght',V);S.ht.textContent='SCROLL';
   var tr=el('div',null,V);
   g.b.forEach(function(b){var n=(b.L||[]).length,s=el('section',null,tr);s.style.height=(b.t==='title'?115:Math.max(140,80+n*72))+'vh';b.el=s;});
-  var end=el('section','gend',V);end.innerHTML='<h3>— '+g.t+' —</h3><p>'+OPD[id].n.toUpperCase()+' · THAT NIGHT · END</p><div class="gb"><button data-a="top">처음부터</button><button data-a="out">닫기</button></div><p style="margin-bottom:14px">주요 장면 '+g.cnt+'</p><div class="ggl"></div>';
+  var end=el('section','gend',V);end.innerHTML='<h3>— '+g.t+' —</h3><p>'+OPD[id].n.toUpperCase()+' · THAT NIGHT · END</p><div class="gb"><button data-a="top">처음부터</button><button data-a="out">닫기</button></div><p style="margin-bottom:14px">로맨틱 갤러리가 열렸다 · '+(GAL[id]||[]).length+'컷</p><div class="ggl"></div>';
   end.querySelector('[data-a="top"]').onclick=function(){V.scrollTo({top:0,behavior:'smooth'});};
   end.querySelector('[data-a="out"]').onclick=close;
-  var gl=end.querySelector('.ggl');for(var i=1;i<=g.cnt;i++){var im=el('img',null,gl);im.loading='lazy';im.src=gimg(id,i);im.onclick=(function(f){return function(){viewer(f,true);};})(im.src.slice(im.src.indexOf('gn/')));}
+  var gl=end.querySelector('.ggl'),i;(GAL[id]||[]).forEach(function(n){var im=el('img',null,gl),f=gimg(id,n);im.loading='lazy';im.src=f;im.onclick=function(){viewer(f,true);};});
   S.end=end;
   try{S.io&&S.io.disconnect();S.io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on');});},{root:V,threshold:.15});[].forEach.call(gl.children,function(x){S.io.observe(x);});}catch(e){}
   for(i=1;i<=g.cnt;i++){var pre=new Image();pre.src=gimg(id,i);}
@@ -170,7 +175,7 @@ function tick(){if(!V||V.className==='hide'||!S.g)return;var y=V.scrollTop,H=V.c
   var vis=ns.filter(function(d){return d.classList.contains('on');}),keep=b.t==='black'?5:3;ns.forEach(function(d){d.style.display='';});
   if(vis.length>keep)vis.slice(0,vis.length-keep).forEach(function(d){d.style.display='none';});
   var tot=V.scrollHeight-H;S.bar.style.width=(tot>0?y/tot*100:0)+'%';S.ht.style.opacity=y>H*.3?0:1;
-  var past=y+H>S.end.offsetTop+H*.35;S.bx.style.opacity=past?0:1;S.tt.style.visibility=past?'hidden':'';}
+  var past=y+H>S.end.offsetTop+H*.35;if(y+H>=S.end.offsetTop+H*.6)markRead(S.id);S.bx.style.opacity=past?0:1;S.tt.style.visibility=past?'hidden':'';}
 /* 입자: rain snow dust code gold */
 function rs(){if(!S.cv)return;var d=window.devicePixelRatio||1,c=S.cv;c.width=innerWidth*d;c.height=innerHeight*d;S.ctx=c.getContext('2d');
   var kind=S.g.fx,N=kind==='rain'?Math.min(220,innerWidth/4):kind==='code'?40:70;
