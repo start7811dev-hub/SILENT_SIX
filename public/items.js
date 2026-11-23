@@ -26,21 +26,21 @@ W.CCUR=CCUR;
    type: consumable(수량) / nonconsumable(영구) / season(현재 시즌 한정 영구) / subscription(월 자동결제)
    sku: 스토어 등록 상품 ID. 네이티브 결제가 붙으면 이 값으로 결제를 요청한다.
    grant: 결제 성공 시 지급 내용. price는 표시용 기본값이며 스토어가 내려준 현지 가격(priceText)이 있으면 그 값을 쓴다. */
-var BC_MS=2*3600*1000,TB_S=180,INV_N=2,INV_K=0.3;
+var BC_MS=30*60*1000,TB_S=180,INV_N=2,INV_K=0.3;
 var SUBG={bc:2,auto:5,tb:10}; /* 구독 매월 지급 */
 var ITEMS=[
   {k:'ck',id:'s6.costume_key',type:'season',sku:{ios:'s6_costume_key',android:'s6_costume_key'},grant:{ck:1},n:'코스튬 진입키',e:'COSTUME KEY',p:11900,
    d:'진행 중인 코스튬 미션에 입장한다. 언제 사도 지금 열린 코스튬 미션에 쓰이고, 다음 코스튬 미션이 열릴 때까지 무제한으로 플레이한다.'},
   {k:'bc',id:'s6.balance_control',type:'consumable',sku:{ios:'s6_balance_control',android:'s6_balance_control'},grant:{bc:1},n:'밸런스 컨트롤',e:'BALANCE CONTROL',p:12900,
-   d:'활성화하면 2시간 동안 작동한다. 파워 난이도로 클리어하면 하드 · 헬까지 함께 클리어로 기록된다. 작동 중에는 화면 우측 상단에 남은 시간이 뜬다.'},
-  {k:'auto',id:'s6.auto_play',type:'consumable',sku:{ios:'s6_auto_play',android:'s6_auto_play'},grant:{auto:1},n:'오토 플레이',e:'AUTO PLAY',p:9900,
-   d:'미션 화면 우측 상단 AUTO로 사용한다. 클리어할 때까지 요원이 스스로 반복 플레이한다. 한 미션에 1회 차감. 다른 아이템과 함께 쓸 수 있다.'},
+   d:'활성화하면 30분 동안 작동한다. 파워 난이도로 클리어하면 하드 · 헬까지 함께 클리어로 기록된다. 작동 중에는 화면 우측 상단에 남은 시간이 뜬다.'},
+  {k:'auto',id:'s6.auto_play',type:'consumable',sku:{ios:'s6_auto_play',android:'s6_auto_play'},grant:{auto:3},n:'오토 플레이 3회',e:'AUTO PLAY ×3',p:9900,
+   d:'3회분. 미션 화면 우측 상단 ITEM에서 사용한다. 클리어할 때까지 요원이 스스로 반복 플레이한다. 한 미션에 1회 차감. 다른 아이템과 함께 쓸 수 있다.'},
   {k:'tb',id:'s6.time_breaker',type:'consumable',sku:{ios:'s6_time_breaker',android:'s6_time_breaker'},grant:{tb:1},n:'타임 브레이커',e:'TIME BREAKER',p:3300,
    d:'사용하면 3분 동안 미션 시간이 멈춘다. 1회 차감. 다른 아이템과 함께 쓸 수 있다.'},
   {k:'inv',id:'s6.invisible_agent',type:'nonconsumable',sku:{ios:'s6_invisible_agent',android:'s6_invisible_agent'},grant:{inv:1},n:'인비저블 에이전트',e:'INVISIBLE AGENT',p:29900,
-   d:'영구 적용. 미션마다 적 2명을 골라 그 적의 시야를 30%로 줄인다. 미션 화면 우측 상단에 남은 횟수가 뜬다.'},
+   d:'영구 적용. 미션마다 적 2명을 골라 그 적의 시야를 30%로 줄인다. 미션 화면 우측 상단 ITEM에서 고른다.'},
   {k:'sub',id:'s6.six_pass',type:'subscription',sku:{ios:'s6_six_pass_monthly',android:'s6_six_pass_monthly'},grant:{sub:1},period:30,n:'식스 패스',e:'SIX PASS · 월 구독',p:39900,
-   d:'매월 자동 결제. 코스튬 진입키 + 밸런스 컨트롤 2회 + 오토 플레이 5회 + 타임 브레이커 10회 + 포인트 획득 +20%. 설정에서 언제든 해지한다.'}
+   d:'매월 자동 결제. 코스튬 진입키 + 밸런스 컨트롤 2회(30분) + 오토 플레이 5회 + 타임 브레이커 10회 + 포인트 획득 +20%. 설정에서 언제든 해지한다.'}
 ];
 W.ITEMS=ITEMS;
 
@@ -101,7 +101,7 @@ function buy(k){
   PAY.purchase(x).then(function(r){return PAY.verify(x,r).then(function(ok){if(!ok)throw new Error('결제를 확인하지 못했습니다.');grantItem(x,r.src);W.toast(x.n+(r.src==='admin'?' 지급 완료 (관리자 무료)':' 구매 완료'));store();});})
    .catch(function(e){W.toast((e&&e.message)||'결제가 취소됐습니다.');});
 }
-function bcOn(){var I=it();if(bcLeft()){W.toast('이미 작동 중입니다.');return;}if(!I.bc){W.toast('밸런스 컨트롤이 없습니다.');return;}I.bc--;I.bcEnd=now()+BC_MS;W.saveProg();W.toast('밸런스 컨트롤 작동 · 2시간');pill();store();}
+function bcOn(){var I=it();if(bcLeft()){W.toast('이미 작동 중입니다.');return;}if(!I.bc){W.toast('밸런스 컨트롤이 없습니다.');return;}I.bc--;I.bcEnd=now()+BC_MS;W.saveProg();W.toast('밸런스 컨트롤 작동 · 30분');pill();store();}
 
 /* ── 스토어 화면: 2열 카드 ── */
 function store(){
@@ -152,7 +152,7 @@ try{PAY.prices();}catch(e){}
 /* ── 미션 상태 ── */
 var AU={on:false,tries:0,mi:-1},INVSEL=false;
 W.AU=AU;
-var _load=W.loadMission;W.loadMission=function(i){if(AU.mi!==i){AU.on=false;AU.tries=0;}INVSEL=false;return _load(i);};
+var _load=W.loadMission;W.loadMission=function(i){if(AU.mi!==i){AU.on=false;AU.tries=0;}INVSEL=false;POPEN=false;try{panel();}catch(e){}return _load(i);};
 
 /* 인비저블: 시야 0.3 */
 var _sr=W.senseRange;W.senseRange=function(g,o){var r=_sr(g,o);return g.iv?r*INV_K:r;};
@@ -248,28 +248,52 @@ var _res=W.result;W.result=function(){
   if(ap||add){W.saveProg();var tb=document.querySelector('#ovx table');if(tb){var tr=document.createElement('tr');tr.innerHTML='<td>'+(ap?'밸런스 컨트롤':'식스 패스')+'</td><td><em class="k">'+(ap?'HARD · HELL 클리어로 함께 기록':'')+(ap&&add?' · ':'')+(add?'포인트 +'+add+' P (+20%)':'')+'</em></td>';tb.appendChild(tr);}}
 };
 
-/* ── 미션 화면 우측 상단: 아이템 트레이 ── */
-var TK='';
+/* ── 미션 화면 우측 상단: ITEM 버튼 하나 + 작동 중 상태 한 줄 + 펼침 패널 ── */
+var TK='',PK='',POPEN=false;
 function tray(){
-  var el=$('itm');if(!el){var tr=document.querySelector('#top .tr');if(!tr)return;el=document.createElement('div');el.id='itm';tr.insertBefore(el,tr.firstChild);
-    el.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;e.stopPropagation();act(b.dataset.it);});}
-  var S=W.S,I=it(),h='',l=bcLeft();
-  if(l)h+='<span class="iti on">'+ico('bc',13)+hms(l)+'</span>';
-  if(AU.on&&AU.mi===W.MI)h+='<button data-it="auto" class="iti on">'+ico('auto',13)+'AUTO'+(AU.tries?' · '+AU.tries:'')+'</button>';
-  else if(I.auto>0||W.SUPER())h+='<button data-it="auto" class="iti">'+ico('auto',13)+(W.SUPER()?'∞':I.auto)+'</button>';
-  if(S&&S.tb>0)h+='<span class="iti on">'+ico('tb',13)+ms2(S.tb)+'</span>';
-  else if(I.tb>0||W.SUPER())h+='<button data-it="tb" class="iti">'+ico('tb',13)+(W.SUPER()?'∞':I.tb)+'</button>';
-  if(I.inv||W.SUPER()){var left=INV_N-((S&&S.ivs)||0);h+='<button data-it="inv" class="iti'+(INVSEL?' on':'')+(left<=0?' off':'')+'">'+ico('inv',13)+left+'</button>';}
-  if(h!==TK){TK=h;el.innerHTML=h;}
+  var tr=document.querySelector('#top .tr');if(!tr)return;
+  var el=$('itm');if(!el){el=document.createElement('button');el.id='itm';tr.appendChild(el);el.addEventListener('click',function(e){e.stopPropagation();POPEN=!POPEN;PK='';panel();});}
+  var st=$('its');if(!st){st=document.createElement('div');st.id='its';document.getElementById('top').appendChild(st);}
+  var S=W.S,l=bcLeft(),chips=[];
+  if(l)chips.push(['bc',hms(l)]);
+  if(AU.on&&AU.mi===W.MI)chips.push(['auto','AUTO'+(AU.tries?' '+AU.tries:'')]);
+  if(S&&S.tb>0)chips.push(['tb',ms2(S.tb)]);
+  if(S&&S.ivs)chips.push(['inv',S.ivs+'/'+INV_N]);
+  if(INVSEL)chips.push(['inv','적 선택']);
+  var h=chips.map(function(c){return '<span>'+ico(c[0],12)+c[1]+'</span>';}).join('');
+  if(h!==TK){TK=h;st.innerHTML=h;}
+  var on=chips.length>0,lab=ico('sub',14)+'ITEM';
+  if(el.dataset.on!==String(on)||!el.innerHTML){el.innerHTML=lab+(on?'<i></i>':'');el.dataset.on=String(on);}
+  el.className=POPEN?'sel':'';
+  if(POPEN)panel();
+}
+function rows(){
+  var S=W.S,I=it(),G=W.SUPER(),l=bcLeft(),n=function(v){return G?'∞':v+'회';};
+  var R=[];
+  R.push(['auto','오토 플레이',AU.on&&AU.mi===W.MI?'자동 진행 중':'보유 '+n(I.auto),AU.on&&AU.mi===W.MI?'정지':'사용',!(G||I.auto>0)&&!AU.on]);
+  R.push(['tb','타임 브레이커',S&&S.tb>0?'시간 정지 '+ms2(S.tb):'보유 '+n(I.tb),S&&S.tb>0?'작동 중':'사용',(S&&S.tb>0)||!(G||I.tb>0)]);
+  if(I.inv||G){var left=INV_N-((S&&S.ivs)||0);R.push(['inv','인비저블',left>0?'이번 미션 '+left+'명 남음':'이번 미션 모두 사용',INVSEL?'취소':'적 선택',left<=0]);}
+  R.push(['bc','밸런스 컨트롤',l?'작동 중 '+hms(l):'보유 '+n(I.bc),l?'작동 중':'활성화',!!l||!(G||I.bc>0)]);
+  return R;
+}
+function panel(){
+  var p=$('itp');
+  if(!POPEN){if(p)p.className='hide';return;}
+  if(!p){p=document.createElement('div');p.id='itp';document.getElementById('top').parentNode.appendChild(p);
+    p.addEventListener('click',function(e){e.stopPropagation();var b=e.target.closest('button');if(!b||b.disabled)return;act(b.dataset.it);PK='';panel();});
+    document.addEventListener('click',function(e){if(POPEN&&!e.target.closest('#itp')&&!e.target.closest('#itm')){POPEN=false;panel();}},true);}
+  var h=rows().map(function(r){return '<div class="itr">'+ico(r[0],18)+'<div><b>'+r[1]+'</b><small>'+r[2]+'</small></div><button data-it="'+r[0]+'"'+(r[4]?' disabled':'')+'>'+r[3]+'</button></div>';}).join('')+'<p>모든 아이템은 함께 쓸 수 있습니다.</p>';
+  if(h!==PK){PK=h;p.innerHTML=h;}p.className='';
 }
 function act(k){
-  var S=W.S,I=it();if(!W.started||!S||S.over)return;
+  var S=W.S,I=it(),G=W.SUPER();if(!W.started||!S||S.over)return;
   if(k==='auto'){
     if(AU.on){AU.on=false;S.ops.forEach(function(o){o.hold=false;});W.toast('오토 플레이 정지');return;}
-    if(!W.SUPER()){if(I.auto<1){W.toast('오토 플레이가 없습니다.');return;}I.auto--;W.saveProg();}
-    AU.on=true;AU.mi=W.MI;AU.tries=0;W.toast('오토 플레이 시작 · 클리어할 때까지 반복');return;}
-  if(k==='tb'){if(S.tb>0)return;if(!W.SUPER()){if(I.tb<1){W.toast('타임 브레이커가 없습니다.');return;}I.tb--;W.saveProg();}S.tb=TB_S;W.toast('타임 브레이커 · 3분 동안 시간 정지');return;}
-  if(k==='inv'){if((S.ivs||0)>=INV_N){W.toast('이번 미션의 인비저블을 모두 썼습니다.');return;}INVSEL=!INVSEL;W.toast(INVSEL?'시야를 줄일 적을 탭하세요 · 남은 '+(INV_N-(S.ivs||0))+'명':'선택 취소');}
+    if(!G){if(I.auto<1){W.toast('오토 플레이가 없습니다.');return;}I.auto--;W.saveProg();}
+    AU.on=true;AU.mi=W.MI;AU.tries=0;POPEN=false;W.toast('오토 플레이 시작 · 클리어할 때까지 반복');return;}
+  if(k==='tb'){if(S.tb>0)return;if(!G){if(I.tb<1){W.toast('타임 브레이커가 없습니다.');return;}I.tb--;W.saveProg();}S.tb=TB_S;POPEN=false;W.toast('타임 브레이커 · 3분 동안 시간 정지');return;}
+  if(k==='inv'){if((S.ivs||0)>=INV_N)return;INVSEL=!INVSEL;POPEN=false;if(INVSEL)W.toast('시야를 줄일 적을 탭하세요 · '+(INV_N-(S.ivs||0))+'명');return;}
+  if(k==='bc'){if(bcLeft())return;if(!G){if(I.bc<1)return;I.bc--;}I.bcEnd=now()+BC_MS;W.saveProg();POPEN=false;W.toast('밸런스 컨트롤 작동 · 30분');}
 }
 var _hud=W.hud;W.hud=function(){_hud();try{tray();}catch(e){}};
 
@@ -305,9 +329,15 @@ var css=document.createElement('style');css.textContent=[
 'body.bcon #pg .ph>span{margin-right:118px}',
 '#bcp{position:fixed;right:12px;top:calc(env(safe-area-inset-top) + 12px);z-index:45;display:flex;align-items:center;gap:6px;padding:6px 10px;background:rgba(10,14,19,.9);border:1px solid var(--c);color:var(--c);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;clip-path:var(--cut);pointer-events:none}',
 '#bcp b{font-size:9px;letter-spacing:.2em}#bcp.hide{display:none}',
-'#itm{display:flex;gap:6px;margin-right:10px;pointer-events:auto;flex-wrap:wrap;justify-content:flex-end;max-width:58vw}',
-'.iti{display:inline-flex;align-items:center;gap:4px;height:28px;padding:0 8px;background:rgba(10,14,19,.75);border:1px solid rgba(255,255,255,.18);color:var(--ink);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;clip-path:var(--cut)}',
-'.iti.on{border-color:var(--c);color:var(--c);background:rgba(255,59,82,.14)}.iti.off{opacity:.4}',
-'.iti *{pointer-events:none}'
+"#itm{pointer-events:auto;position:relative;display:inline-flex;align-items:center;gap:5px;height:30px;margin-left:8px;padding:0 10px;background:rgba(10,14,19,.72);border:1px solid rgba(255,255,255,.2);color:var(--ink);font-size:11px;font-weight:800;letter-spacing:.14em;clip-path:var(--cut)}",
+"#itm.sel{border-color:var(--c);color:var(--c)}#itm i{position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:var(--c)}#itm *{pointer-events:none}",
+"#its{position:absolute;right:12px;top:calc(100% - 18px);display:flex;gap:6px;justify-content:flex-end;pointer-events:none}",
+"#its span{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px;background:rgba(10,14,19,.75);border:1px solid var(--c);color:var(--c);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}",
+"#itp{position:absolute;right:12px;top:calc(env(safe-area-inset-top) + 58px);z-index:6;width:236px;padding:6px;background:rgba(10,14,19,.96);border:1px solid rgba(255,255,255,.12);clip-path:var(--cut);box-shadow:0 10px 30px rgba(0,0,0,.5)}",
+"#app.pre #itp,#itp.hide{display:none}#itp p{margin:4px 6px 2px;font-size:10.5px;color:var(--dim)}",
+".itr{display:flex;align-items:center;gap:10px;padding:8px 6px;border-bottom:1px solid rgba(255,255,255,.06);color:var(--c)}",
+".itr div{flex:1;min-width:0}.itr b{display:block;font-size:13px;color:var(--ink)}.itr small{display:block;font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}",
+".itr button{min-width:54px;height:28px;padding:0 8px;background:var(--c);color:#fff;border:0;font-size:12px;font-weight:800;clip-path:var(--cut)}",
+".itr button:disabled{background:rgba(255,255,255,.08);color:var(--dim)}"
 ].join('\n');document.head.appendChild(css);
 })();
