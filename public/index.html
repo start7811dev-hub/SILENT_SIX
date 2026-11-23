@@ -837,7 +837,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.40.1';
+var VERSION='0.40.2';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1257,7 +1257,7 @@ function scTap(e,re){
   re();return true;
 }
 function scEmpty(t){return '<div class="empty"><b>COMING</b>'+t+'</div>';}
-function fit(){$('pg').className='fit';}
+function fit(){$('pg').className=$('pg').querySelector('.fill.more')?'':'fit';}
 /* 고자극 추가 컷: r_<key>_3_<n>.jpg (n=1..) — 고자극이 열리면 같이 열린다 */
 var RWX={'S1-01':2,'S1-02':2,'S1-03':2,'S1-04':2,'S1-05':2,'S1-06':2,'W-1':2,'W-2':2,'W-3':2,'W-4':2,'W-5':2};
 /* 서비스 컷: 미션별 요원 단독 번외 컷 svc_<key>_<n>.jpg — 그 미션의 고자극이 열리면 함께 열린다 */
