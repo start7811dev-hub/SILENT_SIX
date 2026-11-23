@@ -30,17 +30,17 @@ var BC_MS=30*60*1000,TB_S=180,INV_N=2,INV_K=0.3;
 var SUBG={bc:1,auto:3,tb:10},SUB_PT=0.1; /* 구독 매월 지급 */
 var ITEMS=[
   {k:'ck',id:'s6.costume_key',type:'season',sku:{ios:'s6_costume_key',android:'s6_costume_key'},grant:{ck:1},n:'코스튬 진입키',e:'COSTUME KEY',p:11900,
-   d:'진행 중인 코스튬 미션에 입장한다. 언제 사도 지금 열린 코스튬 미션에 쓰이고, 다음 코스튬 미션이 열릴 때까지 무제한으로 플레이한다.'},
+   d:'지금 열린 코스튬 미션에 입장할 수 있습니다. 언제 구매해도 진행 중인 코스튬 미션에 바로 쓰이며, 다음 코스튬 미션이 열릴 때까지 횟수 제한 없이 플레이합니다.'},
   {k:'bc',id:'s6.balance_control',type:'consumable',sku:{ios:'s6_balance_control',android:'s6_balance_control'},grant:{bc:1},n:'밸런스 컨트롤',e:'BALANCE CONTROL',p:12900,
-   d:'활성화하면 30분 동안 작동한다. 파워 난이도로 클리어하면 하드 · 헬까지 함께 클리어로 기록된다. 작동 중에는 화면 우측 상단에 남은 시간이 뜬다.'},
+   d:'30분 동안 파워 난이도로 클리어한 미션이 하드 · 헬 클리어로 함께 기록됩니다. 상위 난이도 리워드 컷과 그래픽 노블을 더 빨리 엽니다. 작동 중에는 화면 우측 상단에 남은 시간이 표시됩니다.'},
   {k:'auto',id:'s6.auto_play',type:'consumable',sku:{ios:'s6_auto_play',android:'s6_auto_play'},grant:{auto:3},n:'오토 플레이 3회',e:'AUTO PLAY ×3',p:9900,
-   d:'3회분. 미션 화면 우측 상단 ITEM에서 사용한다. 클리어할 때까지 요원이 스스로 반복 플레이한다. 한 미션에 1회 차감. 다른 아이템과 함께 쓸 수 있다.'},
+   d:'막힌 미션을 요원들이 스스로 공략합니다. 실패해도 클리어할 때까지 자동으로 다시 도전합니다. 미션 화면 우측 상단 ITEM에서 사용하며 한 미션에 1회 차감됩니다.'},
   {k:'tb',id:'s6.time_breaker',type:'consumable',sku:{ios:'s6_time_breaker',android:'s6_time_breaker'},grant:{tb:1},n:'타임 브레이커',e:'TIME BREAKER',p:3300,
-   d:'사용하면 3분 동안 미션 시간이 멈춘다. 1회 차감. 다른 아이템과 함께 쓸 수 있다.'},
+   d:'사용하는 순간부터 3분 동안 미션 시간이 멈춥니다. 제한 시간 미션과 시간 점수에 여유가 생깁니다. 미션 화면 우측 상단 ITEM에서 사용합니다.'},
   {k:'inv',id:'s6.invisible_agent',type:'nonconsumable',sku:{ios:'s6_invisible_agent',android:'s6_invisible_agent'},grant:{inv:1},n:'인비저블 에이전트',e:'INVISIBLE AGENT',p:29900,
-   d:'영구 적용. 미션마다 적 2명을 골라 그 적의 시야를 30%로 줄인다. 미션 화면 우측 상단 ITEM에서 고른다.'},
+   d:'한 번 구매로 영구 적용됩니다. 미션마다 적 2명을 골라 시야를 30%로 줄여, 가장 까다로운 감시를 무력화합니다. 미션 화면 우측 상단 ITEM에서 고릅니다.'},
   {k:'sub',id:'s6.six_pass',type:'subscription',sku:{ios:'s6_six_pass_monthly',android:'s6_six_pass_monthly'},grant:{sub:1},period:30,n:'식스 패스',e:'SIX PASS · 월 구독',p:39900,
-   d:'매월 자동 결제. 코스튬 진입키 + 밸런스 컨트롤 1회(30분) + 오토 플레이 3회 + 타임 브레이커 10회 + 포인트 획득 +10%. 설정에서 언제든 해지한다.'}
+   d:'매월 코스튬 진입키, 밸런스 컨트롤 1회, 오토 플레이 3회, 타임 브레이커 10회를 받고, 모든 미션의 포인트 획득이 10% 늘어납니다. 정가 기준 약 6만 7천 원 상당입니다. 매월 자동 결제되며 설정에서 언제든 해지할 수 있습니다.'}
 ];
 W.ITEMS=ITEMS;
 
@@ -105,14 +105,14 @@ function bcOn(){var I=it();if(bcLeft()){W.toast('이미 작동 중입니다.');r
 
 /* ── 스토어 화면: 2열 카드 ── */
 function store(){
-  var acts=[],h=W.intro('Silent Six Store','Store','작전을 돕는 장비. 결제는 준비 중이며, 지금은 관리자만 무료로 받을 수 있습니다.')+'<div class="stg">';
+  var acts=[],h=W.intro('Silent Six Store','Store','미션을 더 빠르고 확실하게 끝내는 특임대 보급품입니다.<br>막힌 판은 오토 플레이로 넘기고, 시간과 적의 시야를 줄여 난도를 낮추세요. 식스 패스는 매달 보급을 한 번에 받습니다.',W.SUPER()?'관리자 계정은 모든 상품을 무료로 받습니다.':'')+'<div class="stg">';
   ITEMS.forEach(function(x,i){
     var o=own(x.k),im='st_'+x.k+'.jpg',pr=x.priceText||won(x.p);
     h+='<div class="stc"><div class="sti"><img src="'+im+'" alt="" onerror="this.parentNode.className+=\' noimg\'"><span>'+ico(x.k,34)+'</span></div><div class="stb"><i>'+x.e+'</i><b>'+x.n+'</b><details class="std"><summary>설명</summary><p>'+x.d+'</p></details>'+(o?'<small>'+o+'</small>':'')+'<strong>'+pr+(x.type==='subscription'?'<em> / 월</em>':'')+'</strong>'+
       '<button class="stbuy" data-k="'+acts.length+'">'+(W.SUPER()?'무료 받기':x.type==='nonconsumable'&&it().inv?'보유 중':'구매')+'</button>'+(x.k==='bc'&&it().bc&&!bcLeft()?'<button class="stbuy alt" data-k="'+(acts.length+1)+'">활성화</button>':'')+'</div></div>';
     acts.push(function(){buy(x.k);});if(x.k==='bc')acts.push(bcOn);
   });
-  h+='</div><p class="stn">수량 아이템(밸런스 컨트롤 · 오토 플레이 · 타임 브레이커)은 여러 개 살 수 있고 서로 함께 쓸 수 있습니다.</p>';
+  h+='</div><p class="stn">밸런스 컨트롤 · 오토 플레이 · 타임 브레이커는 여러 개 구매해 쌓아 둘 수 있고, 모든 아이템은 한 미션에서 함께 쓸 수 있습니다.</p>';
   if(W.S6IAP&&W.S6IAP.restore){h+='<button class="stbuy alt" data-k="'+acts.length+'">구매 복원</button>';acts.push(function(){PAY.restore().then(function(n){W.toast(n?'구매 '+n+'건을 복원했습니다.':'복원할 구매가 없습니다.');store();});});}
   W.page('스토어','STORE // SPECIAL OPS SUPPLY',h,W.shop,acts);
 }
