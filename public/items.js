@@ -108,7 +108,7 @@ function store(){
   var acts=[],h=W.intro('Silent Six Store','Store','작전을 돕는 장비. 결제는 준비 중이며, 지금은 관리자만 무료로 받을 수 있습니다.')+'<div class="stg">';
   ITEMS.forEach(function(x,i){
     var o=own(x.k),im='st_'+x.k+'.jpg',pr=x.priceText||won(x.p);
-    h+='<div class="stc"><div class="sti" style="background-image:url('+im+')"><span>'+ico(x.k,34)+'</span></div><div class="stb"><i>'+x.e+'</i><b>'+x.n+'</b><p>'+x.d+'</p>'+(o?'<small>'+o+'</small>':'')+'<strong>'+pr+(x.type==='subscription'?'<em> / 월</em>':'')+'</strong>'+
+    h+='<div class="stc"><div class="sti" style="background-image:url('+im+')"><span>'+ico(x.k,34)+'</span></div><div class="stb"><i>'+x.e+'</i><b>'+x.n+'</b><details class="std"><summary>설명</summary><p>'+x.d+'</p></details>'+(o?'<small>'+o+'</small>':'')+'<strong>'+pr+(x.type==='subscription'?'<em> / 월</em>':'')+'</strong>'+
       '<button class="stbuy" data-k="'+acts.length+'">'+(W.SUPER()?'무료 받기':x.type==='nonconsumable'&&it().inv?'보유 중':'구매')+'</button>'+(x.k==='bc'&&it().bc&&!bcLeft()?'<button class="stbuy alt" data-k="'+(acts.length+1)+'">활성화</button>':'')+'</div></div>';
     acts.push(function(){buy(x.k);});if(x.k==='bc')acts.push(bcOn);
   });
@@ -316,7 +316,8 @@ var css=document.createElement('style');css.textContent=[
 '.stb{padding:10px 10px 12px;display:flex;flex-direction:column;gap:4px;flex:1}',
 '.stb i{font-style:normal;font-size:9px;letter-spacing:.22em;color:var(--c);font-weight:700}',
 '.stb b{font-size:15px;color:var(--ink)}',
-'.stb p{font-size:11.5px;line-height:1.5;color:#aab4be;margin:0;flex:1}',
+'.stb p{font-size:11.5px;line-height:1.5;color:#aab4be;margin:6px 0 0}',
+'.std{flex:1}.std summary{list-style:none;cursor:pointer;font-size:11.5px;color:var(--dim);display:inline-flex;align-items:center;gap:4px}.std summary::-webkit-details-marker{display:none}.std summary::after{content:"▾";font-size:10px}.std[open] summary::after{content:"▴"}',
 '.stb small{font-size:11px;color:#9be8ff}',
 '.stb strong{font-size:17px;color:var(--ink);margin-top:4px}.stb strong em{font-style:normal;font-size:11px;color:var(--dim)}',
 '.stbuy{margin-top:6px;padding:9px 0;background:var(--c);color:#fff;border:0;font-weight:800;font-size:13px;clip-path:var(--cut)}',
