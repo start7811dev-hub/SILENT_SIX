@@ -82,7 +82,7 @@ begin
 end $$;
 
 create or replace function public.s6_mission_ok(m text) returns boolean language sql immutable set search_path = public as $$
-  select m ~ '^(S1-0[1-6]|P-(raven|viper|glitch|brick|mirage|doc)-[1-3]|W-[1-5])$'
+  select m ~ '^(S1-(0[1-9]|1[0-2])|P-(raven|viper|glitch|brick|mirage|doc)-[1-3]|W-[1-5])$'
 $$;
 
 create or replace function public.s6_gcost(k integer) returns integer language sql immutable set search_path = public as $$

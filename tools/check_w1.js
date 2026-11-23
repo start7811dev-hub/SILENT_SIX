@@ -1,8 +1,8 @@
 // 블러디 크리스마스 1판(v3) 전용 점검. 사용: cd public && DIFF=1 node ../tools/check_w1.js [idle|gen|tree|ko]
-const fs=require('fs');const html=fs.readFileSync('index.html','utf8');const js=html.match(/<script>([\s\S]*)<\/script>/)[1];
+const fs=require('fs');const html=fs.readFileSync('index.html','utf8');const js=html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const noop=new Proxy(function(){},{get:(t,k)=>k==='length'?0:noop,apply:()=>noop,set:()=>true});
 const el=()=>({textContent:'',className:'',innerHTML:'',src:'',style:{setProperty(){}},appendChild(){},addEventListener(){},setAttribute(){},getAttribute(){return ''},getContext:()=>noop,getBoundingClientRect:()=>({width:390,height:640,left:0,top:0})});
-const els={};global.document={getElementById:id=>els[id]||(els[id]=el()),createElement:el};global.window={devicePixelRatio:1,addEventListener(){}};global.requestAnimationFrame=()=>{};
+const els={};global.document={getElementById:id=>els[id]||(els[id]=el()),createElement:el,addEventListener(){},head:{appendChild(){}},body:{appendChild(){}}};global.window={devicePixelRatio:1,addEventListener(){}};global.requestAnimationFrame=()=>{};
 (0,eval)(js);if(process.env.DIFF)setDiff(+process.env.DIFF);
 const MI_=WIDX[(+process.env.STAGE||1)-1],DT=1/32,KS=0.125;let PAD=+(process.env.PAD||0.3),LOUD=false;
 function init(){loadMission(MI_);restart();S.ops.forEach(o=>o.crouch=true);}

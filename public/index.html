@@ -539,7 +539,7 @@ em.k{font-style:normal;color:var(--c);font-weight:700}
 #ro.hide{display:none}
 #vw{position:fixed;inset:0;z-index:40;background:#000;display:flex;align-items:center;justify-content:center}
 #vw.hide{display:none}
-#vw img{width:100%;height:100%;object-fit:contain;-webkit-user-select:none;user-select:none}
+#vw img{width:100%;height:100%;object-fit:contain;transition:opacity .14s;-webkit-user-select:none;user-select:none}
 #vw button{position:absolute;right:calc(14px + env(safe-area-inset-right));width:46px;height:46px;border-radius:50%;background:rgba(6,8,11,.62);color:#fff;display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 #vw button svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
 #vwx{top:calc(14px + env(safe-area-inset-top))}
@@ -837,7 +837,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.42.4';
+var VERSION='0.43.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -935,7 +935,7 @@ function nBuy(id,k,re){
 function nImg(id,k){var f='n_'+id+'_'+k+'.jpg';return NPI[f]?f:(k===NCUT?'e_'+id+'.jpg':null);}
 var RWP={},RWT=0;
 function rwProbeM(i,cb){if(typeof Image==='undefined'||RWP[i]||!MIS[i])return;RWP[i]=1;for(var n=0;n<4;n++)(function(f){var im=new Image();im.onload=function(){RWI[f]=true;if(cb){clearTimeout(RWT);RWT=setTimeout(cb,250);}};im.src=f;})('r_'+MIS[i].key+'_'+n+'.jpg');}
-function rwProbe(){for(var i=0;i<NBASE;i++)rwProbeM(i);}
+function rwProbe(){STI.forEach(function(i){rwProbeM(i);});}
 function rwTier(i){if(GOD())return 3;if(!PROG.c[i])return -1;var h=(PROG.hb||{})[i];return typeof h==='number'?Math.max(0,Math.min(3,h)):0;}
 function rwImg(i,n){var f='r_'+MIS[i].key+'_'+n+'.jpg';return RWI[f]?f:(n===0?mimg(i):null);}
 function kvProbe(){if(typeof Image==='undefined')return;['seasonal','special'].forEach(function(k){var im=new Image();im.onload=function(){KVI[k]=true;sbRefresh();};im.src='kv_'+k+'.jpg';});}
@@ -1030,6 +1030,109 @@ WINTER.forEach(function(c,ci){
   m.goal0=m.objective.label+' — '+m.objective.verb;m.goal1=m.ops.length>2?'세 명 모두 진입 지점으로 복귀':m.ops.length>1?'두 명 모두 진입 지점으로 복귀':'진입 지점으로 복귀';m.env=c.env||null;if(m.subs){m.goal0=m.subs.map(function(x){return x.verb;}).join(' · ')+' → '+m.goal0;m.goal1='열린 출구로 모두 이탈';}m.brief='<ul>'+RULES+(c.tips||[]).map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
   WIDX.push(MIS.length);MIS.push(m);
 });
+/* ===== 스토리 S1 · EP2 「누가 흘렸나」 — 30×30 정밀 동선 맵, 중간 목표 2 → 본 목표 → 판 전환 → 이탈 ===== */
+var EP2=[
+ {t:'빈 책상',copy:'주인 없는 자리에<br>불이 켜졌다.',ops:'RAVEN + GLITCH',bc:'nokill',par:400,
+  tips:['<b>서버실 차단기</b>는 글리치만 올릴 수 있다. 올려야 지휘관 단말이 켜진다.','<b>CCTV 통제실</b>에서 카메라를 끄면 복도 카메라 석 대가 모두 꺼진다.','<b>번지는 화재</b>: 45초마다 방 하나씩 방화 셔터가 내려온다. 셔터 안에 갇히면 끝이다.','로그를 복사하면 정리반 증원이 들어온다. 출구 두 곳 중 열린 곳은 그때 알려 준다.'],
+  m:{bg:'bg_s1_07.jpg',sk:0.3,zm:1.5,wake:120,opaque:'#BJ',hts:{'#':30,'B':42,'J':40,'C':14,'X':16,'W':30},proj:[23.808026148, -25.407047758, 765.891766898, 15.162217436, 14.900739035, 21.924675127, -0.001085405, -0.001284683, 1.0],MAP:["################..#############", "#.........#....#..............#", "#.C.....J.#.BB.#.C..........J.#", "#.......J.#.BB.#.....#........#", "#.....C...#....#.....#....BB..#", "#....CCC..#....####..#.BB.BB..#", "#...CCX...#.......#..#.BB.....#", "#....C...#.......C...#........#", "#...........CC.......#...J....#", "#......#.............#........#", "#######..............##.#######", "#....#....B.B.B.B.B...........#", "#C...#.C..B.B.B.B.B.J.........#", "#C...#....B.B.B.B.B.J..J......#", "#CC.......B.B.B.B.B...........#", "#.C.......B.B.B.B.B......######", "#....#....B.B.B.B.B..CC..#....#", "######..C.B.B.B.B.B........CC.#", "#....#....B.B.B.B.B...........#", "#.C...C...B.B.B.B.B....C.#CCC.#", "#....#C..................#...C#", "#########....JJ..........#....#", "#B......##........C.....#######", "#........##..C................#", "#...BBB......C....####......C.#", "#........########....#........#", "#.BBBBB..#.....#.....#...C....#", "#......C.#.....#.CCC.#...C....#", "#........#.....#.....#.....J..#", "#........#.....#.....#........#", "#################....##########"],
+  ops:[{id:'raven',x:18,y:28},{id:'glitch',x:19,y:28}],exit:[[17,30],[18,30],[19,30],[20,30]],objective:{x:6,y:6,use:[7,6],label:'지휘관 단말',verb:'접속 로그 복사',time:6},
+  lock:'단말이 죽어 있다. 차단기와 카메라부터.',
+  subs:[{k:'brk',x:1,y:28,use:[2,28],by:'glitch',label:'서버실 차단기',verb:'단말 전원 복구',btn:'차단기',time:3,done:'지휘관 자리에 전원이 들어왔다.'},{k:'cctv',x:1,y:13,use:[2,13],label:'CCTV 통제실',verb:'카메라 끄기',btn:'CCTV',time:3,camoff:1,done:'복도 카메라 석 대가 꺼졌다.'}],
+  env:{spread:{every:45,rooms:[{n:'소각실',cells:[[21,1],[21,2],[23,10]],bars:[['p_s107_sy.png',21,1,1,2],['p_s107_sx.png',23,10,1,1]]},{n:'서류 보관실',cells:[[25,17],[25,18]],bars:[['p_s107_sy.png',25,17,1,2]]},{n:'남쪽 창고',cells:[[21,23],[22,22],[23,22]],bars:[['p_s107_sx.png',22,22,2,1],['p_s107_sy.png',21,23,1,1]]},{n:'북쪽 빈 방',cells:[[5,19]],bars:[['p_s107_sy.png',5,19,1,1]]}]}},
+  evac:{note:'정리반 증원이 내려온다.',posts:[{post:[13,21],face:-1.57},{post:[7,14],face:1.57}],gates:[{n:'들어온 램프',cells:[[17,30],[18,30],[19,30],[20,30]],close:[[17,30],[18,30],[19,30],[20,30]],post:[16,22],face:-1.57,bar:['p_s107_sx.png',17,30,4,1]},{n:'비상계단',cells:[[16,0],[17,0]],close:[[16,0],[17,0]],post:[19,3],face:-2.4,bar:['p_s107_sx.png',16,0,2,1]}]},
+  dlg:{left:'glitch',
+   start:[['hq','레이븐, 글리치. 옛 본부 지하 2층이다. 정리반이 먼저 내려가서 서류를 태우고 있어.'],['raven','알아서 태워 주는데 우리가 굳이 왜 가요. 지휘관 자리 단말, 그거 하나 보러 가는 거잖아요.',0],['hq','…그래. 내 자리다. 보고 와.'],['glitch','근데 단말이 죽어 있어요. 서버실 차단기부터 올려야 켜질 거예요. 그건 제가 할게요.',0],['raven','카메라는 내가 끈다. 통제실이 복도 왼쪽 위 맞지?',0],['glitch','네. 그리고 언니, 불이 번지고 있어요. 소각실부터 셔터가 하나씩 내려올 거예요. 안에 있다가 갇히면 끝이에요!',1]],
+   mid:[['glitch','…언니, 이거 열면 핸들러 것도 다 보여요. 지휘관님 것까지요.',1],['raven','그래서 여는 거야.',0],['hq','열어. 숨길 거 없다.']],
+   obj:[['glitch','복사 끝! 근데 언니, 위에서 사람들이 우르르 내려와요. 정리반 증원이에요!',1],['raven','나가는 길은?',1],['glitch','램프 아니면 비상계단인데, 하나는 벌써 막혔을 거예요. 열린 쪽 바로 알려 줄게요!',1]],
+   end:[['glitch','마지막 사용일이… 명단 팔린 날이랑 똑같아요.',1],['raven','접속한 위치는.',0],['glitch','본부가 아니에요. 해안 무선 중계국. 이 번호, 밖에서 빌려 쓴 거예요.',0],['hq','…중계국이라면 바이퍼와 브릭을 보내지.'],['raven','보내세요. 대신 이번엔 우리 귀로 직접 들을 거예요.',0]]},
+  guards:[{wps:[[7,18],[3,19]]},{wps:[[21,11],[21,20]]},{wps:[[23,25],[28,28]]},{wps:[[11,22],[22,21]]},{wps:[[11,11],[11,19]]},{wps:[[17,19],[17,11]]},{wps:[[11,8],[14,9]]},{wps:[[22,11],[29,11]]},{wps:[[3,23],[7,28]]},{wps:[[20,10]],cam:true,faces:[2.36,1.57],ft:8},{wps:[[23,21]],cam:true,faces:[3.14,2.36],ft:8},{wps:[[19,5]],cam:true,faces:[1.57,2.6],ft:8}]}},
+ {t:'송신소',copy:'목소리는 바꿔도<br>부호는 못 바꾼다.',ops:'VIPER + BRICK',bc:'onesnipe',par:420,
+  tips:['<b>안테나 급전선</b>은 바이퍼의 저격으로만 끊긴다. 끊어야 음성 기록이 더 지워지지 않는다.','<b>경비 초소</b> 무전은 브릭이 끊는다. 장비동 오른쪽의 <b>금 간 벽</b>은 브릭이 부수고 들어갈 수 있다. 시끄럽다.','<b>바다 안개</b>가 끼면 모두의 시야가 짧아진다. 등대 탐조등은 울타리 너머까지 본다.','기록을 챙기면 해경 보트가 선착장을 막는다. 오른쪽 <b>절벽 계단</b>으로 내려간다.'],
+  m:{bg:'bg_s1_08.jpg',sk:0.3,zm:1.5,wake:120,opaque:'#BJ',hts:{'#':30,'B':44,'J':40,'C':14,'X':20,'W':30,'F':16},proj:[18.604466545, -25.201453301, 768.024665647, 10.484110765, 10.497308649, 100.036119879, -0.004276264, -0.004249329, 1.0],MAP:["BBBB###########################", "BBBB..............BB......BBBB#", "BBBB....C....JJ...BB......BBBB#", "BBBB.........JJ.......C...BBBB#", "#.........................BBBB#", "#....FFFFFFFFFFFFFFFFFFFFFF...#", "#....F.....BB.............F....", "#....F.CC..BBC............F....", "#.C..F....................F...#", "#....F..........BB...#####F...#", "#....F.BB.......BBC..#XC.#F.C.#", "#....F.BB............#...#F...#", "#....F...............#...WF...#", "#..C.F..JJ...JJJJ....#C..WF...#", "#....F..JJ...JJJJ....#...#F.BB#", "#....F...............#...#F.BB#", "#....F...BB..........##..#....#", "#....F...BB...................#", "#BB..F....................F...#", "#BB..F.....C...........JJ.F.C.#", "#....F..######...C..BBBJJ.F.C.#", "#....F..######......BBBJJ.F...#", "#.C..F..######......BBBJJ.F...#", "#....F..######............F..#V", "#....F..######..............#VV", "#....F.....................#VVV", "#BBB.FFFFFFFFFFF..FFFFFF....VVV", "#BBB.....................#...VV", "#BBB...JJJJ...BB..CC....#VV...V", "#BBB...JJJJ...BB.......#VVVV..#", "#######################VVVVVV#."],
+  ops:[{id:'viper',x:28,y:29},{id:'brick',x:29,y:29}],exit:[[28,29],[29,29]],objective:{x:22,y:10,use:[22,11],label:'중계 장비',verb:'음성 기록 회수',time:5},
+  lock:'기록이 계속 지워지고 있다. 급전선과 초소 무전부터.',
+  subs:[{k:'feed',x:16,y:9,w:2,h:2,shoot:true,by:'viper',label:'안테나 급전선',verb:'급전선 저격',btn:'급전선',done:'안테나가 죽었다. 기록 삭제가 멈췄다.'},{k:'booth',x:20,y:20,w:3,h:3,use:[19,21],by:'brick',label:'경비 초소',verb:'초소 무전 끊기',btn:'초소',time:3,done:'초소 무전이 끊겼다.'}],
+  env:{vis:[30,10,0.6,'바다 안개 · 시야가 짧다','다음 안개까지']},
+  evac:{note:'해경 보트가 선착장으로 들어온다. 선착장은 끝났다.',gates:[{n:'절벽 계단',cells:[[29,6],[30,6],[30,7]],post:[27,9],face:-0.6}]},
+  dlg:{left:'brick',
+   start:[['hq','해안 중계국이다. 그 번호로 들어온 접속은 전부 거기를 거쳤어. 중계 장비에 음성 기록이 남아 있을 거다.'],['brick','자기 뒤를 캐라고 직접 허락하는 사람은 또 처음 보네요.',1],['hq','허락이 아니라 명령이다, 브릭.'],['viper','둘 다 그만. 안테나가 살아 있는 동안엔 기록이 계속 지워져. 급전선은 내가 끊을게.',0],['brick','그럼 난 장비동. 오른쪽 벽에 금 간 데 보이지? 정문 말고 저기로 들어간다.',2],['viper','안개 끼면 등대 불도 눈이 멀어. 그 틈에 움직여.',2]],
+   mid:[['viper','하나 끝. …근데 브릭, 저 초소 무전기 아직 켜져 있어.',0],['brick','그건 내가 끊어. 소리 안 나게, 진짜로.',0]],
+   obj:[['brick','기록 챙겼어! 어, 바다 쪽에 불빛… 해경 보트다!',1],['viper','선착장은 이제 못 써. 오른쪽 절벽 계단으로 내려가!',1]],
+   end:[['viper','목소리는 변조됐는데, 호출 부호가 그대로야.',1],['brick','지휘관님 부호잖아요. 설명해요. 지금 당장.',1],['hq','…그 부호는 내가 받기 전에도 있었다.'],['viper','받기 전에도? 그럼 그 전 주인은 누군데요.',0],['hq','인사과에 가면 알 수 있을 거다. 내 발령장이 거기 있어.']]},
+  guards:[{wps:[[4,4]],tower:true,lamp:true,faces:[0.6,0.95,1.3],ft:5},{wps:[[6,6],[6,24]]},{wps:[[7,25],[24,25]]},{wps:[[27,8],[27,22]]},{wps:[[1,5],[1,24]]},{wps:[[5,4],[24,4]]},{wps:[[19,24]],faces:[-1.57,3.14],ft:5},{wps:[[10,8],[20,8]]},{wps:[[23,15],[28,17]]}]}},
+ {t:'발령장',copy:'정해진 배역은<br>대본보다 먼저 온다.',ops:'MIRAGE + DOC',bc:'noinv',par:420,
+  tips:['<b>출입 기록 서버</b>는 미라주만 멈출 수 있다. 서버실 문은 아래쪽 유리벽 옆이다.','<b>당직 책임자</b>는 표시가 붙은 경비다. 재우면 이 층 문이 열린다. 닥의 다트가 가장 조용하다.','칸막이 사이에서는 눈에 덜 띈다. 보안 데스크 근처는 더 잘 띈다.','촬영을 마치면 감사 순찰이 시작된다. 엘리베이터 로비는 잠기고, <b>화물 엘리베이터</b>로만 나간다.'],
+  m:{bg:'bg_s1_09.jpg',sk:0.3,zm:1.5,wake:120,opaque:'#BJ',hts:{'#':30,'B':42,'J':40,'C':14,'X':16,'F':22},proj:[23.177844446, -25.210844833, 765.93905346, 15.30339998, 14.977176043, 20.809074805, -0.001368242, -0.001444935, 1.0],MAP:["###############################", "#.BBBBBB..#.#......#.#........#", "#B........#.#......#.#B...CCC.#", "#B........#.#BBBBB.#.#B.......#", "#B........#.#......#.#B.......#", "#B...CC...#.#......#....CCCC..#", "#B...CX...#.#......#.......J..#", "#B.......#..##..FF##.#........#", "#..J.................###FFFFFFF", "#......#C........C..C.........#", "#######.........CCC...........#", "#..............CCC...C..J.....#", "########.....CC.C...CCC.J.#####", "#.CC...#.C.........CCC....#...#", "#C.......C..C.......C.....#...#", "#....C.....CCC............#...#", "#...CCC...CCC.........C...#...#", "#B...C.....C.........CCC..#...#", "#.............C.....CCC...#...#", "#......#.....CCC.....C...C....#", "#..C...#....CCC...C......C....#", "########.....C...CCC.........##", "#########.......CCC.........B.#", "#..CCCC.#........C.........F..#", "#.......#C....FF......CC..B...#", "#.......#.....................#", "#..........##########...B.....#", "#..CC......#........#..C.......", "#B..CC..#..#..........C........", "#.......#..#.........C.........", "##########################....."],
+  zones:[[20,23,30,30,1.3],[10,9,22,21,0.7]],
+  ops:[{id:'mirage',x:27,y:29},{id:'doc',x:28,y:29}],exit:[[27,29],[28,29]],objective:{x:6,y:6,use:[7,6],label:'발령장 원본',verb:'촬영',time:4},
+  lock:'보관실이 잠겨 있다. 출입 기록과 당직 책임자부터.',
+  subs:[{k:'rec',x:13,y:3,w:5,h:1,use:[15,5],by:'mirage',label:'출입 기록 서버',verb:'출입 기록 정지',btn:'기록',time:4,done:'출입 기록이 멈췄다.'},{k:'radio',label:'당직 책임자',verb:'당직 책임자 재우기',done:'당직 책임자가 잠들었다. 이 층 문이 우리 편이다.'}],
+  evac:{note:'감사 순찰이 시작됐다. 엘리베이터 로비가 잠겼다.',posts:[{post:[20,24],face:-2.36}],gates:[{n:'화물 엘리베이터',cells:[[28,15],[28,16]],post:[25,18],face:0}]},
+  dlg:{left:'doc',
+   start:[['hq','국가안보실 인사과, 야간이다. 기록 보관실에 내 발령장 원본이 있어.'],['mirage','지휘관님 이력서를 몰래 훔쳐보는 기분이네. 좀 설레는데요?',2],['doc','장난은 거기까지. 카드 구역은 변장으로 오래 못 버텨. 출입 기록부터 멈춰야 해.',0],['mirage','그건 내가 서버실에서 끌게. 닥은 당직 책임자 맡아. 이 층 문을 다 여는 사람이 그 사람이야.',0],['doc','다트 한 발이면 돼. 누군지만 알면.',2]],
+   mid:[['doc','하나 끝났어. 미라주, 너 걸음이 너무 당당해. 야근하는 사람은 그렇게 안 걸어.',1],['mirage','야근하는 사람이 아니라 승진 앞둔 사람처럼 걷는 거야. 그거 차이 커.',2]],
+   obj:[['mirage','찍었어. 근데… 감사관이 순찰을 돌기 시작했어. 엘리베이터 로비는 벌써 잠겼고.',1],['doc','화물 엘리베이터로 가. 오른쪽 아래야.',0]],
+   end:[['doc','날짜가 3년 전이야. 설계자가 사라진 그 달.',1],['mirage','서명도 설계자 거네. …나랑 같네. 정해진 배역.',0],['hq','설계자가 날 앉혔다. 그건 숨긴 적 없어.'],['doc','저희가 물어본 적이 없었으니까요. 그럼 그 전엔 그 자리가 비어 있었던 거죠?',0],['hq','…그래야 맞지.']]},
+  guards:[{wps:[[13,9],[18,9]],keen:true},{wps:[[9,11],[21,20]]},{wps:[[23,9],[24,22]]},{wps:[[24,27]],faces:[-2.36,-1.57],ft:6},{wps:[[8,13],[9,25]]},{wps:[[25,4]],faces:[3.14,2.36],ft:6},{wps:[[2,14],[5,19]],mark:true,tag:'당직 책임자'},{wps:[[12,25],[22,25]]},{wps:[[20,8]],cam:true,faces:[2.36,1.57],ft:8},{wps:[[11,22]],cam:true,faces:[-0.78,-1.57],ft:8}]}},
+ {t:'정리 목록',copy:'지우는 쪽의 목록에<br>지휘관이 있었다.',ops:'BRICK + GLITCH',bc:'noload',par:400,
+  tips:['<b>관리실</b>에서 글리치가 CCTV를 끄면 단지 카메라 네 대가 모두 꺼진다.','입구 승합차 옆 <b>무전수</b>를 재우면 청산파 무전이 끊긴다.','케이스를 챙기면 정리반이 들이닥치고 정문이 막힌다. <b>2분</b> 안에 지하주차장 램프로 나가야 한다.'],
+  m:{bg:'bg_s1_10.jpg',sk:0.3,zm:1.5,wake:120,opaque:'#BJ',hts:{'#':30,'B':40,'J':40,'C':14,'X':16},proj:[22.597523607, -25.240407754, 767.970244057, 14.722909562, 14.474094214, 17.345198194, -0.001699288, -0.001819456, 1.0],MAP:["###############################", "#............C................#", "#.##########.....#########....#", "#.#.BCCC.B.#.....#.......##..C#", "#.#..CCC...#.....#CC...CC.##..#", "#.#........#....##CX....C..#..#", "#.#........#.............C.#..#", "#.#........#...............#..#", "#.#........#....##..CC.C......#", "#.#........#.....##..C.C......#", "#.########........##.......#JJ#", "#..................###.....#JJ#", "#C..........B.C..CC..#######JJ#", "#C...........CC.............JJ#", "#...JJJJ..............C.......#", "#...JJJJ.......BB.............#", "#.....##....CC.BB.............#", "#.#######..........C..........#", "#.#.....##.......CC..#######..#", "#.##.....##.........##.....#..#", "#..#......###..............#..#", "#..#........#.....##....C..#..#", "#..#.......##....##.....C..#..#", "#..#.......#..C.##.........#..#", "...##......#.....#.........#..#", "....#......#.....#.CC......####", "....########.....#.C...........", "#........C.......#########.....", "#........C..........JJJJ.#.....", "#...................JJJJ.#.....", "##########################....."],
+  ops:[{id:'brick',x:27,y:28},{id:'glitch',x:28,y:28}],exit:[[27,28],[28,28]],objective:{x:19,y:5,use:[20,5],label:'예비 단말',verb:'케이스 회수',time:4},
+  lock:'안가 문이 감시당하고 있다. 관리실 카메라와 무전수부터.',
+  subs:[{k:'cctv',x:5,y:3,w:3,h:2,use:[6,5],by:'glitch',label:'관리실',verb:'CCTV 끄기',btn:'관리실',time:3,camoff:1,done:'단지 카메라가 모두 꺼졌다.'},{k:'radio',label:'무전수',verb:'무전수 제압',done:'승합차 무전이 끊겼다.'}],
+  evac:{limit:120,late:'정리반이 단지를 에워쌌다.',note:'정리반 차량이 정문을 막았다.',close:[[26,29],[27,29],[28,29],[29,29],[30,29],[26,30],[27,30],[28,30],[29,30],[30,30]],bars:[['p_s110_vx.png',26,29,4,2]],posts:[{post:[14,14],face:3.14},{post:[6,13],face:0}],gates:[{n:'지하주차장 램프',cells:[[0,24],[0,25],[0,26]],post:[3,21],face:1.57}]},
+  dlg:{left:'glitch',
+   start:[['hq','내 안가다. 1층 거실에 예비 단말이 케이스째 있어. 청산파가 먼저 노리고 있다.'],['glitch','관리실 카메라 네 대요. 제가 다 재울게요.',0],['brick','입구에 검은 승합차 한 대. 안에 무전수 하나 남아 있어. 저건 내가.',0],['glitch','브릭 언니, 조용히요. 제발 조용히!',1],['brick','난 늘 조용해.',2]],
+   mid:[['glitch','하나 끝! 근데 이상해요. 이 단지 카메라, 관리실 말고 다른 데로도 영상이 나가요.',1],['brick','어디로?',0],['glitch','모르겠어요. 그게 더 무서운 거예요.',1]],
+   obj:[['glitch','케이스 챙겼어요! 어… 단지로 차가 더 들어와요. 정리반이에요!',1],['brick','정문 말고 지하주차장으로. 2분이면 충분해.',1]],
+   end:[['glitch','청산파 정리 목록이에요. 우리 여섯 이름 밑에… 지휘관님 이름도 있어요.',1],['brick','지휘관을 판 놈이 지휘관을 지운다고? 말이 안 되잖아.',1],['glitch','그리고 이거요. 케이스 바닥에 붙어 있던 추적기. 처음 보는 모델이에요.',0],['hq','…3년 전 폐광 철수 명령서를 유지파가 태우려고 한다. 레이븐과 바이퍼를 보내.']]},
+  guards:[{wps:[[13,14],[18,17]]},{wps:[[1,1],[1,14]]},{wps:[[12,1],[29,1]]},{wps:[[29,4],[28,21]]},{wps:[[6,28],[11,23]]},{wps:[[13,6],[15,10]]},{wps:[[19,29]],faces:[3.14,1.57],ft:6,mark:true,tag:'무전수'},{wps:[[12,11]],cam:true,faces:[0.78,1.57],ft:8},{wps:[[17,13]],cam:true,faces:[2.36,1.57],ft:8},{wps:[[26,14]],cam:true,faces:[2.36,3.14],ft:8},{wps:[[13,25]],cam:true,faces:[-0.78,-1.57],ft:8}]}},
+ {t:'철수 명령서',copy:'그날의 명령은<br>아직 타지 않았다.',ops:'RAVEN + VIPER',bc:'onesnipe',par:420,
+  tips:['<b>크레인 운전석</b>은 바이퍼의 저격으로만 멈춘다. 멈춰야 상자가 바닥에 남는다.','<b>제어실</b>에서 레이븐이 컨베이어를 세운다.','<b>소각로 투입</b> 때마다 15초 동안 홀이 굉음에 묻힌다. 그동안은 소리가 안 퍼진다.','명령서를 챙기면 문서 트럭이 출발한다. <b>2분</b> 안에 하역장 문으로 나가야 한다.'],
+  m:{bg:'bg_s1_11.jpg',sk:0.3,zm:1.5,wake:120,opaque:'#BJ',hts:{'#':30,'B':44,'J':40,'C':14,'X':16,'F':22},proj:[21.88459128, -25.047880607, 767.942015398, 13.48140977, 13.226817624, 66.475091588, -0.002099267, -0.002170601, 1.0],MAP:["###############################", "###############.........JJ....#", "##.........####..C......JJ....#", "##......B..####...............#", "##.....BB..####......C........#", "##.........####......C....B...#", "##...BB..#..........B.........#", "##...BB..#....BBBB............#", "##..BBBB.#....BBBB###.....#####", "##..BBBB.#....BBBB..#.....#...#", "##..BBBB.#..C.BBBB..#.JJJ.#JJ.#", "##.C.....#......C...#.JJJ.#JJ.#", "##.C.....#.....CCX..#.....#JJ.#", "##.......#FFF..C....#.....#JJ.#", "##.......#FFF..C....#.....#JJ.#", "#######..#FFF.CC....#.....#...#", "#..BBBB.......C.....#..CC.#...#", "#..BBBB.......C.....#.....##..#", "#..BBBB.C.#...C...C.#..........", "#..BBBB...#..CC.....#..........", "#.........#CCC......#..........", "########..#.........#......BB.#", "#.BBBB.#..####..#####.BB...BB.#", "#.BBBB.#..............BB......#", "#.BBBB.#..........BB..........#", "#.CC......C.......BB.......BB.#", "#............BB........BB..BB.#", "#FFFFFB......BB...BB...BB.....#", "#.......FFFF....C.BB..........#", "#....................CC.......#", "######..#######################"],
+  ops:[{id:'raven',x:6,y:29},{id:'viper',x:7,y:29}],exit:[[6,30],[7,30]],objective:{x:17,y:12,use:[18,12],label:'철수 명령서',verb:'회수',time:5},
+  lock:'상자가 소각로로 끌려가고 있다. 크레인과 컨베이어부터.',
+  subs:[{k:'crane',x:23,y:3,w:2,h:1,shoot:true,by:'viper',label:'크레인 운전석',verb:'운전석 저격',btn:'크레인',done:'크레인이 멈췄다. 상자가 바닥에 남았다.'},{k:'conv',x:10,y:13,w:3,h:3,use:[13,14],by:'raven',label:'제어실',verb:'컨베이어 비상 정지',btn:'제어실',time:3,done:'컨베이어가 멈췄다.'}],
+  env:{mask:[50,15,'소각로 투입 · 소리가 묻힌다','다음 투입까지']},
+  evac:{limit:120,late:'트럭이 떠났고, 하역장 문이 잠겼다.',note:'문서 트럭이 출발한다.',close:[[6,30],[7,30]],bars:[['p_s111_bx.png',6,30,2,1]],posts:[{post:[22,19],face:3.14}],gates:[{n:'하역장 문',cells:[[30,18],[30,19],[30,20]],post:[27,19],face:3.14}]},
+  dlg:{left:'viper',
+   start:[['hq','유지파 문서 소각장이다. 3년 전 폐광 철수 명령서가 오늘 밤 탄다.'],['raven','폐광이요. …그날 명령서.',1],['viper','크레인 운전석은 내가 맡을게. 저게 상자를 못 올리게.',0],['raven','난 제어실에서 컨베이어 세운다. 소각로가 문서를 삼킬 때마다 소리가 묻혀. 그때 움직여.',0]],
+   mid:[['viper','레이븐. 그날 내가 쏘지 못한 한 발, 기억나?',1],['raven','지금 그 얘기 할 때 아니야.',1],['viper','알아. 그래서 지금 하는 거야.',0]],
+   obj:[['raven','찾았어. 반쯤 탔는데 번호는 보여.',1],['viper','트럭 출발한다! 하역장 문 닫히기 전에 나가, 2분!',1]],
+   end:[['raven','발신 번호가 같아. 명단을 판 그 번호.',1],['viper','3년 전엔 지휘관이 없었잖아.',0],['raven','그래. 이 번호는 지휘관보다 먼저 있었어.',0],['hq','…청문회가 내일 아침이다. 증인 명단 원본을 가져와.']]},
+  guards:[{wps:[[11,10],[18,20]]},{wps:[[21,2],[22,20]]},{wps:[[3,2],[10,2]]},{wps:[[9,3]],tower:true,faces:[1.2,0.4],ft:6},{wps:[[2,16],[2,20]]},{wps:[[9,24],[25,24]]},{wps:[[12,29],[28,29]]},{wps:[[28,16]],faces:[1.57,3.14],ft:6},{wps:[[14,21]],faces:[1.57,-1.57],ft:6}]}},
+ {t:'일곱 번째 의자',copy:'증인은 여섯.<br>의자는 일곱.',ops:'RAVEN + MIRAGE + DOC',bc:'nokill',par:360,
+  tips:['개회까지 <b>6분</b>. 종이 울리기 전에 명단을 챙겨야 한다.','<b>경호실 무전 대장</b>은 누구든 챙길 수 있다. <b>중계 카메라</b>는 미라주만 늦출 수 있다.','<b>워든</b>은 복도를 오간다. 변장도 꿰뚫어 보고, 제압도 총도 통하지 않는다.','명단을 챙기면 로비가 잠긴다. 오른쪽 아래 <b>지하 연결 통로</b>로 나간다.'],
+  m:{bg:'bg_s1_12.jpg',sk:0.3,zm:1.5,wake:120,opaque:'#BJ',hts:{'#':30,'B':40,'J':40,'C':14,'X':16},proj:[23.170903407, -25.334321682, 764.924357132, 14.939989788, 14.817912983, 20.068097869, -0.001517832, -0.001507925, 1.0],MAP:["###############################", "###########..........#........#", "##...................#........#", "##J......J..................B.#", "##............................#", "##..........#######..#.CCCCC..#", "##..CXC.....#.....#..#........#", "##..CCC.....#.CC..#.....CCCC..#", "##..........#.C...#...........#", "##.C........#..#######...CCCJ.#", "##..............#....#........#", "#....######.......CC.#........#", "#....#....#.......C..#.JJ.#####", "#J...#.CC..C....#....#........#", "#J...#.C........############..#", "#....#....#...........#....#..#", "#....#....#....J........CC.#...", "#....######.............C..#...", "#.......######........######...", "#.......#....######CC.........#", "#.......#.CC.#....#...........#", "#########.C..#.CC........##...#", "#.BB...#######.C..............#", "#.BB.........#....#...........#", "#...........C#....#.......C...#", "#...CC.#.....#....#..#...C....#", "#......#CC...######..#..C.....#", "#..CC......................C..#", "#....C..............C.........#", "#...................C..CC.....#", "################...############"],
+  ops:[{id:'raven',x:16,y:29},{id:'mirage',x:17,y:29},{id:'doc',x:18,y:29}],exit:[[16,30],[17,30],[18,30]],objective:{x:5,y:6,use:[5,5],label:'증인 명단 원본',verb:'회수',time:5},
+  lock:'전실 경호가 촘촘하다. 무전 대장과 생중계부터.',
+  subs:[{k:'log',x:2,y:22,w:2,h:2,use:[4,23],label:'경호실 무전 대장',verb:'무전 대장 확보',btn:'무전 대장',time:3,done:'경호 동선이 손에 들어왔다.'},{k:'cast',x:28,y:9,use:[27,10],by:'mirage',label:'중계 카메라',verb:'생중계 지연',btn:'중계',time:4,done:'생중계가 30초 늦게 나간다.'}],
+  env:{limit:360,ltxt:'개회까지',lfail:'개회 종이 울렸다. 명단은 청문회장 안으로 들어갔다.'},
+  evac:{note:'개회 종이 울린다. 로비가 잠겼다.',close:[[16,30],[17,30],[18,30]],bars:[['p_s112_sx.png',16,30,3,1]],posts:[{post:[20,20],face:-0.78}],gates:[{n:'지하 연결 통로',cells:[[30,16],[30,17],[30,18]],post:[27,19],face:0}]},
+  dlg:{left:'mirage',
+   start:[['hq','의원회관 증인 대기동이다. 개회까지 6분. 증인 명단 원본은 전실, 보좌관 서류 가방 안에 있다.'],['raven','들려요, 핸들러.',0],['hq','…그 이름으로 부른 건 처음이군.'],['mirage','경호실 무전 대장은 레이븐 몫, 생중계는 내가 늦출게. 기자실 카메라 하나면 돼.',0],['doc','그리고 복도에 워든이 있어. 우릴 보고도 그냥 지나칠 수도 있고, 거기서 다 끝날 수도 있어.',1]],
+   mid:[['mirage','…워든이 날 봤어. 근데 그냥 지나갔어.',1],['doc','웃었어?',1],['mirage','응. 아는 사람한테 하듯이.',1]],
+   obj:[['raven','가방 확보. 종 울린다!',1],['doc','로비는 막혔어. 오른쪽 아래, 지하 연결 통로로!',1]],
+   end:[['mirage','칸이 일곱 개야. 여섯 칸엔 이름이 있고, 일곱 번째는 비어 있어. 서명도 없고.',1],['doc','접근 기록이 있어. 그 번호로… 오늘 아침에.',1],['raven','오늘 아침이면 지휘관은 우리랑 같은 방에 있었어.',0],['hq','그래. 이제 좀 믿겠나.'],['raven','아직요. 다음 명령 기다릴게요, 핸들러.',0]]},
+  guards:[{wps:[[12,10],[20,18]],boss:true},{wps:[[11,9],[19,15]]},{wps:[[8,8]],faces:[3.14,-1.57,2.36],ft:5},{wps:[[2,11],[3,20]]},{wps:[[29,13],[28,28]]},{wps:[[23,27]],faces:[-2.36,-1.57],ft:6},{wps:[[3,25],[6,27]]},{wps:[[23,2],[27,4]]},{wps:[[12,2],[20,4]]},{wps:[[20,23],[27,23]]},{wps:[[15,18]],cam:true,faces:[-0.78,-1.57],ft:8},{wps:[[20,11]],cam:true,faces:[2.36,3.14],ft:8},{wps:[[24,24]],cam:true,faces:[-2.36,-1.57],ft:8}]}}
+];
+var E2IDX=[];
+EP2.forEach(function(c,ci){
+  var m={},k;for(k in c.m)m[k]=c.m[k];var no=('0'+(7+ci)).slice(-2);
+  m.title=c.t;m.code='MISSION '+no+' // '+c.ops;m.copy=c.copy;m.img='r_S1-'+no+'_0.jpg';m.ep=1;m.key='S1-'+no;m.bc=c.bc;m.par=c.par;
+  m.goal0=m.objective.label+' — '+m.objective.verb;m.goal1=m.ops.length>2?'세 명 모두 열린 출구로':'두 명 모두 열린 출구로';
+  if(m.subs){m.goal0=m.subs.map(function(x){return x.verb;}).join(' · ')+' → '+m.goal0;}
+  m.brief='<ul>'+RULES+(c.tips||[]).map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+  E2IDX.push(MIS.length);MIS.push(m);
+});
+/* 스토리 미션 순서: EP1(0..5) → EP2 … */
+var STI=[0,1,2,3,4,5].concat(E2IDX);
+function sOrd(i){return STI.indexOf(i);}
+function isStory(i){return sOrd(i)>=0;}
+function epOf(i){return i<NBASE?0:E2IDX.indexOf(i)>=0?1:-1;}
+function epList(e){return e===0?[0,1,2,3,4,5]:e===1?E2IDX:[];}
+function epDone(e){var L=epList(e),n=0;L.forEach(function(i){if(PROG.c[i])n++;});return n;}
+function epAll(e){var L=epList(e);return L.length>0&&epDone(e)===L.length;}
 var SPECIAL=[
  ['raven','첫 번째 스카프','용병 시절','식스에 오기 전, 레이븐은 돈 받고 싸우는 사람이었다. 붉은 스카프를 처음 목에 감은 밤과, 그걸 감아 준 사람의 이야기.'],
  ['viper','0.8초','저격학교','관측수와 한 방을 쓰던 겨울. 숨을 맞추는 법을 배웠고, 숨이 흐트러지는 법도 그 방에서 배웠다.'],
@@ -1108,10 +1211,50 @@ function reader(o){
   var h=(o.img?'<div class="hero big"><span class="bg" style="'+bgs(o.img)+'"></span></div>':'')+'<div class="nv">'+(o.html||o.p.map(function(x){return '<p>'+nv(x)+'</p>';}).join(''))+(o.q?'<p class="q">남는 의문 — '+o.q+'</p>':'')+'</div>'+(o.btn?'<button class="nvb" data-k="0">'+o.btn+'</button>':'');
   page(o.t,o.sub,h,o.back,[o.next]);if(o.btn)$('pg').className='nonav';
 }
+NOVEL.e2={t:'누가 흘렸나',ch:[
+{t:'빈 책상',pre:[
+ '무전기 여섯 대가 한꺼번에 울린 그 밤 이후로, 여섯은 같은 생각을 하면서도 입 밖에 내지 않았다. 명단을 판 번호가 하필 지휘관 자리의 번호였다는 것. 그 번호를 쓸 수 있는 사람은 세상에 하나뿐이라는 것.',
+ '레이븐은 확인부터 하기로 했다. 제6과 옛 본부, 청사 지하 2층. 3년 전 문을 닫은 뒤로 아무도 내려가지 않던 곳이다. 그런데 오늘 밤 누군가 그 층의 서류를 태우고 있다. [[정리반이 먼저 와 있었다.]]',
+ '지휘관 자리 단말에는 그 번호가 마지막으로 쓰인 기록이 남아 있을 것이다. 단말을 깨우려면 서버실 차단기를 올려야 하고, 기록을 꺼내려면 글리치가 필요하다. 글리치는 따라오는 내내 지휘관이라는 말을 한 번도 입에 올리지 않았다.'],post:[
+ '로그는 짧았다. 번호가 마지막으로 쓰인 날은 명단이 팔린 날과 같았다. 접속 위치는 본부가 아니었다. [[해안의 무선 중계국.]]',
+ '글리치는 복사본을 두 번 확인하고서야 입을 열었다. "이 번호, 지휘관님 자리에 앉아서 쓴 게 아니에요. 밖에서 빌려 쓴 거예요." 레이븐은 그 말이 위로인지 경고인지 따지지 않았다. 불길이 지휘관실 문턱까지 와 있었다.'],q:'지휘관의 번호를 밖에서 빌려 쓸 수 있는 사람은 누구인가.'},
+{t:'송신소',pre:[
+ '해안 무선 중계국은 등대 하나와 안테나 네 기가 전부다. 지도에는 기상 관측소라고 적혀 있다. 그 번호로 들어온 접속은 모두 이곳을 거쳐 갔다.',
+ '브릭은 출발 전부터 기분이 나빴다. 지휘관이 이번 작전을 직접 허가했기 때문이다. "자기 뒤를 캐라고 허락하는 사람이 어딨어." 바이퍼는 대꾸 대신 탄을 세 발 세었다.',
+ '중계 장비에는 음성 기록이 남는다. 다만 안테나가 살아 있는 동안에는 기록이 계속 지워진다. 바이퍼가 급전선을 끊고, 브릭이 장비동으로 들어간다. 바다 안개가 등대 불빛을 삼키는 순간을 노린다.'],post:[
+ '기록 속 목소리는 변조돼 있었다. 그래도 호출 부호만큼은 또렷했다. [[지휘관의 호출 부호였다.]]',
+ '브릭은 처음으로 무전기에 대고 소리를 질렀다. 지휘관은 한참 뒤에야 한 마디를 돌려줬다. "그 부호는 내가 받기 전에도 있었다." 바이퍼는 남은 탄 한 발을 주머니에 넣으며 그 말을 곱씹었다. 받기 전에도.'],q:'지휘관이 그 부호를 받기 전, 부호의 주인은 누구였나.'},
+{t:'발령장',pre:[
+ '지휘관이 제6과에 온 날짜를 정확히 아는 사람은 없다. 여섯 모두 각자 흩어져 있던 시절이었다. 그 날짜는 국가안보실 인사과 기록 보관실에 있다. 발령장 원본으로.',
+ '미라주는 감사관실 출입증을 하나 만들었고, 닥은 당직 의무실 가운을 빌렸다. 둘은 야근하는 사람처럼 걸어 들어간다. 카드 구역에서는 변장이 오래 버티지 못한다. 출입 기록부터 멈춰야 한다.',
+ '당직 책임자는 이 층의 문을 전부 열 수 있는 사람이다. 닥의 다트는 세 발. 한 발이면 충분하다.'],post:[
+ '발령장의 날짜는 3년 전이었다. 설계자가 사라진 바로 그 달. 서명란에는 [[설계자의 서명]]이 있었다.',
+ '미라주는 서류를 다시 접으며 웃었다. "나랑 같네. 정해진 배역." 닥은 웃지 않았다. 설계자가 사라지기 전 마지막으로 한 일이 지휘관을 앉힌 것이라면, 그 자리는 처음부터 누군가를 위해 비워 둔 자리였다.'],q:'설계자는 왜 사라지기 직전에 지휘관을 앉혔나.'},
+{t:'정리 목록',pre:[
+ '지휘관에게는 안전가옥이 하나 있다. 낡은 아파트 단지 1층, 우편함에 이름도 붙지 않은 집. 거기에 예비 단말이 있다. 청산파가 그걸 먼저 노리고 있다.',
+ '청산파는 유지파와 정반대다. 남길 것은 남기고, 지울 것은 지운다. 오늘 밤 그들이 지우려는 것이 무엇인지는 단말을 열어 봐야 안다.',
+ '관리실 카메라는 글리치 몫이다. 단지 입구의 검은 승합차에는 무전수 하나가 남아 있다. 브릭이 조용히 처리한다. 둘 다 끝나면 안가 문을 연다.'],post:[
+ '예비 단말 안에는 청산파의 정리 목록이 들어 있었다. 여섯의 이름 아래, [[지휘관의 이름도 있었다.]]',
+ '글리치는 케이스 바닥에 붙은 추적기를 떼어 냈다. 처음 보는 모델이었다. "이거… 우리 장비 아니에요. 지휘관님 것도 아니고." 브릭은 빗속에서 승합차가 빠져나간 쪽을 오래 바라봤다. 지휘관이 판 사람이라면, 청산파가 지휘관을 지울 리 없다.'],q:'지휘관까지 지우려는 청산파는 누구의 명령을 받나.'},
+{t:'철수 명령서',pre:[
+ '3년 전 폐광에서 셋이 들어가 둘이 나왔다. 그날 철수 명령이 내려왔다. 누가 내렸는지는 지워져 있다. 그 원본이 오늘 밤 소각장에서 탄다.',
+ '유지파는 기록을 남기려는 쪽이라고 했다. 남기려는 쪽이 왜 태우는지 레이븐은 묻지 않았다. 바이퍼는 굴뚝 옆 계단을 올려다봤다. 크레인 운전석이 정확히 사거리 안이다.',
+ '컨베이어가 상자를 소각로로 밀어 넣기 전에 세워야 한다. 소각로가 문서를 삼킬 때마다 홀 전체가 굉음에 묻힌다. 그 소리가 둘의 발소리를 덮어 줄 것이다.'],post:[
+ '명령서는 반쯤 그을려 있었다. 서명란은 비어 있었지만 발신 번호는 또렷했다. [[같은 번호였다.]] 3년 전, 제6과에는 아직 지휘관이 없었다.',
+ '돌아오는 길에 바이퍼가 처음으로 폐광 이야기를 꺼냈다. "그날 내가 쏘지 못한 한 발, 기억나?" 레이븐은 대답하지 않았다. 대신 명령서를 접어 품에 넣었다. 그 번호는 지휘관보다 먼저 있었다.'],q:'지휘관이 오기 전, 그 번호로 철수를 명령한 사람은 누구인가.'},
+{t:'일곱 번째 의자',pre:[
+ '남부 회랑 청문회가 오늘 아침 열린다. 증인 대기동에는 의자가 일곱 개 놓였다. 증인은 여섯. 증인 명단 원본은 청문회장 앞 전실, 보좌관의 서류 가방 안에 있다.',
+ '경호실 무전 대장과 생중계 송출을 한꺼번에 묶어 둬야 한다. 개회 종이 울리기까지 6분. 그리고 복도 끝에서 워든이 걸어오고 있다.',
+ '레이븐은 출발 전에 무전기를 들었다. 처음으로 호출명을 불렀다. 지휘관이 아니라, 핸들러라고.'],post:[
+ '증인 명단에는 칸이 일곱 개였다. 여섯 칸에는 이름이 있었다. [[일곱 번째 칸은 비어 있었다.]] 서명도 없었다.',
+ '원본의 접근 기록에는 그 번호가 찍혀 있었다. 오늘 아침이었다. 그 시각, 지휘관은 여섯과 같은 방에 있었다.',
+ '여섯은 다시 무전기를 봤다. 이번에는 의심이 아니라 기다림이었다. 핸들러의 다음 명령을.'],q:'일곱 번째 의자는 누구를 위한 자리인가.'}
+]};
 function novelRead(n){
   if(n==='p'){reader({t:NOVEL.pro.t,sub:'S1 · EPISODE 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,back:bbNovel});return;}
   if(n==='all'){var h='<h3>프롤로그 — '+NOVEL.pro.t+'</h3>'+NOVEL.pro.p.map(function(x){return '<p>'+nv(x)+'</p>';}).join('');NOVEL.ch.forEach(function(c,i){h+='<h3>'+(i+1)+'장 — '+c.t+'</h3>'+c.pre.concat(c.post).map(function(x){return '<p>'+nv(x)+'</p>';}).join('')+'<p class="q">남는 의문 — '+c.q+'</p>';});reader({t:'여섯이 모이기까지',sub:'SEASON 1 // 전체',img:'a_raven_7.jpg',html:h,back:bbNovel});return;}
-  var c=NOVEL.ch[+n];reader({t:c.t,sub:'S1 · EPISODE 1 // '+(+n+1)+'장',img:mimg(+n),p:c.pre.concat(c.post),q:c.q,back:bbNovel});
+  if(n==='all2'){var h2='';NOVEL.e2.ch.forEach(function(c,i){h2+='<h3>'+(i+1)+'장 — '+c.t+'</h3>'+c.pre.concat(c.post).map(function(x){return '<p>'+nv(x)+'</p>';}).join('')+'<p class="q">남는 의문 — '+c.q+'</p>';});reader({t:NOVEL.e2.t,sub:'SEASON 1 · EPISODE 2 // 전체',img:'r_S1-12_0.jpg',html:h2,back:bbNovel});return;}
+  var ep=0,k=+n;if(typeof n==='string'&&n.indexOf(':')>0){ep=+n.split(':')[0];k=+n.split(':')[1];}var c=ep?NOVEL.e2.ch[k]:NOVEL.ch[k],mi=epList(ep)[k];reader({t:c.t,sub:'S1 · EPISODE '+(ep+1)+' // '+(k+1)+'장',img:mimg(mi),p:c.pre.concat(c.post),q:c.q,back:bbNovel});
 }
 function bm(i,t){var g=PROG.b[i]||[];return '<'+(t||'i')+' class="bm">'+[0,1,2].map(function(k){return g[k]?'◆':'◇';}).join('')+'</'+(t||'i')+'>';}
 var PGB=null,PGA=[],PGH=null,RORET=null;
@@ -1126,7 +1269,8 @@ function cd(k,img,label,sub,o){o=o||{};if(!o.kv&&!o.lock&&lk(img)){o.lock=1;if(!
 var VWF='';
 var VWL=[],VWI=0;
 function viewer(f,ok,L){if(!f||(!ok&&lk(f)))return;VWL=(L&&L.length)?L.slice():[f];VWI=VWL.indexOf(f);if(VWI<0){VWL.unshift(f);VWI=0;}var h='';VWL.forEach(function(x,i){h+='<img src="'+x+'" data-vi="'+i+'" loading="lazy" alt="">';});$('vwt').innerHTML=h;$('vw').className='hasT';vwGo(VWI);}
-function vwGo(i){if(i<0||i>=VWL.length)return;VWI=i;VWF=VWL[i];$('vwi').src=VWF;$('vwm').textContent='';$('vwn').textContent=VWL.length>1?(i+1)+' / '+VWL.length:'';var ts=$('vwt').children;for(var k=0;k<ts.length;k++)ts[k].className=k===i?'on':'';var c=ts[i];if(c)try{c.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});}catch(e){}}
+var VWT=0;
+function vwGo(i){if(i<0||i>=VWL.length)return;VWI=i;VWF=VWL[i];var im=$('vwi'),tk=++VWT;if(im.style)im.style.opacity=0;im.onload=im.onerror=function(){if(tk===VWT&&im.style)im.style.opacity=1;};im.src=VWF;if(im.complete&&im.naturalWidth&&im.style)im.style.opacity=1;[i+1,i-1].forEach(function(j){if(VWL[j]&&typeof Image!=='undefined'){var p=new Image();p.src=VWL[j];}});$('vwm').textContent='';$('vwn').textContent=VWL.length>1?(i+1)+' / '+VWL.length:'';var ts=$('vwt').children;for(var k=0;k<ts.length;k++)ts[k].className=k===i?'on':'';var c=ts[i];if(c)try{c.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});}catch(e){}}
 function vwSib(t){var p=t.parentNode;for(var d=0;d<3&&p&&p.querySelectorAll;d++){var q=p.querySelectorAll('[data-view]');if(q.length>1){var L=[];for(var k=0;k<q.length;k++)L.push(q[k].dataset.view);return L;}p=p.parentNode;}return null;}
 function vwSave(){
   var f=VWF,name='SILENT_SIX_'+f.replace(/^.*\//,''),done=function(t){$('vwm').textContent=t;setTimeout(function(){if($('vwm'))$('vwm').textContent='';},2600);};
@@ -1145,12 +1289,12 @@ function dfpShow(b){var p=$('dfp'),c=$('hdf');if(!p||!c)return;if(b)p.innerHTML=
 function dfpOpen(){var p=$('dfp');return !!p&&(''+p.className).indexOf('hide')<0;}
 function home(){
   started=false;BGS.mm=false;setPre(true);hideOv();pgHide();msHide();
-  var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen(),rnd=function(){return 'a_'+ids[fl(Math.random()*6)]+'_'+(2+fl(Math.random()*6))+'.jpg';},hi='a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg',pi='kv_romantic.jpg',ri=KVI.seasonal?'kv_seasonal.jpg':null,ri2='kv_special_menu.jpg',nx=0;for(var q=0;q<NBASE;q++)if(!PROG.c[q]){nx=q;break;}var kv=mimg(nx);
+  var ids=Object.keys(STORY),a=ids[fl(Math.random()*6)],b=ids[fl(Math.random()*6)],n=mainDone(),lk=!storyOpen(),rnd=function(){return 'a_'+ids[fl(Math.random()*6)]+'_'+(2+fl(Math.random()*6))+'.jpg';},hi='a_'+a+'_'+(4+fl(Math.random()*4))+'.jpg',pi='kv_romantic.jpg',ri=KVI.seasonal?'kv_seasonal.jpg':null,ri2='kv_special_menu.jpg',nx=0;var he=ep2Open()&&epAll(0)?1:0,hL=epList(he),hn=epDone(he);nx=hL[0];for(var q=0;q<hL.length;q++)if(!PROG.c[hL[q]]){nx=hL[q];break;}var kv=mimg(nx);
   var nav=[['agents','요원'],['box','블랙박스'],['shop','SHOP'],['rank','랭킹'],['set','설정']];
   $('hm').className='';
   $('hm').innerHTML='<div class="hud">'+(sbOn()&&!USER?'<button class="hk lg" data-h="set">LOGIN</button>':'<b>'+(PROG.name?PROG.name.toUpperCase():'HANDLER')+'</b>')+'<span class="hk"><i>◆</i>'+badgeTotal()+'</span><span class="hk"><i>P</i>'+(PROG.pt||0).toLocaleString()+'</span><button class="hk df" id="hdf" data-h="diff" aria-label="난이도"><u>'+DF.n+'</u><i>▼</i></button><button class="hk bg'+(bgmOn()?'':' off')+'" id="hbg" data-h="bgm" aria-label="BGM"><svg viewBox="0 0 24 24"><path d="M9 3v11.2A3.6 3.6 0 1 0 11 17.5V8h7V3z"/></svg><u>'+(bgmOn()?'ON':'OFF')+'</u></button><button class="hk tip" data-h="tip">TIP</button><div class="dfp hide" id="dfp"></div></div>'+
    '<div class="hh fxh"><div class="fx"><i></i><i></i><i></i><b></b></div><div class="hsh"></div><div class="hl"><i>TACTICAL STEALTH</i><h1>SILENT<b>SIX</b></h1></div></div><div class="hb">'+
-   '<button class="ht main" data-h="main"><span class="bg" style="'+bgs(kv)+'"></span><i>STORY MISSION · S1 · EPISODE 1</i><b>스토리 미션</b><u>'+n+' / '+NBASE+' · 여섯이 모이기까지</u><em>›</em><span class="bar"><s style="width:'+(n/NBASE*100)+'%"></s></span></button>'+
+   '<button class="ht main" data-h="main"><span class="bg" style="'+bgs(kv)+'"></span><i>STORY MISSION · S1 · EPISODE '+(he+1)+'</i><b>스토리 미션</b><u>'+hn+' / '+hL.length+' · '+(he?'누가 흘렸나':'여섯이 모이기까지')+'</u><em>›</em><span class="bar"><s style="width:'+(hn/hL.length*100)+'%"></s></span></button>'+
    '<div class="h4">'+(flag('story')?'<button class="ht pic'+(lk?' lock':'')+'" data-h="story"><span class="bg" style="'+bgt(pi)+'"></span><i>ROMANTIC</i><b>로맨틱 미션</b><u>'+(lk?'아직은 닿을 수 없다':'그녀의 밤으로')+'</u></button>':'')+
    (flag('seasonal')?'<button class="ht pic" data-h="season"><span class="bg'+(ri?'':' none')+'" style="'+(ri?bgs(ri):'')+'"></span><i>SEASONAL</i><b>시즈널 미션</b><u>블러디 크리스마스</u></button>':'')+
    (flag('special')?'<button class="ht pic soon" data-h="special"><span class="bg'+(ri2?'':' none')+'" style="'+(ri2?bgt(ri2):'')+'"></span><i>SPECIAL</i><b>스페셜 미션</b><u>코스튬 · 룰브레이크</u></button>':'')+'</div>'+
@@ -1174,17 +1318,21 @@ function navSync(){
 }
 function hmHide(){$('hm').className='hide';$('hm').innerHTML='';}
 function seasons(){
-  page('스토리 미션','STORY MISSION',intro('Silent Six Main Story','Season Mission','헬리오스와 6과의 대립에 숨은 비밀,<br>그 배후 세력을 파헤치기 위한 6과의 사투가 시즌으로 펼쳐집니다.')+'<div class="cg">'+cd(0,mimg(4),'지워진 이름들','에피소드 1 진행 중 · '+mainDone()+' / '+NBASE,{kv:1,w:1,eye:'SEASON 1',tag:'OPEN',on:1})+cd(1,'a_raven_7.jpg','설계자','시즌 1을 마치면 열립니다',{w:1,eye:'SEASON 2',tag:'COMING',lock:1})+cd(2,'a_viper_3.jpg','이름이 있던 시절','프리퀄 · 여섯 개의 하룻밤',{w:1,eye:'SEASON 3',tag:'COMING',lock:1})+'</div>',home,[season1,function(){info('설계자','SEASON 2 // COMING','a_raven_7.jpg','<p>여섯 요원을 한자리에 모은 인물, <em class="k">설계자</em>의 정체를 쫓는 시즌입니다. 준비 중입니다.</p>',seasons);},season3]);
+  page('스토리 미션','STORY MISSION',intro('Silent Six Main Story','Season Mission','헬리오스와 6과의 대립에 숨은 비밀,<br>그 배후 세력을 파헤치기 위한 6과의 사투가 시즌으로 펼쳐집니다.')+'<div class="cg">'+cd(0,mimg(4),'지워진 이름들',(ep2Open()&&epAll(0)?'에피소드 2 진행 중 · '+epDone(1)+' / '+E2IDX.length:'에피소드 1 진행 중 · '+mainDone()+' / '+NBASE),{kv:1,w:1,eye:'SEASON 1',tag:'OPEN',on:1})+cd(1,'a_raven_7.jpg','설계자','시즌 1을 마치면 열립니다',{w:1,eye:'SEASON 2',tag:'COMING',lock:1})+cd(2,'a_viper_3.jpg','이름이 있던 시절','프리퀄 · 여섯 개의 하룻밤',{w:1,eye:'SEASON 3',tag:'COMING',lock:1})+'</div>',home,[season1,function(){info('설계자','SEASON 2 // COMING','a_raven_7.jpg','<p>여섯 요원을 한자리에 모은 인물, <em class="k">설계자</em>의 정체를 쫓는 시즌입니다. 준비 중입니다.</p>',seasons);},season3]);
 }
 function season1(){
-  var n=mainDone(),go=function(){if(PROG.pro)menu();else{PROG.pro=1;saveProg();reader({t:NOVEL.pro.t,sub:'S1 · EPISODE 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,btn:'에피소드 1 시작',next:menu,back:menu});}},soon=function(k){return function(){info('EPISODE '+k,'SEASON 1 // COMING',null,'<p>아직 공개되지 않은 에피소드입니다. <em class="k">앞선 에피소드를 모두 클리어하면</em> 차례로 열립니다.</p>',season1);};};
-  page('지워진 이름들','SEASON 1',intro('Season 1 · 지워진 이름들','시즌 1. Episode','6과의 요원들이 다시 모인 이유와<br>그들이 마주할 운명의 이야기가 시작됩니다.','* 시즌 1은 에피소드 5까지 이어지며, 에피소드는 순서대로 열립니다.')+'<div class="cg">'+cd(0,mimg(4),'여섯이 모이기까지',n+' / '+NBASE+' 스테이지 클리어',{kv:1,w:1,eye:'EPISODE 1',tag:n>=NBASE?'CLEAR':'OPEN',on:1})+cd(1,'a_raven_7.jpg','누가 흘렸나','에피소드 1을 마치면 이어집니다',{w:1,eye:'EPISODE 2',tag:'COMING',lock:1})+[3,4,5].map(function(k){return cd(k-1,null,'미공개','',{w:1,eye:'EPISODE '+k,tag:'COMING',lock:1});}).join('')+'</div>',seasons,[go,function(){info('누가 흘렸나','S1 · EPISODE 2 // COMING','a_raven_7.jpg','<p>여섯이 모인 뒤, <em class="k">내부의 누군가가 정보를 흘리고 있다</em>는 의심에서 시작하는 에피소드입니다. 준비 중입니다.</p>',season1);},soon(3),soon(4),soon(5)]);
+  var n=mainDone(),n2=epDone(1),o2=ep2Open(),go=function(){MEP=0;if(PROG.pro)menu();else{PROG.pro=1;saveProg();reader({t:NOVEL.pro.t,sub:'S1 · EPISODE 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,btn:'에피소드 1 시작',next:menu,back:menu});}},soon=function(k){return function(){info('EPISODE '+k,'SEASON 1 // COMING',null,'<p>아직 공개되지 않은 에피소드입니다. <em class="k">앞선 에피소드를 모두 클리어하면</em> 차례로 열립니다.</p>',season1);};};
+  var go2=function(){if(o2){MEP=1;menu();}else info('누가 흘렸나','S1 · EPISODE 2 // LOCKED','r_S1-07_0.jpg','<p>여섯이 모인 뒤, <em class="k">명단을 판 번호가 지휘관 자리의 번호였다</em>는 사실에서 시작하는 에피소드입니다.</p><p style="color:var(--dim)">에피소드 1의 여섯 스테이지를 모두 클리어하면 열립니다 · '+n+' / '+NBASE+'</p>',season1);};
+  page('지워진 이름들','SEASON 1',intro('Season 1 · 지워진 이름들','시즌 1. Episode','6과의 요원들이 다시 모인 이유와<br>그들이 마주할 운명의 이야기가 시작됩니다.','* 시즌 1은 에피소드 5까지 이어지며, 에피소드는 순서대로 열립니다.')+'<div class="cg">'+cd(0,mimg(4),'여섯이 모이기까지',n+' / '+NBASE+' 스테이지 클리어',{kv:1,w:1,eye:'EPISODE 1',tag:n>=NBASE?'CLEAR':'OPEN',on:1})+cd(1,mimg(E2IDX[0]),'누가 흘렸나',o2?n2+' / '+E2IDX.length+' 스테이지 클리어':'에피소드 1을 마치면 이어집니다',{kv:1,w:1,eye:'EPISODE 2',tag:!o2?'LOCKED':n2>=E2IDX.length?'CLEAR':'OPEN',lock:!o2,on:o2?1:0})+[3,4,5].map(function(k){return cd(k-1,null,'미공개','',{w:1,eye:'EPISODE '+k,tag:'COMING',lock:1});}).join('')+'</div>',seasons,[go,go2,soon(3),soon(4),soon(5)]);
 }
-function mOpen(i){return i===0||!!PROG.c[i-1]||allOn()||GOD();}
+function mOpen(i){if(allOn()||GOD())return true;var e=epOf(i);if(e===1){var k=E2IDX.indexOf(i);return k===0?epAll(0):!!PROG.c[E2IDX[k-1]];}return i===0||!!PROG.c[i-1];}
+var MEP=0; /* 스토리 스테이지 목록이 보여 줄 에피소드 */
+function ep2Open(){return GOD()||allOn()||epAll(0);}
 function rwdBox(where){return '<div class="rwd"><i>REWARD CUT</i><p>스테이지를 클리어하면 <em class="k">리워드 컷</em>을 얻습니다. 얻은 컷은 블랙박스 &gt; '+where+'에 담깁니다.</p><ol><li>귀환<small>클리어만 하면</small></li><li>전장의 그녀<small>HARD↑ 배지 1</small></li><li>흐트러진 순간<small>HARD↑ 배지 2</small></li><li>고자극<small>HARD↑ 배지 3</small></li></ol><p style="margin-top:8px;color:var(--dim);font-size:12px">* 배지 수는 한 판 기준입니다. 여러 판의 배지는 합산되지 않습니다.</p></div>';}
 function menu(){
-  var L=[],A=[],i;for(i=0;i<NBASE;i++)if(vis(i)){(function(i){var ok=mOpen(i);L.push(cd(A.length,mimg(i),MIS[i].title,ok?MIS[i].code.split(' // ')[1]:'앞 스테이지를 먼저 클리어하세요',{kv:1,no:'0'+(i+1),x:bm(i,'span'),lock:!ok,tag:PROG.c[i]?'CLEAR':ok?'':'LOCKED',on:1}));A.push(function(){if(ok)brief(i);});})(i);}
-  page('여섯이 모이기까지','S1 · EPISODE 1 // '+DF.n,intro('Season 1 · Episode 1','여섯이 모이기까지','6과의 각 요원에게 주어진 베일에 싸인 임무.<br>미션을 클리어하며 탐욕의 진실을 파헤쳐 보세요.','* 스테이지는 이야기 순서대로 오픈되며, 모두 클리어한 경우에는 자유롭게 재도전이 가능합니다.')+rwdBox('스토리 갤러리')+'<div class="cg one">'+L.join('')+'</div>',season1,A);
+  var e=MEP===1?1:0,LS=epList(e),L=[],A=[];LS.forEach(function(i,k){if(!vis(i))return;var ok=mOpen(i);L.push(cd(A.length,mimg(i),MIS[i].title,ok?MIS[i].code.split(' // ')[1]:'앞 스테이지를 먼저 클리어하세요',{kv:1,no:('0'+(sOrd(i)+1)).slice(-2),x:bm(i,'span'),lock:!ok,tag:PROG.c[i]?'CLEAR':ok?'':'LOCKED',on:1}));A.push(function(){if(ok)brief(i);});});
+  var T=e?['Season 1 · Episode 2','누가 흘렸나','명단을 판 번호는 지휘관 자리의 번호였다.<br>여섯은 그 번호가 쓰인 곳을 하나씩 확인한다.']:['Season 1 · Episode 1','여섯이 모이기까지','6과의 각 요원에게 주어진 베일에 싸인 임무.<br>미션을 클리어하며 탐욕의 진실을 파헤쳐 보세요.'];
+  page(T[1],'S1 · EPISODE '+(e+1)+' // '+DF.n,intro(T[0],T[1],T[2],'* 스테이지는 이야기 순서대로 오픈되며, 모두 클리어한 경우에는 자유롭게 재도전이 가능합니다.')+rwdBox('스토리 갤러리')+'<div class="cg one">'+L.join('')+'</div>',season1,A);
 }
 function season3(){
   page('이름이 있던 시절','SEASON 3 // PREQUEL',intro('Season 3 · Prequel','이름이 있던 시절','6과에 들어오기 전, 여섯 요원에게 이름이 있던 시절의 이야기입니다.<br>요원마다 한 편씩, 성인 등급으로 준비 중입니다.')+'<div class="cg">'+SPECIAL.map(function(x,k){return cd(k,'a_'+x[0]+'_3.jpg',x[1],OPD[x[0]].n+' · '+x[2],{w:1,eye:'EPISODE '+(k+1),tag:'SOON',lock:1});}).join('')+'</div>',seasons,SPECIAL.map(function(x,k){return function(){info(x[1],'S3 · EPISODE '+(k+1)+' // '+OPD[x[0]].n,'a_'+x[0]+'_3.jpg','<p>'+x[3]+'</p><p style="color:var(--dim)">준비 중입니다. 전용 이미지와 함께 공개됩니다.</p>',season3);};}));
@@ -1244,7 +1392,7 @@ function agentHub(id){
 
 /* 시즌 > 에피소드 > 스테이지. 시즌·에피소드를 늘릴 때는 SEASONS에 항목만 더한다. */
 var SEASONS=[
- {k:'S1',n:'지워진 이름들',eps:[{n:'여섯이 모이기까지',mis:[0,1,2,3,4,5],novel:1},{n:'누가 흘렸나'},{n:'미공개'},{n:'미공개'},{n:'미공개'}]},
+ {k:'S1',n:'지워진 이름들',eps:[{n:'여섯이 모이기까지',mis:[0,1,2,3,4,5],novel:1},{n:'누가 흘렸나',mis:E2IDX,novel:2},{n:'미공개'},{n:'미공개'},{n:'미공개'}]},
  {k:'S2',n:'설계자',eps:[]},
  {k:'S3',n:'이름이 있던 시절',eps:[]}];
 var SCP={s:0,e:0,m:0,a:0,g:0,w:0};
@@ -1263,7 +1411,7 @@ function scTap(e,re){
 function scEmpty(t){return '<div class="empty"><b>COMING</b>'+t+'</div>';}
 function fit(){$('pg').className=$('pg').querySelector('.fill.more')?'':'fit';}
 /* 고자극 추가 컷: r_<key>_3_<n>.jpg (n=1..) — 고자극이 열리면 같이 열린다 */
-var RWX={'S1-01':2,'S1-02':2,'S1-03':2,'S1-04':2,'S1-05':2,'S1-06':2,'W-1':2,'W-2':2,'W-3':2,'W-4':2,'W-5':2};
+var RWX={'S1-07':2,'S1-08':2,'S1-09':2,'S1-10':2,'S1-11':2,'S1-12':2,'S1-01':2,'S1-02':2,'S1-03':2,'S1-04':2,'S1-05':2,'S1-06':2,'W-1':2,'W-2':2,'W-3':2,'W-4':2,'W-5':2};
 /* 서비스 컷: 미션별 요원 단독 번외 컷 svc_<key>_<n>.jpg — 그 미션의 고자극이 열리면 함께 열린다 */
 var SVC={'W-1':['raven','raven'],'W-2':['brick','brick','glitch','glitch'],'W-3':['doc','doc','viper','viper'],'W-4':['mirage','mirage']};
 function svcMi(k){for(var i=0;i<MIS.length;i++)if(MIS[i].key===k)return i;return -1;}
@@ -1277,24 +1425,25 @@ function rwGrid(mi,re){rwProbeM(mi,re);var tr=rwTier(mi),o='<div class="fill g22
   return o+'</div>';}
 function bbKeep(fn){return function(){if($('pg').querySelector('.fill'))fn();};}
 function blackbox(){
-  var ids=Object.keys(STORY),nd=mainDone(),sl=[],i;for(i=0;i<NBASE;i++)sl.push(i);
+  var ids=Object.keys(STORY),nd=mainDone()+epDone(1),sl=STI.slice(),i;
   var nn=0;ids.forEach(function(id){nn+=nOpen(id);});
   var top=function(L){for(var q=L.length-1;q>=0;q--){for(var r=rwTier(L[q]);r>=0;r--){var f=rwImg(L[q],r);if(f)return f;}}return null;};
   page('블랙박스','BLACK BOX','<div class="fill r5">'+
-   cd(0,mimg(4),'사일런트 식스 소설','시즌 · 에피소드별 · '+nd+' / '+NBASE+'장',{kv:1,w:1,eye:'NOVEL',on:1})+
+   cd(0,mimg(4),'사일런트 식스 소설','시즌 · 에피소드별 · '+nd+' / '+STI.length+'장',{kv:1,w:1,eye:'NOVEL',on:1})+
    cd(1,top(sl)||mimg(0),'스토리 갤러리','스토리 리워드 컷 · '+rwCount(sl)+' / '+rwAll(sl)+'장',{kv:1,w:1,eye:'STORY GALLERY',lock:!rwCount(sl),tag:rwCount(sl)?'':'EMPTY'})+
    cd(2,gnLibCover(),'로맨틱 그래픽 노블','시즌별 · 요원별 그날 밤 · '+gnCount()+' / '+ids.length+'편',{kv:1,w:1,eye:'ROMANTIC GRAPHIC NOVEL',lock:!gnCount(),tag:gnCount()?'':'EMPTY'})+
    cd(3,KVI.seasonal?'kv_seasonal.jpg':'a_raven_5.jpg','시즈널 · 스페셜 갤러리','블러디 크리스마스 · 코스튬 · '+rwCount(WIDX)+' / '+rwAll(WIDX)+'장',{kv:1,w:1,eye:'SEASONAL · SPECIAL'})+
    (function(){var c=svcCount();return cd(4,'svc_W-3_1.jpg','서비스 갤러리','미션 번외 · 요원 단독 컷 · '+c[0]+' / '+c[1]+'장',{kv:1,w:1,eye:'SERVICE CUT',lock:!c[0]&&!GOD(),tag:c[0]||GOD()?'':'LOCKED'});})()+
    '</div>',home,[bbNovel,bbClear,gnLib,bbSeasonal,bbService]);fit();
 }
+function epCh(i){var e=epOf(i);return e===1?NOVEL.e2.ch[E2IDX.indexOf(i)]:NOVEL.ch[i];}
 function bbNovel(){
   var c=scCur(),h=scNav(),A=[];
-  if(c.E&&c.E.novel){var nd=mainDone(),row=function(img,eye,t,open,st){var k=A.length;return '<button data-k="'+k+'" class="'+(open?'go':'lock')+'"><span class="th" style="background-image:url('+img+');background-position:'+fp(img)+'"></span><span><i>'+eye+'</i><b>'+t+'</b></span><em>'+st+'</em></button>';};
-    h+='<div class="cap"><i>EP '+(SCP.e+1)+'</i>'+c.E.n+'<u>'+nd+' / '+NBASE+'장 열림</u></div><div class="nl" style="grid-template-rows:repeat('+(NBASE+2)+',1fr)">';
-    h+=row(NOVEL.pro.img,'PROLOGUE',NOVEL.pro.t,true,'읽기 ›');A.push(function(){novelRead('p');});
-    NOVEL.ch.forEach(function(ch,i){var op=!!PROG.c[i];h+=row(mimg(i),(i+1)+'장',op?ch.t:'미션을 클리어하면 열립니다',op,op?'읽기 ›':'LOCKED');A.push(function(){if(op)novelRead(i);});});
-    h+=row('a_raven_7.jpg','FULL','에피소드 '+(SCP.e+1)+' 전체 읽기',nd>=NBASE,nd>=NBASE?'읽기 ›':nd+' / '+NBASE);A.push(function(){if(nd>=NBASE)novelRead('all');});
+  if(c.E&&c.E.novel){var e=c.E.novel-1,LS=epList(e),CH=e?NOVEL.e2.ch:NOVEL.ch,nd=epDone(e),tot=LS.length,row=function(img,eye,t,open,st){var k=A.length;return '<button data-k="'+k+'" class="'+(open?'go':'lock')+'"><span class="th" style="background-image:url('+img+');background-position:'+fp(img)+'"></span><span><i>'+eye+'</i><b>'+t+'</b></span><em>'+st+'</em></button>';};
+    h+='<div class="cap"><i>EP '+(SCP.e+1)+'</i>'+c.E.n+'<u>'+nd+' / '+tot+'장 열림</u></div><div class="nl" style="grid-template-rows:repeat('+(tot+(e?1:2))+',1fr)">';
+    if(!e){h+=row(NOVEL.pro.img,'PROLOGUE',NOVEL.pro.t,true,'읽기 ›');A.push(function(){novelRead('p');});}
+    CH.forEach(function(ch,k){var mi=LS[k],op=!!PROG.c[mi]||GOD();h+=row(mimg(mi),(k+1)+'장',op?ch.t:'미션을 클리어하면 열립니다',op,op?'읽기 ›':'LOCKED');A.push(function(){if(op)novelRead(e+':'+k);});});
+    var all=nd>=tot||GOD();h+=row(e?'r_S1-12_0.jpg':'a_raven_7.jpg','FULL','에피소드 '+(SCP.e+1)+' 전체 읽기',all,all?'읽기 ›':nd+' / '+tot);A.push(function(){if(all)novelRead(e?'all2':'all');});
     h+='</div>';
   }else h+=scEmpty(c.E?'EP '+(SCP.e+1)+' · '+c.E.n+'<br>에피소드가 공개되면 이곳에 소설이 쌓입니다.':c.S.k+' · '+c.S.n+'<br>시즌이 공개되면 이곳에 소설이 쌓입니다.');
   page('사일런트 식스 소설','BLACK BOX // NOVEL',h,blackbox,A,function(e){scTap(e,bbNovel);});fit();
@@ -1340,7 +1489,7 @@ function shop(){
 }
 function ranking(tab){
   tab=tab||0;
-  var i,all=0,st=0,wn=0;for(i=0;i<MIS.length;i++){var q0=PROG.s[i]||{},b0=0,k0;for(k0 in q0)if(q0[k0]>b0)b0=q0[k0];if(i<NBASE)all+=b0;else if(MIS[i].winter)wn+=b0;else st+=b0;}
+  var i,all=0,st=0,wn=0;for(i=0;i<MIS.length;i++){var q0=PROG.s[i]||{},b0=0,k0;for(k0 in q0)if(q0[k0]>b0)b0=q0[k0];if(isStory(i))all+=b0;else if(MIS[i].winter)wn+=b0;else st+=b0;}
   var h='<div class="sum"><div><i>TOTAL</i><b>'+(all+st+wn).toLocaleString()+'</b></div><div><i>BADGE</i><b>'+badgeTotal()+' <span style="font-size:11px;color:var(--dim)">/ '+(MIS.length*3)+'</span></b></div><div><i>POINT</i><b>'+(PROG.pt||0).toLocaleString()+'</b></div></div><div class="seg" style="grid-template-columns:repeat(4,1fr);margin-bottom:10px">'+['스토리','로맨틱','시즈널','온라인'].map(function(t,k){return '<button data-t="'+k+'"'+(k===tab?' class="sel"':'')+'>'+t+'</button>';}).join('')+'</div>';
   var tbl=function(L,lab){var tot=[0,0,0,0],o='<table><tr><th>'+lab+'</th>'+DIFFS.map(function(d){return '<th>'+d.n+'</th>';}).join('')+'</tr>';
     L.forEach(function(mi,n){var c=PROG.c[mi]||{},p=PROG.s[mi]||{};o+='<tr><td>0'+(n+1)+' '+MIS[mi].title+'</td>'+DIFFS.map(function(d,k){if(p[k]==null)return '<td>—</td>';tot[k]+=p[k];return '<td class="best">'+p[k].toLocaleString()+'<br><span style="color:var(--dim);font-weight:400;font-size:11px">'+mmss(c[k])+'</span></td>';}).join('')+'</tr>';});
@@ -1402,7 +1551,7 @@ function adminLogin(msg){
 }
 function admin(){
   if(!ADM){adminLogin();return;}
-  var grp=[['스토리 미션',function(i){return i<NBASE;}],['로맨틱 미션',function(i){return !!MIS[i].story;}],['시즈널 — 블러디 크리스마스',function(i){return !!MIS[i].winter;}]];
+  var grp=[['스토리 미션',function(i){return isStory(i);}],['로맨틱 미션',function(i){return !!MIS[i].story;}],['시즈널 — 블러디 크리스마스',function(i){return !!MIS[i].winter;}]];
   var h=(sbOn()?'<p>여기서 바꾼 내용은 서버에 저장되고 <em class="k">모든 사용자에게</em> 적용된다. <span id="asv"></span></p>':'<p>여기서 바꾼 내용은 이 기기에 바로 적용된다. 모든 사용자에게 적용하려면 "설정 파일 받기"로 받은 config.json을 저장소의 public 폴더에 올린다.</p>')+'<label>구역 공개</label>'+[['story','로맨틱 미션'],['seasonal','시즈널 미션'],['special','스페셜 미션'],['endings','그날 밤 이미지']].map(function(f){return '<div class="row"><span>'+f[1]+'</span><button data-f="'+f[0]+'"'+(flag(f[0])?' class="sel"':'')+'>'+(flag(f[0])?'공개':'비공개')+'</button></div>';}).join('');
   grp.forEach(function(g){h+='<label>'+g[0]+'</label>';MIS.forEach(function(m,i){if(!g[1](i))return;var imgs=[];m.ops.forEach(function(o){for(var k=0;k<8;k++)imgs.push('a_'+o.id+'_'+k+'.jpg');imgs.push('e_'+o.id+'.jpg');});var cur=mimg(i);
     h+='<div class="row"><span>'+m.title+'<small>'+m.key+'</small></span><select data-i="'+i+'">'+imgs.map(function(f){return '<option'+(f===cur?' selected':'')+'>'+f+'</option>';}).join('')+'</select><button data-v="'+i+'"'+(!CFG.hide[m.key]?' class="sel"':'')+'>'+(!CFG.hide[m.key]?'공개':'비공개')+'</button></div>';});});
@@ -1491,15 +1640,18 @@ function objWait(){return M.subs&&M.objective&&M.objective.after&&subsDone()?Mat
 function subsDone(){if(!M.subs)return true;var n=0;for(var i=0;i<M.subs.length;i++)if(S.subs[i])n++;return n>=(M.need||M.subs.length);}
 function subDone(i){
   if(S.subs[i])return;S.subs[i]=true;var sb=M.subs[i],n=0,j;for(j=0;j<M.subs.length;j++)if(S.subs[j])n++;
-  if(sb.dark)S.dark=sb.dark;applySw(sb.sw);if(sb.quiet)S.bellT=S.t+sb.quiet;if(sb.bonus)S.lim=(S.lim||0)+sb.bonus;if(sb.freeze!=null){var fg=S.guards[sb.freeze];fg.faces=[fg.faces[fg.faces.length-1]];fg.fi=0;}snd('ok');say(sb.done||sb.label+' 완료');
+  if(sb.dark)S.dark=sb.dark;if(sb.camoff)S.guards.forEach(function(g){if(g.cam){g.off=1e6;g.meter=0;}});applySw(sb.sw);if(sb.quiet)S.bellT=S.t+sb.quiet;if(sb.bonus)S.lim=(S.lim||0)+sb.bonus;if(sb.freeze!=null){var fg=S.guards[sb.freeze];fg.faces=[fg.faces[fg.faces.length-1]];fg.fi=0;}snd('ok');say(sb.done||sb.label+' 완료');
   if(subsDone()&&!S.subT)S.subT=S.t;
   if(n===1&&M.dlg&&M.dlg.mid&&!S.dseen.mid){S.dseen.mid=1;S.dq='mid';}
 }
 function exits(){return M.evac?(S.ev?M.evac.gates[S.exitI].cells:[]):M.exit;}
 function evacStart(){
   var G=M.evac.gates,i,used={};S.ev=true;S.evT=S.t;applySw(M.evac.sw);S.exitI=M.evac.fix!=null?M.evac.fix:fl(Math.random()*G.length);
+  var occ=function(c){return S.ops.some(function(o){return fl(o.x)===c[0]&&fl(o.y)===c[1];});};
+  (M.evac.close||[]).forEach(function(c){if(!occ(c))S.shut[c[1]*COLS+c[0]]=1;});
   G.forEach(function(gt,j){
     if(j===S.exitI)return;
+    (gt.close||[]).forEach(function(c){if(!occ(c))S.shut[c[1]*COLS+c[0]]=1;});
     var best=null,bd=1e9;S.guards.forEach(function(g){if(g.down||g.fixed||g.boss||g.faces||used[g.id])return;var d=hyp(g.x-gt.post[0],g.y-gt.post[1]);if(d<bd){bd=d;best=g;}});
     if(best){used[best.id]=1;best.wps=[gt.post];best.faces=[gt.face,gt.face+0.7,gt.face-0.7];best.fi=0;best.ft=best.fd=2.5;best.state='patrol';best.rush=true;best.off=1.5;best.meter=0;best.path=findPath(fl(best.x),fl(best.y),gt.post[0],gt.post[1])||[];}
   });
@@ -1721,7 +1873,9 @@ function envStep(){
     if(e.mask){b=envPhase(e.mask);if(b>=0){q=true;hot=true;t=e.mask[2]+' '+Math.ceil(e.mask[1]-b);}else if(!hot)t=(e.mask[3]||'다음까지')+' '+Math.ceil(envNext(e.mask));}
     if(e.blizzard){b=envPhase(e.blizzard);if(b>=0){k*=0.45;hot=true;t='눈보라 · 시야가 짧다 '+Math.ceil(e.blizzard[1]-b);}else t='다음 눈보라까지 '+Math.ceil(envNext(e.blizzard));}
     if(e.bell){b=envPhase(e.bell);if(b>=0){q=true;hot=true;t='자정의 종 · 소리가 묻힌다 '+Math.ceil(e.bell[1]-b);}else t='다음 종까지 '+Math.ceil(envNext(e.bell));}
-    if(e.limit){var left=e.limit+(S.lim||0)-S.t;if(!S.objDone){t='이륙까지 '+mmss(Math.max(0,Math.ceil(left)));hot=left<60;if(left<=0)fail('전용기가 떴다. 화물은 하늘에 있다.');}else t='';}
+    if(e.limit){var left=e.limit+(S.lim||0)-S.t;if(!S.objDone){t=(e.ltxt||'이륙까지')+' '+mmss(Math.max(0,Math.ceil(left)));hot=left<60;if(left<=0)fail(e.lfail||'전용기가 떴다. 화물은 하늘에 있다.');}else t='';}
+    if(e.spread){var sp=e.spread,sk=fl(S.t/sp.every);if(!S.fire)S.fire={};for(var ri=0;ri<sp.rooms.length&&ri<sk;ri++)if(!S.fire[ri]){S.fire[ri]=1;sp.rooms[ri].cells.forEach(function(c){if(!S.ops.some(function(o){return fl(o.x)===c[0]&&fl(o.y)===c[1];}))S.shut[c[1]*COLS+c[0]]=1;});wallCv=null;say(sp.rooms[ri].n+' 셔터가 내려왔다. 불길이 번진다.');}
+      if(!t&&sk<sp.rooms.length){var fl2=sp.every*(sk+1)-S.t;t=sp.rooms[sk].n+' 셔터까지 '+Math.ceil(fl2);hot=fl2<=10;}}
   }
   if(S.bellT>S.t){q=true;hot=true;t='자정의 종 · 소리가 묻힌다 '+Math.ceil(S.bellT-S.t);}
   if(S.dark)k*=S.dark;if(S.ev){if(M.evac.gates.length>1||M.evac.limit){t=(M.evac.limit?'남은 시간 '+mmss(Math.max(0,Math.ceil(M.evac.limit-(S.t-S.evT))))+' · ':'대피 방송 · ')+'열린 곳은 '+M.evac.gates[S.exitI].n;hot=true;}if(M.evac.limit&&S.t-S.evT>=M.evac.limit)fail(M.evac.late||'너무 늦었다.');}else if(S.dark&&!t)t='조명 OFF · 경비 시야 감소';
@@ -2008,7 +2162,9 @@ function draw(){
   if(M.objective&&!S.objDone){glow('#5df0e0',10);ring(M.objective.x+0.5,M.objective.y+0.5,0.6);ctx.strokeStyle='#5df0e0';ctx.lineWidth=2;ctx.stroke();noGlow();}
   if(M.subs)M.subs.forEach(function(sb,si){if(!(sb.use||sb.shoot)||S.subs[si])return;glow('#ffd27a',10);ring(sb.x+(sb.w||1)/2,sb.y+(sb.h||1)/2,0.9);ctx.strokeStyle='#ffd27a';ctx.lineWidth=2;ctx.stroke();noGlow();});
   if(wallCv)ctx.drawImage(wallCv,0,0);
-  if(S.ev)M.evac.gates.forEach(function(gt,j){if(j!==S.exitI)propDraw(gt.bar[0],gt.bar[1],gt.bar[2],gt.bar[3],gt.bar[4],0);});
+  if(S.ev)M.evac.gates.forEach(function(gt,j){if(j!==S.exitI&&gt.bar)propDraw(gt.bar[0],gt.bar[1],gt.bar[2],gt.bar[3],gt.bar[4],0);});
+  if(S.ev&&M.evac.bars)M.evac.bars.forEach(function(b){propDraw(b[0],b[1],b[2],b[3],b[4],0);});
+  if(S.fire&&M.env&&M.env.spread)M.env.spread.rooms.forEach(function(r,ri){if(S.fire[ri])r.bars.forEach(function(b){propDraw(b[0],b[1],b[2],b[3],b[4],0);});});
   /* 캐릭터 */
   var ents=[],tt=S.t;
   S.guards.forEach(function(g){
@@ -2172,7 +2328,7 @@ function nextScene(){
 /* 대화 화면: 왼쪽 상대, 오른쪽 요원. lines=[[누구,대사],...] */
 var DPORT={raven:1,viper:1,glitch:1,brick:1,mirage:1,doc:1}; /* 대화용 그림 d_<요원>_<0 기본|1 긴장|2 여유>.webp. 대사 셋째 칸이 표정 */
 var DLGON=false,DLQ=[],DLD=null,DLGM=-1,DCAST={hq:{n:'지휘관',c:'#c9d2dc'},santa:{n:'산타',c:'#e0364f',side:'l'},witness:{n:'증인',c:'#ff9a3c',side:'l'}};
-function dlgWho(k,e){var d=DCAST[k]||(M.dlg&&M.dlg.who&&M.dlg.who[k])||{},o=OPD[k],cast=(M.dlg&&M.dlg.cast)||{};return {n:d.n||(o?o.n:k),c:d.c||(o?o.col:'#fff'),side:d.side||(o?'r':''),img:(cast[k]&&cast[k].pop?cast[k][e||0]:cast[k])||(DPORT[k]?'d_'+k+'_'+(e||0)+'.webp':''),card:false};}
+function dlgWho(k,e){var d=DCAST[k]||(M.dlg&&M.dlg.who&&M.dlg.who[k])||{},o=OPD[k],cast=(M.dlg&&M.dlg.cast)||{};return {n:d.n||(o?o.n:k),c:d.c||(o?o.col:'#fff'),side:d.side||(o?(M.dlg&&M.dlg.left===k?'l':'r'):''),img:(cast[k]&&cast[k].pop?cast[k][e||0]:cast[k])||(DPORT[k]?'d_'+k+'_'+(e||0)+'.webp':''),card:false};}
 function dlg(lines,done){
   DLQ=lines.slice();DLD=done||null;DLGON=true;var L=$('dgl'),R=$('dgr'),seen={l:'',r:''};
   lines.forEach(function(x){var w=dlgWho(x[0],x[2]);if(w.img)loadImg(w.img);if(w.side&&!seen[w.side])seen[w.side]=x[0];});
@@ -2333,7 +2489,8 @@ function brief(i){
   if(MIS[i]&&MIS[i].story)nProbe(MIS[i].story.id);else rwProbeM(i);
   setPre(true);hideOv();hmHide();pgHide();DLGM=-1;loadMission(i);BGS.mm=true;if(CFG.img[M.key])M.img=CFG.img[M.key];S=newState();UIK='';
   var c=OPD[M.ops[M.ops.length-1].id].col;
-  if(MI<NBASE){var ch=NOVEL.ch[MI];reader({t:ch.t,sub:'S1 · EPISODE 1 // '+(MI+1)+'장',img:M.img,p:ch.pre,btn:'작전 브리핑',next:missionCard,back:menu});}
+  var ep=epOf(MI);if(ep>=0)MEP=ep;
+  if(ep>=0){var ch=epCh(MI);reader({t:ch.t,sub:'S1 · EPISODE '+(ep+1)+' // '+(epList(ep).indexOf(MI)+1)+'장',img:M.img,p:ch.pre,btn:'작전 브리핑',next:missionCard,back:menu});}
   else scene([{k:M.code,h:M.copy,p:M.pre,img:M.img,c:c,end:'브리핑'}],missionCard,mBack);
 }
 function missionCard(){
@@ -2389,14 +2546,14 @@ function result(){
   var gain=Math.round(sc.score/100),gfull=best;if(!gfull)gain=Math.round(gain*0.3);PROG.pt=(PROG.pt||0)+gain; /* 재클리어는 30%, 그 난이도 최고 점수를 넘기면 전액 */
   var kvm=/^a_([a-z]+)_(\d)\.jpg/.exec(MIS[MI].img||''),kvn=false;if(kvm&&+kvm[2]>0&&!gOpen(kvm[1],+kvm[2])){(PROG.g[kvm[1]]||(PROG.g[kvm[1]]=[]))[+kvm[2]]=true;kvn=true;}
   saveProg();sbClear(M.key,DIFF,s,sc.score,bl.reduce(function(a,x,i){return a|(x[2]()?1<<i:0);},0),kvn?'g:'+kvm[1]+':'+kvm[2]:null);
-  var b=[['다시 도전',restart,true],['미션 선택',M.story?storyMenu:M.winter?winter:menu]];if(M.story){var sid=M.story.id;if(M.story.ci<2)b.unshift(['다음 이야기',function(){brief(MI+1);},true]);else if(nOpen(sid))b.unshift(['그날 밤',function(){ending(sid);},true]);}else if(M.winter){if(MI<MIS.length-1&&MIS[MI+1].winter)b.unshift(['다음 판',function(){brief(MI+1);},true]);}else if(MI<NBASE-1)b.unshift(['다음 미션',function(){brief(MI+1);},true]);
+  var b=[['다시 도전',restart,true],['미션 선택',M.story?storyMenu:M.winter?winter:menu]];if(M.story){var sid=M.story.id;if(M.story.ci<2)b.unshift(['다음 이야기',function(){brief(MI+1);},true]);else if(nOpen(sid))b.unshift(['그날 밤',function(){ending(sid);},true]);}else if(M.winter){if(MI<MIS.length-1&&MIS[MI+1].winter)b.unshift(['다음 판',function(){brief(MI+1);},true]);}else if(isStory(MI)){var so=sOrd(MI),nx=STI[so+1];if(nx!=null&&mOpen(nx))b.unshift([epOf(nx)!==epOf(MI)?'다음 에피소드':'다음 미션',function(){brief(nx);},true]);}
   overlay(sc.score.toLocaleString()+' 점','MISSION CLEAR // '+sc.grade+' RANK'+(best?' // BEST':''),
    '<table>'+sc.rows.map(function(x){return '<tr><td>'+x[0]+'</td><td>+'+x[1].toLocaleString()+'</td></tr>';}).join('')+'<tr><td>난이도 '+DF.n+'</td><td>× '+sc.mult+'</td></tr><tr><td>포인트</td><td>+'+gain+' P'+(gfull?'':' <span style="color:var(--dim);font-size:11px">재클리어 30%</span>')+'</td></tr>'+(rwt?'<tr><td>'+rwl+'</td><td>'+rwt+'</td></tr>':'')+(kvn?'<tr><td>갤러리</td><td><em class="k">이 작전의 그림이 열렸다</em></td></tr>':'')+(sbOn()&&!USER?'<tr><td>기록</td><td style="color:var(--dim)">이 기기에만 남는다 · 로그인하면 계정에 남는다</td></tr>':'')+'</table>'+
    '<label style="margin-top:14px">특임 배지'+(nw?' — '+nw+'개 획득':'')+' (보유 '+badgeTotal()+')</label><table>'+bh+'</table>',b,rwi,true);
 }
 function showEnd(){
   if(S.over.win&&M.dlg&&M.dlg.end&&!S.dseen.end){S.dseen.end=1;snd('ok');dlg(M.dlg.end,showEnd);return;}
-  if(S.over.win&&MI<NBASE){snd('ok');var ch=NOVEL.ch[MI],go=function(){pgHide();result();};reader({t:ch.t,sub:'MISSION CLEAR // '+(MI+1)+'장',img:M.img,p:ch.post,q:ch.q,btn:'결과 보기',next:go,back:go});}
+  if(S.over.win&&isStory(MI)){snd('ok');var ch=epCh(MI),go=function(){pgHide();result();};reader({t:ch.t,sub:'MISSION CLEAR // '+(epList(epOf(MI)).indexOf(MI)+1)+'장',img:M.img,p:ch.post,q:ch.q,btn:'결과 보기',next:go,back:go});}
   else if(S.over.win){snd('ok');scene([{k:'MISSION CLEAR // '+M.title,h:M.post[0],p:M.post[1],img:M.endImg||M.img,c:OPD[M.ops[0].id].col,end:'결과 보기'}],result);}
   else overlay('작전 실패','ALERT','<p>'+S.over.why+'</p>',[['퀵로드',load,true],['처음부터',restart],['미션 선택',function(){if(M.story)storyMenu();else menu();}]]);
 }
