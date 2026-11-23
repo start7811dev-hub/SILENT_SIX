@@ -837,7 +837,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.40.3';
+var VERSION='0.41.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -2504,6 +2504,6 @@ try{sbInit();}catch(e){}
 requestAnimationFrame(frame);
 </script>
 <script src="gn_data.js"></script>
-<script src="gn.js"></script>
+<script src="gn.js"></script><script src="items.js"></script>
 </body>
 </html>
