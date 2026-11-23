@@ -108,7 +108,7 @@ function store(){
   var acts=[],h=W.intro('Silent Six Store','Store','작전을 돕는 장비. 결제는 준비 중이며, 지금은 관리자만 무료로 받을 수 있습니다.')+'<div class="stg">';
   ITEMS.forEach(function(x,i){
     var o=own(x.k),im='st_'+x.k+'.jpg',pr=x.priceText||won(x.p);
-    h+='<div class="stc"><div class="sti" style="background-image:url('+im+')"><span>'+ico(x.k,34)+'</span></div><div class="stb"><i>'+x.e+'</i><b>'+x.n+'</b><details class="std"><summary>설명</summary><p>'+x.d+'</p></details>'+(o?'<small>'+o+'</small>':'')+'<strong>'+pr+(x.type==='subscription'?'<em> / 월</em>':'')+'</strong>'+
+    h+='<div class="stc"><div class="sti"><img src="'+im+'" alt="" onerror="this.parentNode.className+=\' noimg\'"><span>'+ico(x.k,34)+'</span></div><div class="stb"><i>'+x.e+'</i><b>'+x.n+'</b><details class="std"><summary>설명</summary><p>'+x.d+'</p></details>'+(o?'<small>'+o+'</small>':'')+'<strong>'+pr+(x.type==='subscription'?'<em> / 월</em>':'')+'</strong>'+
       '<button class="stbuy" data-k="'+acts.length+'">'+(W.SUPER()?'무료 받기':x.type==='nonconsumable'&&it().inv?'보유 중':'구매')+'</button>'+(x.k==='bc'&&it().bc&&!bcLeft()?'<button class="stbuy alt" data-k="'+(acts.length+1)+'">활성화</button>':'')+'</div></div>';
     acts.push(function(){buy(x.k);});if(x.k==='bc')acts.push(bcOn);
   });
@@ -312,6 +312,7 @@ var css=document.createElement('style');css.textContent=[
 '.stg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 12px}',
 '.stc{background:#11171e;border:1px solid rgba(255,255,255,.07);clip-path:var(--cut);display:flex;flex-direction:column;min-width:0}',
 '.sti{aspect-ratio:4/3;background:#0d1218 center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;color:var(--c);background-blend-mode:normal}',
+'.sti img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.sti span{display:none}.sti.noimg img{display:none}.sti.noimg span{display:flex}',
 '.sti span{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,rgba(255,59,82,.22),rgba(255,59,82,0) 70%);box-shadow:0 0 0 1px rgba(255,59,82,.35) inset}',
 '.stb{padding:10px 10px 12px;display:flex;flex-direction:column;gap:4px;flex:1}',
 '.stb i{font-style:normal;font-size:9px;letter-spacing:.22em;color:var(--c);font-weight:700}',
