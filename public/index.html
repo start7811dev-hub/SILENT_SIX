@@ -837,7 +837,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.41.3';
+var VERSION='0.42.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1505,7 +1505,18 @@ function evacStart(){
   wallCv=null;say((M.evac.note||'대피 방송.')+(G.length>1?' 열린 곳은 '+G[S.exitI].n+'.':' '+G[S.exitI].n+(M.evac.escort?'로 데리고 나간다.':'로 나간다.')));
   if(M.dlg&&M.dlg.obj&&!S.dseen.obj){S.dseen.obj=1;S.dq='obj';}
 }
+/* 정밀 동선: 칸 중심을 잇는 계단식 경로를 직선으로 펴고(줄 당기기), 몸 반경만큼 벽 · 소품 모서리를 피한다 */
+var NAVR=0.26;
+function clearPt(x,y,r){return !blocked(fl(x-r),fl(y-r))&&!blocked(fl(x+r),fl(y-r))&&!blocked(fl(x-r),fl(y+r))&&!blocked(fl(x+r),fl(y+r));}
+function clearSeg(ax,ay,bx,by,r){var d=hyp(bx-ax,by-ay),n=Math.max(1,Math.ceil(d/0.08));for(var i=1;i<=n;i++){var t=i/n,x=ax+(bx-ax)*t,y=ay+(by-ay)*t;if(blocked(fl(x),fl(y))||!clearPt(x,y,r))return false;}return true;}
+function smoothPath(x0,y0,P){
+  if(!P||P.length<2)return P;
+  var out=[],ax=x0,ay=y0,i=0;
+  while(i<P.length){var j=P.length-1;while(j>i&&!clearSeg(ax,ay,P[j].x,P[j].y,NAVR))j--;out.push(P[j]);ax=P[j].x;ay=P[j].y;i=j+1;}
+  return out;
+}
 function followPath(o,speed,dt,turn){
+  if(o.path.length&&o.path!==o._sp){o.path=smoothPath(o.x,o.y,o.path);o._sp=o.path;}
   var left=speed*dt;
   while(left>0&&o.path.length){
     var p=o.path[0],dx=p.x-o.x,dy=p.y-o.y,d=hyp(dx,dy);
@@ -1532,7 +1543,7 @@ function stepGuardMove(g,dt){
   }else{
     if(!g.path.length){
       g.look-=dt;g.ang=norm(g.ang+dt*1.8);
-      if(g.look<=0){g.state='patrol';var w2=g.wps[g.wi];g.path=findPath(fl(g.x),fl(g.y),w2[0],w2[1])||[];g.wait=0.5;}
+      if(g.look<=0){g.state='patrol';var w2=g.wps[g.wi||0]||g.wps[0];g.path=findPath(fl(g.x),fl(g.y),w2[0],w2[1])||[];g.wait=0.5;}
     }
   }
   if(g.rush&&!g.path.length)g.rush=false;
