@@ -831,7 +831,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.39.0';
+var VERSION='0.39.1';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1190,7 +1190,9 @@ function storyAgent(id){
   var L=[],A=[];nProbe(id);
   STORY[id].ch.forEach(function(c,ci){var mi=SIDX[id][ci];if(!vis(mi))return;var hc=PROG.c[mi]||{},hd=hc[2]!=null||hc[3]!=null;L.push(cd(A.length,'kr_'+id+'_'+(ci+1)+'.jpg',c.t,hd?'HARD 이상 클리어 ✓':PROG.c[mi]?'HARD 이상으로 다시 도전':'',{kv:1,w:1,eye:'TAKE '+(ci+1),x:bm(mi,'span'),tag:PROG.c[mi]?'CLEAR':'',on:1}));A.push(function(){brief(mi);});});
   var nop=gnHas(id);L.push(cd(A.length,nop?gnCover(id):'e_'+id+'.jpg','그날 밤 · '+gnTitle(id),nop?'그래픽 노블 · 읽기':'TAKE 1 · 2 · 3을 HARD 이상으로 끝내면 열립니다 · '+nHard(id)+' / 3',{kv:1,w:1,eye:'GRAPHIC NOVEL',lock:!nop,tag:nop?'OPEN':'LOCKED'}));A.push(function(){if(nop)ending(id);});
-  page(OPD[id].n,'ROMANTIC // '+OPD[id].role,intro('Romantic · '+OPD[id].n,OPD[id].tag.replace('<br>',' '),OPD[id].n+'의 지난 일을 따라가는 세 번의 TAKE입니다.<br>세 TAKE를 모두 <em class="k">HARD 이상</em>으로 마치면 그날 밤의 그래픽 노블이 열립니다.')+'<div class="cg">'+L.join('')+'</div>',storyMenu,A);
+  var sc='<div class="chips">'+SEASONS.map(function(x,i){return '<button data-ss="'+i+'" class="'+(i===SCP.s?'sel':'')+(i?' off':'')+'"><i>'+x.k+'</i>'+x.n+'</button>';}).join('')+'</div>';
+  if(SCP.s!==0){page(OPD[id].n,'ROMANTIC // '+OPD[id].role,sc+scEmpty(SEASONS[SCP.s].k+' · '+SEASONS[SCP.s].n+'<br>스토리 미션 '+SEASONS[SCP.s].k+'를 클리어하면 '+OPD[id].n+'의 이 시즌 로맨틱 미션이 열립니다.'),storyMenu,[],function(e){scTap(e,function(){storyAgent(id);});});return;}
+  page(OPD[id].n,'ROMANTIC // S1 · '+OPD[id].role,sc+intro('Romantic · '+OPD[id].n,OPD[id].tag.replace('<br>',' '),OPD[id].n+'의 지난 일을 따라가는 세 번의 TAKE입니다.<br>세 TAKE를 모두 <em class="k">HARD 이상</em>으로 마치면 그날 밤의 그래픽 노블이 열립니다.')+'<div class="cg">'+L.join('')+'</div>',storyMenu,A,function(e){scTap(e,function(){storyAgent(id);});});
 }
 var SFO=false;
 function seasonal(){
@@ -1225,8 +1227,8 @@ function agents(){
 }
 function agentHub(id){
   var o=OPD[id],so=storyOpen();
-  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="'+bgs(gBest(id))+'"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p>'+agentSpec(id)+'<label>FILE — 더 보기</label><div class="cg c3">'+cd(0,'a_'+id+'_0.jpg','갤러리','열림 '+gCount(id)+' / 8',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','로맨틱 미션',so?'TAKE 1 · 2 · 3':'스토리 시즌 1 클리어 후 오픈',{eye:'ROMANTIC',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',function(){$('pg').style.removeProperty('--c');agents();},
-   [function(){$('pg').style.removeProperty('--c');RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so){$('pg').style.removeProperty('--c');storyAgent(id);}else toast('스토리 미션 시즌 1을 클리어하면 열립니다.');},function(){$('pg').style.removeProperty('--c');info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 단둘이 주고받는 대화. <em class="k">성인 인증과 결제</em>를 마친 사람에게만 열려. 준비 중.</p>',function(){agentHub(id);});}]);
+  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="'+bgs(gBest(id))+'"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p>'+agentSpec(id)+'<label>FILE — 더 보기</label><div class="cg c3">'+cd(0,'a_'+id+'_0.jpg','갤러리','열림 '+gCount(id)+' / 8',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','로맨틱 미션',so?'S1 · TAKE 1 · 2 · 3':'스토리 시즌 1 클리어 후 오픈',{eye:'ROMANTIC',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',function(){$('pg').style.removeProperty('--c');agents();},
+   [function(){$('pg').style.removeProperty('--c');RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so){$('pg').style.removeProperty('--c');SCP.s=0;storyAgent(id);}else toast('스토리 미션 시즌 1을 클리어하면 열립니다.');},function(){$('pg').style.removeProperty('--c');info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 단둘이 주고받는 대화. <em class="k">성인 인증과 결제</em>를 마친 사람에게만 열려. 준비 중.</p>',function(){agentHub(id);});}]);
   $('pg').style.setProperty('--c',o.col);
 }
 
@@ -1250,9 +1252,14 @@ function scTap(e,re){
 }
 function scEmpty(t){return '<div class="empty"><b>COMING</b>'+t+'</div>';}
 function fit(){$('pg').className='fit';}
-function rwCount(L){var a=0;L.forEach(function(mi){a+=rwTier(mi)+1;});return a;}
+/* 고자극 추가 컷: r_<key>_3_<n>.jpg (n=1..) — 고자극이 열리면 같이 열린다 */
+var RWX={'W-1':1};
+function rwX(mi){return (MIS[mi]&&RWX[MIS[mi].key])||0;}
+function rwAll(L){var a=0;L.forEach(function(mi){a+=4+rwX(mi);});return a;}
+function rwCount(L){var a=0;L.forEach(function(mi){var t=rwTier(mi);a+=t+1+(t>=3?rwX(mi):0);});return a;}
 function rwGrid(mi,re){rwProbeM(mi,re);var tr=rwTier(mi),o='<div class="fill g22">';
   for(var rn=0;rn<4;rn++){var op=tr>=rn,im=rwImg(mi,rn);o+=cd(99,op?im:(im||mimg(mi)),RWN[rn],op?(im?'':'이미지 준비 중'):RWC[rn],{kv:1,view:op&&im?1:0,lock:!op,tag:op?'':'LOCKED'});}
+  for(var xe=1;xe<=rwX(mi);xe++){var xf='r_'+MIS[mi].key+'_3_'+xe+'.jpg',xo=tr>=3;o+=cd(99,xf,RWN[3]+' '+(xe+1),xo?'':RWC[3],{kv:1,view:xo?1:0,lock:!xo,tag:xo?'':'LOCKED'});}
   return o+'</div>';}
 function bbKeep(fn){return function(){if($('pg').querySelector('.fill'))fn();};}
 function blackbox(){
@@ -1261,9 +1268,9 @@ function blackbox(){
   var top=function(L){for(var q=L.length-1;q>=0;q--){for(var r=rwTier(L[q]);r>=0;r--){var f=rwImg(L[q],r);if(f)return f;}}return null;};
   page('블랙박스','BLACK BOX','<div class="fill r4">'+
    cd(0,mimg(4),'사일런트 식스 소설','시즌 · 에피소드별 · '+nd+' / '+NBASE+'장',{kv:1,w:1,eye:'NOVEL',on:1})+
-   cd(1,top(sl)||mimg(0),'스토리 갤러리','스토리 리워드 컷 · '+rwCount(sl)+' / '+(NBASE*4)+'장',{kv:1,w:1,eye:'STORY GALLERY',lock:!rwCount(sl),tag:rwCount(sl)?'':'EMPTY'})+
+   cd(1,top(sl)||mimg(0),'스토리 갤러리','스토리 리워드 컷 · '+rwCount(sl)+' / '+rwAll(sl)+'장',{kv:1,w:1,eye:'STORY GALLERY',lock:!rwCount(sl),tag:rwCount(sl)?'':'EMPTY'})+
    cd(2,gnLibCover(),'로맨틱 그래픽 노블','시즌별 · 요원별 그날 밤 · '+gnCount()+' / '+ids.length+'편',{kv:1,w:1,eye:'ROMANTIC GRAPHIC NOVEL',lock:!gnCount(),tag:gnCount()?'':'EMPTY'})+
-   cd(3,KVI.seasonal?'kv_seasonal.jpg':'a_raven_5.jpg','시즈널 · 스페셜 갤러리','블러디 크리스마스 · 코스튬 · '+rwCount(WIDX)+' / '+(WIDX.length*4)+'장',{kv:1,w:1,eye:'SEASONAL · SPECIAL'})+
+   cd(3,KVI.seasonal?'kv_seasonal.jpg':'a_raven_5.jpg','시즈널 · 스페셜 갤러리','블러디 크리스마스 · 코스튬 · '+rwCount(WIDX)+' / '+rwAll(WIDX)+'장',{kv:1,w:1,eye:'SEASONAL · SPECIAL'})+
    '</div>',home,[bbNovel,bbClear,gnLib,bbSeasonal]);fit();
 }
 function bbNovel(){
@@ -1280,7 +1287,7 @@ function bbNovel(){
 function bbClear(){
   var c=scCur(),h=scNav();
   if(c.E&&c.E.mis){var L=c.E.mis,m=Math.min(SCP.m,L.length-1),mi=L[m],tr=rwTier(mi);
-    h+='<div class="chips sm">'+L.map(function(x,i){return '<button data-sm="'+i+'" class="'+(i===m?'sel':'')+(PROG.c[x]?'':' off')+'">'+('0'+(i+1))+'</button>';}).join('')+'</div><div class="cap"><i>'+('0'+(m+1))+'</i>'+MIS[mi].title+'<u>'+(tr<0?0:tr+1)+' / 4 · 에피소드 '+rwCount(L)+' / '+(L.length*4)+'</u></div>'+rwGrid(mi,bbKeep(bbClear));
+    h+='<div class="chips sm">'+L.map(function(x,i){return '<button data-sm="'+i+'" class="'+(i===m?'sel':'')+(PROG.c[x]?'':' off')+'">'+('0'+(i+1))+'</button>';}).join('')+'</div><div class="cap"><i>'+('0'+(m+1))+'</i>'+MIS[mi].title+'<u>'+(tr<0?0:tr+1+(tr>=3?rwX(mi):0))+' / '+(4+rwX(mi))+' · 에피소드 '+rwCount(L)+' / '+rwAll(L)+'</u></div>'+rwGrid(mi,bbKeep(bbClear));
   }else h+=scEmpty(c.E?'EP '+(SCP.e+1)+' · '+c.E.n+'<br>에피소드가 공개되면 리워드 컷이 이곳에 쌓입니다.':c.S.k+' · '+c.S.n+'<br>시즌이 공개되면 리워드 컷이 이곳에 쌓입니다.');
   page('스토리 갤러리','BLACK BOX // STORY',h,blackbox,[],function(e){scTap(e,bbClear);});fit();
 }
@@ -1297,7 +1304,7 @@ function bbSeasonal(){
   var G=[['WINTER','블러디 크리스마스',WIDX],['SPECIAL','코스튬 미션',null]],g=Math.min(SCP.g,G.length-1),X=G[g];
   var h='<div class="chips">'+G.map(function(x,i){return '<button data-sg="'+i+'" class="'+(i===g?'sel':'')+(x[2]?'':' off')+'"><i>'+x[0]+'</i>'+x[1]+'</button>';}).join('')+'</div>';
   if(X[2]){var L=X[2],m=Math.min(SCP.w,L.length-1),mi=L[m],tr=rwTier(mi);
-    h+='<div class="chips sm">'+L.map(function(x,i){return '<button data-sm="'+i+'" data-w="1" class="'+(i===m?'sel':'')+(PROG.c[x]?'':' off')+'">'+('0'+(i+1))+'</button>';}).join('')+'</div><div class="cap"><i>'+('0'+(m+1))+'</i>'+MIS[mi].title+'<u>'+(tr<0?0:tr+1)+' / 4 · 전체 '+rwCount(L)+' / '+(L.length*4)+'</u></div>'+rwGrid(mi,bbKeep(bbSeasonal));
+    h+='<div class="chips sm">'+L.map(function(x,i){return '<button data-sm="'+i+'" data-w="1" class="'+(i===m?'sel':'')+(PROG.c[x]?'':' off')+'">'+('0'+(i+1))+'</button>';}).join('')+'</div><div class="cap"><i>'+('0'+(m+1))+'</i>'+MIS[mi].title+'<u>'+(tr<0?0:tr+1+(tr>=3?rwX(mi):0))+' / '+(4+rwX(mi))+' · 전체 '+rwCount(L)+' / '+rwAll(L)+'</u></div>'+rwGrid(mi,bbKeep(bbSeasonal));
   }else h+=scEmpty(X[1]+'<br>미션이 열리면 리워드 컷이 이곳에 쌓입니다.');
   page('시즈널 · 스페셜','BLACK BOX // SEASONAL',h,blackbox,[],function(e){scTap(e,bbSeasonal);});fit();
 }
