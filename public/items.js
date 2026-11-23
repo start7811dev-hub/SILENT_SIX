@@ -27,7 +27,7 @@ W.CCUR=CCUR;
    sku: 스토어 등록 상품 ID. 네이티브 결제가 붙으면 이 값으로 결제를 요청한다.
    grant: 결제 성공 시 지급 내용. price는 표시용 기본값이며 스토어가 내려준 현지 가격(priceText)이 있으면 그 값을 쓴다. */
 var BC_MS=30*60*1000,TB_S=180,INV_N=2,INV_K=0.3;
-var SUBG={bc:2,auto:5,tb:10}; /* 구독 매월 지급 */
+var SUBG={bc:1,auto:3,tb:10},SUB_PT=0.1; /* 구독 매월 지급 */
 var ITEMS=[
   {k:'ck',id:'s6.costume_key',type:'season',sku:{ios:'s6_costume_key',android:'s6_costume_key'},grant:{ck:1},n:'코스튬 진입키',e:'COSTUME KEY',p:11900,
    d:'진행 중인 코스튬 미션에 입장한다. 언제 사도 지금 열린 코스튬 미션에 쓰이고, 다음 코스튬 미션이 열릴 때까지 무제한으로 플레이한다.'},
@@ -40,7 +40,7 @@ var ITEMS=[
   {k:'inv',id:'s6.invisible_agent',type:'nonconsumable',sku:{ios:'s6_invisible_agent',android:'s6_invisible_agent'},grant:{inv:1},n:'인비저블 에이전트',e:'INVISIBLE AGENT',p:29900,
    d:'영구 적용. 미션마다 적 2명을 골라 그 적의 시야를 30%로 줄인다. 미션 화면 우측 상단 ITEM에서 고른다.'},
   {k:'sub',id:'s6.six_pass',type:'subscription',sku:{ios:'s6_six_pass_monthly',android:'s6_six_pass_monthly'},grant:{sub:1},period:30,n:'식스 패스',e:'SIX PASS · 월 구독',p:39900,
-   d:'매월 자동 결제. 코스튬 진입키 + 밸런스 컨트롤 2회(30분) + 오토 플레이 5회 + 타임 브레이커 10회 + 포인트 획득 +20%. 설정에서 언제든 해지한다.'}
+   d:'매월 자동 결제. 코스튬 진입키 + 밸런스 컨트롤 1회(30분) + 오토 플레이 3회 + 타임 브레이커 10회 + 포인트 획득 +10%. 설정에서 언제든 해지한다.'}
 ];
 W.ITEMS=ITEMS;
 
@@ -244,8 +244,8 @@ var _res=W.result;W.result=function(){
   }
   var pt0=W.PROG.pt||0;
   _res();
-  var add=0;if(subOn()){add=Math.round(((W.PROG.pt||0)-pt0)*0.2);W.PROG.pt+=add;}
-  if(ap||add){W.saveProg();var tb=document.querySelector('#ovx table');if(tb){var tr=document.createElement('tr');tr.innerHTML='<td>'+(ap?'밸런스 컨트롤':'식스 패스')+'</td><td><em class="k">'+(ap?'HARD · HELL 클리어로 함께 기록':'')+(ap&&add?' · ':'')+(add?'포인트 +'+add+' P (+20%)':'')+'</em></td>';tb.appendChild(tr);}}
+  var add=0;if(subOn()){add=Math.round(((W.PROG.pt||0)-pt0)*SUB_PT);W.PROG.pt+=add;}
+  if(ap||add){W.saveProg();var tb=document.querySelector('#ovx table');if(tb){var tr=document.createElement('tr');tr.innerHTML='<td>'+(ap?'밸런스 컨트롤':'식스 패스')+'</td><td><em class="k">'+(ap?'HARD · HELL 클리어로 함께 기록':'')+(ap&&add?' · ':'')+(add?'포인트 +'+add+' P (+'+Math.round(SUB_PT*100)+'%)':'')+'</em></td>';tb.appendChild(tr);}}
 };
 
 /* ── 미션 화면 우측 상단: ITEM 버튼 하나 + 작동 중 상태 한 줄 + 펼침 패널 ── */
