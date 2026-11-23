@@ -837,7 +837,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.42.3';
+var VERSION='0.42.4';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -944,7 +944,11 @@ function mainDone(){var n=0,i;for(i=0;i<NBASE;i++)if(PROG.c[i])n++;return n;}
 var SUPERM='start7811@gmail.com';
 function SUPER(){return !!(USER&&(''+(USER.email||'')).toLowerCase()===SUPERM);}
 function GOD(){return SUPER()&&!PROG.asUser;}
-function storyOpen(){return GOD()||PROG.all||mainDone()>=NBASE;}
+function allOn(){return !!PROG.all&&!PROG.asUser;} /* 테스트용 '로맨틱 전체 열기'는 일반 사용자 모드에서 무시 */
+/* 시즌 진행: 시즌의 모든 에피소드(미공개 포함)를 끝내야 완료 */
+function seasonProg(si){var S0=SEASONS[si||0],d=0,t=S0.eps.length;S0.eps.forEach(function(e){if(e.mis&&e.mis.every(function(i){return !!PROG.c[i];}))d++;});return {d:d,t:t,open:S0.eps.filter(function(e){return e.mis;}).length};}
+function seasonDone(si){var p=seasonProg(si);return p.t>0&&p.d===p.t;}
+function storyOpen(){return GOD()||allOn()||seasonDone(0);}
 function mmss(s){return fl(s/60)+':'+('0'+(s%60)).slice(-2);}
 var CFG={hide:{},img:{},flags:{}},ADM=false,ADMH='ce3e44c775a8dc95fa62703b2636c0f4534f060e96e292f728638f3a97a9567e';
 function cfgMerge(o){if(!o)return;var k;for(k in o.hide||{})CFG.hide[k]=o.hide[k];for(k in o.img||{})CFG.img[k]=o.img[k];for(k in o.flags||{})CFG.flags[k]=o.flags[k];}
@@ -1176,7 +1180,7 @@ function season1(){
   var n=mainDone(),go=function(){if(PROG.pro)menu();else{PROG.pro=1;saveProg();reader({t:NOVEL.pro.t,sub:'S1 · EPISODE 1 // PROLOGUE',img:NOVEL.pro.img,p:NOVEL.pro.p,btn:'에피소드 1 시작',next:menu,back:menu});}},soon=function(k){return function(){info('EPISODE '+k,'SEASON 1 // COMING',null,'<p>아직 공개되지 않은 에피소드입니다. <em class="k">앞선 에피소드를 모두 클리어하면</em> 차례로 열립니다.</p>',season1);};};
   page('지워진 이름들','SEASON 1',intro('Season 1 · 지워진 이름들','시즌 1. Episode','6과의 요원들이 다시 모인 이유와<br>그들이 마주할 운명의 이야기가 시작됩니다.','* 시즌 1은 에피소드 5까지 이어지며, 에피소드는 순서대로 열립니다.')+'<div class="cg">'+cd(0,mimg(4),'여섯이 모이기까지',n+' / '+NBASE+' 스테이지 클리어',{kv:1,w:1,eye:'EPISODE 1',tag:n>=NBASE?'CLEAR':'OPEN',on:1})+cd(1,'a_raven_7.jpg','누가 흘렸나','에피소드 1을 마치면 이어집니다',{w:1,eye:'EPISODE 2',tag:'COMING',lock:1})+[3,4,5].map(function(k){return cd(k-1,null,'미공개','',{w:1,eye:'EPISODE '+k,tag:'COMING',lock:1});}).join('')+'</div>',seasons,[go,function(){info('누가 흘렸나','S1 · EPISODE 2 // COMING','a_raven_7.jpg','<p>여섯이 모인 뒤, <em class="k">내부의 누군가가 정보를 흘리고 있다</em>는 의심에서 시작하는 에피소드입니다. 준비 중입니다.</p>',season1);},soon(3),soon(4),soon(5)]);
 }
-function mOpen(i){return i===0||!!PROG.c[i-1]||!!PROG.all||GOD();}
+function mOpen(i){return i===0||!!PROG.c[i-1]||allOn()||GOD();}
 function rwdBox(where){return '<div class="rwd"><i>REWARD CUT</i><p>스테이지를 클리어하면 <em class="k">리워드 컷</em>을 얻습니다. 얻은 컷은 블랙박스 &gt; '+where+'에 담깁니다.</p><ol><li>귀환<small>클리어만 하면</small></li><li>전장의 그녀<small>HARD↑ 배지 1</small></li><li>흐트러진 순간<small>HARD↑ 배지 2</small></li><li>고자극<small>HARD↑ 배지 3</small></li></ol><p style="margin-top:8px;color:var(--dim);font-size:12px">* 배지 수는 한 판 기준입니다. 여러 판의 배지는 합산되지 않습니다.</p></div>';}
 function menu(){
   var L=[],A=[],i;for(i=0;i<NBASE;i++)if(vis(i)){(function(i){var ok=mOpen(i);L.push(cd(A.length,mimg(i),MIS[i].title,ok?MIS[i].code.split(' // ')[1]:'앞 스테이지를 먼저 클리어하세요',{kv:1,no:'0'+(i+1),x:bm(i,'span'),lock:!ok,tag:PROG.c[i]?'CLEAR':ok?'':'LOCKED',on:1}));A.push(function(){if(ok)brief(i);});})(i);}
@@ -1233,8 +1237,8 @@ function agents(){
 }
 function agentHub(id){
   var o=OPD[id],so=storyOpen();
-  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="'+bgs(gBest(id))+'"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p>'+agentSpec(id)+'<label>FILE — 더 보기</label><div class="cg c3">'+cd(0,'a_'+id+'_0.jpg','갤러리','열림 '+gCount(id)+' / 8',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','로맨틱 미션',so?'S1 · TAKE 1 · 2 · 3':'스토리 시즌 1 클리어 후 오픈',{eye:'ROMANTIC',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',function(){$('pg').style.removeProperty('--c');agents();},
-   [function(){$('pg').style.removeProperty('--c');RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so){$('pg').style.removeProperty('--c');SCP.s=0;storyAgent(id);}else toast('스토리 미션 시즌 1을 클리어하면 열립니다.');},function(){$('pg').style.removeProperty('--c');info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 단둘이 주고받는 대화. <em class="k">성인 인증과 결제</em>를 마친 사람에게만 열려. 준비 중.</p>',function(){agentHub(id);});}]);
+  page(o.n,'AGENT // '+o.role,'<div class="hero"><span class="bg" style="'+bgs(gBest(id))+'"></span><div>'+o.tag.replace('<br>',' ')+'</div></div><p>'+o.d+'</p>'+agentSpec(id)+'<label>FILE — 더 보기</label><div class="cg c3">'+cd(0,'a_'+id+'_0.jpg','갤러리','열림 '+gCount(id)+' / 8',{eye:'GALLERY'})+cd(1,'a_'+id+'_0.jpg','로맨틱 미션',so?'S1 · TAKE 1 · 2 · 3':'스토리 시즌 1 완료 후 오픈',{eye:'ROMANTIC',lock:!so,tag:so?'':'LOCKED'})+cd(2,'a_'+id+'_1.jpg','라이브 챗','준비 중',{eye:'LIVE CHAT',lock:1,tag:'SOON'})+'</div>',function(){$('pg').style.removeProperty('--c');agents();},
+   [function(){$('pg').style.removeProperty('--c');RORET=function(){agentHub(id);};pgHide();$('ro').className='';roShow(id);},function(){if(so){$('pg').style.removeProperty('--c');SCP.s=0;storyAgent(id);}else toast('스토리 미션 시즌 1의 모든 에피소드를 클리어하면 열립니다.');},function(){$('pg').style.removeProperty('--c');info('라이브 챗','LIVE CHAT // COMING','a_'+id+'_1.jpg','<p>요원과 단둘이 주고받는 대화. <em class="k">성인 인증과 결제</em>를 마친 사람에게만 열려. 준비 중.</p>',function(){agentHub(id);});}]);
   $('pg').style.setProperty('--c',o.col);
 }
 
@@ -2279,7 +2283,7 @@ $('hm').addEventListener('click',function(e){
   if(!t||t===this)return;var h=t.dataset.h;
   if(h==='bgm'){bgmSet(!bgmOn());t.className='hk bg'+(bgmOn()?'':' off');if(t.lastChild)t.lastChild.textContent=bgmOn()?'ON':'OFF';return;}
   if(h==='main')seasons();
-  else if(h==='story'){if(storyOpen())storyMenu();else info('로맨틱 미션','ROMANTIC // LOCKED',null,'<p><em class="k">스토리 미션 시즌 1을 클리어하면 열립니다.</em></p><p>지금 진행 '+mainDone()+' / '+NBASE+' 스테이지. 남은 '+(NBASE-mainDone())+'개를 마치면 요원마다 TAKE 1 · 2 · 3의 로맨틱 미션이 시작됩니다.</p>',home);}
+  else if(h==='story'){if(storyOpen())storyMenu();else info('로맨틱 미션','ROMANTIC // LOCKED',null,(function(){var sp=seasonProg(0);return '<p><em class="k">스토리 미션 시즌 1의 모든 에피소드를 클리어하면 열립니다.</em></p><p>지금 에피소드 '+sp.d+' / '+sp.t+' 완료. '+(sp.open<sp.t?'남은 에피소드는 순차 공개됩니다.':'')+'</p>';})(),home);}
   else if(h==='season')seasonal();
   else if(h==='special')special();
   else if(h==='set')navGo('set');
