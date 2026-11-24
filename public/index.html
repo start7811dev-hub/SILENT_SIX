@@ -837,7 +837,7 @@ Object.keys(STORY).forEach(function(id){
     SIDX[id].push(MIS.length);MIS.push(m);
   });
 });
-var VERSION='0.43.0';
+var VERSION='0.44.0';
 var PROG={c:{},s:{},b:{},end:{},g:{},n:{},pt:0,name:'',vol:1,all:false,bgm:true,bvol:0.6,bth:true,sil:true};
 try{var pj=JSON.parse(localStorage.getItem('s6prog')||'null');if(pj)for(var pk in pj)PROG[pk]=pj[pk];}catch(e){}
 function saveProg(){try{localStorage.setItem('s6prog',JSON.stringify(PROG));}catch(e){}}
@@ -1414,6 +1414,14 @@ function fit(){$('pg').className=$('pg').querySelector('.fill.more')?'':'fit';}
 var RWX={'S1-07':2,'S1-08':2,'S1-09':2,'S1-10':2,'S1-11':2,'S1-12':2,'S1-01':2,'S1-02':2,'S1-03':2,'S1-04':2,'S1-05':2,'S1-06':2,'W-1':2,'W-2':2,'W-3':2,'W-4':2,'W-5':2};
 /* 서비스 컷: 미션별 요원 단독 번외 컷 svc_<key>_<n>.jpg — 그 미션의 고자극이 열리면 함께 열린다 */
 var SVC={'W-1':['raven','raven'],'W-2':['brick','brick','glitch','glitch'],'W-3':['doc','doc','viper','viper'],'W-4':['mirage','mirage']};
+/* 코스튬 리워드 컷: r_C-<요원>_0..3 + 고자극 추가 r_C-<요원>_3_<n> — 미션이 열리기 전에는 수퍼관리자만 열람 */
+var CRX={raven:7,viper:5,glitch:8,brick:7,mirage:9,doc:8},CRN=['드레스 코드','쇼타임','백스테이지','고자극'];
+function cAll(){var a=0;Object.keys(CRX).forEach(function(id){a+=4+CRX[id];});return a;}
+function cOpen(){return GOD()?cAll():0;}
+function cGrid(id){var op=GOD(),o='<div class="fill g22 more">',n=4+CRX[id];
+  for(var k=0;k<n;k++){var f=k<4?'r_C-'+id+'_'+k+'.jpg':'r_C-'+id+'_3_'+(k-3)+'.jpg',lb=k<4?CRN[k]:CRN[3]+' '+(k-2);
+    o+=cd(99,f,lb,op?'':(k?'코스튬 미션 클리어 후 포인트로 소장':'코스튬 미션 클리어'),{kv:1,view:op?1:0,lock:!op,tag:op?'':'LOCKED'});}
+  return o+'</div>';}
 function svcMi(k){for(var i=0;i<MIS.length;i++)if(MIS[i].key===k)return i;return -1;}
 function svcCount(){var a=0,t=0;Object.keys(SVC).forEach(function(k){var mi=svcMi(k),n=SVC[k].length;t+=n;if(mi>=0&&rwTier(mi)>=3)a+=n;});return [a,t];}
 function rwX(mi){return (MIS[mi]&&RWX[MIS[mi].key])||0;}
@@ -1432,7 +1440,7 @@ function blackbox(){
    cd(0,mimg(4),'사일런트 식스 소설','시즌 · 에피소드별 · '+nd+' / '+STI.length+'장',{kv:1,w:1,eye:'NOVEL',on:1})+
    cd(1,top(sl)||mimg(0),'스토리 갤러리','스토리 리워드 컷 · '+rwCount(sl)+' / '+rwAll(sl)+'장',{kv:1,w:1,eye:'STORY GALLERY',lock:!rwCount(sl),tag:rwCount(sl)?'':'EMPTY'})+
    cd(2,gnLibCover(),'로맨틱 그래픽 노블','시즌별 · 요원별 그날 밤 · '+gnCount()+' / '+ids.length+'편',{kv:1,w:1,eye:'ROMANTIC GRAPHIC NOVEL',lock:!gnCount(),tag:gnCount()?'':'EMPTY'})+
-   cd(3,KVI.seasonal?'kv_seasonal.jpg':'a_raven_5.jpg','시즈널 · 스페셜 갤러리','블러디 크리스마스 · 코스튬 · '+rwCount(WIDX)+' / '+rwAll(WIDX)+'장',{kv:1,w:1,eye:'SEASONAL · SPECIAL'})+
+   cd(3,KVI.seasonal?'kv_seasonal.jpg':'a_raven_5.jpg','시즈널 · 스페셜 갤러리','블러디 크리스마스 · 코스튬 · '+(rwCount(WIDX)+cOpen())+' / '+(rwAll(WIDX)+cAll())+'장',{kv:1,w:1,eye:'SEASONAL · SPECIAL'})+
    (function(){var c=svcCount();return cd(4,'svc_W-3_1.jpg','서비스 갤러리','미션 번외 · 요원 단독 컷 · '+c[0]+' / '+c[1]+'장',{kv:1,w:1,eye:'SERVICE CUT',lock:!c[0]&&!GOD(),tag:c[0]||GOD()?'':'LOCKED'});})()+
    '</div>',home,[bbNovel,bbClear,gnLib,bbSeasonal,bbService]);fit();
 }
@@ -1465,9 +1473,11 @@ function bbRomantic(){
   page('로맨틱 갤러리','BLACK BOX // ROMANTIC',h,blackbox,[],function(e){var nb=e.target.closest&&e.target.closest('[data-nb]');if(nb){nBuy(id,nb.dataset.nb,bbRomantic);return;}scTap(e,bbRomantic);});fit();
 }
 function bbSeasonal(){
-  var G=[['WINTER','블러디 크리스마스',WIDX],['SPECIAL','코스튬 미션',null]],g=Math.min(SCP.g,G.length-1),X=G[g];
+  var G=[['WINTER','블러디 크리스마스',WIDX],['SPECIAL','코스튬 미션','C']],g=Math.min(SCP.g,G.length-1),X=G[g];
   var h='<div class="chips">'+G.map(function(x,i){return '<button data-sg="'+i+'" class="'+(i===g?'sel':'')+(x[2]?'':' off')+'"><i>'+x[0]+'</i>'+x[1]+'</button>';}).join('')+'</div>';
-  if(X[2]){var L=X[2],m=Math.min(SCP.w,L.length-1),mi=L[m],tr=rwTier(mi);
+  if(X[2]==='C'){var ci=Object.keys(CRX),a=Math.min(SCP.a,ci.length-1),id=ci[a];
+    h+='<div class="chips sm">'+ci.map(function(x,i){return '<button data-sa="'+i+'" class="'+(i===a?'sel':'')+'">'+OPD[x].n+'</button>';}).join('')+'</div><div class="cap"><i style="color:'+OPD[id].col+'">'+OPD[id].n+'</i>'+(CSTT[id]||'')+'<u>'+(GOD()?4+CRX[id]:0)+' / '+(4+CRX[id])+' · 전체 '+cOpen()+' / '+cAll()+'</u></div>'+cGrid(id);
+  }else if(X[2]){var L=X[2],m=Math.min(SCP.w,L.length-1),mi=L[m],tr=rwTier(mi);
     h+='<div class="chips sm">'+L.map(function(x,i){return '<button data-sm="'+i+'" data-w="1" class="'+(i===m?'sel':'')+(PROG.c[x]?'':' off')+'">'+('0'+(i+1))+'</button>';}).join('')+'</div><div class="cap"><i>'+('0'+(m+1))+'</i>'+MIS[mi].title+'<u>'+(tr<0?0:tr+1+(tr>=3?rwX(mi):0))+' / '+(4+rwX(mi))+' · 전체 '+rwCount(L)+' / '+rwAll(L)+'</u></div>'+rwGrid(mi,bbKeep(bbSeasonal));
   }else h+=scEmpty(X[1]+'<br>미션이 열리면 리워드 컷이 이곳에 쌓입니다.');
   page('시즈널 · 스페셜','BLACK BOX // SEASONAL',h,blackbox,[],function(e){scTap(e,bbSeasonal);});fit();
