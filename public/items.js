@@ -125,15 +125,18 @@ W.shop=function(){
 
 /* ── 코스튬 미션: 진입키 게이트 + 교체 안내 강조 ── */
 W.costume=function(){
-  var kv=W.KVI.special?'kv_special.jpg':'a_mirage_0.jpg',has=ckHas();
-  var cards=Object.keys(W.STORY).map(function(id,k){var cur=id===CCUR.id;return W.cd(k,'kc_'+id+'.jpg',W.OPD[id].n,(W.CSTT[id]||'')+(cur?' · 진행 중':' · 예정'),{kv:1,w:1,eye:cur?'NOW · '+CCUR.n:'DRESS CODE',tag:cur?'NOW':'SOON',on:cur?1:0,lock:!cur});}).join('');
+  var kv=W.KVI.special?'kv_special.jpg':'a_mirage_0.jpg',has=ckHas(),god=W.GOD(),acts=[];
+  var cards=Object.keys(W.STORY).map(function(id,k){var cur=id===CCUR.id,mi=W.CMAP[id],can=mi!=null&&(god||(cur&&has)),clr=mi!=null&&!!W.PROG.c[mi];
+    acts[k]=function(){if(can)W.brief(mi);else if(cur)W.toast('코스튬 진입키가 있어야 입장합니다.');else W.toast('지금 열린 코스튬 미션이 아닙니다.');};
+    return W.cd(k,'kc_'+id+'.jpg',W.OPD[id].n+' · '+(W.CSTT[id]||''),cur?(clr?'클리어 · 다시 도전':has||god?'입장 가능':'진입키 필요'):god?'관리자 · 테스트 입장':'예정',{kv:1,w:1,eye:cur?'NOW · '+CCUR.n:'DRESS CODE',tag:clr?'CLEAR':cur?'NOW':god?'TEST':'SOON',on:cur||god?1:0,lock:!can});}).join('');
+  acts[99]=store;
   W.page('코스튬 미션','SPECIAL // COSTUME',
     '<div class="cwarn"><b>'+ico('key',14)+' 한정 운영</b>다음 코스튬 미션이 열리면 이번 코스튬 미션은 더 이상 플레이할 수 없습니다.</div>'+
-    '<div class="hero big"><span class="bg" style="'+W.bgs(kv)+'"></span><div><i class="hk">COSTUME · '+CCUR.id.toUpperCase()+'</i><b class="ht2">옷이 바뀌면<br>작전도 바뀌어.</b><small>끝까지 살아 나오면 그 옷은 요원의 옷장에 걸린다</small></div></div>'+
-    W.intro('Special · Costume','Costume Mission','코스튬 진입키가 있어야 입장합니다. 언제 사도 지금 열린 코스튬 미션에 쓰이며, 다음 코스튬 미션이 열릴 때까지 무제한으로 플레이합니다.')+
+    '<div class="hero big"><span class="bg" style="'+W.bgs(kv)+'"></span><div><i class="hk">COSTUME · '+CCUR.id.toUpperCase()+'</i><b class="ht2">옷이 바뀌면<br>작전도 바뀌어.</b><small>무기는 없다. 옷 하나와 말 몇 마디로 들어간다</small></div></div>'+
+    W.intro('Special · Costume','Costume Mission','무기 없이 코스튬만 입고 들어갑니다. 현장의 두 사람과 대화해 정보를 얻고, 똑같은 셋 중 진짜를 챙겨 나옵니다.<br>코스튬 진입키가 있어야 입장하며, 다음 코스튬 미션이 열릴 때까지 무제한으로 플레이합니다.','* 클리어하면 리워드 컷 1장이 블랙박스에 담기고, 나머지는 포인트로 소장합니다.')+
     '<div class="cg">'+cards+'</div>'+
-    (has?'<button class="cta off">'+ico('key',16)+' 진입키 보유 · 미션 준비 중</button>':'<button class="cta" data-k="99">'+ico('key',16)+' 코스튬 진입키 구매 · '+(ITEMS[0].priceText||won(ITEMS[0].p))+'</button>'),
-    W.special,(function(){var a=[];a[99]=store;return a;})());
+    (has?'<button class="cta off">'+ico('key',16)+' 진입키 보유 · '+CCUR.n+'</button>':'<button class="cta" data-k="99">'+ico('key',16)+' 코스튬 진입키 구매 · '+(ITEMS[0].priceText||won(ITEMS[0].p))+'</button>'),
+    W.special,acts);
 };
 
 /* ── 밸런스 컨트롤 타이머: 화면 우측 상단 상시 표시 ── */

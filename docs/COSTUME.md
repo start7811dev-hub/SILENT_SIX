@@ -1,6 +1,8 @@
 # 코스튬 미션 — DRESS CODE (v2)
 
-상태: **방향 확정(2026-11-19), 세부 제안**. 맵 그림이 오면 게임에 넣는다. 맵 타일 설계와 가이드는 `tools/map/packs/costume/`, 리워드 컷 프롬프트는 `tools/clear_studio/PROMPTS_Costume.md`.
+상태: **게임 적용(v0.45.0, 2026-11-24)**. 판별 좌표 · 대사 · 경비는 `tools/map/trace_costume/cos_data.js`. 아래 6장의 질문 · 정답을 그대로 썼다.
+
+이전 상태: 방향 확정(2026-11-19), 세부 제안. 맵 그림이 오면 게임에 넣는다. 맵 타일 설계와 가이드는 `tools/map/packs/costume/`, 리워드 컷 프롬프트는 `tools/clear_studio/PROMPTS_Costume.md`.
 
 ## 1. 한 줄 요약
 
